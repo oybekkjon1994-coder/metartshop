@@ -789,6 +789,6 @@ else{
 })();
 </script>
 
-<script>if("serviceWorker" in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script>
+<script>(function(){if(!("serviceWorker" in navigator))return;var inApp=/Instagram|FBAN|FBAV|FB_IAB|Telegram/i.test(navigator.userAgent);addEventListener("load",function(){if(inApp){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister()})}).catch(function(){});return}navigator.serviceWorker.register("sw.js").catch(function(){})})})();</script>
 </body>
 </html>
