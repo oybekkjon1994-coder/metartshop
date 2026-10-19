@@ -7,12 +7,12 @@
   "promo_ru": "Изготовим на заказ любого размера",
   "tagline_uz": "Metall buyumlar, soatlar, stellajlar va mangallar",
   "tagline_ru": "Металлические изделия, часы, стеллажи и мангалы",
-  "telegram": "",
-  "phone": "",
-  "instagram": "",
-  "city": "",
-  "delivery_uz": "",
-  "delivery_ru": "",
+  "telegram": "lazekametal",
+  "phone": "998770179990",
+  "instagram": "metartshop",
+  "city": "Toshkent shahri",
+  "delivery_uz": "Toshkent bo'ylab — Yandex yetkazib berish orqali. Viloyatlarga — BTS pochta orqali.",
+  "delivery_ru": "По Ташкенту — доставка через Яндекс. В регионы — почтой BTS.",
   "bot": "lazer_uz77_bot"
  },
  "cats": [
@@ -109,5 +109,6 @@
    "imgs": [],
    "stock": true
   }
- ]
+ ],
+ "repo": "oybekkjon1994-coder/metartshop"
 }
