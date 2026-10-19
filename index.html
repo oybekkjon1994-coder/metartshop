@@ -116,6 +116,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .pspec{font-size:12px;color:var(--muted)}
 .pfoot{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto;padding-top:6px}
 .price{font-weight:700;font-size:15px}
+.price.ask{font-size:12.5px;font-family:var(--f-body);color:var(--muted)}
 .plus{width:36px;height:36px;flex:none;border-radius:10px;border:0;background:var(--brand);color:var(--brand-ink);font-size:22px;line-height:1;display:grid;place-items:center}
 .plus.in{background:var(--ink);color:var(--bg);font-size:14px;font-weight:700}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px;scrollbar-width:none}
@@ -259,7 +260,7 @@ var T={
   tiersT:"Qalinlik toifalari (mm)",botT:"DXF faylingiz bormi? Botga yuboring, narxni darhol hisoblaydi:",
   m1:"Qora po'lat",m2:"Zanglamas po'lat",m3:"Alyuminiy",m4:"Oqartirilgan (galvaniz)",
   orderShop:"Buyurtma",orderCustom:"Buyurtma asosida tayyorlash",contacts:"Biz bilan aloqa",myData:"Mening ma'lumotlarim",myNote:"Buyurtma berganda avtomatik to'ldiriladi. Faqat shu telefonda saqlanadi.",
-  saveMe:"Saqlash",savedMe:"Saqlandi",lang:"Til",addr:"Manzil",owner:"Do'kon egasi uchun kirish",color:"Rangi",colorsAdmin:"Mijoz tanlaydigan ranglar",install:"Ilovani telefonga o'rnatish",installNote:"Do'kon telefoningiz ekranida ilova bo'lib turadi.",
+  saveMe:"Saqlash",savedMe:"Saqlandi",lang:"Til",addr:"Manzil",owner:"Do'kon egasi uchun kirish",color:"Rangi",ask:"Narxini so'rang",askNote:"Ba'zi mahsulotlar narxi o'lcham va rangga qarab kelishiladi.",colorsAdmin:"Mijoz tanlaydigan ranglar",install:"Ilovani telefonga o'rnatish",installNote:"Do'kon telefoningiz ekranida ilova bo'lib turadi.",
   adminTitle:"Boshqaruv — faqat siz ko'rasiz",settings:"Sozlamalar",cats:"Bo'limlar",addProd:"+ Mahsulot",delSamples:"Namunalarni o'chirish",
   save:"Saqlash",saved:"Saqlandi",saving:"Saqlanmoqda…",unsaved:"Saqlanmagan o'zgarishlar",edit:"Tahrirlash",del:"O'chirish",confirmDel:"Yana bosing",logout:"Chiqish",
   photos:"Rasmlar (birinchisi asosiy)",addPhotos:"Rasm qo'shish",cat:"Bo'lim",price:"Narx (so'm)",inStock:"Sotuvda bor",nameUz:"Nomi (o'zbekcha)",nameRu:"Nomi (ruscha)",descUz:"Tavsif (o'zbekcha)",descRu:"Tavsif (ruscha)",metalSpec:"Material",
@@ -282,7 +283,7 @@ var T={
   tiersT:"Группы толщины (мм)",botT:"Есть DXF-файл? Отправьте боту — он сразу посчитает цену:",
   m1:"Чёрная сталь",m2:"Нержавеющая сталь",m3:"Алюминий",m4:"Оцинковка",
   orderShop:"Заказ",orderCustom:"Изготовление на заказ",contacts:"Связаться с нами",myData:"Мои данные",myNote:"Подставляются при заказе. Хранятся только на этом телефоне.",
-  saveMe:"Сохранить",savedMe:"Сохранено",lang:"Язык",addr:"Адрес",owner:"Вход для владельца",color:"Цвет",colorsAdmin:"Цвета на выбор покупателю",install:"Установить приложение",installNote:"Магазин будет на экране телефона как приложение.",
+  saveMe:"Сохранить",savedMe:"Сохранено",lang:"Язык",addr:"Адрес",owner:"Вход для владельца",color:"Цвет",ask:"Цена по запросу",askNote:"Цена некоторых товаров уточняется по размеру и цвету.",colorsAdmin:"Цвета на выбор покупателю",install:"Установить приложение",installNote:"Магазин будет на экране телефона как приложение.",
   adminTitle:"Управление — видите только вы",settings:"Настройки",cats:"Разделы",addProd:"+ Товар",delSamples:"Удалить образцы",
   save:"Сохранить",saved:"Сохранено",saving:"Сохраняем…",unsaved:"Есть несохранённые изменения",edit:"Изменить",del:"Удалить",confirmDel:"Нажмите ещё раз",logout:"Выйти",
   photos:"Фото (первое — главное)",addPhotos:"Добавить фото",cat:"Раздел",price:"Цена (сум)",inStock:"В наличии",nameUz:"Название (узб.)",nameRu:"Название (рус.)",descUz:"Описание (узб.)",descRu:"Описание (рус.)",metalSpec:"Материал",
@@ -298,6 +299,8 @@ function L(o,b){return o[b+"_"+lang]||o[b+"_uz"]||o[b+"_ru"]||""}
 function CN(c){return c[lang]||c.uz||c.ru||""}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
 function money(n){return String(Math.round(Number(n)||0)).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" "+t("sum")}
+function priceText(p,q){return p&&p.price?money(p.price*(q||1)):t("ask")}
+function hasUnpriced(){for(var k in cart){var p=prod(k);if(p&&!p.price)return true}return false}
 function $(s,r){return (r||document).querySelector(s)}
 function prod(id){id=String(id).split("|")[0];for(var i=0;i<STATE.products.length;i++)if(STATE.products[i].id===id)return STATE.products[i];return null}
 var PALETTE=[{id:"qora",uz:"Qora",ru:"Чёрный",hex:"#1b1b1b"},{id:"bordo",uz:"Bordo",ru:"Бордовый",hex:"#6b1c24"},{id:"qizil",uz:"Qizil",ru:"Красный",hex:"#c62828"},
@@ -391,7 +394,7 @@ function pcard(p){
   return '<article class="pcard"><button class="pimg" data-open="'+esc(p.id)+'" aria-label="'+esc(L(p,"name"))+'">'+pImg(p)+
    (p.sample?'<span class="badge">'+t("sample")+'</span>':'')+(p.stock===false?'<span class="badge out">'+t("out")+'</span>':'')+(k>1?'<span class="badge n">1/'+k+'</span>':'')+'</button>'+
    '<div class="pbody"><div class="pname">'+esc(L(p,"name"))+'</div><div class="pspec mono">'+esc(p.size||"")+'</div>'+
-   '<div class="pfoot"><span class="price mono">'+money(p.price)+'</span>'+
+   '<div class="pfoot"><span class="price mono'+(p.price?'':' ask')+'">'+priceText(p)+'</span>'+
    (p.stock===false?'':'<button class="plus'+(n?' in':'')+'" '+((p.colors&&p.colors.length)?'data-open="'+esc(p.id)+'"':'data-add="'+esc(p.id)+'"')+' aria-label="'+t("add")+'">'+(n?n:"+")+'</button>')+'</div>'+
    (admin?'<div class="edit-row"><button class="btn btn-ghost btn-small" data-edit="'+esc(p.id)+'">'+t("edit")+'</button><button class="btn btn-ghost btn-small" data-del="'+esc(p.id)+'">'+t("del")+'</button></div>':'')+
    '</div></article>';
@@ -424,9 +427,9 @@ function contactFields(px){
 function cartView(){
   var keys=Object.keys(cart).filter(function(k){return prod(k)&&cart[k]>0});
   if(!keys.length)return '<div class="title">'+t("cart")+'</div><div class="empty">'+t("cartEmpty")+'<div style="margin-top:14px"><button class="btn btn-primary" data-go="catalog">'+t("toCatalog")+'</button></div></div>';
-  var lines=keys.map(function(k){var p=prod(k),kc=keyColor(k);return '<div class="line"><div class="thumb">'+pImg(p)+'</div><div style="min-width:0"><div class="pname">'+esc(L(p,"name"))+'</div>'+(kc?'<div class="pspec"><span class="dot" style="background:'+kc.hex+'"></span> '+esc(CN(kc))+'</div>':'')+'<div class="pspec mono">'+money(p.price)+'</div></div>'+
+  var lines=keys.map(function(k){var p=prod(k),kc=keyColor(k);return '<div class="line"><div class="thumb">'+pImg(p)+'</div><div style="min-width:0"><div class="pname">'+esc(L(p,"name"))+'</div>'+(kc?'<div class="pspec"><span class="dot" style="background:'+kc.hex+'"></span> '+esc(CN(kc))+'</div>':'')+'<div class="pspec mono">'+priceText(p)+'</div></div>'+
    '<div class="qty"><button data-dec="'+esc(k)+'" aria-label="−">−</button><span class="mono">'+cart[k]+'</span><button data-inc="'+esc(k)+'" aria-label="+">+</button></div></div>'}).join("");
-  return '<div class="title">'+t("cart")+'</div><div class="box">'+lines+'<div class="total"><span>'+t("total")+'</span><span class="mono">'+money(cartTotal())+'</span></div></div>'+
+  return '<div class="title">'+t("cart")+'</div><div class="box">'+lines+'<div class="total"><span>'+t("total")+'</span><span class="mono">'+money(cartTotal())+'</span></div>'+(hasUnpriced()?'<p class="note">'+t("askNote")+'</p>':'')+'</div>'+
    '<form class="box" id="cart-form" novalidate>'+contactFields("o")+'<div class="field"><label for="o-comment">'+t("comment")+'</label><textarea id="o-comment"></textarea></div><div class="err" id="o-err"></div><button class="btn btn-primary" type="submit">'+t("next")+'</button></form>';
 }
 function customView(){
@@ -500,7 +503,7 @@ function productSheet(id){
   openSheet(head(esc(c?CN(c):""))+'<div class="gallery"><div class="slides" id="slides">'+slides+'</div>'+nav+'</div>'+
    '<h2 style="font-size:22px">'+esc(L(p,"name"))+'</h2><div class="pspec mono">'+esc([p.size,p.metal].filter(Boolean).join(" · "))+'</div>'+
    (L(p,"desc")?'<p class="note" style="font-size:15px">'+esc(L(p,"desc"))+'</p>':'')+
-   '<div class="total"><span class="mono">'+money(p.price)+'</span></div>'+colorPicker(p)+
+   '<div class="total"><span class="mono">'+priceText(p)+'</span></div>'+colorPicker(p)+
    (p.stock===false?'<div class="empty">'+t("out")+'</div>':'<button class="btn btn-primary" id="sheet-add" data-add="'+esc(addKey(p))+'" data-close>'+t("add")+'</button>'));
   var sl=$("#slides");
   if(sl&&imgs.length>1)sl.addEventListener("scroll",function(){
@@ -719,8 +722,8 @@ document.addEventListener("submit",function(e){
     var c=rc("o");if(!c.name||!c.phone){$("#o-err").textContent=t("req");return}
     rememberMe(c);
     var l=["🛒 "+t("orderShop")+" — "+STATE.shop.name,""];
-    Object.keys(cart).forEach(function(k){var p=prod(k);if(p)l.push("• "+keyLabel(k)+(p.size?" ("+p.size+")":"")+" × "+cart[k]+" = "+money(p.price*cart[k]))});
-    l.push("",t("total")+": "+money(cartTotal()),"");l=l.concat(cl(c));
+    Object.keys(cart).forEach(function(k){var p=prod(k);if(p)l.push("• "+keyLabel(k)+(p.size?" ("+p.size+")":"")+" × "+cart[k]+" = "+priceText(p,cart[k]))});
+    l.push("",t("total")+": "+money(cartTotal())+(hasUnpriced()?" + "+t("ask").toLowerCase():""),"");l=l.concat(cl(c));
     var cm=$("#o-comment").value.trim();if(cm)l.push(t("comment")+": "+cm);
     sendSheet(l.join("\n"));return;
   }

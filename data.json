@@ -64,7 +64,495 @@
    "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
    "price": 150000,
    "imgs": [
-    "img/barselona-soat-1.jpg"
+    "img/barselona-soat-1.jpg",
+    "img/barselona-soat-2.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "real-madrid-soat",
+   "cat": "soat",
+   "name_uz": "Real Madrid devor soati",
+   "name_ru": "Настенные часы «Реал Мадрид»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/real-madrid-soat-1.jpg",
+    "img/real-madrid-soat-2.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "arsenal-soat",
+   "cat": "soat",
+   "name_uz": "Arsenal devor soati",
+   "name_ru": "Настенные часы «Арсенал»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/arsenal-soat-1.jpg",
+    "img/arsenal-soat-2.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "man-city-soat",
+   "cat": "soat",
+   "name_uz": "Manchester City devor soati",
+   "name_ru": "Настенные часы «Манчестер Сити»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/man-city-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "man-united-soat",
+   "cat": "soat",
+   "name_uz": "Manchester United devor soati",
+   "name_ru": "Настенные часы «Манчестер Юнайтед»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 99000,
+   "imgs": [
+    "img/man-united-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "liverpool-soat",
+   "cat": "soat",
+   "name_uz": "Liverpool devor soati",
+   "name_ru": "Настенные часы «Ливерпуль»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/liverpool-soat-1.jpg",
+    "img/liverpool-soat-2.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "chelsea-soat",
+   "cat": "soat",
+   "name_uz": "Chelsea devor soati",
+   "name_ru": "Настенные часы «Челси»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/chelsea-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "nasaf-soat",
+   "cat": "soat",
+   "name_uz": "FC Nasaf devor soati",
+   "name_ru": "Настенные часы «Насаф»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/nasaf-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "ronaldo-soat",
+   "cat": "soat",
+   "name_uz": "Ronaldo devor soati",
+   "name_ru": "Настенные часы «Роналду»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 149000,
+   "imgs": [
+    "img/ronaldo-soat-1.jpg",
+    "img/ronaldo-soat-2.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "oq-borilar-2026",
+   "cat": "soat",
+   "name_uz": "\"Oq bo'rilar 2026\" soati",
+   "name_ru": "Часы «Белые волки 2026»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "O'zbekiston terma jamoasi muxlislari uchun devor soati.",
+   "desc_ru": "Настенные часы для болельщиков сборной Узбекистана.",
+   "price": 200000,
+   "imgs": [
+    "img/oq-borilar-2026-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "gerb-soat",
+   "cat": "soat",
+   "name_uz": "O'zbekiston gerbi soati",
+   "name_ru": "Часы «Герб Узбекистана»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/gerb-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "avtoservis-soat",
+   "cat": "soat",
+   "name_uz": "Avtoservis uchun soat",
+   "name_ru": "Часы для автосервиса",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Ustaxona yoki avtoservis uchun. Nomingizni yozib beramiz.",
+   "desc_ru": "Для автосервиса или мастерской. Напишем ваше название.",
+   "price": 0,
+   "imgs": [
+    "img/avtoservis-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "tufli-soat",
+   "cat": "soat",
+   "name_uz": "Tufli shaklidagi soat",
+   "name_ru": "Часы в форме туфельки",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Go'zallik saloni yoki do'kon uchun. Yozuvni o'zgartirish mumkin.",
+   "desc_ru": "Для салона красоты или магазина. Надпись можно изменить.",
+   "price": 0,
+   "imgs": [
+    "img/tufli-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "islomiy-soat",
+   "cat": "soat",
+   "name_uz": "Islomiy naqshli soat",
+   "name_ru": "Часы с исламским орнаментом",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Ism yoki tilak yozib beriladi. Sovg'a uchun.",
+   "desc_ru": "Напишем имя или пожелание. Для подарка.",
+   "price": 0,
+   "imgs": [
+    "img/islomiy-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "ramazon-soat",
+   "cat": "soat",
+   "name_uz": "Ramazon soati",
+   "name_ru": "Часы к Рамадану",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 0,
+   "imgs": [
+    "img/ramazon-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "hilol-chiroq",
+   "cat": "buyum",
+   "name_uz": "Hilol shaklidagi chiroq",
+   "name_ru": "Светильник «Полумесяц»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Ramazon va hayitlar uchun dekor, chiroq bilan.",
+   "desc_ru": "Декор к Рамадану и праздникам, с подсветкой.",
+   "price": 0,
+   "imgs": [
+    "img/hilol-chiroq-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "it-idish-stend",
+   "cat": "buyum",
+   "name_uz": "It uchun idish stendi",
+   "name_ru": "Подставка с мисками для собаки",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "2 ta zanglamas idish bilan.",
+   "desc_ru": "С двумя мисками из нержавейки.",
+   "price": 139900,
+   "imgs": [
+    "img/it-idish-stend-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "ismli-idish",
+   "cat": "buyum",
+   "name_uz": "Ismli idish stendi",
+   "name_ru": "Подставка с мисками и именем",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Uy hayvoningiz ismi yozib beriladi.",
+   "desc_ru": "Напишем кличку вашего питомца.",
+   "price": 0,
+   "imgs": [
+    "img/ismli-idish-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "salfetkadon-mashina",
+   "cat": "buyum",
+   "name_uz": "Mashina shaklidagi salfetkadon",
+   "name_ru": "Салфетница в форме машины",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "",
+   "desc_ru": "",
+   "price": 0,
+   "imgs": [
+    "img/salfetkadon-mashina-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "gul-stellaj",
+   "cat": "stelaj",
+   "name_uz": "Gullar uchun stellaj",
+   "name_ru": "Стеллаж для цветов",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "G'ildirakli, ko'p qavatli.",
+   "desc_ru": "На колёсах, многоярусный.",
+   "price": 0,
+   "imgs": [
+    "img/gul-stellaj-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "dumaloq-gul-stend",
+   "cat": "stelaj",
+   "name_uz": "Dumaloq gul stendi",
+   "name_ru": "Круглая подставка для цветов",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Buyurtma asosida tayyorlanadi.",
+   "desc_ru": "Изготавливается на заказ.",
+   "price": 0,
+   "imgs": [
+    "img/dumaloq-gul-stend-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  },
+  {
+   "id": "kitob-polka",
+   "cat": "stelaj",
+   "name_uz": "Kitoblar uchun polkalar",
+   "name_ru": "Полки для книг",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Buyurtma asosida tayyorlanadi.",
+   "desc_ru": "Изготавливается на заказ.",
+   "price": 0,
+   "imgs": [
+    "img/kitob-polka-1.jpg"
    ],
    "stock": true,
    "colors": [
