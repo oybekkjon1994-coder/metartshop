@@ -52,6 +52,30 @@
    "art": "boshqa"
   }
  ],
- "products": [],
+ "products": [
+  {
+   "id": "barselona-soat",
+   "cat": "soat",
+   "name_uz": "Barselona devor soati",
+   "name_ru": "Настенные часы «Барселона»",
+   "size": "",
+   "metal": "Metall",
+   "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
+   "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
+   "price": 150000,
+   "imgs": [
+    "img/barselona-soat-1.jpg"
+   ],
+   "stock": true,
+   "colors": [
+    "bordo",
+    "qora",
+    "qizil",
+    "oltin",
+    "kumush",
+    "oq"
+   ]
+  }
+ ],
  "repo": "oybekkjon1994-coder/metartshop"
 }

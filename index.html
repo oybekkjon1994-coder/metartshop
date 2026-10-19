@@ -210,6 +210,13 @@ form{display:grid;gap:12px}
 .imgitem button{position:absolute;top:3px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:13px;line-height:1;display:grid;place-items:center}
 .imgitem .rm{right:3px}
 .imgitem .mk{left:3px}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.sw{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--card);padding:3px;display:grid;place-items:center}
+.sw span{width:100%;height:100%;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.sw[aria-checked="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--brand)}
+.swc{display:flex;align-items:center;gap:6px;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:5px 10px 5px 6px}
+.swc span{width:18px;height:18px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.2);vertical-align:middle}
 .owner-link{display:block;margin:30px auto 0;border:0;background:none;color:var(--muted);font-size:12px;text-decoration:underline}
 
 @media (max-width:360px){.row{grid-template-columns:1fr}.tile-name{font-size:16px}}
@@ -252,7 +259,7 @@ var T={
   tiersT:"Qalinlik toifalari (mm)",botT:"DXF faylingiz bormi? Botga yuboring, narxni darhol hisoblaydi:",
   m1:"Qora po'lat",m2:"Zanglamas po'lat",m3:"Alyuminiy",m4:"Oqartirilgan (galvaniz)",
   orderShop:"Buyurtma",orderCustom:"Buyurtma asosida tayyorlash",contacts:"Biz bilan aloqa",myData:"Mening ma'lumotlarim",myNote:"Buyurtma berganda avtomatik to'ldiriladi. Faqat shu telefonda saqlanadi.",
-  saveMe:"Saqlash",savedMe:"Saqlandi",lang:"Til",addr:"Manzil",owner:"Do'kon egasi uchun kirish",install:"Ilovani telefonga o'rnatish",installNote:"Do'kon telefoningiz ekranida ilova bo'lib turadi.",
+  saveMe:"Saqlash",savedMe:"Saqlandi",lang:"Til",addr:"Manzil",owner:"Do'kon egasi uchun kirish",color:"Rangi",colorsAdmin:"Mijoz tanlaydigan ranglar",install:"Ilovani telefonga o'rnatish",installNote:"Do'kon telefoningiz ekranida ilova bo'lib turadi.",
   adminTitle:"Boshqaruv — faqat siz ko'rasiz",settings:"Sozlamalar",cats:"Bo'limlar",addProd:"+ Mahsulot",delSamples:"Namunalarni o'chirish",
   save:"Saqlash",saved:"Saqlandi",saving:"Saqlanmoqda…",unsaved:"Saqlanmagan o'zgarishlar",edit:"Tahrirlash",del:"O'chirish",confirmDel:"Yana bosing",logout:"Chiqish",
   photos:"Rasmlar (birinchisi asosiy)",addPhotos:"Rasm qo'shish",cat:"Bo'lim",price:"Narx (so'm)",inStock:"Sotuvda bor",nameUz:"Nomi (o'zbekcha)",nameRu:"Nomi (ruscha)",descUz:"Tavsif (o'zbekcha)",descRu:"Tavsif (ruscha)",metalSpec:"Material",
@@ -275,7 +282,7 @@ var T={
   tiersT:"Группы толщины (мм)",botT:"Есть DXF-файл? Отправьте боту — он сразу посчитает цену:",
   m1:"Чёрная сталь",m2:"Нержавеющая сталь",m3:"Алюминий",m4:"Оцинковка",
   orderShop:"Заказ",orderCustom:"Изготовление на заказ",contacts:"Связаться с нами",myData:"Мои данные",myNote:"Подставляются при заказе. Хранятся только на этом телефоне.",
-  saveMe:"Сохранить",savedMe:"Сохранено",lang:"Язык",addr:"Адрес",owner:"Вход для владельца",install:"Установить приложение",installNote:"Магазин будет на экране телефона как приложение.",
+  saveMe:"Сохранить",savedMe:"Сохранено",lang:"Язык",addr:"Адрес",owner:"Вход для владельца",color:"Цвет",colorsAdmin:"Цвета на выбор покупателю",install:"Установить приложение",installNote:"Магазин будет на экране телефона как приложение.",
   adminTitle:"Управление — видите только вы",settings:"Настройки",cats:"Разделы",addProd:"+ Товар",delSamples:"Удалить образцы",
   save:"Сохранить",saved:"Сохранено",saving:"Сохраняем…",unsaved:"Есть несохранённые изменения",edit:"Изменить",del:"Удалить",confirmDel:"Нажмите ещё раз",logout:"Выйти",
   photos:"Фото (первое — главное)",addPhotos:"Добавить фото",cat:"Раздел",price:"Цена (сум)",inStock:"В наличии",nameUz:"Название (узб.)",nameRu:"Название (рус.)",descUz:"Описание (узб.)",descRu:"Описание (рус.)",metalSpec:"Материал",
@@ -292,7 +299,16 @@ function CN(c){return c[lang]||c.uz||c.ru||""}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
 function money(n){return String(Math.round(Number(n)||0)).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" "+t("sum")}
 function $(s,r){return (r||document).querySelector(s)}
-function prod(id){for(var i=0;i<STATE.products.length;i++)if(STATE.products[i].id===id)return STATE.products[i];return null}
+function prod(id){id=String(id).split("|")[0];for(var i=0;i<STATE.products.length;i++)if(STATE.products[i].id===id)return STATE.products[i];return null}
+var PALETTE=[{id:"qora",uz:"Qora",ru:"Чёрный",hex:"#1b1b1b"},{id:"bordo",uz:"Bordo",ru:"Бордовый",hex:"#6b1c24"},{id:"qizil",uz:"Qizil",ru:"Красный",hex:"#c62828"},
+ {id:"oltin",uz:"Oltin",ru:"Золотой",hex:"#c9a227"},{id:"kumush",uz:"Kumush",ru:"Серебряный",hex:"#b9bdc3"},{id:"oq",uz:"Oq",ru:"Белый",hex:"#ffffff"},
+ {id:"kok",uz:"Ko'k",ru:"Синий",hex:"#1e4fa3"},{id:"yashil",uz:"Yashil",ru:"Зелёный",hex:"#2e7d32"},{id:"jigar",uz:"Jigarrang",ru:"Коричневый",hex:"#5d4037"}];
+function colorById(id){for(var i=0;i<PALETTE.length;i++)if(PALETTE[i].id===id)return PALETTE[i];return null}
+function keyColor(k){var c=String(k).split("|")[1];return c?colorById(c):null}
+function keyLabel(k){var p=prod(k),c=keyColor(k);return L(p,"name")+(c?" — "+CN(c):"")}
+function inCart(id){var n=0;for(var k in cart)if(k.split("|")[0]===id)n+=cart[k];return n}
+function dropFromCart(id){Object.keys(cart).forEach(function(k){if(k.split("|")[0]===id)delete cart[k]})}
+var pickColor=null;
 function catById(id){for(var i=0;i<STATE.cats.length;i++)if(STATE.cats[i].id===id)return STATE.cats[i];return null}
 function saveCart(){LS.set("shop-cart",JSON.stringify(cart))}
 function normalize(s){
@@ -371,12 +387,12 @@ function tilesHTML(){
   return '<div class="tiles">'+h+'</div>';
 }
 function pcard(p){
-  var n=cart[p.id]||0,k=(p.imgs||[]).length;
+  var n=inCart(p.id),k=(p.imgs||[]).length;
   return '<article class="pcard"><button class="pimg" data-open="'+esc(p.id)+'" aria-label="'+esc(L(p,"name"))+'">'+pImg(p)+
    (p.sample?'<span class="badge">'+t("sample")+'</span>':'')+(p.stock===false?'<span class="badge out">'+t("out")+'</span>':'')+(k>1?'<span class="badge n">1/'+k+'</span>':'')+'</button>'+
    '<div class="pbody"><div class="pname">'+esc(L(p,"name"))+'</div><div class="pspec mono">'+esc(p.size||"")+'</div>'+
    '<div class="pfoot"><span class="price mono">'+money(p.price)+'</span>'+
-   (p.stock===false?'':'<button class="plus'+(n?' in':'')+'" data-add="'+esc(p.id)+'" aria-label="'+t("add")+'">'+(n?n:"+")+'</button>')+'</div>'+
+   (p.stock===false?'':'<button class="plus'+(n?' in':'')+'" '+((p.colors&&p.colors.length)?'data-open="'+esc(p.id)+'"':'data-add="'+esc(p.id)+'"')+' aria-label="'+t("add")+'">'+(n?n:"+")+'</button>')+'</div>'+
    (admin?'<div class="edit-row"><button class="btn btn-ghost btn-small" data-edit="'+esc(p.id)+'">'+t("edit")+'</button><button class="btn btn-ghost btn-small" data-del="'+esc(p.id)+'">'+t("del")+'</button></div>':'')+
    '</div></article>';
 }
@@ -408,7 +424,7 @@ function contactFields(px){
 function cartView(){
   var keys=Object.keys(cart).filter(function(k){return prod(k)&&cart[k]>0});
   if(!keys.length)return '<div class="title">'+t("cart")+'</div><div class="empty">'+t("cartEmpty")+'<div style="margin-top:14px"><button class="btn btn-primary" data-go="catalog">'+t("toCatalog")+'</button></div></div>';
-  var lines=keys.map(function(k){var p=prod(k);return '<div class="line"><div class="thumb">'+pImg(p)+'</div><div style="min-width:0"><div class="pname">'+esc(L(p,"name"))+'</div><div class="pspec mono">'+money(p.price)+'</div></div>'+
+  var lines=keys.map(function(k){var p=prod(k),kc=keyColor(k);return '<div class="line"><div class="thumb">'+pImg(p)+'</div><div style="min-width:0"><div class="pname">'+esc(L(p,"name"))+'</div>'+(kc?'<div class="pspec"><span class="dot" style="background:'+kc.hex+'"></span> '+esc(CN(kc))+'</div>':'')+'<div class="pspec mono">'+money(p.price)+'</div></div>'+
    '<div class="qty"><button data-dec="'+esc(k)+'" aria-label="−">−</button><span class="mono">'+cart[k]+'</span><button data-inc="'+esc(k)+'" aria-label="+">+</button></div></div>'}).join("");
   return '<div class="title">'+t("cart")+'</div><div class="box">'+lines+'<div class="total"><span>'+t("total")+'</span><span class="mono">'+money(cartTotal())+'</span></div></div>'+
    '<form class="box" id="cart-form" novalidate>'+contactFields("o")+'<div class="field"><label for="o-comment">'+t("comment")+'</label><textarea id="o-comment"></textarea></div><div class="err" id="o-err"></div><button class="btn btn-primary" type="submit">'+t("next")+'</button></form>';
@@ -477,21 +493,29 @@ function openSheet(html){$("#layer").innerHTML='<div class="overlay" id="overlay
 function closeSheet(){$("#layer").innerHTML=""}
 function head(title){return '<div class="sheet-head"><h2>'+title+'</h2><button class="x" data-close aria-label="×">×</button></div>'}
 function productSheet(id){
-  var p=prod(id);if(!p)return;var c=catById(p.cat),imgs=p.imgs||[];
+  var p=prod(id);if(!p)return;pickColor=null;var c=catById(p.cat),imgs=p.imgs||[];
   var slides=imgs.length?imgs.map(function(src){return '<div class="slide"><img src="'+esc(src)+'" alt="'+esc(L(p,"name"))+'"></div>'}).join(""):'<div class="slide">'+prodArt(p)+'</div>';
   var nav=imgs.length>1?'<div class="dots">'+imgs.map(function(_,i){return '<span'+(i?'':' class="on"')+'></span>'}).join("")+'</div>'+
    '<div class="thumbs">'+imgs.map(function(src,i){return '<button data-slide="'+i+'"'+(i?'':' class="on"')+' aria-label="'+(i+1)+'"><img src="'+esc(src)+'" alt=""></button>'}).join("")+'</div>':'';
   openSheet(head(esc(c?CN(c):""))+'<div class="gallery"><div class="slides" id="slides">'+slides+'</div>'+nav+'</div>'+
    '<h2 style="font-size:22px">'+esc(L(p,"name"))+'</h2><div class="pspec mono">'+esc([p.size,p.metal].filter(Boolean).join(" · "))+'</div>'+
    (L(p,"desc")?'<p class="note" style="font-size:15px">'+esc(L(p,"desc"))+'</p>':'')+
-   '<div class="total"><span class="mono">'+money(p.price)+'</span></div>'+
-   (p.stock===false?'<div class="empty">'+t("out")+'</div>':'<button class="btn btn-primary" data-add="'+esc(p.id)+'" data-close>'+t("add")+'</button>'));
+   '<div class="total"><span class="mono">'+money(p.price)+'</span></div>'+colorPicker(p)+
+   (p.stock===false?'<div class="empty">'+t("out")+'</div>':'<button class="btn btn-primary" id="sheet-add" data-add="'+esc(addKey(p))+'" data-close>'+t("add")+'</button>'));
   var sl=$("#slides");
   if(sl&&imgs.length>1)sl.addEventListener("scroll",function(){
     var i=Math.round(sl.scrollLeft/sl.clientWidth);
     document.querySelectorAll(".dots span").forEach(function(d,j){d.className=j===i?"on":""});
     document.querySelectorAll(".thumbs button").forEach(function(d,j){d.className=j===i?"on":""});
   },{passive:true});
+}
+function addKey(p){return (p.colors&&p.colors.length)?p.id+"|"+(pickColor&&p.colors.indexOf(pickColor)>=0?pickColor:p.colors[0]):p.id}
+function colorPicker(p){
+  if(!p.colors||!p.colors.length)return "";
+  if(!pickColor||p.colors.indexOf(pickColor)<0)pickColor=p.colors[0];
+  var sel=colorById(pickColor);
+  return '<div class="field"><label>'+t("color")+': <b id="color-name">'+esc(sel?CN(sel):"")+'</b></label><div class="swatches" role="radiogroup">'+
+   p.colors.map(function(id){var c=colorById(id);if(!c)return "";return '<button type="button" class="sw" role="radio" aria-checked="'+(id===pickColor)+'" data-color="'+id+'" data-pid="'+esc(p.id)+'" aria-label="'+esc(CN(c))+'"><span style="background:'+c.hex+'"></span></button>'}).join("")+'</div></div>';
 }
 function sendSheet(text){
   var s=STATE.shop,enc=encodeURIComponent(text),btns="";
@@ -587,6 +611,7 @@ function productSheet2(id){
    f("name_uz",t("nameUz"))+f("name_ru",t("nameRu"))+
    '<div class="row"><div class="field"><label for="p-cat">'+t("cat")+'</label><select id="p-cat">'+opts+'</select></div>'+f("price",t("price"),0,1)+'</div>'+
    '<div class="row">'+f("size",t("size"))+f("metal",t("metalSpec"))+'</div>'+f("desc_uz",t("descUz"),1)+f("desc_ru",t("descRu"),1)+
+   '<div class="field"><label>'+t("colorsAdmin")+'</label><div class="swatches">'+PALETTE.map(function(c){return '<label class="swc"><input type="checkbox" class="p-col" value="'+c.id+'"'+((p.colors||[]).indexOf(c.id)>=0?' checked':'')+'><span style="background:'+c.hex+'"></span>'+esc(CN(c))+'</label>'}).join("")+'</div></div>'+
    '<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="p-stock"'+(p.stock!==false?' checked':'')+'> '+t("inStock")+'</label>'+
    '<div class="err" id="p-err"></div><button class="btn btn-dark" type="submit">'+t("ok")+'</button></form>');
 }
@@ -642,6 +667,7 @@ document.addEventListener("click",function(e){
   if(b.dataset.cat){view="cat";catFilter=b.dataset.cat;query="";render(false);return}
   if(b.dataset.chip){catFilter=b.dataset.chip;view=catFilter==="all"?"catalog":"cat";rerender();return}
   if(b.dataset.open){productSheet(b.dataset.open);return}
+  if(b.dataset.color){pickColor=b.dataset.color;document.querySelectorAll(".sw").forEach(function(x){x.setAttribute("aria-checked",x===b?"true":"false")});var cc=colorById(pickColor);$("#color-name").textContent=cc?CN(cc):"";var sa=$("#sheet-add");if(sa)sa.dataset.add=addKey(prod(b.dataset.pid));return}
   if(b.dataset.slide){var sl=$("#slides");if(sl)sl.scrollTo({left:sl.clientWidth*(+b.dataset.slide),behavior:"smooth"});return}
   if(b.dataset.inc){cart[b.dataset.inc]++;saveCart();rerender();return}
   if(b.dataset.dec){cart[b.dataset.dec]--;if(cart[b.dataset.dec]<=0)delete cart[b.dataset.dec];saveCart();rerender();return}
@@ -664,7 +690,7 @@ document.addEventListener("click",function(e){
   if(b.id==="a-samples"){STATE.products=STATE.products.filter(function(p){return !p.sample});Object.keys(cart).forEach(function(k){if(!prod(k))delete cart[k]});saveCart();markDirty();return}
   if(b.dataset.edit){productSheet2(b.dataset.edit);return}
   if(b.dataset.del){
-    if(pendingDel===b.dataset.del){var id=pendingDel;pendingDel=null;STATE.products=STATE.products.filter(function(p){return p.id!==id});delete cart[id];saveCart();markDirty()}
+    if(pendingDel===b.dataset.del){var id=pendingDel;pendingDel=null;STATE.products=STATE.products.filter(function(p){return p.id!==id});dropFromCart(id);saveCart();markDirty()}
     else{pendingDel=b.dataset.del;b.textContent=t("confirmDel")}
     return;
   }
@@ -693,7 +719,7 @@ document.addEventListener("submit",function(e){
     var c=rc("o");if(!c.name||!c.phone){$("#o-err").textContent=t("req");return}
     rememberMe(c);
     var l=["🛒 "+t("orderShop")+" — "+STATE.shop.name,""];
-    Object.keys(cart).forEach(function(k){var p=prod(k);if(p)l.push("• "+L(p,"name")+(p.size?" ("+p.size+")":"")+" × "+cart[k]+" = "+money(p.price*cart[k]))});
+    Object.keys(cart).forEach(function(k){var p=prod(k);if(p)l.push("• "+keyLabel(k)+(p.size?" ("+p.size+")":"")+" × "+cart[k]+" = "+money(p.price*cart[k]))});
     l.push("",t("total")+": "+money(cartTotal()),"");l=l.concat(cl(c));
     var cm=$("#o-comment").value.trim();if(cm)l.push(t("comment")+": "+cm);
     sendSheet(l.join("\n"));return;
@@ -732,7 +758,7 @@ document.addEventListener("submit",function(e){
     if(!g("name_uz")&&!g("name_ru")){$("#p-err").textContent=t("nameUz");return}
     var old=prod(f.dataset.id);
     var rec={id:f.dataset.id,cat:$("#p-cat").value,name_uz:g("name_uz")||g("name_ru"),name_ru:g("name_ru")||g("name_uz"),size:g("size"),metal:g("metal"),
-      desc_uz:g("desc_uz"),desc_ru:g("desc_ru"),price:parseInt(g("price").replace(/\D/g,""),10)||0,imgs:pendingList.slice(),stock:$("#p-stock").checked};
+      desc_uz:g("desc_uz"),desc_ru:g("desc_ru"),price:parseInt(g("price").replace(/\D/g,""),10)||0,imgs:pendingList.slice(),stock:$("#p-stock").checked,colors:Array.prototype.map.call(document.querySelectorAll(".p-col:checked"),function(x){return x.value})};
     if(old&&old.sample&&old.name_uz===rec.name_uz&&!rec.imgs.length)rec.sample=true;
     if(f.dataset.new==="1")STATE.products.unshift(rec);else STATE.products=STATE.products.map(function(p){return p.id===rec.id?rec:p});
     closeSheet();markDirty();return;
