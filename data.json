@@ -52,63 +52,6 @@
    "art": "boshqa"
   }
  ],
- "products": [
-  {
-   "id": "s1",
-   "sample": true,
-   "cat": "soat",
-   "name_uz": "Devor soati \"Naqsh\"",
-   "name_ru": "Настенные часы «Узор»",
-   "size": "Ø500 mm",
-   "metal": "Qora po'lat, 1.5 mm",
-   "desc_uz": "Soat mexanizmi bilan, kukun bo'yoq.",
-   "desc_ru": "С часовым механизмом, порошковая покраска.",
-   "price": 280000,
-   "imgs": [],
-   "stock": true
-  },
-  {
-   "id": "s2",
-   "sample": true,
-   "cat": "stelaj",
-   "name_uz": "Loft stellaj, 5 qavat",
-   "name_ru": "Стеллаж лофт, 5 полок",
-   "size": "800×300×1800 mm",
-   "metal": "Profil truba 20×20",
-   "desc_uz": "Polkalari yog'och, o'lchami buyurtma bo'yicha.",
-   "desc_ru": "Полки из дерева, размер под заказ.",
-   "price": 1200000,
-   "imgs": [],
-   "stock": true
-  },
-  {
-   "id": "s3",
-   "sample": true,
-   "cat": "mangal",
-   "name_uz": "Mangal, yig'iladigan",
-   "name_ru": "Мангал разборный",
-   "size": "700×300 mm",
-   "metal": "Qora po'lat, 3 mm",
-   "desc_uz": "10 ta six uchun, naqshli yon devorlar.",
-   "desc_ru": "На 10 шампуров, узорные боковины.",
-   "price": 950000,
-   "imgs": [],
-   "stock": true
-  },
-  {
-   "id": "s4",
-   "sample": true,
-   "cat": "buyum",
-   "name_uz": "Uy raqami lavhasi",
-   "name_ru": "Табличка с номером дома",
-   "size": "400×250 mm",
-   "metal": "Qora po'lat, 2 mm",
-   "desc_uz": "Ko'cha nomi va raqam sizning matningiz bilan.",
-   "desc_ru": "Название улицы и номер — ваш текст.",
-   "price": 180000,
-   "imgs": [],
-   "stock": true
-  }
- ],
+ "products": [],
  "repo": "oybekkjon1994-coder/metartshop"
 }
