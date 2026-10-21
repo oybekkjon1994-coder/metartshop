@@ -1,0 +1,298 @@
+[
+ {
+  "id": "02-real-oq-qora",
+  "clips": [
+   {
+    "src": "ig/src/e22ea763.jpg",
+    "top": "Oq yoki qora?",
+    "bot": "Izohda yozing: OQ yoki QORA",
+    "small": "Белые или чёрные? Пишите в комментариях"
+   },
+   {
+    "src": "ig/src/372e9659.jpg",
+    "top": "Qora"
+   },
+   {
+    "src": "ig/src/44671aad.jpg",
+    "top": "Oq"
+   },
+   {
+    "src": "ig/src/fe9bfed5.jpg",
+    "top": "Real Madrid"
+   }
+  ]
+ },
+ {
+  "id": "03-gerb",
+  "clips": [
+   {
+    "src": "img/gerb-soat-1.jpg",
+    "top": "O'zbekiston gerbi devoringizda",
+    "bot": "Metalldan devor soati",
+    "small": "Часы «Герб Узбекистана»",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "04-manu",
+  "clips": [
+   {
+    "src": "ig/src/09a703b6.jpg",
+    "top": "Manchester United muxlislari uchun",
+    "bot": "Metalldan devor soati",
+    "small": "Часы для фанатов МЮ"
+   },
+   {
+    "src": "ig/src/d5049066.jpg"
+   },
+   {
+    "src": "img/man-united-soat-1.jpg"
+   }
+  ]
+ },
+ {
+  "id": "05-gul-stend",
+  "clips": [
+   {
+    "src": "ig/src/97c17c27.jpg",
+    "top": "Gullaringiz uchun metall stend",
+    "bot": "G'ildirakli, buyurtma asosida",
+    "small": "Подставка для цветов из металла"
+   },
+   {
+    "src": "img/dumaloq-gul-stend-1.jpg"
+   },
+   {
+    "src": "img/gul-stellaj-1.jpg"
+   }
+  ]
+ },
+ {
+  "id": "06-ronaldo",
+  "clips": [
+   {
+    "src": "img/ronaldo-soat-1.jpg",
+    "top": "SIUUU! Ronaldo soati",
+    "bot": "Muxlisga eng zo'r sovg'a",
+    "small": "Часы «Роналду»"
+   },
+   {
+    "src": "img/ronaldo-soat-2.jpg"
+   }
+  ]
+ },
+ {
+  "id": "07-liverpool",
+  "clips": [
+   {
+    "src": "ig/src/99f01c46.jpg",
+    "top": "You'll never walk alone",
+    "bot": "Liverpool devor soati",
+    "small": "Часы «Ливерпуль»"
+   },
+   {
+    "src": "ig/src/92ca88a4.jpg"
+   },
+   {
+    "src": "img/liverpool-soat-2.jpg"
+   }
+  ]
+ },
+ {
+  "id": "08-oq-borilar",
+  "clips": [
+   {
+    "src": "img/oq-borilar-2026-1.jpg",
+    "top": "Oq bo'rilar 2026!",
+    "bot": "Terma jamoa muxlislari uchun",
+    "small": "Для болельщиков сборной Узбекистана",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "09-islomiy",
+  "clips": [
+   {
+    "src": "img/islomiy-soat-1.jpg",
+    "top": "Onajoningizga ismli sovg'a",
+    "bot": "Ism yoki tilak yozib beramiz",
+    "small": "Подарок маме с именем",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "10-barca",
+  "clips": [
+   {
+    "src": "ig/src/672cc789.jpg",
+    "top": "Visca Barca!",
+    "bot": "Metalldan devor soati",
+    "small": "Часы «Барселона»"
+   },
+   {
+    "src": "@ig/src/60c1de03.jpg"
+   },
+   {
+    "src": "img/barselona-soat-1.jpg"
+   }
+  ]
+ },
+ {
+  "id": "11-it-idish",
+  "clips": [
+   {
+    "src": "img/it-idish-stend-1.jpg",
+    "top": "Uy hayvoningiz uchun",
+    "bot": "Zanglamas idishli stend",
+    "small": "Подставка с мисками"
+   },
+   {
+    "src": "img/ismli-idish-1.jpg",
+    "bot": "Ismini yozib beramiz"
+   }
+  ]
+ },
+ {
+  "id": "12-avtoservis",
+  "clips": [
+   {
+    "src": "img/avtoservis-soat-1.jpg",
+    "top": "Avtoservisingiz uchun soat",
+    "bot": "Nomingiz yoziladi",
+    "small": "Часы для автосервиса с вашим названием",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "13-chelsea",
+  "clips": [
+   {
+    "src": "ig/src/a6a6de1d.jpg",
+    "top": "Chelsea muxlislari!",
+    "bot": "Rangini o'zingiz tanlaysiz",
+    "small": "Часы «Челси»"
+   },
+   {
+    "src": "img/chelsea-soat-1.jpg"
+   }
+  ]
+ },
+ {
+  "id": "14-tufli",
+  "clips": [
+   {
+    "src": "img/tufli-soat-1.jpg",
+    "top": "Go'zallik saloni uchun soat",
+    "bot": "Yozuvni o'zgartiramiz",
+    "small": "Часы для салона красоты",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "15-arsenal",
+  "clips": [
+   {
+    "src": "img/arsenal-soat-1.jpg",
+    "top": "Arsenal muxlislari, bu siz uchun",
+    "bot": "Metalldan devor soati",
+    "small": "Часы «Арсенал»"
+   },
+   {
+    "src": "img/arsenal-soat-2.jpg"
+   }
+  ]
+ },
+ {
+  "id": "16-hilol-chiroq",
+  "clips": [
+   {
+    "src": "img/hilol-chiroq-1.jpg",
+    "top": "Chiroqli hilol dekor",
+    "bot": "Ramazon va hayitlar uchun",
+    "small": "Светильник «Полумесяц»",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "17-kitob-polka",
+  "clips": [
+   {
+    "src": "img/kitob-polka-1.jpg",
+    "top": "Kitoblar havoda turadi?",
+    "bot": "Yashirin metall polka",
+    "small": "Невидимая полка для книг",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "18-istalgan-klub",
+  "clips": [
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "top": "Istalgan klub logotipi",
+    "bot": "Chizamiz, kesamiz, bo'yaymiz",
+    "small": "Любой клуб на заказ",
+    "white": true
+   },
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "bot": "Natija!"
+   }
+  ]
+ },
+ {
+  "id": "19-man-city",
+  "clips": [
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "Manchester City muxlislari!",
+    "bot": "Metalldan devor soati",
+    "small": "Часы «Манчестер Сити»",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "20-salfetkadon",
+  "clips": [
+   {
+    "src": "img/salfetkadon-mashina-1.jpg",
+    "top": "Mashina shaklidagi salfetkadon",
+    "bot": "Oshxonangizga noodatiy dekor",
+    "small": "Салфетница-машина из металла",
+    "d": 3.2
+   }
+  ]
+ },
+ {
+  "id": "21-nasaf",
+  "clips": [
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "FC Nasaf muxlislari!",
+    "bot": "Metalldan devor soati",
+    "small": "Часы «Насаф»"
+   },
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "bot": "Avval chizma...",
+    "white": true
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "bot": "...keyin tayyor soat"
+   }
+  ]
+ }
+]
