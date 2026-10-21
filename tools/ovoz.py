@@ -28,13 +28,18 @@ def main(spec_path):
         for i, (t, text) in enumerate(it['lines']):
             mp3 = os.path.join(tmp, f'{i}.mp3')
             asyncio.run(tts(text, it.get('voice', voice), it.get('rate', rate), mp3))
+            wav = os.path.join(tmp, f'{i}.wav')  # boshidagi va oxiridagi jimlikni kesish
+            sr = 'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03'
+            subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', mp3, '-af',
+                            f'{sr},areverse,{sr},areverse', wav], check=True)
+            mp3 = wav
             d = dur(mp3)
-            start = max(float(t), t_end + 0.15 if clips else float(t))
+            start = max(float(t), t_end + 0.12 if clips else float(t))
             clips.append((start, mp3))
             t_end = start + d
             print(f"  {start:5.2f}-{t_end:5.2f}  {text}")
         vd = dur(it['video'])
-        total = max(vd, t_end + 0.6)
+        total = max(vd, t_end + 0.5)
         args = ['ffmpeg', '-y', '-loglevel', 'error', '-i', it['video']]
         for _, mp3 in clips:
             args += ['-i', mp3]

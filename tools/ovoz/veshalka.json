@@ -1,9 +1,9 @@
-{"voice":"uz-UZ-SardorNeural","rate":"+10%","items":[
+{"voice":"uz-UZ-SardorNeural","rate":"+22%","items":[
  {"video":"reels/h0-veshalka-dokon.mp4","out":"reels/h0-veshalka-dokon-ovoz.mp4","lines":[
-  [0.2,"Do'koningizni shunday bezang! Loft uslubidagi metall veshalka."],
-  [3.0,"Ikki qavat ilgich, ko'p kiyim sig'adi."],
-  [5.0,"G'ildirakli, pastida poyabzal uchun polka."],
-  [6.6,"Ustaxonamizda yasalgan haqiqiy mahsulot."],
-  [8.6,"Do'koningiz o'lchamiga moslab yasaymiz."],
-  [10.4,"Buyurtma uchun Direct yoki Telegramga yozing!"]]}
+  [0.15,"Do'koningizni shunday bezang! Loft uslubidagi veshalka."],
+  [3.0,"Ikki qavat, ko'p kiyim sig'adi."],
+  [5.0,"G'ildirakli, poyabzal polkasi bilan."],
+  [6.3,"Ustaxonamizda yasalgan."],
+  [8.0,"Istalgan o'lchamda yasaymiz."],
+  [10.0,"Buyurtma uchun Telegramga yozing!"]]}
 ]}
