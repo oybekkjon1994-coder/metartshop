@@ -1,0 +1,352 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+15%",
+ "items": [
+  {
+   "video": "reels/01-klublar.mp4",
+   "out": "reels/01-klublar-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Sevimli klubingiz endi devoringizda!"
+    ],
+    [
+     2.4,
+     "Istalgan klub, istalgan rang."
+    ],
+    [
+     11.2,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/02-real-oq-qora.mp4",
+   "out": "reels/02-real-oq-qora-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Oq yoki qora? Izohda yozing!"
+    ],
+    [
+     2.4,
+     "Real Madrid devor soati, metalldan."
+    ],
+    [
+     6.9,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/03-gerb.mp4",
+   "out": "reels/03-gerb-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "O'zbekiston gerbi devoringizda! Metalldan devor soati."
+    ],
+    [
+     3.17,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/04-manu.mp4",
+   "out": "reels/04-manu-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Manchester Yunayted muxlislari uchun!"
+    ],
+    [
+     2.4,
+     "Metalldan, lazer bilan kesilgan devor soati."
+    ],
+    [
+     5.4,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/05-gul-stend.mp4",
+   "out": "reels/05-gul-stend-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Gullaringiz uchun metall stend!"
+    ],
+    [
+     2.4,
+     "G'ildirakli, o'lchami buyurtma asosida."
+    ],
+    [
+     5.4,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/06-ronaldo.mp4",
+   "out": "reels/06-ronaldo-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Siuuu! Ronaldo devor soati."
+    ],
+    [
+     2.4,
+     "Muxlis do'stingizga eng zo'r sovg'a."
+    ],
+    [
+     3.9,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/07-liverpool.mp4",
+   "out": "reels/07-liverpool-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Liverpul muxlislari uchun!"
+    ],
+    [
+     2.4,
+     "Metalldan yasalgan devor soati."
+    ],
+    [
+     5.4,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/08-oq-borilar.mp4",
+   "out": "reels/08-oq-borilar-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Oq bo'rilar! Terma jamoa muxlislari uchun devor soati."
+    ],
+    [
+     3.17,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/09-islomiy.mp4",
+   "out": "reels/09-islomiy-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Onajoningizga ismli sovg'a! Ism yoki tilak yozib beramiz."
+    ],
+    [
+     3.17,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/10-barca.mp4",
+   "out": "reels/10-barca-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Viska Barsa!"
+    ],
+    [
+     2.4,
+     "Metalldan devor soati, rangini o'zingiz tanlaysiz."
+    ],
+    [
+     5.4,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/11-it-idish.mp4",
+   "out": "reels/11-it-idish-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Uy hayvoningiz uchun idish stendi."
+    ],
+    [
+     2.4,
+     "Ismini ham yozib beramiz!"
+    ],
+    [
+     3.9,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/12-avtoservis.mp4",
+   "out": "reels/12-avtoservis-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Avtoservisingiz uchun soat, nomingiz bilan."
+    ],
+    [
+     3.17,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/13-chelsea.mp4",
+   "out": "reels/13-chelsea-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Chelsi muxlislari!"
+    ],
+    [
+     2.4,
+     "Rangini o'zingiz tanlaysiz."
+    ],
+    [
+     3.9,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/14-tufli.mp4",
+   "out": "reels/14-tufli-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Go'zallik saloni uchun soat. Salon nomini yozamiz."
+    ],
+    [
+     3.17,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/15-arsenal.mp4",
+   "out": "reels/15-arsenal-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Arsenal muxlislari, bu siz uchun!"
+    ],
+    [
+     2.4,
+     "Metalldan devor soati."
+    ],
+    [
+     3.9,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/16-hilol-chiroq.mp4",
+   "out": "reels/16-hilol-chiroq-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Chiroqli hilol dekor, Ramazon va hayitlar uchun."
+    ],
+    [
+     3.17,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/17-kitob-polka.mp4",
+   "out": "reels/17-kitob-polka-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Kitoblar havoda turadi? Bu yashirin metall polka!"
+    ],
+    [
+     3.17,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/18-istalgan-klub.mp4",
+   "out": "reels/18-istalgan-klub-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Istalgan klub logotipi!"
+    ],
+    [
+     2.4,
+     "Chizamiz, kesamiz, bo'yaymiz."
+    ],
+    [
+     3.9,
+     "Mana natija!"
+    ],
+    [
+     5.4,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/19-man-city.mp4",
+   "out": "reels/19-man-city-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Manchester Siti muxlislari! Metalldan devor soati."
+    ],
+    [
+     3.17,
+     "Buyurtma uchun Direct yoki Telegramga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/20-salfetkadon.mp4",
+   "out": "reels/20-salfetkadon-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Mashina shaklidagi salfetkadon! Oshxonangizga noodatiy dekor."
+    ],
+    [
+     3.17,
+     "Narxini bilish uchun Directga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/21-nasaf.mp4",
+   "out": "reels/21-nasaf-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Nasaf muxlislari!"
+    ],
+    [
+     2.4,
+     "Avval chizma, keyin tayyor soat."
+    ],
+    [
+     5.4,
+     "Buyurtma bering, butun O'zbekistonga yetkazamiz!"
+    ]
+   ]
+  }
+ ]
+}
