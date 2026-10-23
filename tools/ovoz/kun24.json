@@ -1,0 +1,72 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+15%",
+ "items": [
+  {
+   "video": "reels/24-10-barca.mp4",
+   "out": "reels/24-10-barca-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Visca Barça! Barça muxlislari uchun devor soati."
+    ],
+    [
+     3.6,
+     "Qora metalldan, lazerda kesilgan."
+    ],
+    [
+     6.2,
+     "Har bir detali aniq, qo'lda yig'ilgan."
+    ],
+    [
+     9.0,
+     "Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/24-14-messi.mp4",
+   "out": "reels/24-14-messi-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Messi muxlislari, e'tibor! O'ninchi raqam, lazerda kesilgan."
+    ],
+    [
+     4.5,
+     "Metall va yorug'lik uyg'unligi."
+    ],
+    [
+     7.0,
+     "Xonangizga ruh beradi."
+    ],
+    [
+     9.0,
+     "Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/24-18-ronaldo.mp4",
+   "out": "reels/24-18-ronaldo-ovoz.mp4",
+   "lines": [
+    [
+     2.7,
+     "Ronaldo devor soati. Lazerda kesilgan."
+    ],
+    [
+     6.0,
+     "Soat mexanizmi bilan birga."
+    ],
+    [
+     8.2,
+     "Narxi atigi ikki yuz ellik ming so'm."
+    ],
+    [
+     11.0,
+     "Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  }
+ ]
+}
