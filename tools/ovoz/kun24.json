@@ -8,19 +8,15 @@
    "lines": [
     [
      0.2,
-     "Visca Barça! Barça muxlislari uchun devor soati."
+     "Barça muxlisimisiz? Gol urilmasa ham, bu soat har soniyada ishlaydi!"
     ],
     [
-     3.6,
-     "Qora metalldan, lazerda kesilgan."
+     4.5,
+     "Qora metall, lazer kesimi. Qo'lda ushlab ko'rdik, yiqilmadi."
     ],
     [
-     6.2,
-     "Har bir detali aniq, qo'lda yig'ilgan."
-    ],
-    [
-     9.0,
-     "Izohda jamoangizni yozing, soat yutish imkoniyati sizniki! Buyurtma uchun Direct'ga yozing."
+     8.0,
+     "Izohda jamoangizni yozing, soat yutib oling!"
     ]
    ]
   },
@@ -30,19 +26,15 @@
    "lines": [
     [
      0.2,
-     "Messi muxlislari, e'tibor! O'ninchi raqam, lazerda kesilgan."
+     "Messining o'ninchi raqami, lekin soati bizning ustaxonadan!"
     ],
     [
-     4.5,
-     "Metall va yorug'lik uyg'unligi."
+     4.0,
+     "Orqasiga qarasangiz ham, vaqtni to'g'ri ko'rsatadi."
     ],
     [
      7.0,
-     "Xonangizga ruh beradi."
-    ],
-    [
-     9.0,
-     "Do'stingizni belgilab izoh qoldiring, bitta soat o'yinda!"
+     "Do'stingizni belgilab izoh yozing. Yutsa, soatning yarmi sizniki!"
     ]
    ]
   }

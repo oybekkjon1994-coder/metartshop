@@ -8,19 +8,19 @@
    "lines": [
     [
      0.2,
-     "Liverpool muxlislari, e'tibor! Qizil metalldan devor soati."
+     "Hech qachon yolg'iz yurmaysiz, devoringiz ham yolg'iz qolmaydi!"
     ],
     [
-     4.5,
-     "Lazerda kesilgan, har bir detali aniq."
+     4.0,
+     "Qizil rang, qizil soat, qizil muxlis."
     ],
     [
-     7.5,
-     "Istalgan rangda yasaymiz."
+     6.5,
+     "Xohlasangiz binafsha ham yasaymiz."
     ],
     [
-     9.5,
-     "Obuna bo'ling, izoh yozing, g'olib yakshanba kuni soatni olib ketadi!"
+     9.0,
+     "Obuna bo'ling, izoh yozing, yakshanba soat sizniki bo'lishi mumkin!"
     ]
    ]
   },
@@ -30,19 +30,15 @@
    "lines": [
     [
      0.2,
-     "Real Madrid soati qorong'uda yonadi!"
+     "Chiroqni o'chiring, Real Madrid yonadi!"
     ],
     [
-     3.8,
-     "Orqa yoritgichi bilan devorda juda chiroyli ko'rinadi."
+     3.2,
+     "Ham soat, ham tungi chiroq. Bittasi ikkita ish qiladi."
     ],
     [
-     7.5,
-     "Lazerda kesilgan, metalldan."
-    ],
-    [
-     9.5,
-     "Izoh qoldiring, tasodifiy g'olibga soat sovg'a! Buyurtma uchun Direct."
+     7.0,
+     "Kim Madrid muxlisi? Izohga Hala Madrid deb yozing, soat yutib oling!"
     ]
    ]
   },
@@ -52,19 +48,19 @@
    "lines": [
     [
      0.2,
-     "O'zbekiston gerbi endi devoringizda!"
+     "O'zbekiston gerbi, bu safar devorda soat bo'lib turibdi."
     ],
     [
-     3.5,
-     "Oltin rangli metall, lazerda kesilgan."
+     3.8,
+     "Oltin rang, lazer aniqligi. Burgutning o'zi ham hasad qiladi."
     ],
     [
-     6.5,
-     "Uy va ofis uchun ajoyib sovg'a."
+     7.2,
+     "Ofisga osing, xo'jayin ham vaqtida keladi."
     ],
     [
-     9.5,
-     "Izoh yozing va bu soatni yutib olish imkoniyatiga ega bo'ling!"
+     10.0,
+     "Izoh yozing, bu soatni yutib oling!"
     ]
    ]
   },
@@ -74,18 +70,18 @@
    "lines": [
     [
      0.2,
-     "Devoringizni futbol klublari bilan bezang!"
+     "Devoringiz bo'sh bo'lsa, uni futbol stadioniga aylantiramiz!"
     ],
     [
-     3.5,
-     "Yoritgichli lazer soatlar, istalgan klub."
+     4.0,
+     "Yoritgich yonganda, hamma klub bir joyda yig'ilib qoladi."
     ],
     [
-     7.0,
-     "Siz aytgan klubni chizib, lazerda kesamiz."
+     7.5,
+     "Qaysi klubni xohlaysiz? Chizamiz, kesamiz."
     ],
     [
-     10.0,
+     10.2,
      "Sevimli klubingizni izohda yozing, bitta soat sovg'a!"
     ]
    ]
