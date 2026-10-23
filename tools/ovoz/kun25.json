@@ -1,0 +1,94 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+15%",
+ "items": [
+  {
+   "video": "reels/25-10-liverpool.mp4",
+   "out": "reels/25-10-liverpool-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Liverpool muxlislari, e'tibor! Qizil metalldan devor soati."
+    ],
+    [
+     4.5,
+     "Lazerda kesilgan, har bir detali aniq."
+    ],
+    [
+     7.5,
+     "Istalgan rangda yasaymiz."
+    ],
+    [
+     9.5,
+     "Izoh yozing, soatni yutib oling! Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/25-14-realmadrid.mp4",
+   "out": "reels/25-14-realmadrid-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Real Madrid soati qorong'uda yonadi!"
+    ],
+    [
+     3.8,
+     "Orqa yoritgichi bilan devorda juda chiroyli ko'rinadi."
+    ],
+    [
+     7.5,
+     "Lazerda kesilgan, metalldan."
+    ],
+    [
+     9.5,
+     "Izoh yozing, soatni yutib oling! Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/25-18-gerb.mp4",
+   "out": "reels/25-18-gerb-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "O'zbekiston gerbi endi devoringizda!"
+    ],
+    [
+     3.5,
+     "Oltin rangli metall, lazerda kesilgan."
+    ],
+    [
+     6.5,
+     "Uy va ofis uchun ajoyib sovg'a."
+    ],
+    [
+     9.5,
+     "Izoh yozing, soatni yutib oling! Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/26-10-klublar.mp4",
+   "out": "reels/26-10-klublar-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Devoringizni futbol klublari bilan bezang!"
+    ],
+    [
+     3.5,
+     "Yoritgichli lazer soatlar, istalgan klub."
+    ],
+    [
+     7.0,
+     "Siz aytgan klubni chizib, lazerda kesamiz."
+    ],
+    [
+     10.0,
+     "Izoh yozing, soatni yutib oling! Buyurtma uchun Direct'ga yozing!"
+    ]
+   ]
+  }
+ ]
+}
