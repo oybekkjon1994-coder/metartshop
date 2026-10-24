@@ -1,0 +1,83 @@
+{
+ "1": {
+  "id": 1,
+  "lang": "uz",
+  "name": "U1",
+  "joined": "2026-10-14T20:56:56.069Z",
+  "lastSeen": 1792857416069,
+  "s": {
+   "flow": "product",
+   "step": "phone",
+   "pid": "barselona-soat",
+   "title": "Barselona devor soati",
+   "price": 150000,
+   "qty": 1,
+   "name": "A"
+  },
+  "sAt": 1792864616069,
+  "remindedAt": 1792875417786
+ },
+ "2": {
+  "id": 2,
+  "lang": "uz",
+  "name": "U2",
+  "joined": "2026-10-14T20:56:56.069Z",
+  "lastSeen": 1792857416069,
+  "s": {},
+  "viewed": {
+   "pid": "barselona-soat",
+   "at": 1792799816069,
+   "offered": true
+  },
+  "lastOfferAt": 1792875417786
+ },
+ "3": {
+  "id": 3,
+  "lang": "uz",
+  "name": "U3",
+  "joined": "2026-10-14T20:56:56.069Z",
+  "lastSeen": 1792857416069,
+  "s": {},
+  "lastPromo": 1792875417786,
+  "lastPromoPid": "chelsea-soat"
+ },
+ "4": {
+  "id": 4,
+  "lang": "ru",
+  "name": "U4",
+  "joined": "2026-10-14T20:56:56.069Z",
+  "lastSeen": 1792857416069,
+  "s": {},
+  "ordered": 1789419416069,
+  "orderedPids": [
+   "barselona-soat"
+  ],
+  "lastPromo": 1792875417786,
+  "lastPromoPid": "it-idish-stend"
+ },
+ "5": {
+  "id": 5,
+  "lang": "uz",
+  "name": "U5",
+  "joined": "2026-10-14T20:56:56.069Z",
+  "lastSeen": 1792857416069,
+  "s": {},
+  "optOut": true
+ },
+ "6": {
+  "id": 6,
+  "lang": "uz",
+  "name": "U6",
+  "joined": "2026-10-14T20:56:56.069Z",
+  "lastSeen": 1792875116069,
+  "s": {}
+ },
+ "7": {
+  "id": 7,
+  "lang": "uz",
+  "name": "U7",
+  "joined": "2026-10-23T20:56:56.069Z",
+  "lastSeen": 1792857416069,
+  "s": {}
+ }
+}

@@ -2,11 +2,42 @@
  "catalog_url": "https://oybekkjon1994-coder.github.io/metartshop/data.json",
  "site_url": "https://oybekkjon1994-coder.github.io/metartshop/",
  "custom_sizes": [
-  { "cm": 30, "price": 120000 },
-  { "cm": 40, "price": 150000 },
-  { "cm": 50, "price": 200000 },
-  { "cm": 60, "price": 250000 }
+  {
+   "cm": 30,
+   "price": 120000
+  },
+  {
+   "cm": 40,
+   "price": 150000
+  },
+  {
+   "cm": 50,
+   "price": 200000
+  },
+  {
+   "cm": 60,
+   "price": 250000
+  }
  ],
- "custom_colors": ["qora", "oq", "kumush", "oltin", "bordo", "qizil", "ko'k", "yashil"],
- "ready_days": "2-3"
+ "custom_colors": [
+  "qora",
+  "oq",
+  "kumush",
+  "oltin",
+  "bordo",
+  "qizil",
+  "ko'k",
+  "yashil"
+ ],
+ "ready_days": "2-3",
+ "auto_offers": {
+  "enabled": true,
+  "from_hour": 10,
+  "to_hour": 20,
+  "abandon_hours": 2,
+  "viewed_hours": 20,
+  "weekly_days": 7,
+  "repeat_days": 30,
+  "max_per_tick": 25
+ }
 }
