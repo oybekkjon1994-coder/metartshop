@@ -1,0 +1,13 @@
+.env
+data/
+node_modules
+test/data/
+test/mock_out/
+test/out_*
+test/*.txt
+test/prev.jpg
+test/dxf.png
+test/mockprev.jpg
+test/fcb.jpg
+test/rm.jpg
+test/logo_alpha.png

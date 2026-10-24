@@ -1,0 +1,458 @@
+// METARTSHOP Telegram bot — katalog, "o'z dizaynim" (logotip → soat), buyurtmalar, admin panel
+'use strict';
+const fs = require('fs');
+const path = require('path');
+const TG = require('./tg');
+const Store = require('./store');
+const design = require('./design');
+const { T, COLOR_NAMES } = require('./i18n');
+
+const ROOT = path.join(__dirname, '..');
+loadEnv(path.join(ROOT, '.env'));
+const CFG = JSON.parse(fs.readFileSync(path.join(ROOT, 'config.json'), 'utf8'));
+const TOKEN = (process.env.BOT_TOKEN || '').trim();
+const ADMIN_CODE = (process.env.ADMIN_CODE || '').trim();
+if (!TOKEN || TOKEN.includes('SHU_YERGA')) {
+  console.error('\n❗ BOT_TOKEN yozilmagan. bot\\.env faylini oching va BotFather bergan tokenni yozing.\n');
+  process.exit(2);
+}
+const tg = new TG(TOKEN, process.env.TG_API || 'https://api.telegram.org');
+const db = new Store(process.env.DATA_DIR || path.join(ROOT, 'data'));
+const designs = new Map(); // userId -> { shape, original }
+
+function loadEnv(p) {
+  try {
+    for (const line of fs.readFileSync(p, 'utf8').split(/\r?\n/)) {
+      const m = line.match(/^\s*([A-Z_]+)\s*=\s*(.*)\s*$/);
+      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+    }
+  } catch { /* .env yo'q */ }
+}
+
+// ---------- katalog ----------
+let catalog = null, catalogAt = 0;
+async function getCatalog() {
+  if (catalog && Date.now() - catalogAt < 5 * 60 * 1000) return catalog;
+  const cacheFile = path.join(db.dir, 'catalog_cache.json');
+  try {
+    const res = await fetch(CFG.catalog_url + '?t=' + Date.now());
+    if (!res.ok) throw new Error(res.status);
+    catalog = await res.json(); catalogAt = Date.now();
+    fs.writeFileSync(cacheFile, JSON.stringify(catalog));
+  } catch (e) {
+    if (!catalog) {
+      for (const f of [cacheFile, path.join(ROOT, '..', 'data.json')]) {
+        try { catalog = JSON.parse(fs.readFileSync(f, 'utf8')); break; } catch { /* keyingisi */ }
+      }
+    }
+    if (!catalog) catalog = { shop: {}, cats: [], products: [] };
+    console.error('Katalogni yuklab bo\'lmadi, zaxira ishlatilmoqda:', e.message);
+  }
+  return catalog;
+}
+const imgUrl = p => /^https?:/.test(p) ? p : CFG.site_url + p.replace(/^\//, '');
+const money = (n, l) => String(Math.round(Number(n))).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (l === 'ru' ? ' сум' : " so'm");
+const esc = s => String(s ?? '').replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
+const pname = (p, l) => (l === 'ru' && p.name_ru) || p.name_uz || p.id;
+const cname = (c, l) => (l === 'ru' && c.ru) || c.uz || c.id;
+
+// ---------- klaviaturalar ----------
+const t = u => T[u.lang || 'uz'];
+const mainKb = u => ({
+  keyboard: [[t(u).m_catalog, t(u).m_custom], [t(u).m_clubs, t(u).m_orders], [t(u).m_contact, t(u).m_lang]],
+  resize_keyboard: true, is_persistent: true,
+});
+const ik = rows => ({ inline_keyboard: rows });
+const chunk = (arr, n) => arr.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x) : a.push([x]), a), []);
+
+async function send(chat, text, extra = {}) {
+  return tg.call('sendMessage', { chat_id: chat, text, parse_mode: 'HTML', disable_web_page_preview: true, ...extra });
+}
+const isAdmin = id => db.state.admins.includes(id);
+async function toAdmins(fn) {
+  for (const a of db.state.admins) { try { await fn(a); } catch (e) { console.error('Adminga yuborilmadi:', e.message); } }
+}
+
+// ---------- asosiy ishlov ----------
+async function onUpdate(up) {
+  if (up.callback_query) return onCallback(up.callback_query);
+  const m = up.message; if (!m || !m.from || m.chat.type !== 'private') return;
+  const u = db.user(m.from); db.save();
+  const chat = m.chat.id, text = (m.text || '').trim();
+  if (m.photo && /^\/xabar/.test(m.caption || '') && isAdmin(u.id)) return adminBroadcastPhoto(chat, m);
+
+  if (text.startsWith('/')) {
+    const [cmd, ...rest] = text.split(/\s+/); const arg = rest.join(' ');
+    if (cmd === '/start') return start(u, chat, arg);
+    if (cmd === '/admin') return adminLogin(u, chat, arg);
+    if (isAdmin(u.id)) {
+      if (cmd === '/buyurtmalar') return adminOrders(chat);
+      if (cmd === '/statistika') return adminStats(chat);
+      if (cmd === '/xabar') return adminBroadcast(chat, text.slice(cmd.length).trim(), m);
+      if (cmd === '/yordam') return adminHelp(chat);
+    }
+  }
+  if (!u.lang) return askLang(chat);
+
+  // menyu tugmalari (ikkala tilda)
+  const is = k => text === T.uz[k] || text === T.ru[k];
+  if (is('m_catalog')) { u.s = {}; return showCats(u, chat); }
+  if (is('m_custom')) { u.s = { flow: 'custom', step: 'await_image' }; return send(chat, t(u).custom_intro, { reply_markup: mainKb(u) }); }
+  if (is('m_clubs')) { u.s = {}; return showClubs(u, chat); }
+  if (is('m_orders')) return myOrders(u, chat);
+  if (is('m_contact')) { const c = await getCatalog(); return send(chat, u.lang === 'ru' ? T.ru.contact(c.shop || {}) : T.uz.contact(c.shop || {})); }
+  if (is('m_lang')) return askLang(chat);
+
+  const s = u.s || (u.s = {});
+  // rasm qabul qilish (o'z dizaynim)
+  const photo = m.photo ? m.photo[m.photo.length - 1] : (m.document && /^image\//.test(m.document.mime_type || '') ? m.document : null);
+  if (photo) {
+    if (s.flow !== 'custom') u.s = { flow: 'custom', step: 'await_image' };
+    return handleImage(u, chat, photo.file_id);
+  }
+  if (m.contact && s.step === 'phone') return gotPhone(u, chat, m.contact.phone_number);
+
+  switch (s.step) {
+    case 'qty_text': {
+      const n = parseInt(text, 10);
+      if (!(n > 0 && n < 1000)) return send(chat, t(u).ask_qty_text);
+      s.qty = n; return askName(u, chat);
+    }
+    case 'name': if (text.length < 2) return askName(u, chat); s.name = text.slice(0, 60); return askPhone(u, chat);
+    case 'phone': return gotPhone(u, chat, text);
+    case 'address': if (text.length < 3) return send(chat, t(u).ask_address); s.address = text.slice(0, 200); return showSummary(u, chat);
+    case 'await_image': return send(chat, t(u).custom_intro);
+  }
+  return send(chat, t(u).use_menu, { reply_markup: mainKb(u) });
+}
+
+async function askLang(chat) {
+  return send(chat, T.uz.choose_lang, { reply_markup: ik([[{ text: "🇺🇿 O'zbekcha", callback_data: 'lang:uz' }, { text: '🇷🇺 Русский', callback_data: 'lang:ru' }]]) });
+}
+
+async function start(u, chat, payload) {
+  u.s = {}; if (payload) u.ref = u.ref || payload;
+  if (!u.lang) { u.pending = payload || ''; return askLang(chat); }
+  await send(chat, t(u).welcome(esc(u.name || '')), { reply_markup: mainKb(u) });
+  return deepLink(u, chat, payload);
+}
+
+async function deepLink(u, chat, payload) {
+  if (!payload) return;
+  if (payload.startsWith('p_')) return showProduct(u, chat, payload.slice(2));
+  if (payload === 'dizayn') { u.s = { flow: 'custom', step: 'await_image' }; return send(chat, t(u).custom_intro); }
+  if (payload === 'klub') return showClubs(u, chat);
+  if (payload === 'katalog') return showCats(u, chat);
+}
+
+async function showCats(u, chat, editMsg) {
+  const c = await getCatalog();
+  const cats = c.cats.filter(ct => c.products.some(p => p.cat === ct.id && p.stock !== false));
+  const kb = ik(chunk(cats.map(ct => ({ text: cname(ct, u.lang), callback_data: 'cat:' + ct.id })), 2));
+  if (editMsg) return tg.call('editMessageText', { chat_id: chat, message_id: editMsg, text: t(u).cats, reply_markup: kb }).catch(() => send(chat, t(u).cats, { reply_markup: kb }));
+  return send(chat, t(u).cats, { reply_markup: kb });
+}
+
+async function showCat(u, chat, catId, editMsg) {
+  const c = await getCatalog();
+  const cat = c.cats.find(x => x.id === catId);
+  const list = c.products.filter(p => p.cat === catId && p.stock !== false);
+  if (!list.length) return send(chat, t(u).empty);
+  const rows = list.map(p => [{ text: pname(p, u.lang) + (p.price > 0 ? ' — ' + money(p.price, u.lang) : ''), callback_data: 'p:' + p.id }]);
+  rows.push([{ text: t(u).back, callback_data: 'cats' }]);
+  const text = t(u).products(esc(cat ? cname(cat, u.lang) : ''));
+  if (editMsg) return tg.call('editMessageText', { chat_id: chat, message_id: editMsg, text, parse_mode: 'HTML', reply_markup: ik(rows) }).catch(() => send(chat, text, { reply_markup: ik(rows) }));
+  return send(chat, text, { reply_markup: ik(rows) });
+}
+
+async function showClubs(u, chat) {
+  const c = await getCatalog();
+  const re = /(klub|fc|club|madrid|barsel|barcel|chelsea|city|united|liverpool|arsenal|nasaf|pakhtakor|paxtakor|bunyodkor|juventus|bayern|psg|milan|inter|ronaldo|messi|bo'?rilar|клуб)/i;
+  const list = c.products.filter(p => p.cat === 'soat' && p.stock !== false && re.test(p.id + ' ' + p.name_uz + ' ' + (p.name_ru || '')));
+  const rows = chunk(list.map(p => ({ text: pname(p, u.lang).replace(/ devor soati| soati|Настенные часы |Часы /gi, '').replace(/[«»]/g, ''), callback_data: 'p:' + p.id })), 2);
+  rows.push([{ text: t(u).no_club, callback_data: 'custom' }]);
+  return send(chat, t(u).clubs, { reply_markup: ik(rows) });
+}
+
+async function showProduct(u, chat, pid, imgIdx = 0) {
+  const c = await getCatalog();
+  const p = c.products.find(x => x.id === pid);
+  if (!p) return showCats(u, chat);
+  const desc = (u.lang === 'ru' && p.desc_ru) || p.desc_uz || '';
+  const cap = `<b>${esc(pname(p, u.lang))}</b>\n\n${esc(desc)}${p.size ? '\n📏 ' + esc(p.size) : ''}\n\n${t(u).price(p.price > 0 ? money(p.price, u.lang) : '')}`;
+  const rows = [[{ text: t(u).buy, callback_data: 'buy:' + p.id }]];
+  if ((p.imgs || []).length > 1) rows.push([{ text: t(u).more_photo, callback_data: `img:${p.id}:${(imgIdx + 1) % p.imgs.length}` }]);
+  rows.push([{ text: t(u).back, callback_data: 'cat:' + p.cat }]);
+  const img = (p.imgs || [])[imgIdx];
+  if (img) {
+    try { return await tg.call('sendPhoto', { chat_id: chat, photo: imgUrl(img), caption: cap, parse_mode: 'HTML', reply_markup: ik(rows) }); }
+    catch (e) { console.error('Rasm yuborilmadi:', e.message); }
+  }
+  return send(chat, cap, { reply_markup: ik(rows) });
+}
+
+// ---------- buyurtma bosqichlari ----------
+async function startBuy(u, chat, pid) {
+  const c = await getCatalog();
+  const p = c.products.find(x => x.id === pid); if (!p) return;
+  u.s = { flow: 'product', pid, price: p.price || 0, title: p.name_uz, img: (p.imgs || [])[0] };
+  const colors = (p.colors || []).filter(Boolean);
+  if (colors.length) {
+    u.s.step = 'color';
+    return send(chat, t(u).ask_color, { reply_markup: ik(chunk(colors.map(cl => ({ text: (COLOR_NAMES[u.lang][cl] || cl), callback_data: 'col:' + cl })), 3)) });
+  }
+  return askQty(u, chat);
+}
+function askQty(u, chat) {
+  u.s.step = 'qty';
+  return send(chat, t(u).ask_qty, { reply_markup: ik([[1, 2, 3, 5].map(n => ({ text: String(n), callback_data: 'qty:' + n })), [{ text: t(u).qty_other, callback_data: 'qty:x' }]]) });
+}
+function askName(u, chat) {
+  u.s.step = 'name';
+  const known = u.lastName ? { reply_markup: { keyboard: [[u.lastName]], resize_keyboard: true, one_time_keyboard: true } } : { reply_markup: { remove_keyboard: true } };
+  return send(chat, t(u).ask_name, known);
+}
+function askPhone(u, chat) {
+  u.s.step = 'phone';
+  const kb = [[{ text: t(u).share_phone, request_contact: true }]]; if (u.lastPhone) kb.push([u.lastPhone]);
+  return send(chat, t(u).ask_phone, { reply_markup: { keyboard: kb, resize_keyboard: true, one_time_keyboard: true } });
+}
+function gotPhone(u, chat, raw) {
+  const digits = String(raw).replace(/\D/g, '');
+  if (digits.length < 9 || digits.length > 13) return send(chat, t(u).bad_phone);
+  const ph = digits.length === 9 ? '+998' + digits : '+' + digits;
+  u.s.phone = ph; u.lastPhone = ph; u.s.step = 'delivery';
+  return send(chat, t(u).ask_delivery, { reply_markup: ik([[{ text: t(u).d_tash, callback_data: 'dlv:tash' }], [{ text: t(u).d_reg, callback_data: 'dlv:reg' }], [{ text: t(u).d_self, callback_data: 'dlv:self' }]]) });
+}
+function dlvName(l, d) { return { tash: T[l].d_tash, reg: T[l].d_reg, self: T[l].d_self }[d] || d; }
+
+function orderLines(l, o) {
+  const L = T[l]; const lines = [];
+  lines.push(`🛍 ${L.f_product}: <b>${esc(o.title)}</b>`);
+  if (o.size) lines.push(`📏 ${L.f_size}: ${o.size} sm`);
+  if (o.color) lines.push(`🎨 ${L.f_color}: ${COLOR_NAMES[l][o.color] || o.color}`);
+  lines.push(`🔢 ${L.f_qty}: ${o.qty}`);
+  lines.push(`💰 ${L.f_total}: <b>${o.price > 0 ? money(o.price * o.qty, l) : L.total_ask}</b>`);
+  lines.push(`👤 ${L.f_name}: ${esc(o.name)}`);
+  lines.push(`📱 ${L.f_phone}: ${esc(o.phone)}`);
+  lines.push(`🚚 ${L.f_delivery}: ${dlvName(l, o.delivery)}`);
+  if (o.address) lines.push(`📍 ${L.f_address}: ${esc(o.address)}`);
+  return lines.join('\n');
+}
+
+async function showSummary(u, chat) {
+  u.s.step = 'confirm';
+  return send(chat, `${t(u).summary}\n\n${orderLines(u.lang, u.s)}`, {
+    reply_markup: ik([[{ text: t(u).confirm, callback_data: 'ok' }, { text: t(u).cancel, callback_data: 'no' }]]),
+  });
+}
+
+async function placeOrder(u, chat) {
+  const s = u.s; const id = db.nextOrderId();
+  const o = {
+    id, at: new Date().toISOString(), userId: u.id, username: u.username, tgName: u.name, lang: u.lang, status: 'new',
+    flow: s.flow, pid: s.pid, title: s.title, color: s.color, size: s.size, qty: s.qty || 1, price: s.price || 0,
+    name: s.name, phone: s.phone, delivery: s.delivery, address: s.address || '', ref: u.ref || '',
+  };
+  u.lastName = s.name;
+  // o'z dizayni: DXF va rasmlarni saqlash
+  let files = [];
+  if (s.flow === 'custom') {
+    const d = designs.get(u.id) || await reloadDesign(u);
+    if (d) {
+      const dx = await design.makeDxf(d.shape, s.size * 10);
+      o.dxf = db.saveFile(`${id}.dxf`, dx.dxf);
+      o.cutM = +design.cutLength(dx.dxf).toFixed(2); o.dims = `${dx.widthMm}×${dx.heightMm} mm`;
+      const prev = await design.makePreview(d.shape, s.color, `${s.size} sm · ${COLOR_NAMES.uz[s.color] || s.color}`);
+      o.preview = db.saveFile(`${id}-korinish.jpg`, prev);
+      o.original = db.saveFile(`${id}-asl${d.ext || '.jpg'}`, d.original);
+      files = [
+        ['sendPhoto', { photo: TG.file(prev, `${id}.jpg`, 'image/jpeg') }],
+        ['sendDocument', { document: TG.file(Buffer.from(dx.dxf), `${id}-${s.size}sm.dxf`, 'application/dxf'), caption: `DXF: ${o.dims}, kesish ≈ ${o.cutM} m` }],
+        ['sendDocument', { document: TG.file(d.original, `${id}-asl${d.ext || '.jpg'}`) }],
+      ];
+    }
+  }
+  db.orders.push(o); u.s = {}; db.save();
+  await send(chat, t(u).done(id), { reply_markup: mainKb(u) });
+
+  const who = `${esc(u.name)}${u.username ? ' (@' + esc(u.username) + ')' : ''} · <a href="tg://user?id=${u.id}">profil</a>`;
+  const text = `🆕 <b>Yangi buyurtma ${id}</b>\n\n${orderLines('uz', o)}${o.dims ? `\n📐 Chizma: ${o.dims}, kesish ≈ ${o.cutM} m` : ''}\n\n👤 ${who}${o.ref ? `\n🔗 Manba: ${esc(o.ref)}` : ''}`;
+  const kb = statusKb(o);
+  await toAdmins(async a => {
+    if (o.flow === 'product' && s.img) await tg.call('sendPhoto', { chat_id: a, photo: imgUrl(s.img) }).catch(() => {});
+    for (const [m, p] of files) await tg.call(m, { chat_id: a, ...p });
+    await send(a, text, { reply_markup: kb });
+  });
+  if (!db.state.admins.length) console.log(`Yangi buyurtma ${id} (admin ulanmagan — /admin KOD yuboring)`);
+}
+
+function statusKb(o) {
+  const b = (st, label) => ({ text: (o.status === st ? '• ' : '') + label, callback_data: `st:${o.id}:${st}` });
+  return ik([[b('accepted', '✅ Qabul'), b('making', '🔧 Tayyorlanmoqda')], [b('sent', "🚚 Jo'natildi"), b('done', '🎉 Topshirildi')], [b('canceled', '❌ Bekor')]]);
+}
+
+// ---------- o'z dizaynim ----------
+async function handleImage(u, chat, fileId) {
+  const wait = await send(chat, t(u).processing);
+  try {
+    const buf = await tg.download(fileId);
+    const ext = buf[0] === 0x89 ? '.png' : '.jpg';
+    const shape = await design.makeShape(buf);
+    designs.set(u.id, { shape, original: buf, ext });
+    db.saveFile(`dizayn-${u.id}${ext}`, buf); u.designFile = `dizayn-${u.id}${ext}`;
+    const sizes = CFG.custom_sizes; const def = sizes[Math.min(1, sizes.length - 1)];
+    u.s = { flow: 'custom', step: 'size', title: '', size: def.cm, price: def.price, color: 'qora' };
+    await sendPreview(u, chat);
+    await send(chat, t(u).ask_size, { reply_markup: ik(chunk(sizes.map(z => ({ text: `${z.cm} ${u.lang === 'ru' ? 'см' : 'sm'} — ${money(z.price, u.lang)}`, callback_data: 'sz:' + z.cm })), 1)) });
+  } catch (e) {
+    console.error('Dizayn xatosi:', e.message);
+    await send(chat, t(u).bad_image);
+  } finally {
+    tg.call('deleteMessage', { chat_id: chat, message_id: wait.message_id }).catch(() => {});
+  }
+}
+
+async function reloadDesign(u) {
+  if (!u.designFile) return null;
+  try {
+    const buf = fs.readFileSync(path.join(db.dir, 'fayllar', u.designFile));
+    const d = { shape: await design.makeShape(buf), original: buf, ext: path.extname(u.designFile) };
+    designs.set(u.id, d); return d;
+  } catch { return null; }
+}
+
+async function sendPreview(u, chat) {
+  const d = designs.get(u.id) || await reloadDesign(u); if (!d) return;
+  const col = COLOR_NAMES[u.lang][u.s.color] || u.s.color;
+  const img = await design.makePreview(d.shape, u.s.color, `${u.s.size} sm · ${COLOR_NAMES.uz[u.s.color] || u.s.color}`);
+  return tg.call('sendPhoto', { chat_id: chat, photo: TG.file(img, 'dizayn.jpg', 'image/jpeg'), caption: t(u).preview_caption(u.s.size, col) });
+}
+
+// ---------- tugma bosilganda ----------
+async function onCallback(q) {
+  const u = db.user(q.from); const chat = q.message ? q.message.chat.id : q.from.id; const data = q.data || '';
+  tg.call('answerCallbackQuery', { callback_query_id: q.id }).catch(() => {});
+  const [k, a, b] = data.split(':');
+  const s = u.s || (u.s = {});
+  try {
+    switch (k) {
+      case 'lang': {
+        u.lang = a === 'ru' ? 'ru' : 'uz'; const pend = u.pending; delete u.pending;
+        await send(chat, t(u).welcome(esc(u.name || '')), { reply_markup: mainKb(u) });
+        await deepLink(u, chat, pend); break;
+      }
+      case 'cats': await showCats(u, chat, q.message && q.message.message_id); break;
+      case 'cat': await showCat(u, chat, a); break;
+      case 'p': await showProduct(u, chat, a); break;
+      case 'img': await showProduct(u, chat, a, +b || 0); break;
+      case 'buy': await startBuy(u, chat, a); break;
+      case 'custom': u.s = { flow: 'custom', step: 'await_image' }; await send(chat, t(u).custom_intro); break;
+      case 'col':
+        if (s.flow === 'product' && s.step === 'color') { s.color = a; await askQty(u, chat); }
+        else if (s.flow === 'custom' && s.step === 'color') { s.color = a; await sendPreview(u, chat); await send(chat, '👍', { reply_markup: ik([[{ text: t(u).next, callback_data: 'cnext' }]]) }); }
+        break;
+      case 'sz': {
+        if (s.flow !== 'custom') break;
+        const z = CFG.custom_sizes.find(x => String(x.cm) === a); if (!z) break;
+        s.size = z.cm; s.price = z.price; s.title = T.uz.custom_name(z.cm); s.step = 'color';
+        await send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) });
+        break;
+      }
+      case 'cnext': if (s.flow === 'custom' && s.size) await askQty(u, chat); break;
+      case 'qty':
+        if (s.step !== 'qty') break;
+        if (a === 'x') { s.step = 'qty_text'; await send(chat, t(u).ask_qty_text); }
+        else { s.qty = +a; await askName(u, chat); }
+        break;
+      case 'dlv':
+        if (s.step !== 'delivery') break;
+        s.delivery = a;
+        if (a === 'self') { s.address = ''; await showSummary(u, chat); }
+        else { s.step = 'address'; await send(chat, t(u).ask_address, { reply_markup: { remove_keyboard: true } }); }
+        break;
+      case 'ok': if (s.step === 'confirm') await placeOrder(u, chat); break;
+      case 'no': u.s = {}; await send(chat, t(u).canceled, { reply_markup: mainKb(u) }); break;
+      case 'st': if (isAdmin(u.id)) await setStatus(q, a, b); break;
+    }
+  } finally { db.save(); }
+}
+
+async function myOrders(u, chat) {
+  const mine = db.orders.filter(o => o.userId === u.id).slice(-10).reverse();
+  if (!mine.length) return send(chat, t(u).no_orders);
+  return send(chat, t(u).my_orders + '\n\n' + mine.map(o => `<b>${o.id}</b> · ${esc(o.title)} ×${o.qty}\n${t(u).status[o.status]}`).join('\n\n'));
+}
+
+// ---------- admin ----------
+async function adminLogin(u, chat, code) {
+  if (!ADMIN_CODE || code !== ADMIN_CODE) return send(chat, '⛔');
+  if (!db.state.admins.includes(u.id)) db.state.admins.push(u.id);
+  db.save();
+  return adminHelp(chat, '✅ Siz admin bo\'ldingiz. Yangi buyurtmalar shu yerga keladi.\n\n');
+}
+function adminHelp(chat, pre = '') {
+  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/yordam — shu ro\'yxat');
+}
+async function adminOrders(chat) {
+  const list = db.orders.slice(-15).reverse();
+  if (!list.length) return send(chat, 'Hali buyurtma yo\'q.');
+  for (const o of list.slice(0, 5)) await send(chat, `<b>${o.id}</b> · ${T.uz.status[o.status]}\n${orderLines('uz', o)}`, { reply_markup: statusKb(o) });
+  if (list.length > 5) await send(chat, list.slice(5).map(o => `${o.id} · ${esc(o.title)} · ${T.uz.status[o.status]}`).join('\n'));
+}
+async function adminStats(chat) {
+  const users = Object.keys(db.users).length; const os = db.orders;
+  const by = st => os.filter(o => o.status === st).length;
+  const sum = os.filter(o => !['canceled'].includes(o.status)).reduce((a, o) => a + (o.price || 0) * (o.qty || 1), 0);
+  const today = new Date().toISOString().slice(0, 10);
+  return send(chat, `📊 <b>Statistika</b>\n\n👥 Bot foydalanuvchilari: ${users}\n📦 Buyurtmalar: ${os.length} (bugun: ${os.filter(o => o.at.startsWith(today)).length})\n🆕 Yangi: ${by('new')} · ✅ Qabul: ${by('accepted')} · 🔧 ${by('making')} · 🚚 ${by('sent')} · 🎉 ${by('done')} · ❌ ${by('canceled')}\n💰 Jami summa (bekor qilinmagan): ${money(sum)}\n🎨 O'z dizayni buyurtmalari: ${os.filter(o => o.flow === 'custom').length}`);
+}
+async function adminBroadcast(chat, text, m) {
+  if (!text) return send(chat, 'Foydalanish: /xabar Bugun barcha soatlarga 10% chegirma!');
+  const ids = Object.keys(db.users).map(Number).filter(id => !isAdmin(id) && !db.users[id].blocked);
+  await send(chat, `📣 ${ids.length} ta foydalanuvchiga yuborilmoqda...`);
+  let ok = 0;
+  for (const id of ids) {
+    try { await send(id, text); ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
+    await new Promise(r => setTimeout(r, 60));
+  }
+  db.save();
+  return send(chat, `✅ Yuborildi: ${ok}/${ids.length}`);
+}
+async function adminBroadcastPhoto(chat, m) {
+  const photo = m.photo[m.photo.length - 1].file_id;
+  const caption = (m.caption || '').replace(/^\/xabar\s*/, '');
+  const ids = Object.keys(db.users).map(Number).filter(id => !isAdmin(id) && !db.users[id].blocked);
+  await send(chat, `📣 ${ids.length} ta foydalanuvchiga rasm yuborilmoqda...`);
+  let ok = 0;
+  for (const id of ids) {
+    try { await tg.call('sendPhoto', { chat_id: id, photo, caption, parse_mode: 'HTML' }); ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
+    await new Promise(r => setTimeout(r, 60));
+  }
+  db.save();
+  return send(chat, `✅ Yuborildi: ${ok}/${ids.length}`);
+}
+async function setStatus(q, id, st) {
+  const o = db.orders.find(x => x.id === id); if (!o || !T.uz.status[st]) return;
+  o.status = st; o.updated = new Date().toISOString(); db.save();
+  await tg.call('editMessageReplyMarkup', { chat_id: q.message.chat.id, message_id: q.message.message_id, reply_markup: statusKb(o) }).catch(() => {});
+  const L = o.lang || 'uz';
+  await send(o.userId, T[L].status_note(o.id, T[L].status[st])).catch(() => {});
+}
+
+// ---------- ishga tushirish ----------
+async function main() {
+  const me = await tg.call('getMe');
+  console.log(`\n✅ Bot ishga tushdi: @${me.username}`);
+  console.log(`   Havolalar: https://t.me/${me.username}?start=dizayn  |  https://t.me/${me.username}?start=klub`);
+  if (!db.state.admins.length) console.log(`   ❗ Admin hali ulanmagan: botga  /admin ${ADMIN_CODE || 'KOD'}  deb yozing.`);
+  await tg.call('setMyCommands', { commands: [{ command: 'start', description: 'Bosh menyu / Главное меню' }] }).catch(() => {});
+  getCatalog();
+  const stop = () => { db.saveNow(); process.exit(0); };
+  process.on('SIGINT', stop); process.on('SIGTERM', stop);
+  await tg.poll(onUpdate, () => db.state.offset, o => { db.state.offset = o; db.save(); });
+}
+main().catch(e => {
+  console.error(e.code === 401 ? '\n❗ BOT_TOKEN noto\'g\'ri. .env faylidagi tokenni tekshiring.\n' : 'Ishga tushmadi: ' + e.message);
+  process.exit(e.code === 401 ? 2 : 1);
+});

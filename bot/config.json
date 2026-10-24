@@ -1,0 +1,12 @@
+{
+ "catalog_url": "https://oybekkjon1994-coder.github.io/metartshop/data.json",
+ "site_url": "https://oybekkjon1994-coder.github.io/metartshop/",
+ "custom_sizes": [
+  { "cm": 30, "price": 120000 },
+  { "cm": 40, "price": 150000 },
+  { "cm": 50, "price": 200000 },
+  { "cm": 60, "price": 250000 }
+ ],
+ "custom_colors": ["qora", "oq", "kumush", "oltin", "bordo", "qizil", "ko'k", "yashil"],
+ "ready_days": "2-3"
+}

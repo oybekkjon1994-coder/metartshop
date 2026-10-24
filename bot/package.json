@@ -1,0 +1,10 @@
+{
+  "name": "metartshop-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "METARTSHOP Telegram bot: katalog, logotipdan soat dizayni, buyurtmalar",
+  "main": "src/bot.js",
+  "scripts": { "start": "node src/bot.js", "test": "node test/mock.js" },
+  "engines": { "node": ">=20" },
+  "dependencies": { "sharp": "^0.35.4" }
+}
