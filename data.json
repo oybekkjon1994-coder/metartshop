@@ -86,7 +86,7 @@
    "metal": "Metall",
    "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
    "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
-   "price": 0,
+   "price": 150000,
    "imgs": [
     "img/real-madrid-soat-1.jpg",
     "img/real-madrid-soat-2.jpg"
@@ -134,7 +134,7 @@
    "metal": "Metall",
    "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
    "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
-   "price": 0,
+   "price": 150000,
    "imgs": [
     "img/man-city-soat-1.jpg"
    ],
@@ -204,7 +204,7 @@
    "metal": "Metall",
    "desc_uz": "Metalldan lazer bilan kesilgan devor soati. Rangini o'zingiz tanlaysiz.",
    "desc_ru": "Настенные часы из металла, лазерная резка. Цвет выбираете сами.",
-   "price": 0,
+   "price": 150000,
    "imgs": [
     "img/chelsea-soat-1.jpg"
    ],
