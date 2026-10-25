@@ -26,7 +26,7 @@ def frames(path, start, dur, speed=1.0):
     """Manba videodan 1080x1920 kadrlar (aylanish avtomatik), speed<1 — sekinlashtirish."""
     n = int(round(dur * FPS))
     vf = f"scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setpts=PTS/{speed},fps={FPS}"
-    p = subprocess.Popen(['ffmpeg', '-v', 'error', '-ss', str(start), '-i', path, '-t', str(dur * speed + 0.5), '-vf', vf,
+    p = subprocess.Popen(['ffmpeg', '-v', 'error', '-ss', str(start), '-i', path, '-t', str(dur + 0.5), '-vf', vf,
                           '-frames:v', str(n), '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
     last = None
     for _ in range(n):
@@ -148,3 +148,20 @@ if __name__ == '__main__':
     if 'lazer' in which: reel_lazer()
     if 'dokon' in which: reel_dokon()
     if 'karusel' in which: karusel()
+
+# ---------- D) ASMR halqa (loop): qisqa, matnsiz, oxiri boshiga ulanadi ----------
+def reel_asmr():
+    v = Video('v3-lazer-asmr'); seq = [('laser_slow.mp4', 0.3, 2.6, 0.25), ('laser_perf.mp4', 8.0, 1.6, 1.0), ('laser_slow.mp4', 6.0, 2.2, 0.35), ('laser_perf.mp4', 17.2, 1.6, 1.0)]
+    allf = []
+    for f, s, dur, sp in seq: allf += list(frames(src(f), s, dur, sp))
+    first = allf[:12]; n = len(allf)
+    for i, fr in enumerate(allf):
+        if i >= n - 12: fr = Image.blend(fr, first[i - (n - 12)], (i - (n - 12)) / 12)  # oxiri boshiga silliq o'tadi
+        d = ImageDraw.Draw(fr, 'RGBA')
+        if i < 45: ctext(d, 230, 'OVOZNI YOQING', 64, fill='#111', box=YEL)
+        ctext(d, 1760, '@Metart_shop_bot', 40, fill='white', box=(0, 0, 0, 140), b=BOLD)
+        v.add(fr)
+    v.close(src('laser_perf.mp4'), a_start=7.5, vol=1.0)
+
+if __name__ == '__main__' and 'asmr' in sys.argv[2:]:
+    reel_asmr()
