@@ -42,10 +42,10 @@ chmod +x "$HOME/bot.sh"
 # Telefon qayta yonganda avtomatik (Termux:Boot ilovasi o'rnatilgan bo'lsa)
 mkdir -p "$HOME/.termux/boot" && cp "$HOME/bot.sh" "$HOME/.termux/boot/metartshop-bot"
 # Termux ochilganda bot o'chiq bo'lsa yoqiladi
-grep -q metartshop-auto "$HOME/.bashrc" 2>/dev/null || echo 'pgrep -f "src/bot.js" >/dev/null || { echo "Bot yoqilmoqda..."; nohup ~/bot.sh >~/bot.log 2>&1 & } # metartshop-auto' >> "$HOME/.bashrc"
+grep -q metartshop-auto "$HOME/.bashrc" 2>/dev/null || echo 'pgrep -f "bot.sh" >/dev/null || { echo "Bot yoqilmoqda..."; nohup ~/bot.sh >~/bot.log 2>&1 & } # metartshop-auto' >> "$HOME/.bashrc"
 
 echo "== 4/4 Bot yoqilmoqda =="
-pgrep -f "src/bot.js" >/dev/null || nohup "$HOME/bot.sh" > "$HOME/bot.log" 2>&1 &
+pgrep -f "bot.sh" >/dev/null || nohup "$HOME/bot.sh" > "$HOME/bot.log" 2>&1 &
 sleep 8; tail -5 "$HOME/bot.log"
 echo
 echo "TAYYOR. Kompyuterdagi bot oynasini YOPING (ikkalasi birga ishlamaydi)."
