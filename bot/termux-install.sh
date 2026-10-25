@@ -29,7 +29,6 @@ cat > "$HOME/bot.sh" <<'EOF'
 #!/data/data/com.termux/files/usr/bin/bash
 termux-wake-lock 2>/dev/null
 cd "$HOME/metartshop/bot"
-set -a; . ./.env; set +a
 while true; do
   node src/bot.js; code=$?
   [ $code -eq 2 ] && { echo "TOKEN noto'g'ri — ~/metartshop/bot/.env ni tuzating"; exit 2; }
