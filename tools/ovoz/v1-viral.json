@@ -1,0 +1,72 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+15%",
+ "items": [
+  {
+   "video": "reels/v1-logo-soat.mp4",
+   "out": "reels/v1-logo-soat-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Logotipingizni yuboring — metall soatga aylantiramiz!"
+    ],
+    [
+     2.1,
+     "Lazer millimetrma-millimetr kesadi."
+    ],
+    [
+     6.4,
+     "Rangini o'zingiz tanlaysiz: qora, oltin, oq yoki qizil."
+    ],
+    [
+     10.4,
+     "Telegramdagi Metart shop botiga logotip yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/v1-qaysi-klub.mp4",
+   "out": "reels/v1-qaysi-klub-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Qaysi biri seniki? Raqamini izohga yoz!"
+    ],
+    [
+     2.2,
+     "Bir, ikki, uch... qaysi klub muxlisisan?"
+    ],
+    [
+     6.6,
+     "Raqamni izohga yozishni unutma!"
+    ],
+    [
+     11.9,
+     "Buyurtma — Telegramdagi Metart shop botida!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/v1-oq-borilar.mp4",
+   "out": "reels/v1-oq-borilar-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Oq bo'rilar muxlislari, qo'l ko'taring!"
+    ],
+    [
+     2.3,
+     "Tarixiy yil endi devoringizda. Narxi ikki yuz ming so'm."
+    ],
+    [
+     6.3,
+     "Vatanparvar sovg'a — gerb soati ham bor."
+    ],
+    [
+     8.5,
+     "Buyurtma uchun Metart shop botiga yozing!"
+    ]
+   ]
+  }
+ ]
+}
