@@ -45,6 +45,6 @@
   "percent": 10
  },
  "payment": {
-  "prepay_percent": 50
+  "prepay_percent": 100
  }
 }

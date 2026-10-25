@@ -105,7 +105,7 @@ function finish(err) {
     ['adminga yetkazildi tasdig\'i', /→ 999: ✅ Dizayn mijozga yuborildi/],
     ['qo\'lda dizayn buyurtmasi M-0003', /🆕 <b>Yangi buyurtma M-0003<\/b>/],
     ['adminga dizayn rasmi buyurtma bilan', /sendPhoto → 999: M-0003 — dizayn/],
-    ['oldindan to\'lov 50% = 75 000', /→ 111: 💳 <b>To'lov<\/b> \(M-0003\).*75 000 so'm.*8600 1234 5678 9012/],
+    ['to\'lov 100% = 150 000', /→ 111: 💳 <b>To'lov<\/b> \(M-0003\).*150 000 so'm.*8600 1234 5678 9012/],
     ['chek adminga tugmalar bilan', /sendPhoto → 999: 💳 <b>To'lov cheki — M-0003.*\[✅ Pul tushdi \| ❌ Topilmadi\]/],
     ['to\'lov tasdiqlandi mijozga', /→ 111: ✅ <b>M-0003<\/b> buyurtmangiz uchun to'lov tasdiqlandi/],
     ['do\'st chegirmasi xabari', /→ 333: 🎁 Siz do'stingiz taklifi bilan keldingiz/],
