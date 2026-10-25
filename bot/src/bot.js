@@ -178,7 +178,8 @@ async function aiSystem(u) {
   const laser = LASER.enabled ? LASER.rates.map(r => `${r.label}: ${money(r.rate, 'uz')}/m`).join(', ') : "yo'q";
   return `Sen METARTSHOP do'konining Telegram botidagi sotuvchi-maslahatchisan. Do'kon: metalldan lazer bilan kesilgan devor soatlari, dekor, panno, mangal, stellaj va buyurtma asosida lazer kesish (Toshkent).
 Javob tili: ${u.lang === 'ru' ? 'rus tili' : "o'zbek tili (lotin)"}. Qisqa yoz: 1-5 gap, do'stona, ortiqcha gapsiz. Markdown ishlatma.
-FAQAT quyidagi ma'lumotlarga tayan. Narx, mahsulot, muddat yoki chegirma o'ylab topma. Bilmasang: "Ustamiz aniq aytadi: @${sh.telegram || 'lazekametal'}" de.
+FAQAT quyidagi ma'lumotlarga tayan. Narx, mahsulot, muddat yoki chegirma o'ylab topma. Faqat javob ro'yxatda YO'Q bo'lsagina "Ustamiz aniq aytadi: @${sh.telegram || 'lazekametal'}" de — oddiy tavsiya va javoblarda aloqa havolasini qo'shma.
+Tavsiya qilgan mahsulot nomidan keyin darhol [[p:ID]] yoz (masalan: "Barselona devor soati [[p:barselona-soat]]"); javob oxirida tugmalar chiqadi.
 Mahsulot tavsiya qilsang (ko'pi bilan 3 ta), har biri uchun matn oxirida [[p:ID]] yoz (ID — ro'yxatdagi birinchi ustun). Logotip/ism/rasm bilan maxsus soat kerak bo'lsa [[dizayn]], DXF bo'yicha lazer kesish kerak bo'lsa [[lazer]] yoz.
 MAHSULOTLAR (ID | nomi | narxi | o'lcham):
 ${prods}
@@ -221,7 +222,7 @@ async function aiReply(u, chat, text) {
     }
     if (/\[\[dizayn\]\]/.test(out)) rows.push([{ text: t(u).ai_custom, callback_data: 'custom' }]);
     if (/\[\[lazer\]\]/.test(out) && LASER.enabled) rows.push([{ text: t(u).ai_laser, callback_data: 'laser' }]);
-    const clean = out.replace(/\[\[[^\]]*\]\]/g, '').replace(/\*\*/g, '').replace(/[ \t]+\n/g, '\n').trim();
+    const clean = out.replace(/\[\[[^\]]*\]\]/g, '').replace(/\*\*/g, '').replace(/[ \t]+([,.;:!?)])/g, '$1').replace(/[ \t]{2,}/g, ' ').replace(/[ \t]+\n/g, '\n').trim();
     return send(chat, esc(clean || t(u).ai_fail), rows.length ? { reply_markup: ik(rows) } : {});
   } catch (e) {
     console.error('AI xatosi:', e.message);
