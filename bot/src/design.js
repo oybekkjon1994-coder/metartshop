@@ -86,6 +86,28 @@ function bridge(mask, w, h, bridgeR) {
   }
 }
 
+// Shakl ichida kuchli kontrast bo'lsa (masalan oq-qizil chiziqli logotip), faqat bitta rang sinfini
+// metall qilib qoldiramiz — aks holda logotip yaxlit dog' bo'lib qoladi. Qaysi sinf: shakl chetiga ko'proq tegadigani.
+function refineInner(fg, lum, w, h) {
+  const vals = []; for (let i = 0; i < w * h; i++) if (fg[i]) vals.push(lum[i]);
+  const n = vals.length; if (n < 500) return fg;
+  const t = otsu(vals);
+  let nA = 0, sA = 0, sB = 0;
+  for (const v of vals) { if (v < t) { nA++; sA += v; } else sB += v; }
+  const nB = n - nA; if (Math.min(nA, nB) < n * 0.12) return fg;
+  if (Math.abs(sA / Math.max(1, nA) - sB / Math.max(1, nB)) < 70) return fg;
+  let edgeA = 0, edgeB = 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = y * w + x; if (!fg[i]) continue;
+    const edge = x === 0 || y === 0 || x === w - 1 || y === h - 1 || !fg[i - 1] || !fg[i + 1] || !fg[i - w] || !fg[i + w];
+    if (edge) { if (lum[i] < t) edgeA++; else edgeB++; }
+  }
+  const keepDark = edgeA >= edgeB;
+  const out = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i++) out[i] = fg[i] && ((lum[i] < t) === keepDark) ? 1 : 0;
+  return out;
+}
+
 // ---------- 1. Siluet ----------
 async function makeShape(input) {
   const img = sharp(input, { failOn: 'none' }).rotate();
@@ -100,8 +122,9 @@ async function makeShape(input) {
       for (let i = 0; i < w * h; i++) fg[i] = data[i] >= 128 ? 1 : 0;
     }
   }
+  const g = await base.clone().flatten({ background: '#ffffff' }).greyscale().blur(0.8).raw().toBuffer({ resolveWithObject: true });
   if (!fg) {
-    const { data, info } = await base.flatten({ background: '#ffffff' }).greyscale().blur(0.8).raw().toBuffer({ resolveWithObject: true });
+    const { data, info } = g;
     w = info.width; h = info.height;
     const t = otsu(data);
     const dark = new Uint8Array(w * h); for (let i = 0; i < w * h; i++) dark[i] = data[i] < t ? 1 : 0;
@@ -111,6 +134,7 @@ async function makeShape(input) {
     const invert = borderDark / borderN > 0.5;
     fg = new Uint8Array(w * h); for (let i = 0; i < w * h; i++) fg[i] = invert ? 1 - dark[i] : dark[i];
   }
+  if (g.info.width === w && g.info.height === h) fg = refineInner(fg, g.data, w, h);
   // kvadrat maydonga markazlab joylash (chekka bilan)
   const S = Math.round(Math.max(w, h) * 1.12);
   const ox = Math.floor((S - w) / 2), oy = Math.floor((S - h) / 2);
