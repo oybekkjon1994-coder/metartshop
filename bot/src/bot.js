@@ -223,7 +223,9 @@ async function aiReply(u, chat, text) {
     if (/\[\[dizayn\]\]/.test(out)) rows.push([{ text: t(u).ai_custom, callback_data: 'custom' }]);
     if (/\[\[lazer\]\]/.test(out) && LASER.enabled) rows.push([{ text: t(u).ai_laser, callback_data: 'laser' }]);
     const clean = out.replace(/\[\[[^\]]*\]\]/g, '').replace(/\*\*/g, '').replace(/[ \t]+([,.;:!?)])/g, '$1').replace(/[ \t]{2,}/g, ' ').replace(/[ \t]+\n/g, '\n').trim();
-    return send(chat, esc(clean || t(u).ai_fail), rows.length ? { reply_markup: ik(rows) } : {});
+    // Mahsulot tavsiya qilingan bo'lsa, "ustamiz aytadi @..." keraksiz — olib tashlaymiz
+    const final = rows.length ? clean.replace(/\s*(Ustamiz aniq aytadi|Мастер (?:точно )?(?:скажет|подскажет))[^\n]*@\w+\.?/gi, '').trim() : clean;
+    return send(chat, esc(final || clean || t(u).ai_fail), rows.length ? { reply_markup: ik(rows) } : {});
   } catch (e) {
     console.error('AI xatosi:', e.message);
     return send(chat, t(u).ai_fail, { reply_markup: mainKb(u) });
