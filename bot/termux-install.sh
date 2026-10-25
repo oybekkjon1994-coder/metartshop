@@ -5,8 +5,11 @@
 set -e
 DIR="$HOME/metartshop"
 echo "== 1/4 Paketlar o'rnatilmoqda (bir necha daqiqa) =="
-yes | pkg update -y >/dev/null 2>&1 || true
-pkg install -y nodejs-lts git termux-api >/dev/null 2>&1 || pkg install -y nodejs-lts git
+# To'liq yangilash shart: aks holda node eski kutubxonalar bilan ishga tushmaydi (CANNOT LINK EXECUTABLE)
+export DEBIAN_FRONTEND=noninteractive
+yes | pkg upgrade -y -o Dpkg::Options::="--force-confnew" 2>&1 | tail -2 || true
+pkg install -y -o Dpkg::Options::="--force-confnew" nodejs-lts git termux-api 2>&1 | tail -2
+node -v || { echo "XATO: node ishlamadi. Skrinshot yuboring."; exit 1; }
 
 echo "== 2/4 Bot yuklab olinmoqda =="
 if [ -d "$DIR/.git" ]; then git -C "$DIR" pull -q; else git clone -q --depth 1 https://github.com/oybekkjon1994-coder/metartshop.git "$DIR"; fi
