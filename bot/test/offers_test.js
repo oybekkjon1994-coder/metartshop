@@ -23,6 +23,7 @@ const srv = http.createServer((req, res) => { let b = ''; req.on('data', c => b 
   res.end('{"ok":true,"result":{"message_id":1}}');
 }); });
 srv.listen(18081, () => {
-  const bot = spawn('node', [path.join(__dirname, '..', 'src', 'bot.js')], { env: { ...process.env, BOT_TOKEN: 'T:T', TG_API: 'http://127.0.0.1:18081', DATA_DIR: DATA, OFFERS_NOW: '1' }, stdio: 'inherit' });
-  setTimeout(() => { bot.kill(); srv.close(); console.log(log.join('\n')); const ids = log.map(l => +l.split('→ ')[1].split(':')[0]).sort().join(','); console.log('Kimga yuborildi:', ids); process.exit(ids === '1,2,3,4' ? 0 : 1); }, 5000);
+  const bot = spawn('node', [path.join(__dirname, '..', 'src', 'bot.js')], { env: { ...process.env, BOT_TOKEN: 'T:T', TG_API: 'http://127.0.0.1:18081', DATA_DIR: DATA, OFFERS_NOW: '1', HOLIDAY_TODAY: process.env.HOLIDAY_TODAY || '06-15' }, stdio: 'inherit' });
+  setTimeout(() => { bot.kill(); srv.close(); console.log(log.join('\n')); const ids = log.map(l => +l.split('→ ')[1].split(':')[0]).sort().join(','); console.log('Kimga yuborildi:', ids); if (process.env.HOLIDAY_TODAY) { const h = log.filter(l => /yaqinlashmoqda|Скоро/.test(l)).length; console.log('Bayram xabarlari:', h); process.exit(ids === '1,2,3,4,7,999' && h === 4 && /Bayram aksiyasi boshlandi/.test(log.join()) ? 0 : 1); }
+    process.exit(ids === '1,2,3,4' ? 0 : 1); }, 5000);
 });

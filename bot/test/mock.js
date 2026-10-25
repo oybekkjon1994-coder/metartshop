@@ -40,6 +40,10 @@ const script = [
   cb(ADMIN, 'st:M-0004:done'),
   cb(FRIEND, 'rate:M-0004:5'), msg(FRIEND, { photo: [{ file_id: 'rev1', width: 600, height: 800 }] }), cb(FRIEND, 'ig:M-0004:1'),
   msg(USER, { text: '🎁 Chegirma olish' }),
+  // 6: lazer kesish — DXF hisob (bonus chegirmasi ham qo'llanadi)
+  msg(USER, { text: '⚙️ Lazer kesish (DXF)' }),
+  msg(USER, { document: { file_id: 'dxf1', file_name: 'detal.dxf', file_size: 600, mime_type: 'application/dxf' } }),
+  cb(USER, 'lt:1'), cb(USER, 'lbuy'), cb(USER, 'qty:2'), msg(USER, { text: 'Ali' }), msg(USER, { text: '901234567' }), cb(USER, 'dlv:self'), cb(USER, 'ok'), cb(USER, 'paylater'),
   msg(USER, { text: '📦 Buyurtmalarim' }), msg(USER, { text: '🌐 Til' }), cb(USER, 'lang:ru'), msg(USER, { text: '🛍 Каталог' }), cb(USER, 'cat:soat'),
 ];
 const log = [];
@@ -48,7 +52,7 @@ let pending = null, step = 0, nfile = 0;
 const server = http.createServer((req, res) => {
   const chunks = []; req.on('data', c => chunks.push(c)); req.on('end', () => {
     const body = Buffer.concat(chunks);
-    if (req.url.startsWith('/file/')) { res.end(fs.readFileSync(path.join(__dirname, req.url.includes('hard') ? 'photo_hard.jpg' : 'logo_white.jpg'))); return; }
+    if (req.url.startsWith('/file/')) { res.end(fs.readFileSync(path.join(__dirname, req.url.includes('hard') ? 'photo_hard.jpg' : req.url.includes('dxf') ? 'sample.dxf' : 'logo_white.jpg'))); return; }
     const method = req.url.split('/').pop();
     let params = {};
     const ct = req.headers['content-type'] || '';
@@ -70,7 +74,7 @@ const server = http.createServer((req, res) => {
       return setTimeout(() => reply([u]), 30);
     }
     if (method === 'getMe') return reply({ id: 1, username: 'metartshop_test_bot' });
-    if (method === 'getFile') return reply({ file_path: 'photos/' + (params.file_id === 'hard' ? 'hard' : 'x') + '.jpg' });
+    if (method === 'getFile') return reply({ file_path: 'files/' + params.file_id });
     if (/^send|^edit/.test(method)) {
       const kb = params.reply_markup ? (typeof params.reply_markup === 'string' ? JSON.parse(params.reply_markup) : params.reply_markup) : null;
       const btns = kb && kb.inline_keyboard ? ' [' + kb.inline_keyboard.flat().map(b => b.text).join(' | ') + ']' : kb && kb.keyboard ? ' {' + kb.keyboard.flat().map(b => b.text || b).join(' | ') + '}' : '';
@@ -114,6 +118,11 @@ function finish(err) {
     ['baho so\'raldi', /→ 333: 🎉 <b>M-0004<\/b> buyurtmangiz topshirildi.*\[1⭐/],
     ['adminga baho keldi', /→ 999: ⭐ <b>M-0004<\/b> — baho/],
     ['instagram ruxsati adminga', /→ 999: 📸 M-0004 — Instagram'da ko'rsatishga ruxsat: ✅ BOR/],
+    ['lazer narxlari ko\'rsatildi', /→ 111: ⚙️ <b>Lazer kesish xizmati<\/b>.*3–4 mm — 5 000 so'm/],
+    ['DXF o\'lchami va uzunligi', /→ 111: 📐 Chizma: <b>300×150 mm<\/b>, kesish uzunligi <b>0.62 m/],
+    ['lazer hisobi', /Kesish: 0.62 m × 5 000 so'm = <b>3 100 so'm<\/b>/],
+    ['lazer buyurtmasi adminga', /Yangi buyurtma M-0005<\/b>.*📐 300×150 mm · 0.62 m · 3–4 mm.*Chegirma: 10%.*Jami: <b>5 580 so'm/],
+    ['DXF fayl adminga', /sendDocument → 999: M-0005 — detal.dxf/],
     ['taklif havolasi va bonus', /→ 111: 🎁 <b>Do'stingizni taklif qiling.*start=r111.*1 ta chegirma bor/],
     ['til tanlamagan mijoz menyu tugmasidan davom etdi', /→ 222: (?!Tilni)/],
   ];

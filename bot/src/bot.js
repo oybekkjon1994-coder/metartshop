@@ -5,6 +5,7 @@ const path = require('path');
 const TG = require('./tg');
 const Store = require('./store');
 const design = require('./design');
+const dxfcalc = require('./dxfcalc');
 const { T, COLOR_NAMES } = require('./i18n');
 
 const ROOT = path.join(__dirname, '..');
@@ -19,6 +20,8 @@ if (!TOKEN || TOKEN.includes('SHU_YERGA')) {
 const tg = new TG(TOKEN, process.env.TG_API || 'https://api.telegram.org');
 const db = new Store(process.env.DATA_DIR || path.join(ROOT, 'data'));
 const REF = Object.assign({ enabled: true, percent: 10 }, CFG.referral || {});
+const LASER = Object.assign({ enabled: true, rates: [], sheet_mm: [1250, 2500] }, CFG.laser || {});
+const HOL = Object.assign({ enabled: true, days_before: 7, list: [] }, CFG.holidays || {});
 const PAY = Object.assign({ prepay_percent: 50 }, CFG.payment || {});
 let BOT_NAME = '';
 const designs = new Map(); // userId -> { shape, original } (oxirgi 30 tasi xotirada)
@@ -64,7 +67,7 @@ const cname = (c, l) => (l === 'ru' && c.ru) || c.uz || c.id;
 // ---------- klaviaturalar ----------
 const t = u => T[u.lang || 'uz'];
 const mainKb = u => ({
-  keyboard: [[t(u).m_catalog, t(u).m_custom], [t(u).m_clubs, t(u).m_orders], ...(REF.enabled ? [[t(u).m_invite]] : []), [t(u).m_contact, t(u).m_lang]],
+  keyboard: [[t(u).m_catalog, t(u).m_custom], [t(u).m_clubs, t(u).m_orders], ...(REF.enabled || LASER.enabled ? [[...(LASER.enabled ? [t(u).m_laser] : []), ...(REF.enabled ? [t(u).m_invite] : [])]] : []), [t(u).m_contact, t(u).m_lang]],
   resize_keyboard: true, is_persistent: true,
 });
 const ik = rows => ({ inline_keyboard: rows });
@@ -127,11 +130,14 @@ async function handleUpdate(up) {
   if (is('m_contact')) { const c = await getCatalog(); return send(chat, u.lang === 'ru' ? T.ru.contact(c.shop || {}) : T.uz.contact(c.shop || {})); }
   if (is('m_lang')) return askLang(chat);
   if (REF.enabled && is('m_invite')) return showInvite(u, chat);
+  if (LASER.enabled && is('m_laser')) { u.s = { flow: 'laser', step: 'laser_file' }; return send(chat, laserIntro(u), { reply_markup: mainKb(u) }); }
 
   const s = u.s || (u.s = {});
   // rasm qabul qilish (o'z dizaynim)
   const photo = m.photo ? m.photo[m.photo.length - 1] : (m.document && /^image\//.test(m.document.mime_type || '') ? m.document : null);
   if (photo && s.step === 'review') return reviewPhoto(u, chat, photo.file_id);
+  // DXF chizma — istalgan paytda lazer kesish hisobiga
+  if (LASER.enabled && m.document && /\.dxf$/i.test(m.document.file_name || '') && s.step !== 'receipt') return handleDxf(u, chat, m.document);
   if (s.step === 'receipt' && (photo || m.document)) return gotReceipt(u, chat, photo ? photo.file_id : m.document.file_id, s.oid, !photo || !!m.document);
   if (photo) {
     if (s.flow !== 'custom') u.s = { flow: 'custom', step: 'await_image' };
@@ -150,6 +156,7 @@ async function handleUpdate(up) {
     case 'phone': return gotPhone(u, chat, text);
     case 'address': if (text.length < 3) return send(chat, t(u).ask_address); s.address = text.slice(0, 200); return showSummary(u, chat);
     case 'await_image': return send(chat, t(u).custom_intro);
+    case 'laser_file': return send(chat, laserIntro(u));
     case 'manual_phone': return manualPhone(u, chat, text);
     case 'manual_change': return manualChange(u, chat, text);
     case 'review': return reviewText(u, chat, text);
@@ -280,6 +287,7 @@ function orderLines(l, o) {
   const L = T[l]; const lines = [];
   lines.push(`🛍 ${L.f_product}: <b>${esc(l === 'uz' ? o.title : (o.titleL || o.title))}</b>`);
   if (o.size) lines.push(`📏 ${L.f_size}: ${o.size} sm`);
+  if (o.meters) lines.push(`📐 ${o.dimsL || ''} · ${o.meters} m · ${esc(o.tier || '')}`);
   if (o.color) lines.push(`🎨 ${L.f_color}: ${COLOR_NAMES[l][o.color] || o.color}`);
   lines.push(`🔢 ${L.f_qty}: ${o.qty}`);
   if (o.discount && o.price > 0) lines.push(`🎁 ${L.f_discount}: ${o.discount}% (−${money(o.price * o.qty - orderTotal(o), l)})`);
@@ -306,6 +314,7 @@ async function placeOrder(u, chat) {
     flow: s.flow, pid: s.pid, title: s.title, titleL: s.titleL || s.title, color: s.color, size: s.size, qty: s.qty || 1, price: s.price || 0,
     name: s.name, phone: s.phone, delivery: s.delivery, address: s.address || '', ref: u.ref || '',
   };
+  if (s.flow === 'laser') Object.assign(o, { meters: s.meters, dimsL: `${s.w}×${s.h} mm`, tier: s.tier, dxfFile: s.fileId, dxfName: s.fname });
   o.discount = discountFor(u);
   if (o.discount) {
     o.discountType = u.refBy && !db.orders.some(x => x.userId === u.id && x.status !== 'canceled') ? 'friend' : 'bonus';
@@ -331,6 +340,7 @@ async function placeOrder(u, chat) {
       ];
     }
   }
+  if (s.flow === 'laser' && s.fileId) files = [['sendDocument', { document: s.fileId, caption: `${id} — ${s.fname}` }]];
   if (s.flow === 'manual' && s.designPhoto) { o.designPhoto = s.designPhoto; files = [['sendPhoto', { photo: s.designPhoto, caption: `${id} — dizayn` }]]; }
   o.img = s.img || ''; o.tgName = u.name; o.notified = false;
   db.orders.push(o); u.s = {}; db.saveNow();
@@ -361,6 +371,7 @@ function filesFromDisk(o) {
   if (dxf) f.push(['sendDocument', { document: TG.file(dxf, `${o.id}-${o.size}sm.dxf`, 'application/dxf'), caption: `DXF: ${o.dims}, kesish ≈ ${o.cutM} m` }]);
   if (orig) f.push(['sendDocument', { document: TG.file(orig, path.basename(o.original)) }]);
   if (o.designPhoto) f.push(['sendPhoto', { photo: o.designPhoto, caption: `${o.id} — dizayn` }]);
+  if (o.dxfFile) f.push(['sendDocument', { document: o.dxfFile, caption: `${o.id} — ${o.dxfName || 'DXF'}` }]);
   return f;
 }
 async function retryNotifications() {
@@ -430,6 +441,36 @@ async function manualChange(u, chat, text) {
   const who = `<a href="tg://user?id=${u.id}">${esc(u.name || 'Mijoz')}</a>${u.username ? ' @' + esc(u.username) : ''}`;
   await toAdmins(async a => { const r = await send(a, `✏️ <b>Dizaynga tuzatish</b> — ${who}\n\n${esc(text.slice(0, 800))}\n\n👉 Yangi dizaynni shu xabarga javob qilib yuboring.`); rememberReq(a, r.message_id, u.id); });
   return send(chat, t(u).manual_change_sent, { reply_markup: mainKb(u) });
+}
+
+// ---------- lazer kesish (DXF) ----------
+function laserIntro(u) {
+  const rates = LASER.rates.map(r => `• ${r.label} — ${money(r.rate, u.lang)}`).join('\n');
+  return t(u).laser_intro(rates, LASER.sheet_mm.join('×'));
+}
+async function handleDxf(u, chat, doc) {
+  const wait = await send(chat, t(u).laser_wait);
+  try {
+    if ((doc.file_size || 0) > 19 * 1024 * 1024) throw new Error('BIG');
+    const buf = await tg.download(doc.file_id);
+    const r = dxfcalc.analyze(buf.toString('latin1'));
+    if (!(r.meters > 0)) throw new Error('ZERO');
+    const meters = +r.meters.toFixed(2);
+    u.s = { flow: 'laser', step: 'laser_thick', fileId: doc.file_id, fname: String(doc.file_name || 'chizma.dxf').slice(0, 60), meters, w: r.widthMm, h: r.heightMm };
+    await send(chat, t(u).laser_thick(meters, r.widthMm, r.heightMm), { reply_markup: ik(chunk(LASER.rates.map((x, i) => ({ text: x.label, callback_data: 'lt:' + i })), 2)) });
+  } catch (e) {
+    console.error('DXF xatosi:', e.message);
+    u.s = { flow: 'laser', step: 'laser_file' };
+    await send(chat, t(u).laser_bad);
+  } finally { tg.call('deleteMessage', { chat_id: chat, message_id: wait.message_id }).catch(() => {}); }
+}
+async function laserQuote(u, chat, idx) {
+  const s = u.s; const tier = LASER.rates[idx]; if (!tier || s.flow !== 'laser' || !s.meters) return;
+  const piece = Math.max(1000, Math.round(s.meters * tier.rate / 100) * 100);
+  const [W, Hh] = LASER.sheet_mm; const fits = (s.w <= W && s.h <= Hh) || (s.w <= Hh && s.h <= W);
+  Object.assign(s, { step: 'laser_quote', tier: tier.label, price: piece, title: T.uz.laser_name(s.fname, tier.label), titleL: t(u).laser_name(s.fname, tier.label) });
+  return send(chat, t(u).laser_quote(s.meters, esc(tier.label), money(tier.rate, u.lang), money(piece, u.lang), !fits), {
+    reply_markup: ik([[{ text: t(u).buy, callback_data: 'lbuy' }], [{ text: t(u).laser_other, callback_data: 'lre' }]]) });
 }
 
 // ---------- do'stni taklif qilish ----------
@@ -613,6 +654,10 @@ async function onCallback(q) {
       }
       case 'mchg': u.s = { flow: 'mchange', step: 'manual_change' }; await send(chat, t(u).manual_change); break;
       case 'rate': await onRate(u, chat, a, +b); break;
+      case 'lt': await laserQuote(u, chat, +a); break;
+      case 'lre': if (s.flow === 'laser' && s.meters) { s.step = 'laser_thick'; await send(chat, t(u).laser_thick(s.meters, s.w, s.h), { reply_markup: ik(chunk(LASER.rates.map((x, i) => ({ text: x.label, callback_data: 'lt:' + i })), 2)) }); } break;
+      case 'lbuy': if (s.flow === 'laser' && s.step === 'laser_quote') await askQty(u, chat); break;
+      case 'gift': u.s = {}; await showCats(u, chat); break;
       case 'rskip': u.s = {}; await send(chat, t(u).review_thanks, { reply_markup: mainKb(u) }); break;
       case 'ig': await onIg(u, chat, a, b === '1'); break;
       case 'paylater': u.s = {}; await send(chat, t(u).pay_later_ok, { reply_markup: mainKb(u) }); break;
@@ -722,6 +767,8 @@ async function resume(u, chat) {
     case 'delivery': return gotPhone(u, chat, s.phone || u.lastPhone || '');
     case 'address': return send(chat, t(u).ask_address);
     case 'confirm': return showSummary(u, chat);
+    case 'laser_thick': case 'laser_quote': return send(chat, t(u).laser_thick(s.meters, s.w, s.h), { reply_markup: ik(chunk(LASER.rates.map((x, i) => ({ text: x.label, callback_data: 'lt:' + i })), 2)) });
+    case 'laser_file': return send(chat, laserIntro(u));
     default: return send(chat, t(u).custom_intro);
   }
 }
@@ -735,11 +782,29 @@ function pickWeekly(u, c) {
   return list[0];
 }
 
+// Yaqinlashayotgan bayram (Toshkent sanasi bo'yicha): days_before kun ichida, bayramdan 1 kun oldingacha
+function activeHoliday(now) {
+  if (!HOL.enabled || !HOL.list.length) return null;
+  const tz = new Date(now + 5 * H);
+  let y = tz.getUTCFullYear(), mo = tz.getUTCMonth() + 1, d = tz.getUTCDate();
+  if (process.env.HOLIDAY_TODAY) [mo, d] = process.env.HOLIDAY_TODAY.split('-').map(Number);
+  const today = Date.UTC(y, mo - 1, d);
+  for (const h of HOL.list) {
+    const [hm, hd] = h.date.split('-').map(Number);
+    for (const yy of [y, y + 1]) {
+      const days = Math.round((Date.UTC(yy, hm - 1, hd) - today) / D);
+      if (days >= 1 && days <= HOL.days_before) return { ...h, days, key: `${h.id}-${yy}` };
+    }
+  }
+  return null;
+}
+
 async function offersTick() {
   if (!OFF.enabled) return;
   const hour = new Date(Date.now() + 5 * H).getUTCHours(); // Toshkent vaqti
   if (!process.env.OFFERS_NOW && (hour < OFF.from_hour || hour >= OFF.to_hour)) return;
-  const now = Date.now(); let sent = 0; const c = await getCatalog();
+  const now = Date.now(); let sent = 0, holSent = 0; const c = await getCatalog();
+  const hol = activeHoliday(now);
   for (const u of Object.values(db.users)) {
     if (sent >= OFF.max_per_tick) break;
     if (!u.lang || u.optOut || u.blocked || isAdmin(u.id)) continue;
@@ -747,12 +812,18 @@ async function offersTick() {
     try {
       const s = u.s || {};
       // 1) yarim qolgan buyurtma
-      if (['custom', 'product', 'manual'].includes(s.flow) && s.step && s.step !== 'await_image' && s.step !== 'manual_phone' && u.sAt && now - u.sAt > OFF.abandon_hours * H && now - u.sAt < 3 * D && (u.remindedAt || 0) < u.sAt) {
+      if (['custom', 'product', 'manual', 'laser'].includes(s.flow) && s.step && !['await_image', 'manual_phone', 'laser_file'].includes(s.step) && u.sAt && now - u.sAt > OFF.abandon_hours * H && now - u.sAt < 3 * D && (u.remindedAt || 0) < u.sAt) {
         u.remindedAt = now; sent++;
         await send(u.id, s.flow === 'custom' ? t(u).remind_custom : t(u).remind, { reply_markup: ik([[{ text: t(u).resume_btn, callback_data: 'resume' }], [{ text: t(u).cancel, callback_data: 'no' }, stopBtn(u)]]) });
         continue;
       }
-      // 2) ko'rib ketgan, lekin buyurtma bermagan
+      // 2) bayram oldidan sovg'a taklifi (har bayramga bir marta)
+      if (hol && u.hol !== hol.key) {
+        u.hol = hol.key; u.lastPromo = now; sent++; holSent++;
+        await send(u.id, t(u).holiday_offer(esc(hol[u.lang] || hol.uz), hol.days), { reply_markup: ik([[{ text: t(u).gift_btn, callback_data: 'gift' }], [{ text: t(u).m_custom, callback_data: 'custom' }], [stopBtn(u)]]) });
+        continue;
+      }
+      // 3) ko'rib ketgan, lekin buyurtma bermagan
       const v = u.viewed;
       if (v && !v.offered && now - v.at > OFF.viewed_hours * H && now - v.at < 7 * D && !(u.ordered > v.at)) {
         const p = c.products.find(x => x.id === v.pid);
@@ -783,6 +854,11 @@ async function offersTick() {
       if (e.code === 403) u.blocked = true; else console.error('Taklif yuborilmadi:', e.message);
     }
     await new Promise(r => setTimeout(r, 120));
+  }
+  if (holSent) {
+    const st = db.state.holStat || (db.state.holStat = {});
+    if (!st[hol.key]) { st[hol.key] = 0; await toAdmins(a => send(a, `🎁 Bayram aksiyasi boshlandi: <b>${esc(hol.uz)}</b> — mijozlarga sovg'a taklifi yuborilmoqda.`)); }
+    st[hol.key] += holSent;
   }
   if (sent) { console.log(`Avtomatik takliflar: ${sent} ta yuborildi`); db.save(); }
 }

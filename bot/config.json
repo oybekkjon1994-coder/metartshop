@@ -46,5 +46,72 @@
  },
  "payment": {
   "prepay_percent": 100
+ },
+ "laser": {
+  "enabled": true,
+  "rates": [
+   {
+    "label": "1–2 mm",
+    "rate": 3500
+   },
+   {
+    "label": "3–4 mm",
+    "rate": 5000
+   },
+   {
+    "label": "5–6 mm",
+    "rate": 8000
+   },
+   {
+    "label": "8–10 mm",
+    "rate": 15000
+   }
+  ],
+  "sheet_mm": [
+   1250,
+   2500
+  ]
+ },
+ "holidays": {
+  "enabled": true,
+  "days_before": 7,
+  "list": [
+   {
+    "id": "vatan",
+    "date": "01-14",
+    "uz": "Vatan himoyachilari kuni",
+    "ru": "День защитников Родины"
+   },
+   {
+    "id": "14fev",
+    "date": "02-14",
+    "uz": "14-fevral — Sevishganlar kuni",
+    "ru": "14 февраля — День влюблённых"
+   },
+   {
+    "id": "8mart",
+    "date": "03-08",
+    "uz": "8-mart — Xotin-qizlar bayrami",
+    "ru": "8 Марта"
+   },
+   {
+    "id": "navruz",
+    "date": "03-21",
+    "uz": "Navro'z bayrami",
+    "ru": "Навруз"
+   },
+   {
+    "id": "ustoz",
+    "date": "10-01",
+    "uz": "Ustoz va murabbiylar kuni",
+    "ru": "День учителя"
+   },
+   {
+    "id": "yangiyil",
+    "date": "12-31",
+    "uz": "Yangi yil",
+    "ru": "Новый год"
+   }
+  ]
  }
 }

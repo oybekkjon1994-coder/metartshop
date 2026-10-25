@@ -16,6 +16,9 @@ jobs:
       - run: node test/design_test.js
       - run: node test/mock.js
       - run: node test/offers_test.js
+      - run: node test/dxfcalc_test.js
+      - run: node test/offers_test.js
+        env: { HOLIDAY_TODAY: '12-26' }
   wasm:
     # Android/Termux sharoiti: rasm kutubxonasining WebAssembly versiyasi
     runs-on: ubuntu-24.04-arm
