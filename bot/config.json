@@ -39,5 +39,12 @@
   "weekly_days": 7,
   "repeat_days": 30,
   "max_per_tick": 25
+ },
+ "referral": {
+  "enabled": true,
+  "percent": 10
+ },
+ "payment": {
+  "prepay_percent": 50
  }
 }

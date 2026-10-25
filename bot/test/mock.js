@@ -8,6 +8,8 @@ const OUT = path.join(__dirname, 'mock_out'); fs.rmSync(OUT, { recursive: true, 
 const DATA = path.join(__dirname, 'data'); fs.rmSync(DATA, { recursive: true, force: true });
 const USER = { id: 111, first_name: 'Ali', username: 'ali_test' };
 const NEW = { id: 222, first_name: 'Vali' };
+const FRIEND = { id: 333, first_name: 'Do\'st' };
+let lastReq = 0, lastMbuy = '';
 const ADMIN = { id: 999, first_name: 'Usta' };
 let uid = 0, mid = 100;
 const msg = (from, extra) => ({ update_id: ++uid, message: { message_id: ++mid, from, chat: { id: from.id, type: 'private' }, date: 0, ...extra } });
@@ -24,6 +26,20 @@ const script = [
   msg(USER, { text: 'Ali Valiyev' }), msg(USER, { text: '90 123 45 67' }), cb(USER, 'dlv:reg'), msg(USER, { text: 'Samarqand, Registon 1' }), cb(USER, 'ok'),
   cb(ADMIN, 'st:M-0002:accepted'), msg(ADMIN, { text: '/statistika' }), msg(ADMIN, { text: '/buyurtmalar' }),
   msg(USER, { photo: [{ file_id: 'hard', width: 600, height: 600 }] }), msg(USER, { text: '90 777 66 55' }),
+  // 7: karta va oldindan to'lov; 2: admin qo'lda dizaynni javob qilib yuboradi
+  msg(ADMIN, { text: '/karta 8600 1234 5678 9012 Usta Ustayev' }),
+  () => msg(ADMIN, { photo: [{ file_id: 'design1', width: 800, height: 800 }], caption: 'Narxi 40 sm — 150 000', reply_to_message: { message_id: lastReq } }),
+  () => cb(USER, lastMbuy), cb(USER, 'sz:40'), cb(USER, 'col:kumush'), cb(USER, 'cnext'), cb(USER, 'qty:1'),
+  msg(USER, { text: 'Ali' }), msg(USER, { text: '901234567' }), cb(USER, 'dlv:self'), cb(USER, 'ok'),
+  msg(USER, { photo: [{ file_id: 'chek1', width: 500, height: 900 }] }),
+  cb(ADMIN, 'pay:M-0003:ok'),
+  // 5: do'st havolasi; 6: baho va rasm
+  msg(FRIEND, { text: '/start r111' }), cb(FRIEND, 'lang:uz'),
+  cb(FRIEND, 'buy:barselona-soat'), cb(FRIEND, 'col:qora'), cb(FRIEND, 'qty:1'),
+  msg(FRIEND, { text: 'Doston' }), msg(FRIEND, { text: '901112233' }), cb(FRIEND, 'dlv:self'), cb(FRIEND, 'ok'), cb(FRIEND, 'paylater'),
+  cb(ADMIN, 'st:M-0004:done'),
+  cb(FRIEND, 'rate:M-0004:5'), msg(FRIEND, { photo: [{ file_id: 'rev1', width: 600, height: 800 }] }), cb(FRIEND, 'ig:M-0004:1'),
+  msg(USER, { text: '🎁 Chegirma olish' }),
   msg(USER, { text: '📦 Buyurtmalarim' }), msg(USER, { text: '🌐 Til' }), cb(USER, 'lang:ru'), msg(USER, { text: '🛍 Каталог' }), cb(USER, 'cat:soat'),
 ];
 const log = [];
@@ -49,7 +65,7 @@ const server = http.createServer((req, res) => {
     const reply = r => res.end(JSON.stringify({ ok: true, result: r }));
     if (method === 'getUpdates') {
       if (step >= script.length) { if (!global.fin) { global.fin = 1; setTimeout(finish, 800); } return setTimeout(() => reply([]), 500); }
-      const u = script[step++];
+      let u = script[step++]; if (typeof u === 'function') u = u();
       log.push('\n>>> ' + (u.message ? 'MSG ' + u.message.from.id + ': ' + (u.message.text || (u.message.photo ? '[rasm]' : '[kontakt]')) : 'TUGMA ' + u.callback_query.from.id + ': ' + u.callback_query.data));
       return setTimeout(() => reply([u]), 30);
     }
@@ -58,7 +74,9 @@ const server = http.createServer((req, res) => {
     if (/^send|^edit/.test(method)) {
       const kb = params.reply_markup ? (typeof params.reply_markup === 'string' ? JSON.parse(params.reply_markup) : params.reply_markup) : null;
       const btns = kb && kb.inline_keyboard ? ' [' + kb.inline_keyboard.flat().map(b => b.text).join(' | ') + ']' : kb && kb.keyboard ? ' {' + kb.keyboard.flat().map(b => b.text || b).join(' | ') + '}' : '';
-      log.push(`<<< ${method} → ${params.chat_id}: ${String(params.text || params.caption || params.photo || params.document || '').replace(/\n/g, ' ¶ ').slice(0, 260)}${btns}`);
+      if (method === 'sendPhoto' && String(params.chat_id) === '999' && /Qo'lda dizayn so'rovi/.test(params.caption || '')) lastReq = mid + 1;
+      const mb = kb && kb.inline_keyboard && kb.inline_keyboard.flat().find(b => /^mbuy:/.test(b.callback_data || '')); if (mb) lastMbuy = mb.callback_data;
+      log.push(`<<< ${method} → ${params.chat_id}: ${String(params.text || params.caption || params.photo || params.document || '').replace(/\n/g, ' ¶ ').slice(0, 700)}${btns}`);
       return reply({ message_id: ++mid, chat: { id: params.chat_id } });
     }
     reply(true);
@@ -82,6 +100,21 @@ function finish(err) {
     ['murakkab rasm adminga qo\'lda chizish uchun bordi', /sendPhoto → 999: 🖼 <b>Qo'lda dizayn so'rovi/],
     ['mijozdan telefon olindi', /→ 999: 📞 <b>Qo'lda dizayn<\/b>.*\+998907776655/],
     ['mijozga qo\'lda chizish xabari', /→ 111: 🖼 Rasmingiz qabul qilindi/],
+    ['karta saqlandi', /→ 999: ✅ Karta saqlandi: <code>8600 1234 5678 9012/],
+    ['admin dizayni mijozga yetdi', /sendPhoto → 111: 🎨 <b>Dizayningiz tayyor!/],
+    ['adminga yetkazildi tasdig\'i', /→ 999: ✅ Dizayn mijozga yuborildi/],
+    ['qo\'lda dizayn buyurtmasi M-0003', /🆕 <b>Yangi buyurtma M-0003<\/b>/],
+    ['adminga dizayn rasmi buyurtma bilan', /sendPhoto → 999: M-0003 — dizayn/],
+    ['oldindan to\'lov 50% = 75 000', /→ 111: 💳 <b>To'lov<\/b> \(M-0003\).*75 000 so'm.*8600 1234 5678 9012/],
+    ['chek adminga tugmalar bilan', /sendPhoto → 999: 💳 <b>To'lov cheki — M-0003.*\[✅ Pul tushdi \| ❌ Topilmadi\]/],
+    ['to\'lov tasdiqlandi mijozga', /→ 111: ✅ <b>M-0003<\/b> buyurtmangiz uchun to'lov tasdiqlandi/],
+    ['do\'st chegirmasi xabari', /→ 333: 🎁 Siz do'stingiz taklifi bilan keldingiz/],
+    ['do\'st buyurtmasida 10% chegirma', /→ 333: Buyurtmangizni tekshiring:.*Chegirma: 10% \(−15 000 so'm\).*Jami: <b>135 000 so'm/],
+    ['taklif qilganga bonus', /→ 111: 🎉 Siz taklif qilgan do'stingiz/],
+    ['baho so\'raldi', /→ 333: 🎉 <b>M-0004<\/b> buyurtmangiz topshirildi.*\[1⭐/],
+    ['adminga baho keldi', /→ 999: ⭐ <b>M-0004<\/b> — baho/],
+    ['instagram ruxsati adminga', /→ 999: 📸 M-0004 — Instagram'da ko'rsatishga ruxsat: ✅ BOR/],
+    ['taklif havolasi va bonus', /→ 111: 🎁 <b>Do'stingizni taklif qiling.*start=r111.*1 ta chegirma bor/],
     ['til tanlamagan mijoz menyu tugmasidan davom etdi', /→ 222: (?!Tilni)/],
   ];
   for (const [name, re] of must) if (!re.test(all)) fails.push(name);

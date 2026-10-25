@@ -18,6 +18,9 @@ if (!TOKEN || TOKEN.includes('SHU_YERGA')) {
 }
 const tg = new TG(TOKEN, process.env.TG_API || 'https://api.telegram.org');
 const db = new Store(process.env.DATA_DIR || path.join(ROOT, 'data'));
+const REF = Object.assign({ enabled: true, percent: 10 }, CFG.referral || {});
+const PAY = Object.assign({ prepay_percent: 50 }, CFG.payment || {});
+let BOT_NAME = '';
 const designs = new Map(); // userId -> { shape, original } (oxirgi 30 tasi xotirada)
 function keepDesign(id, d) { designs.delete(id); designs.set(id, d); while (designs.size > 30) designs.delete(designs.keys().next().value); }
 
@@ -61,7 +64,7 @@ const cname = (c, l) => (l === 'ru' && c.ru) || c.uz || c.id;
 // ---------- klaviaturalar ----------
 const t = u => T[u.lang || 'uz'];
 const mainKb = u => ({
-  keyboard: [[t(u).m_catalog, t(u).m_custom], [t(u).m_clubs, t(u).m_orders], [t(u).m_contact, t(u).m_lang]],
+  keyboard: [[t(u).m_catalog, t(u).m_custom], [t(u).m_clubs, t(u).m_orders], ...(REF.enabled ? [[t(u).m_invite]] : []), [t(u).m_contact, t(u).m_lang]],
   resize_keyboard: true, is_persistent: true,
 });
 const ik = rows => ({ inline_keyboard: rows });
@@ -92,6 +95,8 @@ async function handleUpdate(up) {
   const u = db.user(m.from); db.save();
   const chat = m.chat.id, text = (m.text || '').trim();
   if (m.photo && /^\/xabar/.test(m.caption || '') && isAdmin(u.id)) { adminBroadcastPhoto(chat, m).catch(e => console.error('Xabar xatosi:', e.message)); return; }
+  // Admin qo'lda dizayn so'roviga javob (reply) qildi: dizaynni mijozga yetkazamiz
+  if (isAdmin(u.id) && m.reply_to_message && (db.state.mreq || {})[`${chat}:${m.reply_to_message.message_id}`]) return adminManualReply(u, chat, m);
 
   if (text.startsWith('/')) {
     const [cmd, ...rest] = text.split(/\s+/); const arg = rest.join(' ');
@@ -102,6 +107,7 @@ async function handleUpdate(up) {
       if (cmd === '/statistika') return adminStats(chat);
       if (cmd === '/xabar') { adminBroadcast(chat, text.slice(cmd.length).trim(), m).catch(e => console.error('Xabar xatosi:', e.message)); return; }
       if (cmd === '/yordam') return adminHelp(chat);
+      if (cmd === '/karta') return adminCard(chat, arg);
     }
   }
   // menyu tugmalari (ikkala tilda)
@@ -120,10 +126,13 @@ async function handleUpdate(up) {
   if (is('m_orders')) return myOrders(u, chat);
   if (is('m_contact')) { const c = await getCatalog(); return send(chat, u.lang === 'ru' ? T.ru.contact(c.shop || {}) : T.uz.contact(c.shop || {})); }
   if (is('m_lang')) return askLang(chat);
+  if (REF.enabled && is('m_invite')) return showInvite(u, chat);
 
   const s = u.s || (u.s = {});
   // rasm qabul qilish (o'z dizaynim)
   const photo = m.photo ? m.photo[m.photo.length - 1] : (m.document && /^image\//.test(m.document.mime_type || '') ? m.document : null);
+  if (photo && s.step === 'review') return reviewPhoto(u, chat, photo.file_id);
+  if (s.step === 'receipt' && (photo || m.document)) return gotReceipt(u, chat, photo ? photo.file_id : m.document.file_id, s.oid, !photo || !!m.document);
   if (photo) {
     if (s.flow !== 'custom') u.s = { flow: 'custom', step: 'await_image' };
     return handleImage(u, chat, photo.file_id);
@@ -142,6 +151,9 @@ async function handleUpdate(up) {
     case 'address': if (text.length < 3) return send(chat, t(u).ask_address); s.address = text.slice(0, 200); return showSummary(u, chat);
     case 'await_image': return send(chat, t(u).custom_intro);
     case 'manual_phone': return manualPhone(u, chat, text);
+    case 'manual_change': return manualChange(u, chat, text);
+    case 'review': return reviewText(u, chat, text);
+    case 'receipt': { const o = db.orders.find(x => x.id === s.oid); if (o) return askPayment(u, chat, o); u.s = {}; break; }
   }
   return send(chat, t(u).use_menu, { reply_markup: mainKb(u) });
 }
@@ -151,9 +163,17 @@ async function askLang(chat) {
 }
 
 async function start(u, chat, payload) {
-  u.s = {}; if (payload) u.ref = u.ref || payload;
+  u.s = {};
+  if (payload && /^r\d+$/.test(payload)) {
+    // Do'st havolasi: faqat yangi (hali buyurtma bermagan) foydalanuvchiga, o'zini o'zi taklif qila olmaydi
+    const rid = +payload.slice(1);
+    if (REF.enabled && !u.refBy && rid !== u.id && db.users[String(rid)] && !db.orders.some(o => o.userId === u.id)) { u.refBy = rid; u.refPending = true; }
+    u.ref = u.ref || 'dost';
+    payload = '';
+  } else if (payload) u.ref = u.ref || payload;
   if (!u.lang) { u.pending = payload || ''; return askLang(chat); }
   await send(chat, t(u).welcome(esc(u.name || '')), { reply_markup: mainKb(u) });
+  if (u.refPending) { delete u.refPending; await send(chat, t(u).ref_welcome(REF.percent)); }
   return deepLink(u, chat, payload);
 }
 
@@ -248,13 +268,23 @@ function gotPhone(u, chat, raw) {
 }
 function dlvName(l, d) { return { tash: T[l].d_tash, reg: T[l].d_reg, self: T[l].d_self }[d] || d; }
 
+const orderTotal = o => Math.round((o.price || 0) * (o.qty || 1) * (100 - (o.discount || 0)) / 100);
+// Chegirma: do'st havolasi bilan kelgan birinchi buyurtma yoki taklif qilgani uchun bonus
+function discountFor(u) {
+  if (!REF.enabled) return 0;
+  if (u.refBy && !db.orders.some(o => o.userId === u.id && o.status !== 'canceled')) return REF.percent;
+  if ((u.refBonus || 0) > 0) return REF.percent;
+  return 0;
+}
 function orderLines(l, o) {
   const L = T[l]; const lines = [];
   lines.push(`🛍 ${L.f_product}: <b>${esc(l === 'uz' ? o.title : (o.titleL || o.title))}</b>`);
   if (o.size) lines.push(`📏 ${L.f_size}: ${o.size} sm`);
   if (o.color) lines.push(`🎨 ${L.f_color}: ${COLOR_NAMES[l][o.color] || o.color}`);
   lines.push(`🔢 ${L.f_qty}: ${o.qty}`);
-  lines.push(`💰 ${L.f_total}: <b>${o.price > 0 ? money(o.price * o.qty, l) : L.total_ask}</b>`);
+  if (o.discount && o.price > 0) lines.push(`🎁 ${L.f_discount}: ${o.discount}% (−${money(o.price * o.qty - orderTotal(o), l)})`);
+  else if (o.discount) lines.push(`🎁 ${L.f_discount}: ${o.discount}%`);
+  lines.push(`💰 ${L.f_total}: <b>${o.price > 0 ? money(orderTotal(o), l) : L.total_ask}</b>`);
   lines.push(`👤 ${L.f_name}: ${esc(o.name)}`);
   lines.push(`📱 ${L.f_phone}: ${esc(o.phone)}`);
   lines.push(`🚚 ${L.f_delivery}: ${dlvName(l, o.delivery)}`);
@@ -263,7 +293,7 @@ function orderLines(l, o) {
 }
 
 async function showSummary(u, chat) {
-  u.s.step = 'confirm';
+  u.s.step = 'confirm'; u.s.discount = discountFor(u);
   return send(chat, `${t(u).summary}\n\n${orderLines(u.lang, u.s)}`, {
     reply_markup: ik([[{ text: t(u).confirm, callback_data: 'ok' }, { text: t(u).cancel, callback_data: 'no' }]]),
   });
@@ -276,6 +306,12 @@ async function placeOrder(u, chat) {
     flow: s.flow, pid: s.pid, title: s.title, titleL: s.titleL || s.title, color: s.color, size: s.size, qty: s.qty || 1, price: s.price || 0,
     name: s.name, phone: s.phone, delivery: s.delivery, address: s.address || '', ref: u.ref || '',
   };
+  o.discount = discountFor(u);
+  if (o.discount) {
+    o.discountType = u.refBy && !db.orders.some(x => x.userId === u.id && x.status !== 'canceled') ? 'friend' : 'bonus';
+    if (o.discountType === 'bonus') u.refBonus = Math.max(0, (u.refBonus || 0) - 1);
+    if (o.discountType === 'friend') o.refBy = u.refBy;
+  }
   u.lastName = s.name; u.ordered = Date.now(); u.orderedPids = [...new Set([...(u.orderedPids || []), s.pid].filter(Boolean))]; u.viewed = null; u.sAt = 0;
   // o'z dizayni: DXF va rasmlarni saqlash
   let files = [];
@@ -295,10 +331,12 @@ async function placeOrder(u, chat) {
       ];
     }
   }
+  if (s.flow === 'manual' && s.designPhoto) { o.designPhoto = s.designPhoto; files = [['sendPhoto', { photo: s.designPhoto, caption: `${id} — dizayn` }]]; }
   o.img = s.img || ''; o.tgName = u.name; o.notified = false;
   db.orders.push(o); u.s = {}; db.saveNow();
   await send(chat, t(u).done(id), { reply_markup: mainKb(u) });
   await notifyAdmins(o, files);
+  await askPayment(u, chat, o);
 }
 
 // Adminga buyurtma xabari: avval matn (eng muhimi), keyin fayllar alohida-alohida.
@@ -306,7 +344,7 @@ async function placeOrder(u, chat) {
 async function notifyAdmins(o, files) {
   if (!db.state.admins.length) { console.log(`Yangi buyurtma ${o.id} (admin ulanmagan — /admin KOD yuboring)`); return; }
   const who = `${esc(o.tgName || '')}${o.username ? ' (@' + esc(o.username) + ')' : ''} · <a href="tg://user?id=${o.userId}">profil</a>`;
-  const text = `🆕 <b>Yangi buyurtma ${o.id}</b>\n\n${orderLines('uz', o)}${o.dims ? `\n📐 Chizma: ${o.dims}, kesish ≈ ${o.cutM} m${o.thin ? `\n⚠️ Ingichka joylar qalinlashtirildi (${o.thin}) — chizmani tekshiring` : ''}` : ''}\n\n👤 ${who}${o.ref ? `\n🔗 Manba: ${esc(o.ref)}` : ''}`;
+  const text = `🆕 <b>Yangi buyurtma ${o.id}</b>\n\n${orderLines('uz', o)}${o.dims ? `\n📐 Chizma: ${o.dims}, kesish ≈ ${o.cutM} m${o.thin ? `\n⚠️ Ingichka joylar qalinlashtirildi (${o.thin}) — chizmani tekshiring` : ''}` : ''}\n\n👤 ${who}${o.ref ? `\n🔗 Manba: ${esc(o.ref)}` : ''}${o.discountType === 'friend' ? `\n🎁 Do'st taklifi (taklif qilgan: <a href="tg://user?id=${o.refBy}">${o.refBy}</a>)` : ''}`;
   if (!files) files = filesFromDisk(o);
   let delivered = 0;
   for (const a of db.state.admins) {
@@ -322,6 +360,7 @@ function filesFromDisk(o) {
   if (prev) f.push(['sendPhoto', { photo: TG.file(prev, `${o.id}.jpg`, 'image/jpeg') }]);
   if (dxf) f.push(['sendDocument', { document: TG.file(dxf, `${o.id}-${o.size}sm.dxf`, 'application/dxf'), caption: `DXF: ${o.dims}, kesish ≈ ${o.cutM} m` }]);
   if (orig) f.push(['sendDocument', { document: TG.file(orig, path.basename(o.original)) }]);
+  if (o.designPhoto) f.push(['sendPhoto', { photo: o.designPhoto, caption: `${o.id} — dizayn` }]);
   return f;
 }
 async function retryNotifications() {
@@ -356,6 +395,123 @@ async function handleImage(u, chat, fileId) {
   }
 }
 
+function rememberReq(adminChat, msgId, userId) {
+  const m = db.state.mreq || (db.state.mreq = {});
+  m[`${adminChat}:${msgId}`] = { userId, at: Date.now() };
+  const keys = Object.keys(m); if (keys.length > 300) for (const k of keys.slice(0, keys.length - 300)) delete m[k];
+  db.save();
+}
+// Admin javobi: chizilgan dizayn rasmini mijozga buyurtma tugmasi bilan yuboramiz
+async function adminManualReply(admin, chat, m) {
+  const req = db.state.mreq[`${chat}:${m.reply_to_message.message_id}`];
+  const cu = db.users[String(req.userId)];
+  const ph = m.photo ? m.photo[m.photo.length - 1].file_id : (m.document && /^image\//.test(m.document.mime_type || '') ? m.document.file_id : null);
+  if (!cu) return send(chat, 'Mijoz topilmadi.');
+  if (!ph) {
+    if (m.text) { await send(cu.id, `💬 ${esc(m.text)}`).catch(() => {}); return send(chat, '✅ Matn mijozga yuborildi.'); }
+    return send(chat, 'Dizayn rasmini yuboring (javob qilib).');
+  }
+  const note = (m.caption || '').trim();
+  const L = T[cu.lang || 'uz'];
+  const rid = 'd' + Date.now().toString(36);
+  (cu.mdesigns || (cu.mdesigns = {}))[rid] = ph;
+  const ks = Object.keys(cu.mdesigns); if (ks.length > 10) delete cu.mdesigns[ks[0]];
+  try {
+    const r = await tg.call('sendPhoto', { chat_id: cu.id, photo: ph, caption: L.manual_ready(esc(note)), parse_mode: 'HTML',
+      reply_markup: ik([[{ text: L.manual_order_btn, callback_data: 'mbuy:' + rid }], [{ text: L.manual_change_btn, callback_data: 'mchg:' + rid }]]) });
+    rememberReq(chat, m.message_id, cu.id); // keyingi tuzatishlar uchun ham shu zanjir ishlaydi
+    db.save();
+    return send(chat, `✅ Dizayn mijozga yuborildi (${esc(cu.name || cu.id)}).`, { reply_to_message_id: m.message_id });
+  } catch (e) { return send(chat, '❌ Yuborilmadi: ' + esc(e.message)); }
+}
+async function manualChange(u, chat, text) {
+  if (text.length < 2) return send(chat, t(u).manual_change);
+  u.s = {};
+  const who = `<a href="tg://user?id=${u.id}">${esc(u.name || 'Mijoz')}</a>${u.username ? ' @' + esc(u.username) : ''}`;
+  await toAdmins(async a => { const r = await send(a, `✏️ <b>Dizaynga tuzatish</b> — ${who}\n\n${esc(text.slice(0, 800))}\n\n👉 Yangi dizaynni shu xabarga javob qilib yuboring.`); rememberReq(a, r.message_id, u.id); });
+  return send(chat, t(u).manual_change_sent, { reply_markup: mainKb(u) });
+}
+
+// ---------- do'stni taklif qilish ----------
+function showInvite(u, chat) {
+  const link = `https://t.me/${BOT_NAME}?start=r${u.id}`;
+  const share = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(t(u).invite_share_text)}`;
+  return send(chat, t(u).invite(link, REF.percent) + ((u.refBonus || 0) > 0 ? t(u).invite_bonus_have(u.refBonus) : ''), { reply_markup: ik([[{ text: t(u).invite_share, url: share }]]) });
+}
+
+// ---------- fikr va rasm (topshirilgandan keyin) ----------
+async function askRating(o) {
+  const L = T[o.lang || 'uz'];
+  await send(o.userId, L.rate_ask(o.id), { reply_markup: ik([[1, 2, 3, 4, 5].map(n => ({ text: `${n}⭐`, callback_data: `rate:${o.id}:${n}` }))]) });
+}
+async function onRate(u, chat, id, n) {
+  const o = db.orders.find(x => x.id === id && x.userId === u.id); if (!o || o.rating) return;
+  o.rating = Math.max(1, Math.min(5, n)); db.save();
+  const who = `<a href="tg://user?id=${u.id}">${esc(o.name || u.name || 'Mijoz')}</a>`;
+  await toAdmins(a => send(a, `${o.rating <= 3 ? '⚠️ ' : ''}⭐ <b>${o.id}</b> — baho: ${'⭐'.repeat(o.rating)} (${o.rating}/5) · ${who}${o.rating <= 3 ? '\nMijoz bilan bog\'laning!' : ''}`));
+  u.s = { flow: 'review', step: 'review', oid: o.id };
+  await send(chat, o.rating <= 3 ? t(u).review_low : t(u).review_ask, { reply_markup: ik([[{ text: t(u).skip, callback_data: 'rskip' }]]) });
+}
+async function reviewText(u, chat, text) {
+  const o = db.orders.find(x => x.id === u.s.oid); u.s = {};
+  if (o && text) { o.comment = text.slice(0, 1000); db.save(); await toAdmins(a => send(a, `💬 <b>${o.id}</b> fikri (${'⭐'.repeat(o.rating || 0)}):\n${esc(o.comment)}`)); }
+  await send(chat, t(u).review_thanks, { reply_markup: mainKb(u) });
+  if (REF.enabled && (o && o.rating >= 4)) return showInvite(u, chat);
+}
+async function reviewPhoto(u, chat, fileId) {
+  const o = db.orders.find(x => x.id === u.s.oid);
+  u.s = {};
+  if (!o) return send(chat, t(u).review_thanks, { reply_markup: mainKb(u) });
+  (o.reviewPhotos || (o.reviewPhotos = [])).push(fileId); db.save();
+  await toAdmins(a => tg.call('sendPhoto', { chat_id: a, photo: fileId, caption: `📸 ${o.id} — mijoz rasmi (${'⭐'.repeat(o.rating || 0)})\nInstagram ruxsati: kutilmoqda` }));
+  return send(chat, t(u).ig_ask, { reply_markup: ik([[{ text: t(u).ig_yes, callback_data: `ig:${o.id}:1` }, { text: t(u).ig_no, callback_data: `ig:${o.id}:0` }]]) });
+}
+async function onIg(u, chat, id, yes) {
+  const o = db.orders.find(x => x.id === id && x.userId === u.id); if (!o || o.igOk !== undefined) return;
+  o.igOk = !!yes; db.save();
+  await toAdmins(a => send(a, `📸 ${o.id} — Instagram'da ko'rsatishga ruxsat: ${o.igOk ? '✅ BOR' : '❌ yo\'q'}`));
+  await send(chat, t(u).review_thanks, { reply_markup: mainKb(u) });
+  if (REF.enabled) return showInvite(u, chat);
+}
+
+// ---------- oldindan to'lov ----------
+async function askPayment(u, chat, o) {
+  const card = db.state.card;
+  if (!card || !(o.price > 0) || o.paid === true) return;
+  const pct = Math.max(1, Math.min(100, PAY.prepay_percent || 50));
+  const sum = Math.round(orderTotal(o) * pct / 100 / 1000) * 1000 || orderTotal(o);
+  o.prepay = sum; db.save();
+  u.s = { flow: 'pay', step: 'receipt', oid: o.id };
+  return send(chat, t(u).pay_info(o.id, money(sum, u.lang), pct, esc(card.number), esc(card.holder || '')), { reply_markup: ik([[{ text: t(u).pay_later, callback_data: 'paylater' }]]) });
+}
+async function gotReceipt(u, chat, fileId, oid, isDoc) {
+  const o = db.orders.find(x => x.id === oid && x.userId === u.id); u.s = {};
+  if (!o) return send(chat, t(u).use_menu, { reply_markup: mainKb(u) });
+  o.paid = 'pending'; o.receipt = fileId; db.save();
+  await toAdmins(a => tg.call(isDoc ? 'sendDocument' : 'sendPhoto', { chat_id: a, [isDoc ? 'document' : 'photo']: fileId, parse_mode: 'HTML',
+    caption: `💳 <b>To'lov cheki — ${o.id}</b>\nKutilgan summa: ${money(o.prepay || orderTotal(o), 'uz')}\n👤 ${esc(o.name)} · ${esc(o.phone)}\n\nKartangizga pul tushganini tekshiring:`,
+    reply_markup: ik([[{ text: '✅ Pul tushdi', callback_data: `pay:${o.id}:ok` }, { text: '❌ Topilmadi', callback_data: `pay:${o.id}:no` }]]) }));
+  return send(chat, t(u).pay_receipt_got, { reply_markup: mainKb(u) });
+}
+async function onPayDecision(q, id, ok) {
+  const o = db.orders.find(x => x.id === id); if (!o || o.paid === true) return;
+  o.paid = ok ? true : false; o.paidAt = ok ? new Date().toISOString() : undefined;
+  if (ok && o.status === 'new') o.status = 'accepted';
+  db.save();
+  const L = T[o.lang || 'uz'];
+  await tg.call('editMessageReplyMarkup', { chat_id: q.message.chat.id, message_id: q.message.message_id, reply_markup: ik([[{ text: ok ? '✅ Tasdiqlandi' : '❌ Rad etildi', callback_data: 'noop' }]]) }).catch(() => {});
+  await send(o.userId, ok ? L.pay_ok(o.id) : L.pay_no(o.id), ok ? {} : { reply_markup: ik([[{ text: L.pay_btn(o.id), callback_data: 'paynow:' + o.id }]]) }).catch(() => {});
+}
+async function adminCard(chat, arg) {
+  if (/^o['ʻ’`]?chir/i.test(arg.trim())) { delete db.state.card; db.saveNow(); return send(chat, '✅ Karta o\'chirildi — oldindan to\'lov so\'ralmaydi.'); }
+  const m = arg.match(/^([\d\s]{16,23})\s*(.*)$/);
+  if (!m) return send(chat, db.state.card ? `💳 Hozirgi karta: <code>${esc(db.state.card.number)}</code> ${esc(db.state.card.holder || '')}\n\nO'zgartirish: /karta 8600 1234 5678 9012 Ism Familiya\nO'chirish: /karta o'chir` : (/^o/i.test(arg) ? '' : 'Foydalanish: /karta 8600 1234 5678 9012 Ism Familiya\nShundan keyin har buyurtmadan keyin mijozga oldindan to\'lov uchun karta raqami va chek yuborish so\'raladi.'));
+  const digits = m[1].replace(/\D/g, '');
+  if (digits.length !== 16) return send(chat, 'Karta raqami 16 ta raqam bo\'lishi kerak.');
+  db.state.card = { number: digits.replace(/(\d{4})(?=\d)/g, '$1 '), holder: m[2].trim().slice(0, 60) }; db.saveNow();
+  return send(chat, `✅ Karta saqlandi: <code>${esc(db.state.card.number)}</code> ${esc(db.state.card.holder)}\nOldindan to'lov: ${PAY.prepay_percent}%`);
+}
+
 // Murakkab rasm: avtomatik dizayn o'rniga usta qo'lda chizadi (mijoz yo'qolmasin)
 async function manualRequest(u, chat, buf, ext) {
   const name = `qolda-${u.id}-${Date.now()}${ext}`;
@@ -363,8 +519,11 @@ async function manualRequest(u, chat, buf, ext) {
   u.s = { flow: 'manual', step: 'manual_phone', file: name };
   db.save();
   const who = `<a href="tg://user?id=${u.id}">${esc(u.name || 'Mijoz')}</a>${u.username ? ' @' + esc(u.username) : ''}`;
-  await toAdmins(a => tg.call('sendPhoto', { chat_id: a, photo: TG.file(buf, name, ext === '.png' ? 'image/png' : 'image/jpeg'),
-    caption: `🖼 <b>Qo'lda dizayn so'rovi</b>\n👤 ${who}\nRasm murakkab — avtomatik chizilmadi. Dizaynni chizib, mijozga yuboring.`, parse_mode: 'HTML' }));
+  await toAdmins(async a => {
+    const r = await tg.call('sendPhoto', { chat_id: a, photo: TG.file(buf, name, ext === '.png' ? 'image/png' : 'image/jpeg'),
+      caption: `🖼 <b>Qo'lda dizayn so'rovi</b>\n👤 ${who}\nRasm murakkab — avtomatik chizilmadi.\n\n👉 Dizaynni chizib, <b>shu xabarga javob (reply) qilib rasmini yuboring</b> — mijozga o'zim yetkazaman. Rasm izohiga narx yoki izoh yozishingiz mumkin.`, parse_mode: 'HTML' });
+    rememberReq(a, r.message_id, u.id);
+  });
   return manualAsk(u, chat);
 }
 function manualAsk(u, chat) {
@@ -409,6 +568,7 @@ async function onCallback(q) {
       case 'lang': {
         u.lang = a === 'ru' ? 'ru' : 'uz'; const pend = u.pending; delete u.pending;
         await send(chat, t(u).welcome(esc(u.name || '')), { reply_markup: mainKb(u) });
+        if (u.refPending) { delete u.refPending; await send(chat, t(u).ref_welcome(REF.percent)); }
         await deepLink(u, chat, pend); break;
       }
       case 'cats': await showCats(u, chat, q.message && q.message.message_id); break;
@@ -420,15 +580,16 @@ async function onCallback(q) {
       case 'col':
         if (s.flow === 'product' && s.step === 'color') { s.color = a; await askQty(u, chat); }
         else if (s.flow === 'custom' && s.step === 'color') { s.color = a; await sendPreview(u, chat); await send(chat, '👍', { reply_markup: ik([[{ text: t(u).next, callback_data: 'cnext' }]]) }); }
+        else if (s.flow === 'manual' && s.step === 'color') { s.color = a; await send(chat, `👍 ${COLOR_NAMES[u.lang][a] || a}`, { reply_markup: ik([[{ text: t(u).next, callback_data: 'cnext' }]]) }); }
         break;
       case 'sz': {
-        if (s.flow !== 'custom') break;
+        if (s.flow !== 'custom' && s.flow !== 'manual') break;
         const z = CFG.custom_sizes.find(x => String(x.cm) === a); if (!z) break;
         s.size = z.cm; s.price = z.price; s.title = T.uz.custom_name(z.cm); s.titleL = t(u).custom_name(z.cm); s.step = 'color';
         await send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) });
         break;
       }
-      case 'cnext': if (s.flow === 'custom' && s.step === 'color' && s.size && s.title) await askQty(u, chat); break;
+      case 'cnext': if ((s.flow === 'custom' || s.flow === 'manual') && s.step === 'color' && s.size && s.title) await askQty(u, chat); break;
       case 'qty':
         if (s.step !== 'qty') break;
         if (a === 'x') { s.step = 'qty_text'; await send(chat, t(u).ask_qty_text); }
@@ -443,6 +604,20 @@ async function onCallback(q) {
       case 'ok': if (s.step === 'confirm') await placeOrder(u, chat); break;
       case 'no': u.s = {}; await send(chat, t(u).canceled, { reply_markup: mainKb(u) }); break;
       case 'st': if (isAdmin(u.id)) await setStatus(q, a, b); break;
+      case 'mbuy': {
+        const ph = (u.mdesigns || {})[a]; if (!ph) break;
+        const sizes = CFG.custom_sizes;
+        u.s = { flow: 'manual', step: 'size', designPhoto: ph, color: 'qora' };
+        await send(chat, t(u).ask_size, { reply_markup: ik(chunk(sizes.map(z => ({ text: `${z.cm} ${u.lang === 'ru' ? 'см' : 'sm'} — ${money(z.price, u.lang)}`, callback_data: 'sz:' + z.cm })), 1)) });
+        break;
+      }
+      case 'mchg': u.s = { flow: 'mchange', step: 'manual_change' }; await send(chat, t(u).manual_change); break;
+      case 'rate': await onRate(u, chat, a, +b); break;
+      case 'rskip': u.s = {}; await send(chat, t(u).review_thanks, { reply_markup: mainKb(u) }); break;
+      case 'ig': await onIg(u, chat, a, b === '1'); break;
+      case 'paylater': u.s = {}; await send(chat, t(u).pay_later_ok, { reply_markup: mainKb(u) }); break;
+      case 'paynow': { const o = db.orders.find(x => x.id === a && x.userId === u.id); if (o) { o.paid = o.paid === true ? true : undefined; await askPayment(u, chat, o); } break; }
+      case 'pay': if (isAdmin(u.id)) await onPayDecision(q, a, b === 'ok'); break;
       case 'resume': await resume(u, chat); break;
       case 'stop': u.optOut = true; await send(chat, t(u).stopped, { reply_markup: mainKb(u) }); break;
     }
@@ -452,7 +627,9 @@ async function onCallback(q) {
 async function myOrders(u, chat) {
   const mine = db.orders.filter(o => o.userId === u.id).slice(-10).reverse();
   if (!mine.length) return send(chat, t(u).no_orders);
-  return send(chat, t(u).my_orders + '\n\n' + mine.map(o => `<b>${o.id}</b> · ${esc(o.titleL || o.title)} ×${o.qty}\n${t(u).status[o.status]}`).join('\n\n'));
+  const unpaid = db.state.card ? mine.filter(o => o.price > 0 && o.paid !== true && o.paid !== 'pending' && !['canceled', 'done'].includes(o.status)) : [];
+  return send(chat, t(u).my_orders + '\n\n' + mine.map(o => `<b>${o.id}</b> · ${esc(o.titleL || o.title)} ×${o.qty}\n${t(u).status[o.status]}${o.paid === true ? ' · ' + t(u).paid.yes : o.paid === 'pending' ? ' · ' + t(u).paid.pending : ''}`).join('\n\n'),
+    unpaid.length ? { reply_markup: ik(unpaid.slice(0, 3).map(o => [{ text: t(u).pay_btn(o.id), callback_data: 'paynow:' + o.id }])) } : {});
 }
 
 // ---------- admin ----------
@@ -469,7 +646,7 @@ async function adminLogin(u, chat, code) {
   return adminHelp(chat, '✅ Siz admin bo\'ldingiz. Yangi buyurtmalar shu yerga keladi.\n\n');
 }
 function adminHelp(chat, pre = '') {
-  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/yordam — shu ro\'yxat');
+  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/karta 8600… Ism — oldindan to\'lov uchun karta (/karta o\'chir — o\'chirish)\n/yordam — shu ro\'yxat\n\n🖼 Qo\'lda dizayn so\'roviga <b>javob (reply)</b> qilib rasm yuborsangiz, mijozga yetkaziladi.');
 }
 async function adminOrders(chat) {
   const list = db.orders.slice(-15).reverse();
@@ -480,7 +657,7 @@ async function adminOrders(chat) {
 async function adminStats(chat) {
   const users = Object.keys(db.users).length; const os = db.orders;
   const by = st => os.filter(o => o.status === st).length;
-  const sum = os.filter(o => !['canceled'].includes(o.status)).reduce((a, o) => a + (o.price || 0) * (o.qty || 1), 0);
+  const sum = os.filter(o => !['canceled'].includes(o.status)).reduce((a, o) => a + orderTotal(o), 0);
   const tz = ts => new Date(Date.parse(ts) + 5 * 3600 * 1000).toISOString().slice(0, 10);
   const today = tz(new Date().toISOString());
   return send(chat, `📊 <b>Statistika</b>\n\n👥 Bot foydalanuvchilari: ${users}\n📦 Buyurtmalar: ${os.length} (bugun: ${os.filter(o => tz(o.at) === today).length})\n🆕 Yangi: ${by('new')} · ✅ Qabul: ${by('accepted')} · 🔧 ${by('making')} · 🚚 ${by('sent')} · 🎉 ${by('done')} · ❌ ${by('canceled')}\n💰 Jami summa (bekor qilinmagan): ${money(sum, 'uz')}\n🎨 O'z dizayni buyurtmalari: ${os.filter(o => o.flow === 'custom').length}`);
@@ -516,6 +693,15 @@ async function setStatus(q, id, st) {
   await tg.call('editMessageReplyMarkup', { chat_id: q.message.chat.id, message_id: q.message.message_id, reply_markup: statusKb(o) }).catch(() => {});
   const L = o.lang || 'uz';
   await send(o.userId, T[L].status_note(o.id, T[L].status[st])).catch(() => {});
+  if (st === 'done') {
+    if (!o.rateAsked) { o.rateAsked = true; db.save(); await askRating(o).catch(() => {}); }
+    // Do'stini taklif qilganga bonus: do'stning birinchi buyurtmasi topshirilganda (bir marta)
+    if (REF.enabled && o.discountType === 'friend' && o.refBy && !o.refRewarded) {
+      const r = db.users[String(o.refBy)];
+      o.refRewarded = true;
+      if (r) { r.refBonus = (r.refBonus || 0) + 1; r.refCount = (r.refCount || 0) + 1; db.save(); await send(r.id, T[r.lang || 'uz'].ref_bonus(REF.percent)).catch(() => {}); }
+    }
+  }
 }
 
 // ---------- avtomatik takliflar ----------
@@ -527,8 +713,9 @@ async function resume(u, chat) {
   const s = u.s || {};
   if (!s.flow) return send(chat, t(u).use_menu, { reply_markup: mainKb(u) });
   switch (s.step) {
-    case 'color': return s.flow === 'product' ? startBuy(u, chat, s.pid) : (await sendPreview(u, chat), send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) }));
-    case 'size': await sendPreview(u, chat); return send(chat, t(u).ask_size, { reply_markup: ik(chunk(CFG.custom_sizes.map(z => ({ text: `${z.cm} ${u.lang === 'ru' ? 'см' : 'sm'} — ${money(z.price, u.lang)}`, callback_data: 'sz:' + z.cm })), 1)) });
+    case 'color': if (s.flow === 'manual') return send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) });
+      return s.flow === 'product' ? startBuy(u, chat, s.pid) : (await sendPreview(u, chat), send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) }));
+    case 'size': if (s.flow === 'custom') await sendPreview(u, chat); return send(chat, t(u).ask_size, { reply_markup: ik(chunk(CFG.custom_sizes.map(z => ({ text: `${z.cm} ${u.lang === 'ru' ? 'см' : 'sm'} — ${money(z.price, u.lang)}`, callback_data: 'sz:' + z.cm })), 1)) });
     case 'qty': case 'qty_text': return askQty(u, chat);
     case 'name': return askName(u, chat);
     case 'phone': return askPhone(u, chat);
@@ -560,7 +747,7 @@ async function offersTick() {
     try {
       const s = u.s || {};
       // 1) yarim qolgan buyurtma
-      if (s.flow && s.step && s.step !== 'await_image' && u.sAt && now - u.sAt > OFF.abandon_hours * H && now - u.sAt < 3 * D && (u.remindedAt || 0) < u.sAt) {
+      if (['custom', 'product', 'manual'].includes(s.flow) && s.step && s.step !== 'await_image' && s.step !== 'manual_phone' && u.sAt && now - u.sAt > OFF.abandon_hours * H && now - u.sAt < 3 * D && (u.remindedAt || 0) < u.sAt) {
         u.remindedAt = now; sent++;
         await send(u.id, s.flow === 'custom' ? t(u).remind_custom : t(u).remind, { reply_markup: ik([[{ text: t(u).resume_btn, callback_data: 'resume' }], [{ text: t(u).cancel, callback_data: 'no' }, stopBtn(u)]]) });
         continue;
@@ -602,7 +789,7 @@ async function offersTick() {
 
 // ---------- ishga tushirish ----------
 async function main() {
-  const me = await tg.call('getMe');
+  const me = await tg.call('getMe'); BOT_NAME = me.username;
   console.log(`\n✅ Bot ishga tushdi: @${me.username}`);
   console.log(`   Havolalar: https://t.me/${me.username}?start=dizayn  |  https://t.me/${me.username}?start=klub`);
   const codeHash = require('crypto').createHash('sha256').update(ADMIN_CODE).digest('hex');
