@@ -7,11 +7,13 @@ const { spawn } = require('child_process');
 const OUT = path.join(__dirname, 'mock_out'); fs.rmSync(OUT, { recursive: true, force: true }); fs.mkdirSync(OUT);
 const DATA = path.join(__dirname, 'data'); fs.rmSync(DATA, { recursive: true, force: true });
 const USER = { id: 111, first_name: 'Ali', username: 'ali_test' };
+const NEW = { id: 222, first_name: 'Vali' };
 const ADMIN = { id: 999, first_name: 'Usta' };
 let uid = 0, mid = 100;
 const msg = (from, extra) => ({ update_id: ++uid, message: { message_id: ++mid, from, chat: { id: from.id, type: 'private' }, date: 0, ...extra } });
 const cb = (from, data) => ({ update_id: ++uid, callback_query: { id: 'q' + uid, from, data, message: { message_id: 50, chat: { id: from.id } } } });
 const script = [
+  msg(NEW, { text: "🎨 O'z dizaynim" }),
   msg(USER, { text: '/start klub' }), cb(USER, 'lang:uz'),
   cb(USER, 'p:barselona-soat'), cb(USER, 'buy:barselona-soat'), cb(USER, 'col:qora'), cb(USER, 'qty:2'),
   msg(USER, { text: 'Ali' }), msg(USER, { contact: { phone_number: '998901234567' } }), cb(USER, 'dlv:tash'),
@@ -76,6 +78,7 @@ function finish(err) {
     ['adminga DXF bordi', /sendDocument → 999: DXF:/],
     ['mijozga holat xabari bordi', /→ 111: 📦 Buyurtma <b>M-0002<\/b>: ✅/],
     ['ruscha katalog', /Металлические часы/],
+    ['til tanlamagan mijoz menyu tugmasidan davom etdi', /→ 222: (?!Tilni)/],
   ];
   for (const [name, re] of must) if (!re.test(all)) fails.push(name);
   if (!fs.readdirSync(OUT).some(f => f.endsWith('.dxf'))) fails.push('DXF fayl yaratilmadi');

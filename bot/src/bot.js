@@ -104,10 +104,16 @@ async function handleUpdate(up) {
       if (cmd === '/yordam') return adminHelp(chat);
     }
   }
-  if (!u.lang) return askLang(chat);
-
   // menyu tugmalari (ikkala tilda)
   const is = k => text === T.uz[k] || text === T.ru[k];
+  if (!u.lang) {
+    // Til tanlanmagan, lekin menyu tugmasi bosilgan: tilni tugma matnidan aniqlaymiz (qayta so'ramaymiz)
+    const MK = ['m_catalog', 'm_custom', 'm_clubs', 'm_orders', 'm_contact'];
+    if (MK.some(k => text === T.uz[k])) u.lang = 'uz';
+    else if (MK.some(k => text === T.ru[k])) u.lang = 'ru';
+    else return askLang(chat);
+    db.save();
+  }
   if (is('m_catalog')) { u.s = {}; return showCats(u, chat); }
   if (is('m_custom')) { u.s = { flow: 'custom', step: 'await_image' }; return send(chat, t(u).custom_intro, { reply_markup: mainKb(u) }); }
   if (is('m_clubs')) { u.s = {}; return showClubs(u, chat); }
