@@ -79,12 +79,14 @@ def endcard(v, dur, l1, l2, l3, l4=''):
 def reel_lazer():
     v = Video('v2-lazer-uchqun'); last = None
     seq = [  # fayl, boshlanish, davomiylik(chiqish), tezlik, matnlar
-        ('laser_slow.mp4', 0.3, 3.6, 0.25, dict(top='LAZER METALLNI', top2="SARIYOG'DEK KESADI")),
-        ('laser_perf.mp4', 1.0, 2.0, 1.5, dict(label='Teshikma-teshik, aniq')),
-        ('laser_perf.mp4', 7.4, 2.4, 1.0, dict(label='Uchqunlar — bu bizning ish')),
-        ('workshop.mp4', 0.0, 2.0, 1.0, dict(label='Bizning ustaxona')),
-        ('laser_slow.mp4', 5.0, 3.0, 0.5, dict(label='Har qanday chizma', small="DXF yuboring — narxi darhol")),
-        ('laser_perf.mp4', 17.0, 2.0, 1.0, dict(label='Darvoza · panjara · dekor')),
+        ('laser_slow.mp4', 0.3, 3.4, 0.25, dict(top='LAZER METALLNI', top2="SARIYOG'DEK KESADI")),
+        ('laser_perf.mp4', 1.0, 1.8, 1.5, dict(label='Teshikma-teshik, aniq')),
+        ('tour1.mp4', 0.0, 2.4, 1.6, dict(label='Bizning ustaxona')),
+        ('tour1.mp4', 5.0, 2.0, 1.5, dict(label='2 ta lazer stanok')),
+        ('laser_perf.mp4', 7.4, 2.0, 1.0, dict(label='Uchqunlar — bu bizning ish')),
+        ('tour2.mp4', 11.5, 2.0, 1.5, dict(label='Har kuni yangi buyurtma')),
+        ('tour1.mp4', 15.3, 2.2, 1.6, dict(label='Tayyor detallar — mijozga')),
+        ('laser_slow.mp4', 5.0, 2.6, 0.5, dict(label='Har qanday chizma', small="DXF yuboring — narxi darhol")),
     ]
     for i, (f, s, dur, sp, txt) in enumerate(seq):
         for k, fr in enumerate(frames(src(f), s, dur, sp)):
