@@ -113,6 +113,14 @@ async function makeShape(input) {
   const img = sharp(input, { failOn: 'none' }).rotate();
   const meta = await img.metadata();
   let base = img.resize(WORK, WORK, { fit: 'inside', withoutEnlargement: false });
+  // Ranglar soddaligi: logotipda bir necha rang ko'pchilikni tashkil qiladi, fotosuratda yo'q
+  let palette = 1;
+  {
+    const { data } = await base.clone().flatten({ background: '#ffffff' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const bins = new Map(); const n = data.length / 3;
+    for (let i = 0; i < data.length; i += 3) { const k = (data[i] >> 4) << 8 | (data[i + 1] >> 4) << 4 | (data[i + 2] >> 4); bins.set(k, (bins.get(k) || 0) + 1); }
+    palette = [...bins.values()].sort((a, b) => b - a).slice(0, 12).reduce((a, b) => a + b, 0) / n;
+  }
   let fg, w, h;
   if (meta.hasAlpha) {
     const { data, info } = await base.clone().ensureAlpha().extractChannel('alpha').raw().toBuffer({ resolveWithObject: true });
@@ -154,10 +162,16 @@ async function makeShape(input) {
   for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) if (m[y * S + x]) { cnt++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
   if (cnt < area * 0.01) throw new Error('EMPTY');
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, span = Math.max(x1 - x0, y1 - y0);
+  const parts = label(m, S, S, 1).sizes.length;
   // soat mexanizmi uchun markazda yaxlit doira + ko'priklar
   disc(m, S, S, cx, cy, span * 0.045, 1);
+  let before = 0; for (let i = 0; i < area; i++) before += m[i];
   bridge(m, S, S, Math.max(2, span * 0.008));
-  return { mask: m, S, cx, cy, box: { x0, y0, x1, y1 }, span };
+  let after = 0; for (let i = 0; i < area; i++) after += m[i];
+  const stats = { parts, fill: cnt / ((x1 - x0 + 1) * (y1 - y0 + 1)), bridge: (after - before) / Math.max(1, after), palette };
+  // Murakkab rasm (fotosurat, skrinshot): avtomatik natija yaroqsiz — usta qo'lda chizadi
+  stats.complex = stats.palette < 0.45 || stats.bridge > 0.12 || stats.fill < 0.06 || parts > 40;
+  return { mask: m, S, cx, cy, box: { x0, y0, x1, y1 }, span, stats };
 }
 
 // ---------- 2. Ko'rinish (mockup) ----------

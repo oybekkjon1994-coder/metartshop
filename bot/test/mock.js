@@ -23,6 +23,7 @@ const script = [
   cb(USER, 'sz:50'), cb(USER, 'col:oltin'), cb(USER, 'cnext'), cb(USER, 'qty:1'),
   msg(USER, { text: 'Ali Valiyev' }), msg(USER, { text: '90 123 45 67' }), cb(USER, 'dlv:reg'), msg(USER, { text: 'Samarqand, Registon 1' }), cb(USER, 'ok'),
   cb(ADMIN, 'st:M-0002:accepted'), msg(ADMIN, { text: '/statistika' }), msg(ADMIN, { text: '/buyurtmalar' }),
+  msg(USER, { photo: [{ file_id: 'hard', width: 600, height: 600 }] }), msg(USER, { text: '90 777 66 55' }),
   msg(USER, { text: '📦 Buyurtmalarim' }), msg(USER, { text: '🌐 Til' }), cb(USER, 'lang:ru'), msg(USER, { text: '🛍 Каталог' }), cb(USER, 'cat:soat'),
 ];
 const log = [];
@@ -31,7 +32,7 @@ let pending = null, step = 0, nfile = 0;
 const server = http.createServer((req, res) => {
   const chunks = []; req.on('data', c => chunks.push(c)); req.on('end', () => {
     const body = Buffer.concat(chunks);
-    if (req.url.startsWith('/file/')) { res.end(fs.readFileSync(path.join(__dirname, 'logo_white.jpg'))); return; }
+    if (req.url.startsWith('/file/')) { res.end(fs.readFileSync(path.join(__dirname, req.url.includes('hard') ? 'photo_hard.jpg' : 'logo_white.jpg'))); return; }
     const method = req.url.split('/').pop();
     let params = {};
     const ct = req.headers['content-type'] || '';
@@ -53,7 +54,7 @@ const server = http.createServer((req, res) => {
       return setTimeout(() => reply([u]), 30);
     }
     if (method === 'getMe') return reply({ id: 1, username: 'metartshop_test_bot' });
-    if (method === 'getFile') return reply({ file_path: 'photos/x.jpg' });
+    if (method === 'getFile') return reply({ file_path: 'photos/' + (params.file_id === 'hard' ? 'hard' : 'x') + '.jpg' });
     if (/^send|^edit/.test(method)) {
       const kb = params.reply_markup ? (typeof params.reply_markup === 'string' ? JSON.parse(params.reply_markup) : params.reply_markup) : null;
       const btns = kb && kb.inline_keyboard ? ' [' + kb.inline_keyboard.flat().map(b => b.text).join(' | ') + ']' : kb && kb.keyboard ? ' {' + kb.keyboard.flat().map(b => b.text || b).join(' | ') + '}' : '';
@@ -78,6 +79,9 @@ function finish(err) {
     ['adminga DXF bordi', /sendDocument → 999: DXF:/],
     ['mijozga holat xabari bordi', /→ 111: 📦 Buyurtma <b>M-0002<\/b>: ✅/],
     ['ruscha katalog', /Металлические часы/],
+    ['murakkab rasm adminga qo\'lda chizish uchun bordi', /sendPhoto → 999: 🖼 <b>Qo'lda dizayn so'rovi/],
+    ['mijozdan telefon olindi', /→ 999: 📞 <b>Qo'lda dizayn<\/b>.*\+998907776655/],
+    ['mijozga qo\'lda chizish xabari', /→ 111: 🖼 Rasmingiz qabul qilindi/],
     ['til tanlamagan mijoz menyu tugmasidan davom etdi', /→ 222: (?!Tilni)/],
   ];
   for (const [name, re] of must) if (!re.test(all)) fails.push(name);

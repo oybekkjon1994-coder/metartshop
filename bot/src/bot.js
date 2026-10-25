@@ -128,6 +128,7 @@ async function handleUpdate(up) {
     if (s.flow !== 'custom') u.s = { flow: 'custom', step: 'await_image' };
     return handleImage(u, chat, photo.file_id);
   }
+  if (m.contact && s.step === 'manual_phone') return m.contact.user_id && m.contact.user_id !== m.from.id ? manualAsk(u, chat) : manualPhone(u, chat, m.contact.phone_number);
   if (m.contact && s.step === 'phone') return m.contact.user_id && m.contact.user_id !== m.from.id ? askPhone(u, chat) : gotPhone(u, chat, m.contact.phone_number);
 
   switch (s.step) {
@@ -140,6 +141,7 @@ async function handleUpdate(up) {
     case 'phone': return gotPhone(u, chat, text);
     case 'address': if (text.length < 3) return send(chat, t(u).ask_address); s.address = text.slice(0, 200); return showSummary(u, chat);
     case 'await_image': return send(chat, t(u).custom_intro);
+    case 'manual_phone': return manualPhone(u, chat, text);
   }
   return send(chat, t(u).use_menu, { reply_markup: mainKb(u) });
 }
@@ -337,7 +339,9 @@ async function handleImage(u, chat, fileId) {
   try {
     const buf = await tg.download(fileId);
     const ext = buf[0] === 0x89 ? '.png' : '.jpg';
-    const shape = await design.makeShape(buf);
+    let shape = null;
+    try { shape = await design.makeShape(buf); } catch (e) { console.error('Dizayn xatosi:', e.message); }
+    if (!shape || shape.stats.complex) return manualRequest(u, chat, buf, ext);
     keepDesign(u.id, { shape, original: buf, ext });
     db.saveFile(`dizayn-${u.id}${ext}`, buf); u.designFile = `dizayn-${u.id}${ext}`;
     const sizes = CFG.custom_sizes; const def = sizes[Math.min(1, sizes.length - 1)];
@@ -350,6 +354,32 @@ async function handleImage(u, chat, fileId) {
   } finally {
     tg.call('deleteMessage', { chat_id: chat, message_id: wait.message_id }).catch(() => {});
   }
+}
+
+// Murakkab rasm: avtomatik dizayn o'rniga usta qo'lda chizadi (mijoz yo'qolmasin)
+async function manualRequest(u, chat, buf, ext) {
+  const name = `qolda-${u.id}-${Date.now()}${ext}`;
+  db.saveFile(name, buf);
+  u.s = { flow: 'manual', step: 'manual_phone', file: name };
+  db.save();
+  const who = `<a href="tg://user?id=${u.id}">${esc(u.name || 'Mijoz')}</a>${u.username ? ' @' + esc(u.username) : ''}`;
+  await toAdmins(a => tg.call('sendPhoto', { chat_id: a, photo: TG.file(buf, name, ext === '.png' ? 'image/png' : 'image/jpeg'),
+    caption: `🖼 <b>Qo'lda dizayn so'rovi</b>\n👤 ${who}\nRasm murakkab — avtomatik chizilmadi. Dizaynni chizib, mijozga yuboring.`, parse_mode: 'HTML' }));
+  return manualAsk(u, chat);
+}
+function manualAsk(u, chat) {
+  const kb = [[{ text: t(u).share_phone, request_contact: true }]]; if (u.lastPhone) kb.push([u.lastPhone]);
+  return send(chat, t(u).manual_design, { reply_markup: { keyboard: kb, resize_keyboard: true, one_time_keyboard: true } });
+}
+async function manualPhone(u, chat, raw) {
+  let digits = String(raw).replace(/\D/g, '');
+  if (digits.length === 10 && digits[0] === '0') digits = digits.slice(1);
+  if (digits.length < 9 || digits.length > 13) return send(chat, t(u).bad_phone);
+  const ph = digits.length === 9 ? '+998' + digits : '+' + digits;
+  u.lastPhone = ph; u.s = {}; db.save();
+  const who = `<a href="tg://user?id=${u.id}">${esc(u.name || 'Mijoz')}</a>${u.username ? ' @' + esc(u.username) : ''}`;
+  await toAdmins(a => send(a, `📞 <b>Qo'lda dizayn</b> — ${who}\nTelefon: ${esc(ph)}`));
+  return send(chat, t(u).manual_thanks, { reply_markup: mainKb(u) });
 }
 
 async function reloadDesign(u) {
