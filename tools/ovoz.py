@@ -55,7 +55,7 @@ def main(spec_path):
             fl.append("[0:a]aresample=44100,aformat=channel_layouts=stereo[a_orig]")
             mix += '[a_orig]'
             n_in += 1
-        fl.append(f"{mix}amix=inputs={n_in}:normalize=0,apad,atrim=0:{total:.2f}[aout]")
+        fl.append(f"{mix}amix=inputs={n_in}:normalize=0:duration=longest,apad=whole_dur={total:.2f},atrim=0:{total:.2f}[aout]")
         vmap = '0:v'
         if total > vd + 0.05:
             fl.append(f"[0:v]tpad=stop_mode=clone:stop_duration={total - vd + 0.1:.2f},trim=0:{total:.2f}[vout]")
