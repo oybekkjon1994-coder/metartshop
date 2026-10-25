@@ -18,7 +18,8 @@ if (!TOKEN || TOKEN.includes('SHU_YERGA')) {
 }
 const tg = new TG(TOKEN, process.env.TG_API || 'https://api.telegram.org');
 const db = new Store(process.env.DATA_DIR || path.join(ROOT, 'data'));
-const designs = new Map(); // userId -> { shape, original }
+const designs = new Map(); // userId -> { shape, original } (oxirgi 30 tasi xotirada)
+function keepDesign(id, d) { designs.delete(id); designs.set(id, d); while (designs.size > 30) designs.delete(designs.keys().next().value); }
 
 function loadEnv(p) {
   try {
@@ -35,7 +36,7 @@ async function getCatalog() {
   if (catalog && Date.now() - catalogAt < 5 * 60 * 1000) return catalog;
   const cacheFile = path.join(db.dir, 'catalog_cache.json');
   try {
-    const res = await fetch(CFG.catalog_url + '?t=' + Date.now());
+    const res = await fetch(CFG.catalog_url + '?t=' + Date.now(), { signal: AbortSignal.timeout(10000) });
     if (!res.ok) throw new Error(res.status);
     catalog = await res.json(); catalogAt = Date.now();
     fs.writeFileSync(cacheFile, JSON.stringify(catalog));
@@ -46,6 +47,7 @@ async function getCatalog() {
       }
     }
     if (!catalog) catalog = { shop: {}, cats: [], products: [] };
+    catalogAt = Date.now() - 4 * 60 * 1000; // 1 daqiqadan keyin qayta urinadi
     console.error('Katalogni yuklab bo\'lmadi, zaxira ishlatilmoqda:', e.message);
   }
   return catalog;
@@ -78,7 +80,7 @@ async function onUpdate(up) {
   const from = (up.message && up.message.from) || (up.callback_query && up.callback_query.from);
   try { await handleUpdate(up); } finally {
     if (from && db.users[String(from.id)]) {
-      const u = db.users[String(from.id)]; u.lastSeen = Date.now();
+      const u = db.users[String(from.id)]; u.lastSeen = Date.now(); u.blocked = false;
       if (u.s && u.s.flow) { if (u.s._step !== u.s.step) { u.s._step = u.s.step; u.sAt = Date.now(); } } else u.sAt = 0;
       db.save();
     }
@@ -89,7 +91,7 @@ async function handleUpdate(up) {
   const m = up.message; if (!m || !m.from || m.chat.type !== 'private') return;
   const u = db.user(m.from); db.save();
   const chat = m.chat.id, text = (m.text || '').trim();
-  if (m.photo && /^\/xabar/.test(m.caption || '') && isAdmin(u.id)) return adminBroadcastPhoto(chat, m);
+  if (m.photo && /^\/xabar/.test(m.caption || '') && isAdmin(u.id)) { adminBroadcastPhoto(chat, m).catch(e => console.error('Xabar xatosi:', e.message)); return; }
 
   if (text.startsWith('/')) {
     const [cmd, ...rest] = text.split(/\s+/); const arg = rest.join(' ');
@@ -98,7 +100,7 @@ async function handleUpdate(up) {
     if (isAdmin(u.id)) {
       if (cmd === '/buyurtmalar') return adminOrders(chat);
       if (cmd === '/statistika') return adminStats(chat);
-      if (cmd === '/xabar') return adminBroadcast(chat, text.slice(cmd.length).trim(), m);
+      if (cmd === '/xabar') { adminBroadcast(chat, text.slice(cmd.length).trim(), m).catch(e => console.error('Xabar xatosi:', e.message)); return; }
       if (cmd === '/yordam') return adminHelp(chat);
     }
   }
@@ -120,7 +122,7 @@ async function handleUpdate(up) {
     if (s.flow !== 'custom') u.s = { flow: 'custom', step: 'await_image' };
     return handleImage(u, chat, photo.file_id);
   }
-  if (m.contact && s.step === 'phone') return gotPhone(u, chat, m.contact.phone_number);
+  if (m.contact && s.step === 'phone') return m.contact.user_id && m.contact.user_id !== m.from.id ? askPhone(u, chat) : gotPhone(u, chat, m.contact.phone_number);
 
   switch (s.step) {
     case 'qty_text': {
@@ -206,7 +208,7 @@ async function showProduct(u, chat, pid, imgIdx = 0) {
 async function startBuy(u, chat, pid) {
   const c = await getCatalog();
   const p = c.products.find(x => x.id === pid); if (!p) return;
-  u.s = { flow: 'product', pid, price: p.price || 0, title: p.name_uz, img: (p.imgs || [])[0] };
+  u.s = { flow: 'product', pid, price: p.price || 0, title: p.name_uz || pname(p, 'uz'), titleL: pname(p, u.lang), img: (p.imgs || [])[0] };
   const colors = (p.colors || []).filter(Boolean);
   if (colors.length) {
     u.s.step = 'color';
@@ -229,7 +231,8 @@ function askPhone(u, chat) {
   return send(chat, t(u).ask_phone, { reply_markup: { keyboard: kb, resize_keyboard: true, one_time_keyboard: true } });
 }
 function gotPhone(u, chat, raw) {
-  const digits = String(raw).replace(/\D/g, '');
+  let digits = String(raw).replace(/\D/g, '');
+  if (digits.length === 10 && digits[0] === '0') digits = digits.slice(1);
   if (digits.length < 9 || digits.length > 13) return send(chat, t(u).bad_phone);
   const ph = digits.length === 9 ? '+998' + digits : '+' + digits;
   u.s.phone = ph; u.lastPhone = ph; u.s.step = 'delivery';
@@ -239,7 +242,7 @@ function dlvName(l, d) { return { tash: T[l].d_tash, reg: T[l].d_reg, self: T[l]
 
 function orderLines(l, o) {
   const L = T[l]; const lines = [];
-  lines.push(`🛍 ${L.f_product}: <b>${esc(o.title)}</b>`);
+  lines.push(`🛍 ${L.f_product}: <b>${esc(l === 'uz' ? o.title : (o.titleL || o.title))}</b>`);
   if (o.size) lines.push(`📏 ${L.f_size}: ${o.size} sm`);
   if (o.color) lines.push(`🎨 ${L.f_color}: ${COLOR_NAMES[l][o.color] || o.color}`);
   lines.push(`🔢 ${L.f_qty}: ${o.qty}`);
@@ -262,7 +265,7 @@ async function placeOrder(u, chat) {
   const s = u.s; const id = db.nextOrderId();
   const o = {
     id, at: new Date().toISOString(), userId: u.id, username: u.username, tgName: u.name, lang: u.lang, status: 'new',
-    flow: s.flow, pid: s.pid, title: s.title, color: s.color, size: s.size, qty: s.qty || 1, price: s.price || 0,
+    flow: s.flow, pid: s.pid, title: s.title, titleL: s.titleL || s.title, color: s.color, size: s.size, qty: s.qty || 1, price: s.price || 0,
     name: s.name, phone: s.phone, delivery: s.delivery, address: s.address || '', ref: u.ref || '',
   };
   u.lastName = s.name; u.ordered = Date.now(); u.orderedPids = [...new Set([...(u.orderedPids || []), s.pid].filter(Boolean))]; u.viewed = null; u.sAt = 0;
@@ -273,7 +276,7 @@ async function placeOrder(u, chat) {
     if (d) {
       const dx = await design.makeDxf(d.shape, s.size * 10);
       o.dxf = db.saveFile(`${id}.dxf`, dx.dxf);
-      o.cutM = +design.cutLength(dx.dxf).toFixed(2); o.dims = `${dx.widthMm}×${dx.heightMm} mm`;
+      o.cutM = +design.cutLength(dx.dxf).toFixed(2); o.dims = `${dx.widthMm}×${dx.heightMm} mm`; if (dx.thin) o.thin = dx.thin;
       const prev = await design.makePreview(d.shape, s.color, `${s.size} sm · ${COLOR_NAMES.uz[s.color] || s.color}`);
       o.preview = db.saveFile(`${id}-korinish.jpg`, prev);
       o.original = db.saveFile(`${id}-asl${d.ext || '.jpg'}`, d.original);
@@ -284,18 +287,37 @@ async function placeOrder(u, chat) {
       ];
     }
   }
-  db.orders.push(o); u.s = {}; db.save();
+  o.img = s.img || ''; o.tgName = u.name; o.notified = false;
+  db.orders.push(o); u.s = {}; db.saveNow();
   await send(chat, t(u).done(id), { reply_markup: mainKb(u) });
+  await notifyAdmins(o, files);
+}
 
-  const who = `${esc(u.name)}${u.username ? ' (@' + esc(u.username) + ')' : ''} · <a href="tg://user?id=${u.id}">profil</a>`;
-  const text = `🆕 <b>Yangi buyurtma ${id}</b>\n\n${orderLines('uz', o)}${o.dims ? `\n📐 Chizma: ${o.dims}, kesish ≈ ${o.cutM} m` : ''}\n\n👤 ${who}${o.ref ? `\n🔗 Manba: ${esc(o.ref)}` : ''}`;
-  const kb = statusKb(o);
-  await toAdmins(async a => {
-    if (o.flow === 'product' && s.img) await tg.call('sendPhoto', { chat_id: a, photo: imgUrl(s.img) }).catch(() => {});
-    for (const [m, p] of files) await tg.call(m, { chat_id: a, ...p });
-    await send(a, text, { reply_markup: kb });
-  });
-  if (!db.state.admins.length) console.log(`Yangi buyurtma ${id} (admin ulanmagan — /admin KOD yuboring)`);
+// Adminga buyurtma xabari: avval matn (eng muhimi), keyin fayllar alohida-alohida.
+// Yetib bormasa, o.notified=false qoladi va har 10 daqiqada qayta uriniladi.
+async function notifyAdmins(o, files) {
+  if (!db.state.admins.length) { console.log(`Yangi buyurtma ${o.id} (admin ulanmagan — /admin KOD yuboring)`); return; }
+  const who = `${esc(o.tgName || '')}${o.username ? ' (@' + esc(o.username) + ')' : ''} · <a href="tg://user?id=${o.userId}">profil</a>`;
+  const text = `🆕 <b>Yangi buyurtma ${o.id}</b>\n\n${orderLines('uz', o)}${o.dims ? `\n📐 Chizma: ${o.dims}, kesish ≈ ${o.cutM} m${o.thin ? `\n⚠️ Ingichka joylar qalinlashtirildi (${o.thin}) — chizmani tekshiring` : ''}` : ''}\n\n👤 ${who}${o.ref ? `\n🔗 Manba: ${esc(o.ref)}` : ''}`;
+  if (!files) files = filesFromDisk(o);
+  let delivered = 0;
+  for (const a of db.state.admins) {
+    try { await send(a, text, { reply_markup: statusKb(o) }); delivered++; } catch (e) { console.error(`Adminga ${o.id} yuborilmadi:`, e.message); continue; }
+    if (o.flow === 'product' && o.img) await tg.call('sendPhoto', { chat_id: a, photo: imgUrl(o.img), caption: o.id }).catch(e => console.error('Rasm:', e.message));
+    for (const [m, p] of files) await tg.call(m, { chat_id: a, ...p }).catch(e => console.error(`${o.id} fayli yuborilmadi:`, e.message));
+  }
+  if (delivered) { o.notified = true; db.saveNow(); }
+}
+function filesFromDisk(o) {
+  const f = [], rd = p => { try { return fs.readFileSync(p); } catch { return null; } };
+  const prev = o.preview && rd(o.preview), dxf = o.dxf && rd(o.dxf), orig = o.original && rd(o.original);
+  if (prev) f.push(['sendPhoto', { photo: TG.file(prev, `${o.id}.jpg`, 'image/jpeg') }]);
+  if (dxf) f.push(['sendDocument', { document: TG.file(dxf, `${o.id}-${o.size}sm.dxf`, 'application/dxf'), caption: `DXF: ${o.dims}, kesish ≈ ${o.cutM} m` }]);
+  if (orig) f.push(['sendDocument', { document: TG.file(orig, path.basename(o.original)) }]);
+  return f;
+}
+async function retryNotifications() {
+  for (const o of db.orders) if (o.notified === false && db.state.admins.length) await notifyAdmins(o);
 }
 
 function statusKb(o) {
@@ -310,7 +332,7 @@ async function handleImage(u, chat, fileId) {
     const buf = await tg.download(fileId);
     const ext = buf[0] === 0x89 ? '.png' : '.jpg';
     const shape = await design.makeShape(buf);
-    designs.set(u.id, { shape, original: buf, ext });
+    keepDesign(u.id, { shape, original: buf, ext });
     db.saveFile(`dizayn-${u.id}${ext}`, buf); u.designFile = `dizayn-${u.id}${ext}`;
     const sizes = CFG.custom_sizes; const def = sizes[Math.min(1, sizes.length - 1)];
     u.s = { flow: 'custom', step: 'size', title: '', size: def.cm, price: def.price, color: 'qora' };
@@ -329,7 +351,7 @@ async function reloadDesign(u) {
   try {
     const buf = fs.readFileSync(path.join(db.dir, 'fayllar', u.designFile));
     const d = { shape: await design.makeShape(buf), original: buf, ext: path.extname(u.designFile) };
-    designs.set(u.id, d); return d;
+    keepDesign(u.id, d); return d;
   } catch { return null; }
 }
 
@@ -366,11 +388,11 @@ async function onCallback(q) {
       case 'sz': {
         if (s.flow !== 'custom') break;
         const z = CFG.custom_sizes.find(x => String(x.cm) === a); if (!z) break;
-        s.size = z.cm; s.price = z.price; s.title = T.uz.custom_name(z.cm); s.step = 'color';
+        s.size = z.cm; s.price = z.price; s.title = T.uz.custom_name(z.cm); s.titleL = t(u).custom_name(z.cm); s.step = 'color';
         await send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) });
         break;
       }
-      case 'cnext': if (s.flow === 'custom' && s.size) await askQty(u, chat); break;
+      case 'cnext': if (s.flow === 'custom' && s.step === 'color' && s.size && s.title) await askQty(u, chat); break;
       case 'qty':
         if (s.step !== 'qty') break;
         if (a === 'x') { s.step = 'qty_text'; await send(chat, t(u).ask_qty_text); }
@@ -394,12 +416,18 @@ async function onCallback(q) {
 async function myOrders(u, chat) {
   const mine = db.orders.filter(o => o.userId === u.id).slice(-10).reverse();
   if (!mine.length) return send(chat, t(u).no_orders);
-  return send(chat, t(u).my_orders + '\n\n' + mine.map(o => `<b>${o.id}</b> · ${esc(o.title)} ×${o.qty}\n${t(u).status[o.status]}`).join('\n\n'));
+  return send(chat, t(u).my_orders + '\n\n' + mine.map(o => `<b>${o.id}</b> · ${esc(o.titleL || o.title)} ×${o.qty}\n${t(u).status[o.status]}`).join('\n\n'));
 }
 
 // ---------- admin ----------
 async function adminLogin(u, chat, code) {
-  if (!ADMIN_CODE || code !== ADMIN_CODE) return send(chat, '⛔');
+  if ((u.adminFails || 0) >= 5) return send(chat, '⛔');
+  if (!ADMIN_CODE || ADMIN_CODE.length < 8 || code !== ADMIN_CODE) {
+    u.adminFails = (u.adminFails || 0) + 1; db.save();
+    if (ADMIN_CODE && ADMIN_CODE.length < 8) console.error('❗ ADMIN_CODE juda qisqa (kamida 8 belgi bo\'lsin) — .env ni tuzating.');
+    return send(chat, '⛔');
+  }
+  u.adminFails = 0;
   if (!db.state.admins.includes(u.id)) db.state.admins.push(u.id);
   db.save();
   return adminHelp(chat, '✅ Siz admin bo\'ldingiz. Yangi buyurtmalar shu yerga keladi.\n\n');
@@ -417,8 +445,9 @@ async function adminStats(chat) {
   const users = Object.keys(db.users).length; const os = db.orders;
   const by = st => os.filter(o => o.status === st).length;
   const sum = os.filter(o => !['canceled'].includes(o.status)).reduce((a, o) => a + (o.price || 0) * (o.qty || 1), 0);
-  const today = new Date().toISOString().slice(0, 10);
-  return send(chat, `📊 <b>Statistika</b>\n\n👥 Bot foydalanuvchilari: ${users}\n📦 Buyurtmalar: ${os.length} (bugun: ${os.filter(o => o.at.startsWith(today)).length})\n🆕 Yangi: ${by('new')} · ✅ Qabul: ${by('accepted')} · 🔧 ${by('making')} · 🚚 ${by('sent')} · 🎉 ${by('done')} · ❌ ${by('canceled')}\n💰 Jami summa (bekor qilinmagan): ${money(sum)}\n🎨 O'z dizayni buyurtmalari: ${os.filter(o => o.flow === 'custom').length}`);
+  const tz = ts => new Date(Date.parse(ts) + 5 * 3600 * 1000).toISOString().slice(0, 10);
+  const today = tz(new Date().toISOString());
+  return send(chat, `📊 <b>Statistika</b>\n\n👥 Bot foydalanuvchilari: ${users}\n📦 Buyurtmalar: ${os.length} (bugun: ${os.filter(o => tz(o.at) === today).length})\n🆕 Yangi: ${by('new')} · ✅ Qabul: ${by('accepted')} · 🔧 ${by('making')} · 🚚 ${by('sent')} · 🎉 ${by('done')} · ❌ ${by('canceled')}\n💰 Jami summa (bekor qilinmagan): ${money(sum, 'uz')}\n🎨 O'z dizayni buyurtmalari: ${os.filter(o => o.flow === 'custom').length}`);
 }
 async function adminBroadcast(chat, text, m) {
   if (!text) return send(chat, 'Foydalanish: /xabar Bugun barcha soatlarga 10% chegirma!');
@@ -426,7 +455,7 @@ async function adminBroadcast(chat, text, m) {
   await send(chat, `📣 ${ids.length} ta foydalanuvchiga yuborilmoqda...`);
   let ok = 0;
   for (const id of ids) {
-    try { await send(id, text); ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
+    try { await send(id, esc(text)); ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
     await new Promise(r => setTimeout(r, 60));
   }
   db.save();
@@ -439,14 +468,14 @@ async function adminBroadcastPhoto(chat, m) {
   await send(chat, `📣 ${ids.length} ta foydalanuvchiga rasm yuborilmoqda...`);
   let ok = 0;
   for (const id of ids) {
-    try { await tg.call('sendPhoto', { chat_id: id, photo, caption, parse_mode: 'HTML' }); ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
+    try { await tg.call('sendPhoto', { chat_id: id, photo, caption }); ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
     await new Promise(r => setTimeout(r, 60));
   }
   db.save();
   return send(chat, `✅ Yuborildi: ${ok}/${ids.length}`);
 }
 async function setStatus(q, id, st) {
-  const o = db.orders.find(x => x.id === id); if (!o || !T.uz.status[st]) return;
+  const o = db.orders.find(x => x.id === id); if (!o || !T.uz.status[st] || o.status === st) return;
   o.status = st; o.updated = new Date().toISOString(); db.save();
   await tg.call('editMessageReplyMarkup', { chat_id: q.message.chat.id, message_id: q.message.message_id, reply_markup: statusKb(o) }).catch(() => {});
   const L = o.lang || 'uz';
@@ -518,10 +547,11 @@ async function offersTick() {
       // 3) haftalik taklif (oldingi mijozlarga alohida matn)
       const joined = Date.parse(u.joined) || now;
       const last = Math.max(u.lastPromo || 0, u.lastOfferAt || 0, u.remindedAt || 0);
-      const repeat = u.ordered && now - u.ordered > OFF.repeat_days * D;
+      const repeat = u.ordered && now - u.ordered > OFF.repeat_days * D && u.repeatOfferFor !== u.ordered;
       if (now - joined > 2 * D && now - last > OFF.weekly_days * D && (!u.ordered || repeat)) {
         const p = pickWeekly(u, c); if (!p) continue;
         u.lastPromo = now; u.lastPromoPid = p.id; sent++;
+        if (repeat) u.repeatOfferFor = u.ordered;
         const cap = (repeat ? t(u).repeat_offer : t(u).weekly_offer)(esc(pname(p, u.lang)), money(p.price, u.lang));
         const kb = ik([[{ text: t(u).buy, callback_data: 'buy:' + p.id }], [{ text: t(u).m_custom, callback_data: 'custom' }], [stopBtn(u)]]);
         await tg.call('sendPhoto', { chat_id: u.id, photo: imgUrl(p.imgs[0]), caption: cap, parse_mode: 'HTML', reply_markup: kb }).catch(() => send(u.id, cap, { reply_markup: kb }));
@@ -539,13 +569,17 @@ async function main() {
   const me = await tg.call('getMe');
   console.log(`\n✅ Bot ishga tushdi: @${me.username}`);
   console.log(`   Havolalar: https://t.me/${me.username}?start=dizayn  |  https://t.me/${me.username}?start=klub`);
-  if (!db.state.admins.length) console.log(`   ❗ Admin hali ulanmagan: botga  /admin ${ADMIN_CODE || 'KOD'}  deb yozing.`);
+  const codeHash = require('crypto').createHash('sha256').update(ADMIN_CODE).digest('hex');
+  if (db.state.adminCodeHash && db.state.adminCodeHash !== codeHash) { db.state.admins = []; console.log('   ADMIN_CODE o\'zgargan — eski adminlar o\'chirildi.'); }
+  db.state.adminCodeHash = codeHash; db.saveNow();
+  if (!db.state.admins.length) console.log('   ❗ Admin hali ulanmagan: botga  /admin KOD  deb yozing (KOD — .env dagi ADMIN_CODE).');
   await tg.call('setMyCommands', { commands: [{ command: 'start', description: 'Bosh menyu / Главное меню' }] }).catch(() => {});
   getCatalog();
-  setInterval(() => offersTick().catch(e => console.error('Takliflar xatosi:', e.message)), 10 * 60 * 1000);
+  setInterval(() => { retryNotifications().catch(() => {}); offersTick().catch(e => console.error('Takliflar xatosi:', e.message)); }, 10 * 60 * 1000);
+  retryNotifications().catch(() => {});
   setTimeout(() => offersTick().catch(e => console.error('Takliflar xatosi:', e.message)), process.env.OFFERS_NOW ? 1500 : 60 * 1000);
   const stop = () => { db.saveNow(); process.exit(0); };
-  process.on('SIGINT', stop); process.on('SIGTERM', stop);
+  process.on('SIGINT', stop); process.on('SIGTERM', stop); process.on('SIGHUP', stop);
   await tg.poll(onUpdate, () => db.state.offset, o => { db.state.offset = o; db.save(); });
 }
 main().catch(e => {

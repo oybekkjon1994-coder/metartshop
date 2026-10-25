@@ -16,7 +16,7 @@ const script = [
   cb(USER, 'p:barselona-soat'), cb(USER, 'buy:barselona-soat'), cb(USER, 'col:qora'), cb(USER, 'qty:2'),
   msg(USER, { text: 'Ali' }), msg(USER, { contact: { phone_number: '998901234567' } }), cb(USER, 'dlv:tash'),
   msg(USER, { text: 'Chilonzor 5-kvartal' }), cb(USER, 'ok'),
-  msg(ADMIN, { text: '/start' }), cb(ADMIN, 'lang:uz'), msg(ADMIN, { text: '/admin 1234' }),
+  msg(ADMIN, { text: '/start' }), cb(ADMIN, 'lang:uz'), msg(ADMIN, { text: '/admin 0000' }), msg(ADMIN, { text: '/admin 12345678' }),
   msg(USER, { text: "🎨 O'z dizaynim" }), msg(USER, { photo: [{ file_id: 'logo1', width: 600, height: 600 }] }),
   cb(USER, 'sz:50'), cb(USER, 'col:oltin'), cb(USER, 'cnext'), cb(USER, 'qty:1'),
   msg(USER, { text: 'Ali Valiyev' }), msg(USER, { text: '90 123 45 67' }), cb(USER, 'dlv:reg'), msg(USER, { text: 'Samarqand, Registon 1' }), cb(USER, 'ok'),
@@ -62,12 +62,31 @@ const server = http.createServer((req, res) => {
   });
 });
 let bot;
-function finish() {
+let done = false;
+function finish(err) {
+  if (done) return; done = true;
   fs.writeFileSync(path.join(__dirname, 'mock_log.txt'), log.join('\n'));
-  bot.kill(); server.close(); console.log(log.join('\n'));
+  try { bot.kill(); } catch {}
+  server.close(); console.log(log.join('\n'));
+  const all = log.join('\n'), fails = [];
+  const must = [
+    ['1-buyurtma tasdiqlandi', /M-0001/],
+    ['noto\'g\'ri admin kodi rad etildi', /→ 999: ⛔/],
+    ['adminga M-0002 matni bordi', /sendMessage → 999: 🆕 <b>Yangi buyurtma M-0002/],
+    ['adminga DXF bordi', /sendDocument → 999: DXF:/],
+    ['mijozga holat xabari bordi', /→ 111: 📦 Buyurtma <b>M-0002<\/b>: ✅/],
+    ['ruscha katalog', /Металлические часы/],
+  ];
+  for (const [name, re] of must) if (!re.test(all)) fails.push(name);
+  if (!fs.readdirSync(OUT).some(f => f.endsWith('.dxf'))) fails.push('DXF fayl yaratilmadi');
+  if (err) fails.push(err);
+  console.log(fails.length ? '\n❌ XATO: ' + fails.join('; ') : '\n✅ Barcha tekshiruvlar o\'tdi');
+  process.exit(fails.length ? 1 : 0);
 }
+setTimeout(() => finish('vaqt tugadi (90 s)'), 90000);
 server.listen(18080, () => {
   bot = spawn('node', [path.join(__dirname, '..', 'src', 'bot.js')], {
-    env: { ...process.env, BOT_TOKEN: 'TEST:TOKEN', ADMIN_CODE: '1234', TG_API: 'http://127.0.0.1:18080', DATA_DIR: DATA }, stdio: 'inherit',
+    env: { ...process.env, BOT_TOKEN: 'TEST:TOKEN', ADMIN_CODE: '12345678', TG_API: 'http://127.0.0.1:18080', DATA_DIR: DATA }, stdio: 'inherit',
   });
+  bot.on('exit', code => { if (!done) setTimeout(() => finish('bot kutilmaganda to\'xtadi (kod ' + code + ')'), 300); });
 });

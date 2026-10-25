@@ -5,7 +5,7 @@ cd /d "%~dp0"
 where node >nul 2>nul || (echo Node.js topilmadi. https://nodejs.org saytidan LTS versiyasini o'rnating. & pause & exit /b)
 if not exist ".env" (
   echo BOT_TOKEN=SHU_YERGA_TOKENNI_YOZING> .env
-  echo ADMIN_CODE=%RANDOM%%RANDOM%>> .env
+  echo ADMIN_CODE=%RANDOM%%RANDOM%%RANDOM%%RANDOM%%RANDOM%>> .env
   echo.
   echo .env fayli yaratildi. Bloknot ochiladi: BOT_TOKEN qatoriga BotFather bergan tokenni yozing, saqlang va yoping.
   notepad .env
@@ -13,6 +13,7 @@ if not exist ".env" (
 if not exist "node_modules\sharp" (
   echo Kutubxonalar o'rnatilmoqda, 1-2 daqiqa kuting...
   call npm install --omit=dev
+  if not exist "node_modules\sharp" (echo Kutubxonalar o'rnatilmadi. Internetni tekshirib, start.bat ni qayta oching. & pause & exit /b)
 )
 echo.
 echo Admin kodi:

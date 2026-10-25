@@ -14,13 +14,31 @@ class Store {
     this.timer = null;
   }
   load(name, def) {
-    try { return JSON.parse(fs.readFileSync(path.join(this.dir, name), 'utf8')); } catch { return def; }
+    const p = path.join(this.dir, name);
+    let raw;
+    try { raw = fs.readFileSync(p, 'utf8'); } catch (e) { if (e.code === 'ENOENT') return def; throw e; }
+    try { return JSON.parse(raw); } catch {
+      // Buzilgan faylni o'chirib yubormaymiz: nusxasini saqlab, aniq xabar beramiz
+      const bad = p + '.buzilgan-' + Date.now();
+      fs.copyFileSync(p, bad);
+      throw new Error(`${name} fayli buzilgan. Nusxasi: ${bad}. Faylni tuzating yoki zaxiradan tiklang.`);
+    }
+  }
+  writeAtomic(p, text) {
+    fs.writeFileSync(p + '.tmp', text);
+    for (let i = 0; ; i++) {
+      try { fs.renameSync(p + '.tmp', p); return; } catch (e) {
+        // Windows: antivirus/OneDrive faylni ushlab tursa, biroz kutib qayta urinamiz
+        if (i >= 5 || !['EPERM', 'EBUSY', 'EACCES'].includes(e.code)) { fs.copyFileSync(p + '.tmp', p); return; }
+        const until = Date.now() + 100 * (i + 1); while (Date.now() < until) { /* kutish */ }
+      }
+    }
   }
   saveNow() {
+    clearTimeout(this.timer);
     for (const [name, v] of [['state.json', this.state], ['users.json', this.users], ['orders.json', this.orders]]) {
-      const p = path.join(this.dir, name);
-      fs.writeFileSync(p + '.tmp', JSON.stringify(v, null, 1));
-      fs.renameSync(p + '.tmp', p);
+      try { this.writeAtomic(path.join(this.dir, name), JSON.stringify(v, null, 1)); }
+      catch (e) { console.error(`❗ ${name} saqlanmadi (keyinroq qayta uriniladi):`, e.message); this.save(); }
     }
   }
   save() { clearTimeout(this.timer); this.timer = setTimeout(() => this.saveNow(), 300); }

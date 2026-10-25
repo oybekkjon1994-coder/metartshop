@@ -8,7 +8,15 @@ class TG {
   }
   url(method) { return `${this.base}/bot${this.token}/${method}`; }
 
-  async call(method, params = {}) {
+  async call(method, params = {}, attempt = 0) {
+    try { return await this.call1(method, params); } catch (e) {
+      if (e.code === 429 && attempt < 3) { await new Promise(r => setTimeout(r, ((e.retry || 2) + 1) * 1000)); return this.call(method, params, attempt + 1); }
+      throw e;
+    }
+  }
+
+  async call1(method, params = {}) {
+    const ms = method === 'getUpdates' ? 45000 : 60000;
     const hasFile = Object.values(params).some(v => v && typeof v === 'object' && v.__file);
     let res;
     if (hasFile) {
@@ -18,10 +26,10 @@ class TG {
         if (v && v.__file) fd.append(k, new Blob([v.data], { type: v.type || 'application/octet-stream' }), v.name);
         else fd.append(k, typeof v === 'object' ? JSON.stringify(v) : String(v));
       }
-      res = await fetch(this.url(method), { method: 'POST', body: fd });
+      res = await fetch(this.url(method), { method: 'POST', body: fd, signal: AbortSignal.timeout(ms) });
     } else {
       res = await fetch(this.url(method), {
-        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(params),
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(params), signal: AbortSignal.timeout(ms),
       });
     }
     const json = await res.json().catch(() => ({ ok: false, description: 'bad json' }));
@@ -37,7 +45,7 @@ class TG {
 
   async download(fileId) {
     const f = await this.call('getFile', { file_id: fileId });
-    const res = await fetch(`${this.base}/file/bot${this.token}/${f.file_path}`);
+    const res = await fetch(`${this.base}/file/bot${this.token}/${f.file_path}`, { signal: AbortSignal.timeout(60000) });
     if (!res.ok) throw new Error('download ' + res.status);
     return Buffer.from(await res.arrayBuffer());
   }

@@ -6,6 +6,7 @@ on:
 jobs:
   test:
     runs-on: windows-latest
+    timeout-minutes: 15
     defaults: { run: { working-directory: bot } }
     steps:
       - uses: actions/checkout@v4
@@ -13,6 +14,5 @@ jobs:
         with: { node-version: 22 }
       - run: npm install --omit=dev
       - run: node test/design_test.js
-        continue-on-error: true
       - run: node test/mock.js
-      - run: type test\mock_log.txt | findstr /c:"Yangi buyurtma M-0002"
+      - run: node test/offers_test.js

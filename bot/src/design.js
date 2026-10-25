@@ -291,14 +291,53 @@ function simplifyClosed(pts, eps) {
   return a.concat(b.slice(1, -1));
 }
 
+// Kvadrat yadroli eroziya/dilatsiya (ajraluvchi, O(n))
+function morph(src, w, h, r, dilate) {
+  const pass = (a, horiz) => {
+    const out = new Uint8Array(w * h);
+    const n = horiz ? w : h, m = horiz ? h : w;
+    for (let j = 0; j < m; j++) {
+      const idx = i => horiz ? j * w + i : i * w + j;
+      for (let i = 0; i < n; i++) {
+        let v = dilate ? 0 : 1;
+        for (let k = Math.max(0, i - r); k <= Math.min(n - 1, i + r); k++) {
+          const s = a[idx(k)];
+          if (dilate ? s : !s) { v = dilate ? 1 : 0; break; }
+        }
+        if (!dilate && (i - r < 0 || i + r > n - 1)) v = 0;
+        out[idx(i)] = v;
+      }
+    }
+    return out;
+  };
+  return pass(pass(src, true), false);
+}
+
+// Lazer kesa oladigan eng kichik kenglik (mm). Undan ingichka joylar qalinlashtiriladi.
+const MIN_WIDTH_MM = 1.5;
+
 async function makeDxf(shape, sizeMm) {
   const { mask, S, box } = shape;
   const pad = 3, bw = box.x1 - box.x0 + 1 + pad * 2, bh = box.y1 - box.y0 + 1 + pad * 2;
-  const crop = Buffer.alloc(bw * bh);
+  const bin = new Uint8Array(bw * bh);
   for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) {
     const sx = x - pad + box.x0, sy = y - pad + box.y0;
-    crop[y * bw + x] = (sx >= 0 && sy >= 0 && sx < S && sy < S && mask[sy * S + sx]) ? 255 : 0;
+    bin[y * bw + x] = (sx >= 0 && sy >= 0 && sx < S && sy < S && mask[sy * S + sx]) ? 1 : 0;
   }
+  // ingichka joylarni topib qalinlashtirish: opening = eroziya+dilatsiya; mask - opening = ingichka
+  const pxMm = sizeMm / Math.max(bw - pad * 2, bh - pad * 2);
+  const r = Math.max(1, Math.ceil((MIN_WIDTH_MM / 2) / pxMm) - 1);
+  const opened = morph(morph(bin, bw, bh, r, false), bw, bh, r, true);
+  const thinMask = new Uint8Array(bw * bh); let thinCount = 0;
+  for (let i = 0; i < bw * bh; i++) if (bin[i] && !opened[i]) { thinMask[i] = 1; thinCount++; }
+  let thin = '';
+  if (thinCount > 0) {
+    const grown = morph(thinMask, bw, bh, r, true);
+    for (let i = 0; i < bw * bh; i++) if (grown[i]) bin[i] = 1;
+    thin = `${Math.round(thinCount * pxMm * pxMm)} mm²`;
+  }
+  const crop = Buffer.alloc(bw * bh);
+  for (let i = 0; i < bw * bh; i++) crop[i] = bin[i] ? 255 : 0;
   const up = 2; // silliq kontur uchun 2x
   const W2 = bw * up, H2 = bh * up;
   const field = await sharp(crop, { raw: { width: bw, height: bh, channels: 1 } }).resize(W2, H2, { kernel: 'cubic' }).blur(1.1).extractChannel(0).raw().toBuffer();
@@ -306,14 +345,14 @@ async function makeDxf(shape, sizeMm) {
   const mmPerPx = sizeMm / (Math.max(bw - pad * 2, bh - pad * 2) * up);
   const out = [];
   const add = (...a) => out.push(...a.map(String));
-  add(0, 'SECTION', 2, 'HEADER', 9, '$INSUNITS', 70, 4, 0, 'ENDSEC');
+  add(0, 'SECTION', 2, 'HEADER', 9, '$ACADVER', 1, 'AC1009', 9, '$INSUNITS', 70, 4, 0, 'ENDSEC');
   add(0, 'SECTION', 2, 'ENTITIES');
   let n = 0;
   for (const raw of loops) {
     const lp = simplifyClosed(raw, 0.5);
     if (lp.length < 3) continue;
     n++;
-    add(0, 'POLYLINE', 8, 'KESISH', 66, 1, 70, 1);
+    add(0, 'POLYLINE', 8, 'KESISH', 66, 1, 10, '0.0', 20, '0.0', 30, '0.0', 70, 1);
     for (const [x, y] of lp) add(0, 'VERTEX', 8, 'KESISH', 10, ((x - pad * up) * mmPerPx).toFixed(3), 20, ((H2 - y - pad * up) * mmPerPx).toFixed(3));
     add(0, 'SEQEND', 8, 'KESISH');
   }
@@ -322,7 +361,7 @@ async function makeDxf(shape, sizeMm) {
   add(0, 'CIRCLE', 8, 'KESISH', 10, cxMm.toFixed(3), 20, cyMm.toFixed(3), 40, 4);
   add(0, 'ENDSEC', 0, 'EOF');
   const wMm = (bw - pad * 2) * up * mmPerPx, hMm = (bh - pad * 2) * up * mmPerPx;
-  return { dxf: out.join('\r\n') + '\r\n', contours: n, widthMm: Math.round(wMm), heightMm: Math.round(hMm) };
+  return { dxf: out.join('\r\n') + '\r\n', contours: n, widthMm: Math.round(wMm), heightMm: Math.round(hMm), thin };
 }
 
 // Kesish uzunligi (metr) — narxni tekshirish uchun foydali
