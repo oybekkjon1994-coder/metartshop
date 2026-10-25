@@ -6,6 +6,7 @@ const TG = require('./tg');
 const Store = require('./store');
 const design = require('./design');
 const dxfcalc = require('./dxfcalc');
+const igreply = require('./igreply');
 const { T, COLOR_NAMES } = require('./i18n');
 
 const ROOT = path.join(__dirname, '..');
@@ -188,6 +189,20 @@ LAZER KESISH (1 metr kesish narxi, metall alohida): ${laser}; list ${LASER.sheet
 YETKAZISH: Toshkent bo'ylab Yandex, viloyatlarga BTS pochta, yoki o'zi olib ketadi. To'lov: buyurtmadan keyin kartaga ${PAY.prepay_percent}% oldindan.
 ${REF.enabled ? `DO'ST TAKLIFI: «🎁 Chegirma olish» tugmasi — do'st va taklif qiluvchiga ${REF.percent}% chegirma.` : ''}
 ALOQA: Telegram @${sh.telegram || 'lazekametal'}, tel +${sh.phone || '998770179990'}, Instagram @${sh.instagram || 'metart_shop'}.`;
+}
+// Instagram izohi uchun qisqa javob (yoki SKIP)
+async function igAi(comment, caption) {
+  const sys = (await aiSystem({ lang: 'uz' })) + `
+
+HOZIR: sen Instagram'dagi @metart_shop sahifasida post ostidagi IZOHGA javob yozasan.
+- Izoh qaysi tilda bo'lsa (o'zbek/rus), shu tilda javob ber. 1-2 qisqa gap, samimiy, 1 ta emoji mumkin.
+- Narx yoki "qancha" so'ralsa: post mahsuloti aniq bo'lsa narxini ayt, keyin "Buyurtma va boshqa variantlar: @Metart_shop_bot" deb qo'sh.
+- Konkurs izohlari (qatnashaman, omad, emoji va h.k.): "Omad! 🍀 G'olib yakshanba kuni aniqlanadi" kabi qisqa javob.
+- Maqtov bo'lsa: rahmat ayt va botga taklif qil.
+- Haqorat, spam, reklama, boshqa sahifa havolasi yoki ma'nosiz izoh bo'lsa FAQAT "SKIP" deb yoz.
+- Telefon raqam yozma, [[...]] teglarini ishlatma, o'ylab topma.
+POST MATNI: ${caption || '(yo\'q)'}`;
+  return aiCall([{ role: 'system', content: sys }, { role: 'user', content: comment.slice(0, 500) }]);
 }
 async function aiCall(messages) {
   let lastErr;
@@ -981,6 +996,11 @@ async function main() {
   if (!db.state.admins.length) console.log('   ❗ Admin hali ulanmagan: botga  /admin KOD  deb yozing (KOD — .env dagi ADMIN_CODE).');
   await tg.call('setMyCommands', { commands: [{ command: 'start', description: 'Bosh menyu / Главное меню' }] }).catch(() => {});
   getCatalog();
+  if (process.env.IG_TOKEN && AI_KEY) {
+    const ig = igreply.create({ token: process.env.IG_TOKEN.trim(), api: process.env.IG_API, db, ai: igAi, notify: m => toAdmins(a => send(a, m)) });
+    setTimeout(() => ig.tick(), process.env.IG_FAST ? 1500 : 20000);
+    setInterval(() => ig.tick(), 3 * 60 * 1000);
+  }
   setInterval(() => { retryNotifications().catch(() => {}); offersTick().catch(e => console.error('Takliflar xatosi:', e.message)); }, 10 * 60 * 1000);
   retryNotifications().catch(() => {});
   setTimeout(() => offersTick().catch(e => console.error('Takliflar xatosi:', e.message)), process.env.OFFERS_NOW ? 1500 : 60 * 1000);
