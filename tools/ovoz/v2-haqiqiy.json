@@ -1,0 +1,58 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+12%",
+ "items": [
+  {
+   "video": "reels/v2-lazer-uchqun.mp4",
+   "out": "reels/v2-lazer-uchqun-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Lazer metallni sariyog'dek kesadi!"
+    ],
+    [
+     3.8,
+     "Teshikma-teshik, millimetrigacha aniq."
+    ],
+    [
+     7.6,
+     "Bu bizning ustaxona."
+    ],
+    [
+     9.4,
+     "Har qanday chizmani kesamiz. DXF yuboring, narxi darhol chiqadi."
+    ],
+    [
+     12.6,
+     "Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/v2-dokon-oldin-keyin.mp4",
+   "out": "reels/v2-dokon-oldin-keyin-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "Bo'm-bo'sh do'kon edi..."
+    ],
+    [
+     2.4,
+     "Stellajlarni o'zimiz yasadik va o'rnatdik."
+    ],
+    [
+     6.0,
+     "Mana natija! Bolalar kiyim do'koni."
+    ],
+    [
+     9.6,
+     "Oltin rangli ilgichlar, yoritgichli oyna, devor stellajlari."
+    ],
+    [
+     15.4,
+     "Do'koningizni jihozlaymiz. Metart shop botiga yozing!"
+    ]
+   ]
+  }
+ ]
+}
