@@ -16,3 +16,17 @@ jobs:
       - run: node test/design_test.js
       - run: node test/mock.js
       - run: node test/offers_test.js
+  wasm:
+    # Android/Termux sharoiti: rasm kutubxonasining WebAssembly versiyasi
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 15
+    defaults: { run: { working-directory: bot } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --omit=dev --no-audit --no-fund --cpu=wasm32 --os=linux sharp@0.35.4
+      - run: node -e "const s=require('sharp'); console.log(s.versions)"
+      - run: node test/design_test.js
+      - run: node test/mock.js
+      - run: bash -n termux-install.sh
