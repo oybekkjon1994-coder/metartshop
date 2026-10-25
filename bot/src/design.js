@@ -186,19 +186,29 @@ function shade(hex, k) {
   return '#' + [n >> 16, (n >> 8) & 255, n & 255].map(c => f(c).toString(16).padStart(2, '0')).join('');
 }
 
-async function makePreview(shape, colorName = 'qora', caption = '') {
+// room: mijoz xonasining rasmi (bo'lsa, soat shu devorga joylanadi), sizeCm: soat o'lchami
+async function makePreview(shape, colorName = 'qora', caption = '', room = null, sizeCm = 40) {
   const P = PREVIEW, color = COLORS[colorName] || COLORS.qora;
+  let W = P, H = P, roomBuf = null;
+  if (room) {
+    roomBuf = await sharp(room, { failOn: 'none' }).rotate().resize({ width: P }).toBuffer();
+    const md = await sharp(roomBuf).metadata(); W = md.width; H = Math.min(md.height, Math.round(P * 1.35));
+    if (md.height > H) roomBuf = await sharp(roomBuf).extract({ left: 0, top: Math.round((md.height - H) * 0.35), width: W, height: H }).toBuffer();
+    roomBuf = await sharp(roomBuf).jpeg().toBuffer();
+  }
+  // xonada: devorning ~2.6 m kengligi kadrga sig'adi deb hisoblaymiz
+  const frac = room ? Math.min(0.45, Math.max(0.16, sizeCm / 260)) : 0.74, k = frac / 0.74;
   const light = ['oq', 'kumush', 'oltin'].includes(colorName);
   // siluetni ko'rinish o'lchamiga keltirish: bounding box ~ 78%
   const { mask, S, box } = shape;
   const bw = box.x1 - box.x0 + 1, bh = box.y1 - box.y0 + 1;
   const crop = new Uint8Array(bw * bh);
   for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) crop[y * bw + x] = mask[(y + box.y0) * S + x + box.x0] ? 255 : 0;
-  const scale = (P * 0.74) / Math.max(bw, bh);
+  const scale = (W * frac) / Math.max(bw, bh);
   const tw = Math.max(1, Math.round(bw * scale)), th = Math.max(1, Math.round(bh * scale));
   const alpha = await sharp(Buffer.from(crop), { raw: { width: bw, height: bh, channels: 1 } })
     .resize(tw, th, { kernel: 'lanczos3' }).blur(0.6).extractChannel(0).raw().toBuffer();
-  const left = Math.round((P - tw) / 2), top = Math.round((P - th) / 2 - P * 0.02);
+  const left = Math.round((W - tw) / 2), top = room ? Math.max(4, Math.round(H * 0.36 - th / 2)) : Math.round((P - th) / 2 - P * 0.02);
 
   const rgbaFrom = (rgb, a, opacity = 1) => {
     const out = Buffer.alloc(tw * th * 4);
@@ -216,7 +226,7 @@ async function makePreview(shape, colorName = 'qora', caption = '') {
 
   // soya
   const shadow = await rgbaFrom([0, 0, 0], alpha, light ? 0.75 : 0.45).png().toBuffer();
-  const shadowBlur = await sharp(shadow).extend({ top: 40, bottom: 40, left: 40, right: 40, background: { r: 0, g: 0, b: 0, alpha: 0 } }).blur(9).png().toBuffer();
+  const shadowBlur = await sharp(shadow).extend({ top: 40, bottom: 40, left: 40, right: 40, background: { r: 0, g: 0, b: 0, alpha: 0 } }).blur(Math.max(1, 9 * k)).png().toBuffer();
   // metall: gradient yaltirash
   const grad = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${tw}" height="${th}"><defs><linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
     <stop offset="0" stop-color="${shade(color, 1.35)}"/><stop offset="0.45" stop-color="${color}"/><stop offset="1" stop-color="${shade(color, 0.7)}"/></linearGradient></defs>
@@ -234,16 +244,16 @@ async function makePreview(shape, colorName = 'qora', caption = '') {
     const a = (ang - 90) * Math.PI / 180;
     return `<line x1="${cxP - Math.cos(a) * len * 0.15}" y1="${cyP - Math.sin(a) * len * 0.15}" x2="${cxP + Math.cos(a) * len}" y2="${cyP + Math.sin(a) * len}" stroke="${col}" stroke-width="${wdt}" stroke-linecap="round"/>`;
   };
-  const hands = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${P}" height="${P}">
+  const hands = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
     <g filter="drop-shadow(3px 4px 3px rgba(0,0,0,.45))">
     ${hand(305, R * 0.42, R * 0.045, handCol)}${hand(60, R * 0.62, R * 0.03, handCol)}${hand(200, R * 0.66, R * 0.012, '#d61f1f')}
     <circle cx="${cxP}" cy="${cyP}" r="${R * 0.035}" fill="#c9a24a"/></g>
-    <rect x="0" y="${P - 64}" width="${P}" height="64" fill="rgba(0,0,0,.55)"/>
-    <text x="28" y="${P - 22}" font-family="Inter, DejaVu Sans, Arial" font-size="26" font-weight="700" fill="#FFC21A">METARTSHOP</text>
-    <text x="${P - 28}" y="${P - 22}" text-anchor="end" font-family="Inter, DejaVu Sans, Arial" font-size="24" fill="#fff">${escapeXml(caption)}</text></svg>`);
+    <rect x="0" y="${H - 64}" width="${W}" height="64" fill="rgba(0,0,0,.55)"/>
+    <text x="28" y="${H - 22}" font-family="Inter, DejaVu Sans, Arial" font-size="26" font-weight="700" fill="#FFC21A">METARTSHOP</text>
+    <text x="${W - 28}" y="${H - 22}" text-anchor="end" font-family="Inter, DejaVu Sans, Arial" font-size="24" fill="#fff">${escapeXml(caption)}</text></svg>`);
 
-  return sharp(wall).composite([
-    { input: shadowBlur, left: left - 40 + 16, top: top - 40 + 22 },
+  return sharp(roomBuf || wall).composite([
+    { input: shadowBlur, left: Math.max(0, left - 40 + Math.round(16 * k)), top: Math.max(0, top - 40 + Math.round(22 * k)) },
     { input: metalRGBA, left, top },
     { input: hands, left: 0, top: 0 },
   ]).jpeg({ quality: 90 }).toBuffer();

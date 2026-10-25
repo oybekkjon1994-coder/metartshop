@@ -9,7 +9,7 @@ const DATA = path.join(__dirname, 'data'); fs.rmSync(DATA, { recursive: true, fo
 const USER = { id: 111, first_name: 'Ali', username: 'ali_test' };
 const NEW = { id: 222, first_name: 'Vali' };
 const FRIEND = { id: 333, first_name: 'Do\'st' };
-let lastReq = 0, lastMbuy = '';
+let lastReq = 0, lastMbuy = '', aiReq = '', ghPut = [];
 const ADMIN = { id: 999, first_name: 'Usta' };
 let uid = 0, mid = 100;
 const msg = (from, extra) => ({ update_id: ++uid, message: { message_id: ++mid, from, chat: { id: from.id, type: 'private' }, date: 0, ...extra } });
@@ -22,7 +22,7 @@ const script = [
   msg(USER, { text: 'Chilonzor 5-kvartal' }), cb(USER, 'ok'),
   msg(ADMIN, { text: '/start' }), cb(ADMIN, 'lang:uz'), msg(ADMIN, { text: '/admin 0000' }), msg(ADMIN, { text: '/admin 12345678' }),
   msg(USER, { text: "🎨 O'z dizaynim" }), msg(USER, { photo: [{ file_id: 'logo1', width: 600, height: 600 }] }),
-  cb(USER, 'sz:50'), cb(USER, 'col:oltin'), cb(USER, 'cnext'), cb(USER, 'qty:1'),
+  cb(USER, 'sz:50'), cb(USER, 'room'), msg(USER, { photo: [{ file_id: 'room1', width: 800, height: 600 }] }), cb(USER, 'col:oltin'), cb(USER, 'cnext'), cb(USER, 'qty:1'),
   msg(USER, { text: 'Ali Valiyev' }), msg(USER, { text: '90 123 45 67' }), cb(USER, 'dlv:reg'), msg(USER, { text: 'Samarqand, Registon 1' }), cb(USER, 'ok'),
   cb(ADMIN, 'st:M-0002:accepted'), msg(ADMIN, { text: '/statistika' }), msg(ADMIN, { text: '/buyurtmalar' }),
   msg(USER, { photo: [{ file_id: 'hard', width: 600, height: 600 }] }), msg(USER, { text: '90 777 66 55' }),
@@ -44,6 +44,8 @@ const script = [
   msg(USER, { text: '⚙️ Lazer kesish (DXF)' }),
   msg(USER, { document: { file_id: 'dxf1', file_name: 'detal.dxf', file_size: 600, mime_type: 'application/dxf' } }),
   cb(USER, 'lt:1'), cb(USER, 'lbuy'), cb(USER, 'qty:2'), msg(USER, { text: 'Ali' }), msg(USER, { text: '901234567' }), cb(USER, 'dlv:self'), cb(USER, 'ok'), cb(USER, 'paylater'),
+  // 1: AI-maslahatchi
+  msg(USER, { text: "Ofisga sovg'a kerak, nima tavsiya qilasiz?" }),
   msg(USER, { text: '📦 Buyurtmalarim' }), msg(USER, { text: '🌐 Til' }), cb(USER, 'lang:ru'), msg(USER, { text: '🛍 Каталог' }), cb(USER, 'cat:soat'),
 ];
 const log = [];
@@ -54,6 +56,8 @@ const server = http.createServer((req, res) => {
     const body = Buffer.concat(chunks);
     if (req.url.startsWith('/file/')) { res.end(fs.readFileSync(path.join(__dirname, req.url.includes('hard') ? 'photo_hard.jpg' : req.url.includes('dxf') ? 'sample.dxf' : 'logo_white.jpg'))); return; }
     const method = req.url.split('/').pop();
+    if (req.url.startsWith('/repos/')) { ghPut.push(req.url); return res.end('{"content":{}}'); }
+    if (method === 'completions') { aiReq = body.toString(); return res.end(JSON.stringify({ choices: [{ message: { content: "Barselona soati yaxshi tanlov! [[p:barselona-soat]]\nLogotipingiz bilan ham qilamiz [[dizayn]]" } }] })); }
     let params = {};
     const ct = req.headers['content-type'] || '';
     if (ct.includes('json')) params = JSON.parse(body.toString() || '{}');
@@ -118,6 +122,11 @@ function finish(err) {
     ['baho so\'raldi', /→ 333: 🎉 <b>M-0004<\/b> buyurtmangiz topshirildi.*\[1⭐/],
     ['adminga baho keldi', /→ 999: ⭐ <b>M-0004<\/b> — baho/],
     ['instagram ruxsati adminga', /→ 999: 📸 M-0004 — Instagram'da ko'rsatishga ruxsat: ✅ BOR/],
+    ['mijoz rasmi GitHub\'ga (Reels uchun)', { test: () => ghPut.some(u => u.includes('/contents/yangi/mijoz/M-0004-1.jpg')) }],
+    ['adminga Reels xabari', /→ 999: 🎬 M-0004: 1 ta mijoz rasmi Reels uchun yuklandi/],
+    ['xona rasmiga joylandi', /sendPhoto → 111: 🏠 Taxminan shunday ko'rinadi \(50 sm\)/],
+    ['AI javobi tugmalar bilan', /→ 111: Barselona soati yaxshi tanlov!.*\[🛍 Barselona devor soati \| 🎨 O'z dizaynim\]/],
+    ['AI ga katalog berildi', { test: () => /barselona-soat/.test(aiReq) && /gpt-oss/.test(aiReq) }],
     ['lazer narxlari ko\'rsatildi', /→ 111: ⚙️ <b>Lazer kesish xizmati<\/b>.*3–4 mm — 5 000 so'm/],
     ['DXF o\'lchami va uzunligi', /→ 111: 📐 Chizma: <b>300×150 mm<\/b>, kesish uzunligi <b>0.62 m/],
     ['lazer hisobi', /Kesish: 0.62 m × 5 000 so'm = <b>3 100 so'm<\/b>/],
@@ -135,7 +144,7 @@ function finish(err) {
 setTimeout(() => finish('vaqt tugadi (90 s)'), 90000);
 server.listen(18080, () => {
   bot = spawn('node', [path.join(__dirname, '..', 'src', 'bot.js')], {
-    env: { ...process.env, BOT_TOKEN: 'TEST:TOKEN', ADMIN_CODE: '12345678', TG_API: 'http://127.0.0.1:18080', DATA_DIR: DATA }, stdio: 'inherit',
+    env: { ...process.env, BOT_TOKEN: 'TEST:TOKEN', GROQ_API_KEY: 'test', GH_TOKEN: 'gh-test', GH_API: 'http://127.0.0.1:18080', GROQ_API: 'http://127.0.0.1:18080/openai/v1', ADMIN_CODE: '12345678', TG_API: 'http://127.0.0.1:18080', DATA_DIR: DATA }, stdio: 'inherit',
   });
   bot.on('exit', code => { if (!done) setTimeout(() => finish('bot kutilmaganda to\'xtadi (kod ' + code + ')'), 300); });
 });

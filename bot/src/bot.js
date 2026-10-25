@@ -135,6 +135,7 @@ async function handleUpdate(up) {
   const s = u.s || (u.s = {});
   // rasm qabul qilish (o'z dizaynim)
   const photo = m.photo ? m.photo[m.photo.length - 1] : (m.document && /^image\//.test(m.document.mime_type || '') ? m.document : null);
+  if (photo && s.roomWait && s.flow === 'custom') return handleRoom(u, chat, photo.file_id);
   if (photo && s.step === 'review') return reviewPhoto(u, chat, photo.file_id);
   // DXF chizma — istalgan paytda lazer kesish hisobiga
   if (LASER.enabled && m.document && /\.dxf$/i.test(m.document.file_name || '') && s.step !== 'receipt') return handleDxf(u, chat, m.document);
@@ -162,7 +163,70 @@ async function handleUpdate(up) {
     case 'review': return reviewText(u, chat, text);
     case 'receipt': { const o = db.orders.find(x => x.id === s.oid); if (o) return askPayment(u, chat, o); u.s = {}; break; }
   }
+  if (AI_KEY && text.length >= 2 && !text.startsWith('/')) return aiReply(u, chat, text);
   return send(chat, t(u).use_menu, { reply_markup: mainKb(u) });
+}
+
+// ---------- AI-maslahatchi (Groq, bepul) ----------
+const AI_KEY = (process.env.GROQ_API_KEY || '').trim();
+const AI_BASE = (process.env.GROQ_API || 'https://api.groq.com/openai/v1').replace(/\/$/, '');
+const AI_MODELS = (process.env.GROQ_MODEL || 'openai/gpt-oss-120b,qwen/qwen3.8-27b').split(',').map(x => x.trim()).filter(Boolean);
+async function aiSystem(u) {
+  const c = await getCatalog(); const sh = c.shop || {};
+  const prods = c.products.filter(p => p.stock !== false).map(p => `${p.id} | ${pname(p, u.lang)} | ${p.price > 0 ? money(p.price, u.lang) : (u.lang === 'ru' ? 'цена договорная' : 'narx kelishiladi')}${p.size ? ' | ' + p.size : ''}`).join('\n');
+  const sizes = CFG.custom_sizes.map(z => `${z.cm} sm — ${money(z.price, 'uz')}`).join(', ');
+  const laser = LASER.enabled ? LASER.rates.map(r => `${r.label}: ${money(r.rate, 'uz')}/m`).join(', ') : "yo'q";
+  return `Sen METARTSHOP do'konining Telegram botidagi sotuvchi-maslahatchisan. Do'kon: metalldan lazer bilan kesilgan devor soatlari, dekor, panno, mangal, stellaj va buyurtma asosida lazer kesish (Toshkent).
+Javob tili: ${u.lang === 'ru' ? 'rus tili' : "o'zbek tili (lotin)"}. Qisqa yoz: 1-5 gap, do'stona, ortiqcha gapsiz. Markdown ishlatma.
+FAQAT quyidagi ma'lumotlarga tayan. Narx, mahsulot, muddat yoki chegirma o'ylab topma. Bilmasang: "Ustamiz aniq aytadi: @${sh.telegram || 'lazekametal'}" de.
+Mahsulot tavsiya qilsang (ko'pi bilan 3 ta), har biri uchun matn oxirida [[p:ID]] yoz (ID — ro'yxatdagi birinchi ustun). Logotip/ism/rasm bilan maxsus soat kerak bo'lsa [[dizayn]], DXF bo'yicha lazer kesish kerak bo'lsa [[lazer]] yoz.
+MAHSULOTLAR (ID | nomi | narxi | o'lcham):
+${prods}
+O'Z DIZAYNI (logotip/ism/rasmdan soat): ${sizes}; ranglar: ${CFG.custom_colors.join(', ')}; tayyor bo'lish: ${CFG.ready_days || '2-3'} kun.
+LAZER KESISH (1 metr kesish narxi, metall alohida): ${laser}; list ${LASER.sheet_mm.join('×')} mm.
+YETKAZISH: Toshkent bo'ylab Yandex, viloyatlarga BTS pochta, yoki o'zi olib ketadi. To'lov: buyurtmadan keyin kartaga ${PAY.prepay_percent}% oldindan.
+${REF.enabled ? `DO'ST TAKLIFI: «🎁 Chegirma olish» tugmasi — do'st va taklif qiluvchiga ${REF.percent}% chegirma.` : ''}
+ALOQA: Telegram @${sh.telegram || 'lazekametal'}, tel +${sh.phone || '998770179990'}, Instagram @${sh.instagram || 'metart_shop'}.`;
+}
+async function aiCall(messages) {
+  let lastErr;
+  for (const model of AI_MODELS) {
+    try {
+      const body = { model, messages, temperature: 0.4, max_tokens: 700 };
+      if (/gpt-oss/.test(model)) body.reasoning_effort = 'low';
+      const res = await fetch(AI_BASE + '/chat/completions', { method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + AI_KEY }, body: JSON.stringify(body), signal: AbortSignal.timeout(25000) });
+      const j = await res.json().catch(() => ({}));
+      const txt = j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+      if (res.ok && txt) return txt.trim();
+      lastErr = new Error(`${model}: ${res.status} ${(j.error && j.error.message) || ''}`);
+    } catch (e) { lastErr = e; }
+  }
+  throw lastErr || new Error('AI');
+}
+async function aiReply(u, chat, text) {
+  const day = new Date(Date.now() + 5 * H).toISOString().slice(0, 10);
+  if (u.aiDay !== day) { u.aiDay = day; u.aiN = 0; }
+  if (db.state.aiDay !== day) { db.state.aiDay = day; db.state.aiN = 0; }
+  if (u.aiN >= 40 || db.state.aiN >= 1500) return send(chat, t(u).ai_limit, { reply_markup: mainKb(u) });
+  u.aiN++; db.state.aiN++;
+  tg.call('sendChatAction', { chat_id: chat, action: 'typing' }).catch(() => {});
+  const hist = (u.ai || []).slice(-6);
+  try {
+    const out = await aiCall([{ role: 'system', content: await aiSystem(u) }, ...hist, { role: 'user', content: text.slice(0, 1000) }]);
+    u.ai = [...hist, { role: 'user', content: text.slice(0, 500) }, { role: 'assistant', content: out.slice(0, 800) }].slice(-6);
+    const c = await getCatalog(); const rows = [];
+    for (const m of out.matchAll(/\[\[p:([\w-]+)\]\]/g)) {
+      const p = c.products.find(x => x.id === m[1]);
+      if (p && !rows.some(r => r[0].callback_data === 'p:' + p.id) && rows.length < 3) rows.push([{ text: '🛍 ' + pname(p, u.lang), callback_data: 'p:' + p.id }]);
+    }
+    if (/\[\[dizayn\]\]/.test(out)) rows.push([{ text: t(u).ai_custom, callback_data: 'custom' }]);
+    if (/\[\[lazer\]\]/.test(out) && LASER.enabled) rows.push([{ text: t(u).ai_laser, callback_data: 'laser' }]);
+    const clean = out.replace(/\[\[[^\]]*\]\]/g, '').replace(/\*\*/g, '').replace(/[ \t]+\n/g, '\n').trim();
+    return send(chat, esc(clean || t(u).ai_fail), rows.length ? { reply_markup: ik(rows) } : {});
+  } catch (e) {
+    console.error('AI xatosi:', e.message);
+    return send(chat, t(u).ai_fail, { reply_markup: mainKb(u) });
+  }
 }
 
 async function askLang(chat) {
@@ -507,9 +571,31 @@ async function reviewPhoto(u, chat, fileId) {
   await toAdmins(a => tg.call('sendPhoto', { chat_id: a, photo: fileId, caption: `📸 ${o.id} — mijoz rasmi (${'⭐'.repeat(o.rating || 0)})\nInstagram ruxsati: kutilmoqda` }));
   return send(chat, t(u).ig_ask, { reply_markup: ik([[{ text: t(u).ig_yes, callback_data: `ig:${o.id}:1` }, { text: t(u).ig_no, callback_data: `ig:${o.id}:0` }]]) });
 }
+// Ruxsat berilgan mijoz rasmlarini GitHub'dagi yangi/mijoz/ papkasiga yuklaymiz — haftalik Reels vazifasi ularni ishlatadi
+const GH_TOKEN = (process.env.GH_TOKEN || '').trim();
+const GH_REPO = (process.env.GH_REPO || 'oybekkjon1994-coder/metartshop').trim();
+const GH_API = (process.env.GH_API || 'https://api.github.com').replace(/\/$/, '');
+async function uploadForReels(o) {
+  if (!GH_TOKEN || !(o.reviewPhotos || []).length) return 0;
+  let n = 0;
+  for (const [i, fid] of o.reviewPhotos.entries()) {
+    try {
+      const buf = await tg.download(fid);
+      const fp = `yangi/mijoz/${o.id}-${i + 1}.jpg`;
+      const res = await fetch(`${GH_API}/repos/${GH_REPO}/contents/${fp}`, {
+        method: 'PUT', signal: AbortSignal.timeout(60000),
+        headers: { authorization: 'Bearer ' + GH_TOKEN, accept: 'application/vnd.github+json', 'content-type': 'application/json', 'user-agent': 'metartshop-bot' },
+        body: JSON.stringify({ message: `Mijoz rasmi ${o.id} (Instagram ruxsati bor, ${o.rating || '-'}⭐)`, content: buf.toString('base64') }),
+      });
+      if (res.ok || res.status === 422) n++; else console.error('GitHub yuklash:', res.status, (await res.text()).slice(0, 200));
+    } catch (e) { console.error('GitHub yuklash xatosi:', e.message); }
+  }
+  return n;
+}
 async function onIg(u, chat, id, yes) {
   const o = db.orders.find(x => x.id === id && x.userId === u.id); if (!o || o.igOk !== undefined) return;
   o.igOk = !!yes; db.save();
+  if (o.igOk) uploadForReels(o).then(n => { if (n) { o.reelsUploaded = n; db.save(); toAdmins(a => send(a, `🎬 ${o.id}: ${n} ta mijoz rasmi Reels uchun yuklandi — haftalik videolarga qo'shiladi.`)); } }).catch(() => {});
   await toAdmins(a => send(a, `📸 ${o.id} — Instagram'da ko'rsatishga ruxsat: ${o.igOk ? '✅ BOR' : '❌ yo\'q'}`));
   await send(chat, t(u).review_thanks, { reply_markup: mainKb(u) });
   if (REF.enabled) return showInvite(u, chat);
@@ -595,7 +681,23 @@ async function sendPreview(u, chat) {
   const d = designs.get(u.id) || await reloadDesign(u); if (!d) return;
   const col = COLOR_NAMES[u.lang][u.s.color] || u.s.color;
   const img = await design.makePreview(d.shape, u.s.color, `${u.s.size} sm · ${COLOR_NAMES.uz[u.s.color] || u.s.color}`);
-  return tg.call('sendPhoto', { chat_id: chat, photo: TG.file(img, 'dizayn.jpg', 'image/jpeg'), caption: t(u).preview_caption(u.s.size, col) });
+  return tg.call('sendPhoto', { chat_id: chat, photo: TG.file(img, 'dizayn.jpg', 'image/jpeg'), caption: t(u).preview_caption(u.s.size, col), reply_markup: ik([[{ text: t(u).room_btn, callback_data: 'room' }]]) });
+}
+// Mijoz xonasi rasmiga soatni joylash
+async function handleRoom(u, chat, fileId) {
+  u.s.roomWait = false;
+  const d = designs.get(u.id) || await reloadDesign(u);
+  if (!d) return send(chat, t(u).custom_intro);
+  const wait = await send(chat, t(u).processing);
+  try {
+    const room = await tg.download(fileId);
+    const img = await design.makePreview(d.shape, u.s.color || 'qora', `${u.s.size} sm · ${COLOR_NAMES.uz[u.s.color] || u.s.color}`, room, u.s.size || 40);
+    await tg.call('sendPhoto', { chat_id: chat, photo: TG.file(img, 'devor.jpg', 'image/jpeg'), caption: t(u).room_caption(u.s.size), reply_markup: ik([[{ text: t(u).room_btn, callback_data: 'room' }]]) });
+    if (u.s.step === 'size') return send(chat, t(u).ask_size, { reply_markup: ik(chunk(CFG.custom_sizes.map(z => ({ text: `${z.cm} ${u.lang === 'ru' ? 'см' : 'sm'} — ${money(z.price, u.lang)}`, callback_data: 'sz:' + z.cm })), 1)) });
+    if (u.s.step === 'color') return send(chat, t(u).ask_color_custom, { reply_markup: ik(chunk(CFG.custom_colors.map(cl => ({ text: COLOR_NAMES[u.lang][cl] || cl, callback_data: 'col:' + cl })), 4).concat([[{ text: t(u).next, callback_data: 'cnext' }]])) });
+    return resume(u, chat);
+  } catch (e) { console.error('Xona rasmi xatosi:', e.message); return send(chat, t(u).bad_image); }
+  finally { tg.call('deleteMessage', { chat_id: chat, message_id: wait.message_id }).catch(() => {}); }
 }
 
 // ---------- tugma bosilganda ----------
@@ -655,6 +757,8 @@ async function onCallback(q) {
       case 'mchg': u.s = { flow: 'mchange', step: 'manual_change' }; await send(chat, t(u).manual_change); break;
       case 'rate': await onRate(u, chat, a, +b); break;
       case 'lt': await laserQuote(u, chat, +a); break;
+      case 'laser': if (LASER.enabled) { u.s = { flow: 'laser', step: 'laser_file' }; await send(chat, laserIntro(u)); } break;
+      case 'room': if (s.flow === 'custom' && s.size) { s.roomWait = true; await send(chat, t(u).room_ask); } break;
       case 'lre': if (s.flow === 'laser' && s.meters) { s.step = 'laser_thick'; await send(chat, t(u).laser_thick(s.meters, s.w, s.h), { reply_markup: ik(chunk(LASER.rates.map((x, i) => ({ text: x.label, callback_data: 'lt:' + i })), 2)) }); } break;
       case 'lbuy': if (s.flow === 'laser' && s.step === 'laser_quote') await askQty(u, chat); break;
       case 'gift': u.s = {}; await showCats(u, chat); break;
