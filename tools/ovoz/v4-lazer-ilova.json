@@ -1,0 +1,18 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+12%",
+ "items": [
+  {
+   "video": "reels/v4-lazer-ilova.mp4",
+   "out": "reels/v4-lazer-ilova-ovoz.mp4",
+   "lines": [
+    [0.2, "Lazer ustasimisiz? Bu ilova vaqtingizni tejaydi."],
+    [3.6, "Birinchi: DXF yuklang, kesish narxi darhol chiqadi."],
+    [8.5, "Ikkinchi: o'lchamni kiriting, tayyor DXF oling."],
+    [11.4, "Uchinchi: detallarni listga o'zi joylaydi."],
+    [16.4, "To'rtinchi: metall og'irligi va buyurtmalar daftari."],
+    [21.3, "Narxi to'rt yuz qirq to'qqiz ming so'm. Bir marta."]
+   ]
+  }
+ ]
+}
