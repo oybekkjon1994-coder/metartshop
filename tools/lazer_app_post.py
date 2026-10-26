@@ -47,6 +47,21 @@ SLIDES = [  # (sarlavha, kichik matn, skrinshot, scroll, raqam)
     ("Metall og'irligi va buyurtmalar", "List, truba, burchak, armatura og'irligi va narxi. Mijozlar, qarzlar va muddatlar — bitta daftarda.", ('s4-metal.png', 's5-buy.png'), 0, '4'),
 ]
 
+CHIZISH = [
+    ("AutoCAD shart emas!", "Kompyuter ham kerak emas. Lazer uchun DXF chizmani telefonda o'zingiz chizasiz — 37 ta tayyor shablon bor.", 'd-list.png', 0, None),
+    ("Naqsh tanlang", "Islomiy girih, jobiraka, kub, asalari uyasi... O'lchamni yozing — naqshli panel tayyor.", ('e-girihgal.png', 'd-girih.png'), 0, '1'),
+    ("Kozirok paneli", "Old panel (yoy yoki friz) va yon kronshteyn. Eni, bo'yi, naqshi — bir necha soniyada.", 'd-kozirok.png', 0, '2'),
+    ("Darvoza + 3D ko'rinish", "Darvoza va panjarani konstruktorda yig'asiz, mijozga 3D da rangi bilan ko'rsatasiz.", ('d-darvoza.png', 'e-3d.png'), 0, '3'),
+    ("Logotip yoki rasmdan DXF", "Rasmni yuklang — ilova uni lazer kesadigan konturga aylantiradi.", ('e-rasm0.png', 'e-rasm.png'), 0, '4'),
+    ("Yozuv, raqam, soat", "Ism, firma nomi, uy raqami, devor soati — shriftini tanlab, darhol DXF.", ('e-matn.png', 'd-soat.png'), 0, '5'),
+]
+MODE = os.environ.get('MODE', 'ilova')
+FEAT = ["Narx hisoblash", "DXF yasash (37 tayyor detal)", "Nesting — listga joylash", "Metall og'irligi va narxi", "Buyurtmalar daftari"]
+NAME, REEL = 'lazer-ilova', 'v4-lazer-ilova'
+if MODE == 'chizish':
+    SLIDES = CHIZISH; NAME, REEL = 'lazer-chizish', 'v5-lazer-chizish'
+    FEAT = ["DXF ni telefonda chizish", "37 ta shablon: naqsh, darvoza, kozirok", "Rasm va logotipdan DXF", "Darvozani 3D da ko'rsatish", "Narx, nesting, buyurtmalar"]
+
 def slide(i, W=1080, H=1350, ph_w=500):
     title, sub, shot, scroll, num = SLIDES[i]
     bg = Image.new('RGB', (W, H), (245, 243, 238)); d = ImageDraw.Draw(bg)
@@ -77,7 +92,7 @@ def price_slide(W=1080, H=1350):
     c(150, 'Narxi', 50, (180, 180, 186), BOLD)
     d.rounded_rectangle((150, 240, W - 150, 420), 40, fill=ORANGE); c(268, "449 000 so'm", 110)
     c(470, "Bir marta to'lanadi", 54); c(545, "Oylik to'lov yo'q · Android", 40, (180, 180, 186), BOLD)
-    for j, t in enumerate(["Narx hisoblash", "DXF yasash (37 tayyor detal)", "Nesting — listga joylash", "Metall og'irligi va narxi", "Buyurtmalar daftari"]):
+    for j, t in enumerate(FEAT):
         d.text((200, 660 + j * 70), '✓', font=font(46, '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'), fill=YEL); d.text((260, 664 + j * 70), t, font=font(40, BOLD), fill='white')
     d.rounded_rectangle((120, 1060, W - 120, 1190), 30, fill=YEL); c(1080, 'Sotib olish: @lazer_uz77_bot', 50, DARK)
     c(1230, "Telegram bot ilovani darhol yuboradi", 34, (180, 180, 186), BOLD)
@@ -86,12 +101,12 @@ def price_slide(W=1080, H=1350):
 def karusel():
     os.makedirs(os.path.join(ROOT, 'ig'), exist_ok=True); paths = []
     for i in range(len(SLIDES)):
-        p = os.path.join(ROOT, 'ig', f'lazer-ilova-{i + 1}.jpg'); slide(i).save(p, quality=92); paths.append(p)
-    p = os.path.join(ROOT, 'ig', f'lazer-ilova-{len(SLIDES) + 1}.jpg'); price_slide().save(p, quality=92); paths.append(p)
+        p = os.path.join(ROOT, 'ig', f'{NAME}-{i + 1}.jpg'); slide(i).save(p, quality=92); paths.append(p)
+    p = os.path.join(ROOT, 'ig', f'{NAME}-{len(SLIDES) + 1}.jpg'); price_slide().save(p, quality=92); paths.append(p)
     print(paths)
 
 def reel():
-    W, H, FPS = 1080, 1920, 30; out = os.path.join(ROOT, 'reels', 'v4-lazer-ilova.mp4')
+    W, H, FPS = 1080, 1920, 30; out = os.path.join(ROOT, 'reels', REEL + '.mp4')
     pr = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
                            '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], stdin=subprocess.PIPE)
     add = lambda im: pr.stdin.write(im.convert('RGB').tobytes())

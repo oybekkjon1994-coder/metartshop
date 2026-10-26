@@ -1,0 +1,19 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+12%",
+ "items": [
+  {
+   "video": "reels/v5-lazer-chizish.mp4",
+   "out": "reels/v5-lazer-chizish-ovoz.mp4",
+   "lines": [
+    [0.2, "AutoCAD bilmaysizmi? Kompyuter ham kerak emas! DXF ni telefonda chizasiz."],
+    [3.6, "Naqshni tanlang, o'lchamni yozing, naqshli panel tayyor."],
+    [8.5, "Kozirok paneli bir necha soniyada."],
+    [11.4, "Darvozani yig'ing va mijozga 3D da ko'rsating."],
+    [16.4, "Logotip yoki rasmni yuklang, DXF chiqadi."],
+    [21.4, "Yozuv, raqam, devor soati, hammasi bor."],
+    [26.3, "Narxi to'rt yuz qirq to'qqiz ming so'm. Bir marta."]
+   ]
+  }
+ ]
+}
