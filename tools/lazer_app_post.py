@@ -55,7 +55,9 @@ CHIZISH = [
     ("Logotip yoki rasmdan DXF", "Rasmni yuklang — ilova uni lazer kesadigan konturga aylantiradi.", ('e-rasm0.png', 'e-rasm.png'), 0, '4'),
     ("Yozuv, raqam, soat", "Ism, firma nomi, uy raqami, devor soati — shriftini tanlab, darhol DXF.", ('e-matn.png', 'd-soat.png'), 0, '5'),
 ]
-MODE = os.environ.get('MODE', 'ilova'); COVER = 4.6 if MODE == 'chizish' else 3.4; COVER = 4.6 if MODE == 'chizish' else 3.4
+MODE = os.environ.get('MODE', 'ilova'); COVER = 4.6 if MODE == 'chizish' else 3.4
+FX_T = [0.22, 19.15] if MODE == 'chizish' else []; COVER = 4.6 if MODE == 'chizish' else 3.4
+FX_T = [0.22, 19.15] if MODE == 'chizish' else []
 FEAT = ["Narx hisoblash", "DXF yasash (37 tayyor detal)", "Nesting — listga joylash", "Metall og'irligi va narxi", "Buyurtmalar daftari"]
 NAME, REEL = 'lazer-ilova', 'v4-lazer-ilova'
 if MODE == 'chizish':
@@ -109,7 +111,9 @@ def reel():
     W, H, FPS = 1080, 1920, 30; out = os.path.join(ROOT, 'reels', REEL + '.mp4')
     pr = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
                            '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], stdin=subprocess.PIPE)
-    add = lambda im: pr.stdin.write(im.convert('RGB').tobytes())
+    cnt = [0]
+    def add(im):
+        pr.stdin.write(fx(im.convert('RGB'), cnt[0] / FPS).tobytes()); cnt[0] += 1
     def center(d, y, t, s, col, b=BLACK):
         f = font(s, b); d.text(((W - d.textlength(t, font=f)) / 2, y), t, font=f, fill=col)
     for i, (title, sub, shot, scroll, num) in enumerate(SLIDES):
@@ -137,7 +141,50 @@ def reel():
         fr = big.copy()
         if k < 8: fr = Image.blend(Image.new('RGB', (W, H), 'white'), fr, k / 8)
         add(fr)
-    pr.stdin.close(); pr.wait(); print(out)
+    pr.stdin.close(); pr.wait()
+    if FX_T: add_sfx(out, cnt[0] / FPS)
+    print(out)
+
+def badge():
+    f = font(230); w = int(ImageDraw.Draw(Image.new('L', (1, 1))).textlength('DXF', font=f))
+    im = Image.new('RGBA', (w + 140, 330), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle((10, 10, im.width - 10, im.height - 10), 50, fill=ORANGE, outline='white', width=12)
+    d.text((70, 18), 'DXF', font=f, fill='white')
+    return im.rotate(-6, expand=True, resample=Image.BICUBIC)
+_B = []
+
+def fx(im, tt):
+    for t0 in FX_T:
+        dt = tt - t0
+        if not 0 <= dt < 0.9: continue
+        W, H = im.size
+        z = 1 + 0.08 * (1 - ease(dt / 0.35))
+        if z > 1.001:
+            cw, ch = int(W / z), int(H / z); sx = int(10 * math.sin(dt * 90) * (1 - min(1, dt / 0.25)))
+            x0 = (W - cw) // 2 + sx; y0 = (H - ch) // 2
+            im = im.crop((x0, y0, x0 + cw, y0 + ch)).resize((W, H), Image.BILINEAR)
+        if dt < 0.15: im = Image.blend(im, Image.new('RGB', (W, H), 'white'), 0.55 * (1 - dt / 0.15))
+        if not _B: _B.append(badge())
+        b = _B[0]
+        sc = 1.18 * ease(dt / 0.16) if dt < 0.16 else 1.18 - 0.18 * ease((dt - 0.16) / 0.12)
+        al = 1 - ease((dt - 0.6) / 0.3)
+        if sc > 0.05 and al > 0:
+            bb = b.resize((max(1, int(b.width * sc)), max(1, int(b.height * sc))), Image.BICUBIC)
+            if al < 1: bb.putalpha(bb.split()[3].point(lambda v: int(v * al)))
+            im = im.copy(); im.paste(bb, ((W - bb.width) // 2, int(H * 0.62) - bb.height // 2), bb)
+    return im
+
+def add_sfx(path, dur):
+    parts, labels = [], []
+    for i, t0 in enumerate(FX_T):
+        ms = int(t0 * 1000)
+        parts.append(f"anoisesrc=d=0.55:c=pink:a=0.6,highpass=f=400,lowpass=f=5000,afade=t=in:d=0.12,afade=t=out:st=0.12:d=0.4,adelay={ms}|{ms}[w{i}]")
+        parts.append(f"sine=f=65:d=0.35,volume=1.6,afade=t=out:st=0.03:d=0.3,adelay={ms + 110}|{ms + 110}[b{i}]")
+        labels += [f"[w{i}]", f"[b{i}]"]
+    fc = ';'.join(parts) + ';' + ''.join(labels) + f"amix=inputs={len(labels)}:normalize=0,volume=0.8,apad=whole_dur={dur:.2f},atrim=0:{dur:.2f}[a]"
+    tmp = path + '.tmp.mp4'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', path, '-filter_complex', fc, '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-ac', '2', '-shortest', tmp], check=True)
+    os.replace(tmp, path)
 
 if __name__ == '__main__':
     karusel(); reel()
