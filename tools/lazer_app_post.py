@@ -53,7 +53,7 @@ CHIZISH = [
     ("Kozirok paneli", "Old panel (yoy yoki friz) va yon kronshteyn. Eni, bo'yi, naqshi — bir necha soniyada.", 'd-kozirok.png', 0, '2'),
     ("Darvoza + 3D ko'rinish", "Darvoza va panjarani konstruktorda yig'asiz, mijozga 3D da rangi bilan ko'rsatasiz.", ('d-darvoza.png', 'e-3d.png'), 0, '3'),
     ("Logotip yoki rasmdan DXF", "Rasmni yuklang — ilova uni lazer kesadigan konturga aylantiradi.", ('e-rasm0.png', 'e-rasm.png'), 0, '4'),
-    ("Yozuv, raqam, soat", "Ism, firma nomi, uy raqami, devor soati — shriftini tanlab, darhol DXF.", ('e-matn.png', 'd-soat.png'), 0, '5'),
+    ("Yozuv va uy raqami", "Ism, firma nomi, ko'cha va uy raqami tablichkasi — shriftini tanlab, darhol DXF.", ('e-matn.png', 'd-uyraqam.png'), 0, '5'),
 ]
 MODE = os.environ.get('MODE', 'ilova'); COVER = 4.6 if MODE == 'chizish' else 3.4
 FX_T = [0.22, 19.15] if MODE == 'chizish' else []
@@ -144,6 +144,7 @@ def reel():
         if k < 8: fr = Image.blend(Image.new('RGB', (W, H), 'white'), fr, k / 8)
         add(fr)
     pr.stdin.close(); pr.wait()
+    if MODE == 'chizish': add_music(out, cnt[0] / FPS)
     print(out)
 
 def badge():
@@ -174,6 +175,13 @@ def fx(im, tt):
             if al < 1: bb.putalpha(bb.split()[3].point(lambda v: int(v * al)))
             im = im.copy(); im.paste(bb, ((W - bb.width) // 2, int(H * 0.62) - bb.height // 2), bb)
     return im
+
+def add_music(path, dur, db=-14):
+    wav = path + '.wav'; subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'minus.py'), f'{dur:.2f}', wav], check=True)
+    tmp = path + '.tmp.mp4'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', path, '-i', wav, '-filter_complex', f'[1:a]volume={db}dB[a]', '-map', '0:v', '-map', '[a]',
+                    '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-shortest', tmp], check=True)
+    os.replace(tmp, path); os.remove(wav)
 
 def add_sfx(path, dur):
     parts, labels = [], []
