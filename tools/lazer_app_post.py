@@ -48,14 +48,14 @@ SLIDES = [  # (sarlavha, kichik matn, skrinshot, scroll, raqam)
 ]
 
 CHIZISH = [
-    ("AutoCAD shart emas!", "Kompyuter ham kerak emas. Lazer uchun DXF chizmani telefonda o'zingiz chizasiz — 37 ta tayyor shablon bor.", 'd-list.png', 0, None),
+    ("DXF chizma chizishni bilmaysizmi?", "Bu ilova aynan siz uchun! AutoCAD ham, kompyuter ham shart emas — DXF ni telefonda chizasiz, 37 ta tayyor shablon bor.", 'd-list.png', 0, None),
     ("Naqsh tanlang", "Islomiy girih, jobiraka, kub, asalari uyasi... O'lchamni yozing — naqshli panel tayyor.", ('e-girihgal.png', 'd-girih.png'), 0, '1'),
     ("Kozirok paneli", "Old panel (yoy yoki friz) va yon kronshteyn. Eni, bo'yi, naqshi — bir necha soniyada.", 'd-kozirok.png', 0, '2'),
     ("Darvoza + 3D ko'rinish", "Darvoza va panjarani konstruktorda yig'asiz, mijozga 3D da rangi bilan ko'rsatasiz.", ('d-darvoza.png', 'e-3d.png'), 0, '3'),
     ("Logotip yoki rasmdan DXF", "Rasmni yuklang — ilova uni lazer kesadigan konturga aylantiradi.", ('e-rasm0.png', 'e-rasm.png'), 0, '4'),
     ("Yozuv, raqam, soat", "Ism, firma nomi, uy raqami, devor soati — shriftini tanlab, darhol DXF.", ('e-matn.png', 'd-soat.png'), 0, '5'),
 ]
-MODE = os.environ.get('MODE', 'ilova')
+MODE = os.environ.get('MODE', 'ilova'); COVER = 4.6 if MODE == 'chizish' else 3.4; COVER = 4.6 if MODE == 'chizish' else 3.4
 FEAT = ["Narx hisoblash", "DXF yasash (37 tayyor detal)", "Nesting — listga joylash", "Metall og'irligi va narxi", "Buyurtmalar daftari"]
 NAME, REEL = 'lazer-ilova', 'v4-lazer-ilova'
 if MODE == 'chizish':
@@ -91,7 +91,7 @@ def price_slide(W=1080, H=1350):
         f = font(s, b); d.text(((W - d.textlength(t, font=f)) / 2, y), t, font=f, fill=col)
     c(150, 'Narxi', 50, (180, 180, 186), BOLD)
     d.rounded_rectangle((150, 240, W - 150, 420), 40, fill=ORANGE); c(268, "449 000 so'm", 110)
-    c(470, "Bir marta to'lanadi", 54); c(545, "Oylik to'lov yo'q · Android", 40, (180, 180, 186), BOLD)
+    c(470, "Bir martalik to'lov", 54); c(545, "Oylik to'lov yo'q · Android", 40, (180, 180, 186), BOLD)
     for j, t in enumerate(FEAT):
         d.text((200, 660 + j * 70), '✓', font=font(46, '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'), fill=YEL); d.text((260, 664 + j * 70), t, font=font(40, BOLD), fill='white')
     d.rounded_rectangle((120, 1060, W - 120, 1190), 30, fill=YEL); c(1080, 'Sotib olish: @lazer_uz77_bot', 50, DARK)
@@ -114,7 +114,7 @@ def reel():
         f = font(s, b); d.text(((W - d.textlength(t, font=f)) / 2, y), t, font=f, fill=col)
     for i, (title, sub, shot, scroll, num) in enumerate(SLIDES):
         shots = shot if isinstance(shot, tuple) else (shot,)
-        n = int((3.4 if i == 0 else 2.2 * len(shots) + 0.6) * FPS); phs = [phone(x, 600) for x in shots]; sh = shadow(phs[0])
+        n = int((COVER if i == 0 else 2.2 * len(shots) + 0.6) * FPS); phs = [phone(x, 600) for x in shots]; sh = shadow(phs[0])
         for k in range(n):
             t = k / (n - 1)
             if len(phs) == 1: p = phs[0]
