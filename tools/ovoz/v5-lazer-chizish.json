@@ -8,7 +8,7 @@
    "lines": [
     [
      0.2,
-     "DXF chizma chizishni bilmaydiganlar uchun! AutoCAD ham, kompyuter ham shart emas."
+     "AutoCAD chizma chizishni bilmaydiganlar uchun! Kompyuter ham shart emas."
     ],
     [
      4.8,
@@ -24,7 +24,7 @@
     ],
     [
      17.6,
-     "Logotip yoki rasmni yuklang, DXF chiqadi."
+     "Logotip yoki rasmni yuklang, AutoCAD chizma chiqadi."
     ],
     [
      22.6,
@@ -36,6 +36,5 @@
     ]
    ]
   }
- ],
- "versiya": 3
+ ]
 }

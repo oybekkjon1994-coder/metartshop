@@ -56,8 +56,10 @@ CHIZISH = [
     ("Yozuv, raqam, soat", "Ism, firma nomi, uy raqami, devor soati — shriftini tanlab, darhol DXF.", ('e-matn.png', 'd-soat.png'), 0, '5'),
 ]
 MODE = os.environ.get('MODE', 'ilova'); COVER = 4.6 if MODE == 'chizish' else 3.4
-FX_T = [0.22, 19.15] if MODE == 'chizish' else []; COVER = 4.6 if MODE == 'chizish' else 3.4
 FX_T = [0.22, 19.15] if MODE == 'chizish' else []
+BADGE = 'AutoCAD'; COVER = 4.6 if MODE == 'chizish' else 3.4
+FX_T = [0.22, 19.15] if MODE == 'chizish' else []
+BADGE = 'AutoCAD'
 FEAT = ["Narx hisoblash", "DXF yasash (37 tayyor detal)", "Nesting — listga joylash", "Metall og'irligi va narxi", "Buyurtmalar daftari"]
 NAME, REEL = 'lazer-ilova', 'v4-lazer-ilova'
 if MODE == 'chizish':
@@ -142,14 +144,13 @@ def reel():
         if k < 8: fr = Image.blend(Image.new('RGB', (W, H), 'white'), fr, k / 8)
         add(fr)
     pr.stdin.close(); pr.wait()
-    if FX_T: add_sfx(out, cnt[0] / FPS)
     print(out)
 
 def badge():
-    f = font(230); w = int(ImageDraw.Draw(Image.new('L', (1, 1))).textlength('DXF', font=f))
-    im = Image.new('RGBA', (w + 140, 330), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    f = font(170); w = int(ImageDraw.Draw(Image.new('L', (1, 1))).textlength(BADGE, font=f))
+    im = Image.new('RGBA', (w + 140, 260), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     d.rounded_rectangle((10, 10, im.width - 10, im.height - 10), 50, fill=ORANGE, outline='white', width=12)
-    d.text((70, 18), 'DXF', font=f, fill='white')
+    d.text((70, 22), BADGE, font=f, fill='white')
     return im.rotate(-6, expand=True, resample=Image.BICUBIC)
 _B = []
 
