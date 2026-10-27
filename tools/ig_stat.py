@@ -26,17 +26,33 @@ def ig_id():
         if pg.get("instagram_business_account"): return pg["instagram_business_account"]["id"]
     raise SystemExit("IG akkaunt topilmadi")
 
-ig = ig_id()
-acc = call(ig, fields="username,name,followers_count,follows_count,media_count")
-media = call(f"{ig}/media", fields="id,caption,media_type,timestamp,like_count,comments_count,permalink", limit="12").get("data", [])
-for m in media:
-    try:
-        ins = call(f"{m['id']}/insights", metric="reach").get("data", [])
-        m["reach"] = ins[0]["values"][0]["value"] if ins else None
-    except Exception:
-        m["reach"] = None
-    m["caption"] = (m.get("caption") or "").split("\n")[0][:60]
+def safe_call(path, **p):
+    try: return call(path, **p), None
+    except urllib.error.HTTPError as e:
+        try: msg = json.loads(e.read())["error"]["message"]
+        except Exception: msg = str(e)
+        return None, f"{e.code}: {msg}"
+    except Exception as e:
+        return None, str(e)
 
-out = {"vaqt": datetime.now(TZ).isoformat(timespec="minutes"), "akkaunt": acc, "postlar": media}
+out = {"vaqt": datetime.now(TZ).isoformat(timespec="minutes")}
+try:
+    ig = ig_id()
+    out["ig_id"] = ig
+    acc, err = safe_call(ig, fields="username,name,followers_count,follows_count,media_count")
+    if acc is None:
+        acc, err2 = safe_call(ig, fields="username,followers_count,media_count")
+        if acc is None: out["xato_akkaunt"] = err
+    out["akkaunt"] = acc or {}
+    media_r, err = safe_call(f"{ig}/media", fields="id,caption,media_type,timestamp,like_count,comments_count,permalink", limit="12")
+    media = (media_r or {}).get("data", [])
+    if media_r is None: out["xato_media"] = err
+    for m in media:
+        ins, _ = safe_call(f"{m['id']}/insights", metric="reach")
+        m["reach"] = (ins or {}).get("data", [{}])[0].get("values", [{}])[0].get("value") if ins else None
+        m["caption"] = (m.get("caption") or "").split("\n")[0][:60]
+    out["postlar"] = media
+except Exception as e:
+    import traceback; out["xato"] = traceback.format_exc()[-800:]
 json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-print(json.dumps(acc, ensure_ascii=False))
+print(json.dumps(out.get("akkaunt") or out, ensure_ascii=False)[:500])
