@@ -1,0 +1,147 @@
+[
+ {
+  "id": "k6-barselona",
+  "src": "img/barselona-soat-1.jpg",
+  "title": "Barselona",
+  "price": "150 000 so‘m",
+  "sub": "Metall · lazer bilan kesilgan · 6 xil rang"
+ },
+ {
+  "id": "k7-ronaldo",
+  "src": "img/ronaldo-soat-1.jpg",
+  "title": "Ronaldo\nsoati",
+  "price": "149 000 so‘m",
+  "sub": "Metall devor soati · Часы «Роналду»"
+ },
+ {
+  "id": "k8-oqborilar",
+  "src": "img/oq-borilar-2026-1.jpg",
+  "title": "Oq bo‘rilar 2026",
+  "price": "200 000 so‘m",
+  "sub": "Terma jamoa muxlislari uchun",
+  "size": 110
+ },
+ {
+  "id": "k9-manu",
+  "src": "ig/src/d5049066.jpg",
+  "title": "Manchester United",
+  "price": "99 000 so‘m",
+  "sub": "Metall · lazer bilan kesilgan",
+  "size": 118
+ },
+ {
+  "id": "k10-itidish",
+  "src": "img/it-idish-stend-1.jpg",
+  "title": "It uchun idish stendi",
+  "price": "139 900 so‘m",
+  "sub": "2 ta zanglamas idish bilan",
+  "size": 110
+ },
+ {
+  "id": "k11-chelsea",
+  "src": "img/chelsea-soat-1.jpg",
+  "title": "Chelsea",
+  "price": "150 000 so‘m",
+  "sub": "Metall devor soati · Часы «Челси»"
+ },
+ {
+  "id": "k12-liverpool",
+  "src": "ig/src/99f01c46.jpg",
+  "title": "Liverpool",
+  "sub": "Qizil, qora yoki chiroqli — siz tanlang"
+ },
+ {
+  "id": "k13-gulstend",
+  "src": "img/gul-stellaj-1.jpg",
+  "title": "Gullar uchun stellaj",
+  "sub": "G‘ildirakli · o‘lchami buyurtma asosida",
+  "size": 118
+ },
+ {
+  "id": "k14-veshalka",
+  "src": "yangi/veshalka-dokon-ai.jpg",
+  "title": "Do‘kon uchun kiyim ilgich",
+  "sub": "Metall karkas · o‘lchamingizga yasaymiz",
+  "size": 104
+ },
+ {
+  "id": "k15-arsenal",
+  "src": "img/arsenal-soat-1.jpg",
+  "title": "Arsenal",
+  "sub": "Metall devor soati · istalgan rangda"
+ },
+ {
+  "id": "k16-gerb",
+  "src": "img/gerb-soat-1.jpg",
+  "title": "O‘zbekiston gerbi soati",
+  "sub": "Metall · oltin, kumush yoki qora",
+  "size": 110
+ },
+ {
+  "id": "k17-hilol",
+  "src": "img/hilol-chiroq-1.jpg",
+  "title": "Hilol chiroq",
+  "sub": "Uyingizga iliqlik va nur"
+ },
+ {
+  "id": "k18-realoq",
+  "src": "ig/src/e22ea763.jpg",
+  "title": "Real Madrid",
+  "price": "150 000 so‘m",
+  "sub": "Oq rangda · Часы «Реал Мадрид»",
+  "size": 120
+ },
+ {
+  "id": "c1-logo",
+  "src": "img/avtoservis-soat-1.jpg",
+  "title": "Logotipingizni @Metart_shop_bot ga yuboring — soatingizni darhol ko‘ring",
+  "sub": "Firma, do‘kon, klub yoki ism",
+  "size": 76,
+  "upper": false
+ },
+ {
+  "id": "c2-qaysiklub",
+  "src": "ig/src/09a703b6.jpg",
+  "title": "Qaysi klub kerak? Botga yozing!",
+  "sub": "Istalgan klub logotipi bilan · 150 000 so‘mdan",
+  "size": 96
+ },
+ {
+  "id": "c3-xona",
+  "src": "img/arsenal-soat-2.jpg",
+  "title": "Xonangizga qo‘yib ko‘ring — @Metart_shop_bot",
+  "sub": "Xona rasmini yuboring, bot soatni devorga joylaydi",
+  "size": 78,
+  "upper": false
+ },
+ {
+  "id": "c4-dostingiz",
+  "src": "img/tufli-soat-1.jpg",
+  "title": "Do‘stingizni taklif qiling — ikkalangizga 10% chegirma",
+  "sub": "Taklif havolasi botda",
+  "size": 84,
+  "upper": false
+ },
+ {
+  "id": "c5-bugun",
+  "src": "img/salfetkadon-mashina-1.jpg",
+  "title": "Bugun buyurtma qabul qilamiz",
+  "sub": "2–3 kunda tayyor · O‘zbekiston bo‘ylab yetkazamiz",
+  "size": 104
+ },
+ {
+  "id": "c6-dxf",
+  "src": "ig/src/0efad97f.jpg",
+  "white": true,
+  "title": "DXF yuboring — lazer narxi darhol",
+  "sub": "1–2 mm: 3 500 so‘m/metr · bot hisoblaydi",
+  "size": 96
+ },
+ {
+  "id": "c7-yangiyil",
+  "src": "img/barselona-soat-2.jpg",
+  "title": "Yangi yil sovg‘asini oldindan buyurtma bering",
+  "sub": "Dekabrda navbat uzun bo‘ladi",
+  "size": 88
+ }
+]
