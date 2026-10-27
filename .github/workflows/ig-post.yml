@@ -1,0 +1,42 @@
+name: Instagram postlar
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['reja/posts.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ig-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vaqti kelgan postlarni chiqarish
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT: ${{ secrets.TG_CHAT }}
+        run: python tools/ig_publish.py
+      - name: Holatni saqlash
+        run: |
+          if [ -n "$(git status --porcelain reja/holat.json)" ]; then
+            git config user.name "ig-post-bot"
+            git config user.email "ig-post-bot@users.noreply.github.com"
+            git add reja/holat.json
+            git commit -m "reja: post holati yangilandi"
+            for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+          fi
