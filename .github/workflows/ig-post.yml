@@ -18,25 +18,31 @@ concurrency:
 jobs:
   post:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Vaqti kelgan postlarni chiqarish
+      - name: Postlarni vaqtida chiqarish (45 daqiqa davomida har daqiqada tekshiradi)
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT: ${{ secrets.TG_CHAT }}
-        run: python tools/ig_publish.py
-      - name: Holatni saqlash
         run: |
-          if [ -n "$(git status --porcelain reja/holat.json)" ]; then
-            git config user.name "ig-post-bot"
-            git config user.email "ig-post-bot@users.noreply.github.com"
-            git add reja/holat.json
-            git commit -m "reja: post holati yangilandi"
-            for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
-          fi
+          # GitHub jadvali (cron) ba'zan 30-60 daqiqa kechikadi — shuning uchun ish o'zi kutib, har daqiqada tekshiradi
+          git config user.name "ig-post-bot"
+          git config user.email "ig-post-bot@users.noreply.github.com"
+          end=$(( $(date +%s) + ${KUTISH_DAQIQA:-45} * 60 ))
+          while :; do
+            git pull --rebase -q || true
+            python tools/ig_publish.py || true
+            if [ -n "$(git status --porcelain reja/holat.json)" ]; then
+              git add reja/holat.json
+              git commit -q -m "reja: post holati yangilandi"
+              for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+            fi
+            [ $(date +%s) -ge $end ] && break
+            sleep 60
+          done
