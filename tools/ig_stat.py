@@ -17,14 +17,21 @@ def call(path, **p):
     with urllib.request.urlopen(url, timeout=60) as r:
         return json.loads(r.read())
 
+DEFAULT_IG = "17841470082191241"  # @metart_shop
 def ig_id():
     if os.environ.get("IG_USER_ID"): return os.environ["IG_USER_ID"]
-    if tok.startswith("IG"): return call("me", fields="user_id")["user_id"]
-    me = call("me", fields="instagram_business_account")
-    if me.get("instagram_business_account"): return me["instagram_business_account"]["id"]
-    for pg in call("me/accounts", fields="instagram_business_account").get("data", []):
-        if pg.get("instagram_business_account"): return pg["instagram_business_account"]["id"]
-    raise SystemExit("IG akkaunt topilmadi")
+    if tok.startswith("IG"):
+        try: return call("me", fields="user_id")["user_id"]
+        except Exception: return DEFAULT_IG
+    try:
+        me = call("me", fields="instagram_business_account")
+        if me.get("instagram_business_account"): return me["instagram_business_account"]["id"]
+    except Exception: pass
+    try:
+        for pg in call("me/accounts", fields="instagram_business_account").get("data", []):
+            if pg.get("instagram_business_account"): return pg["instagram_business_account"]["id"]
+    except Exception: pass
+    return DEFAULT_IG
 
 def safe_call(path, **p):
     try: return call(path, **p), None
