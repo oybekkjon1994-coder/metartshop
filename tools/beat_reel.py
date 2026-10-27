@@ -8,30 +8,33 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import noyabr_reels as R
 
 # (boshlanish, manba, manba_start, effekt, matn) — kesish nuqtalari namuna videodagi sahna almashinuvlaridan
-OFF = 9.0     # qo'shiq shu soniyadan boshlanadi (25 soniyalik montaj)
-LENGTH = 25.0
 PLAN = [
     (0.00, 'kesish3.mp4', 4.0, 'slow', ('Hammasi', 'lazerdan boshlanadi')),
-    (3.00, 'arsenal.jpg', 0, 'bw', None),
-    (3.80, 'liverpool.jpg', 0, 'bw', None),
-    (4.57, 'kesish2.mp4', 3.0, 'bw', None),
-    (5.53, 'barca.jpg', 0, 'bw', None),
-    (6.93, 'mers_ai.mp4', 4.0, 'fit', ('', 'Mashinangiz — devorda')),
-    (9.80, 'city_chiroq.jpg', 0, '', None),
-    (11.27, 'barca.jpg', 0, '', None),
-    (12.67, 'city.jpg', 0, '', None),
-    (13.53, 'real.jpg', 0, '', ('', "Eng zo'r sovg'a")),
-    (15.60, 'kesish3.mp4', 10.0, '', None),
-    (18.33, 'barca_ai.mp4', 6.0, 'fit', ('', 'Chiroqli soatlar')),
-    (20.40, 'mers_ai.mp4', 7.0, 'fit', None),
-    (22.27, 'kesish1.mp4', 8.0, '', None),
-    (23.47, 'END', 0, '', None),
+    (3.60, 'kesish1.mp4', 2.0, 'slow', None),
+    (7.17, 'mers_kesish.mp4', 5.0, '', None),
+    (8.67, 'barca_ai.mp4', 1.0, 'fit', ('', 'Barselona · chiroqli')),
+    (12.0, 'arsenal.jpg', 0, 'bw', None),
+    (12.8, 'liverpool.jpg', 0, 'bw', None),
+    (13.57, 'kesish2.mp4', 3.0, 'bw', None),
+    (14.53, 'real.jpg', 0, 'bw', None),
+    (15.93, 'mers_ai.mp4', 4.0, 'fit', ('', 'Mashinangiz — devorda')),
+    (18.80, 'city_chiroq.jpg', 0, '', None),
+    (20.27, 'barca.jpg', 0, '', None),
+    (21.67, 'city.jpg', 0, '', None),
+    (22.53, 'real.jpg', 0, '', ('', "Eng zo'r sovg'a")),
+    (24.60, 'kesish3.mp4', 10.0, '', None),
+    (27.33, 'barca_ai.mp4', 6.0, 'fit', ('', 'Chiroqli soatlar')),
+    (29.40, 'mers_ai.mp4', 7.0, 'fit', None),
+    (31.27, 'kesish1.mp4', 8.0, '', None),
+    (32.47, 'arsenal.jpg', 0, 'bw', None),
+    (33.27, 'liverpool.jpg', 0, 'bw', None),
+    (34.00, 'END', 0, '', None),
 ]
 
 def main():
     total = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', SONG],
                                  capture_output=True, text=True).stdout)
-    total = min(total - OFF, LENGTH)
+    total = min(total, PLAN[-1][0] + 1.6)  # yakuniy karta qisqa
     v = R.Video(NAME)
     for i, (t0, src, st, fx, txt) in enumerate(PLAN):
         t1 = PLAN[i + 1][0] if i + 1 < len(PLAN) else total
@@ -49,7 +52,7 @@ def main():
             v.add(fr)
         while v.t < t1 - 1e-3: v.add(fr)  # qisqa manba bo'lsa oxirgi kadrni ushlab turish
     v.p.stdin.close(); v.p.wait()
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', v.tmp, '-ss', str(OFF), '-i', SONG, '-map', '0:v', '-map', '1:a', '-af', f'afade=t=out:st={total - 1.2:.2f}:d=1.2', '-t', f'{total:.2f}', '-c:v', 'copy', '-c:a', 'aac',
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', v.tmp, '-i', SONG, '-map', '0:v', '-map', '1:a', '-af', f'afade=t=out:st={total - 1.2:.2f}:d=1.2', '-t', f'{total:.2f}', '-c:v', 'copy', '-c:a', 'aac',
                     '-b:a', '192k', '-shortest', '-movflags', '+faststart', v.out], check=True)
     os.remove(v.tmp); print(v.out, round(v.t, 1))
 
