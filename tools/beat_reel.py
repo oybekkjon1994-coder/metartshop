@@ -23,7 +23,7 @@ PLAN = [
     (21.67, 'city.jpg', 0, '', None),
     (22.53, 'real_ai.mp4', 2.0, 'fit', ('', "Eng zo'r sovg'a")),
     (24.60, 'kesish3.mp4', 10.0, '', None),
-    (27.33, 'urna2.jpg', 0, '', ('', 'Saralash urnasi')),
+    (27.33, 'barca_ai.mp4', 6.0, 'fit', ('', 'Chiroqli soatlar')),
     (29.40, 'mers_ai.mp4', 7.0, 'fit', None),
     (31.27, 'kesish1.mp4', 8.0, '', None),
     (32.47, 'arsenal.jpg', 0, 'bw', None),
@@ -34,12 +34,13 @@ PLAN = [
 def main():
     total = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', SONG],
                                  capture_output=True, text=True).stdout)
+    total = min(total, PLAN[-1][0] + 1.6)  # yakuniy karta qisqa
     v = R.Video(NAME)
     for i, (t0, src, st, fx, txt) in enumerate(PLAN):
         t1 = PLAN[i + 1][0] if i + 1 < len(PLAN) else total
         d = t1 - t0
         if src == 'END':
-            R.endcard(v, d, 'Metall + lazer = san\'at', 'soat · dekor · chiroq · urna', R.BOT, 'Telegram: @lazekametal'); continue
+            R.endcard(v, d, 'Metall + lazer = san\'at', 'soat · dekor · chiroq', R.BOT, 'Telegram: @lazekametal'); continue
         if src.endswith('.jpg'):
             gen = R.photo(R.src(src), d, (1.0, 1.15))
         else:
@@ -51,7 +52,7 @@ def main():
             v.add(fr)
         while v.t < t1 - 1e-3: v.add(fr)  # qisqa manba bo'lsa oxirgi kadrni ushlab turish
     v.p.stdin.close(); v.p.wait()
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', v.tmp, '-i', SONG, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac',
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', v.tmp, '-i', SONG, '-map', '0:v', '-map', '1:a', '-af', f'afade=t=out:st={total - 1.2:.2f}:d=1.2', '-t', f'{total:.2f}', '-c:v', 'copy', '-c:a', 'aac',
                     '-b:a', '192k', '-shortest', '-movflags', '+faststart', v.out], check=True)
     os.remove(v.tmp); print(v.out, round(v.t, 1))
 
