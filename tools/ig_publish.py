@@ -133,7 +133,7 @@ def parse_at(s):
 def due_posts(posts, state, now):
     out = []
     for p in posts:
-        if state.get(p["id"], {}).get("status") in ("chiqdi", "o'tkazildi"): continue
+        if p["id"].startswith("_") or state.get(p["id"], {}).get("status") in ("chiqdi", "o'tkazildi"): continue
         if state.get(p["id"], {}).get("urinish", 0) >= 3: continue
         at = parse_at(p["at"])
         if at <= now: out.append((at, p))
@@ -150,8 +150,16 @@ def main():
         print("Vaqti kelgan post yo'q."); return 0
     token = os.environ.get("IG_TOKEN")
     if not token and not dry:
-        print("IG_TOKEN yo'q — GitHub Secrets ga qo'shing."); return 1
-    ig = None if dry else ig_user_id(token)
+        state["_tizim"] = {"xato": "IG_TOKEN yo'q — GitHub Secrets ga qo'shing", "vaqt": now.isoformat(timespec="minutes")}
+        json.dump(state, open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print("IG_TOKEN yo'q — GitHub Secrets ga qo'shing."); return 0
+    try:
+        ig = None if dry else ig_user_id(token)
+    except ApiError as e:
+        state["_tizim"] = {"xato": "Token/akkaunt: " + str(e)[:300], "vaqt": now.isoformat(timespec="minutes")}
+        json.dump(state, open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print("Token xatosi:", e); return 0
+    state.pop("_tizim", None)
     changed = False
     for p in todo:
         st = state.setdefault(p["id"], {})
