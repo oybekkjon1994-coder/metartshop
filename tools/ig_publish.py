@@ -118,12 +118,37 @@ def publish(post, ig, token):
         wait_ready(cid, token)
     else:
         time.sleep(5)  # rasm konteyneri darrov tayyor bo'ladi
-    res = call("POST", f"{ig}/media_publish", token, creation_id=cid)
+    t0 = int(time.time()) - 60
+    try:
+        res = call("POST", f"{ig}/media_publish", token, creation_id=cid)
+    except ApiError as e:
+        # Instagram ba'zan xato qaytaradi, lekin post baribir chiqadi — takror chiqarmaslik uchun tekshiramiz
+        time.sleep(15)
+        found = already_published(ig, token, kind, t0)
+        if not found: raise
+        res = {"id": found}
     try:
         link = call("GET", res["id"], token, fields="permalink").get("permalink", "")
     except ApiError:
         link = ""
     return res["id"], link
+
+
+def already_published(ig, token, kind, since):
+    """Oxirgi daqiqalarda shu akkauntga chiqqan media bormi? (id yoki None)"""
+    edge = "stories" if kind == "STORY" else "media"
+    try:
+        items = call("GET", f"{ig}/{edge}", token, fields="id,timestamp", limit="5").get("data", [])
+    except ApiError:
+        return None
+    for it in items:
+        try:
+            ts = datetime.strptime(it["timestamp"], "%Y-%m-%dT%H:%M:%S%z").timestamp()
+        except Exception:
+            continue
+        if ts >= since:
+            return it["id"]
+    return None
 
 
 def notify(text):
