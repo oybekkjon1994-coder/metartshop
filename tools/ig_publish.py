@@ -114,7 +114,10 @@ def publish(post, ig, token):
         cid = call("POST", f"{ig}/media", token, media_type="CAROUSEL", children=",".join(kids), caption=cap)["id"]
     else:
         cid = container(ig, token, urls[0], caption=cap, **({"media_type": "REELS"} if is_video(urls[0]) else {}))
-    wait_ready(cid, token)
+    if any(is_video(u) for u in urls):
+        wait_ready(cid, token)
+    else:
+        time.sleep(5)  # rasm konteyneri darrov tayyor bo'ladi
     res = call("POST", f"{ig}/media_publish", token, creation_id=cid)
     try:
         link = call("GET", res["id"], token, fields="permalink").get("permalink", "")
