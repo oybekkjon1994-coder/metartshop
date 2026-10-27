@@ -18,6 +18,7 @@ import json, os, sys, time, urllib.parse, urllib.request
 from datetime import datetime, timedelta, timezone
 
 API = "https://graph.facebook.com/v21.0"
+IG_API = "https://graph.instagram.com/v21.0"  # Instagram login tokeni (IGAA...) uchun
 TZ = timezone(timedelta(hours=5))  # Asia/Samarkand
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSTS = os.path.join(ROOT, "reja", "posts.json")
@@ -34,7 +35,7 @@ class ApiError(Exception):
 def call(method, path, token, **params):
     params["access_token"] = token
     data = urllib.parse.urlencode(params).encode()
-    url = f"{API}/{path}"
+    url = f"{(IG_API if token.startswith('IG') else API)}/{path}"
     req = urllib.request.Request(url + ("?" + data.decode() if method == "GET" else ""),
                                  data=None if method == "GET" else data, method=method)
     try:
@@ -50,6 +51,8 @@ def call(method, path, token, **params):
 def ig_user_id(token):
     if os.environ.get("IG_USER_ID"):
         return os.environ["IG_USER_ID"]
+    if token.startswith("IG"):  # Instagram login: hisob egasining o'zi
+        return call("GET", "me", token, fields="user_id,username").get("user_id") or "me"
     me = call("GET", "me", token, fields="instagram_business_account")
     if me.get("instagram_business_account"):
         return me["instagram_business_account"]["id"]
