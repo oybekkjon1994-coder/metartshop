@@ -26,6 +26,7 @@ STATE = os.path.join(ROOT, "reja", "holat.json")
 MAX_LATE = timedelta(hours=float(os.environ.get("MAX_LATE_HOURS", "3")))
 REPO = os.environ.get("GITHUB_REPOSITORY", "oybekkjon1994-coder/metartshop")
 SHA = os.environ.get("GITHUB_SHA", "main")
+DEFAULT_IG = os.environ.get("IG_DEFAULT_ID", "17841470082191241")  # @metart_shop
 
 
 class ApiError(Exception):
@@ -53,13 +54,20 @@ def ig_user_id(token):
         return os.environ["IG_USER_ID"]
     if token.startswith("IG"):  # Instagram login: hisob egasining o'zi
         return call("GET", "me", token, fields="user_id,username").get("user_id") or "me"
-    me = call("GET", "me", token, fields="instagram_business_account")
-    if me.get("instagram_business_account"):
-        return me["instagram_business_account"]["id"]
-    pages = call("GET", "me/accounts", token, fields="instagram_business_account,name").get("data", [])
+    try:  # sahifa tokeni bo'lsa
+        me = call("GET", "me", token, fields="instagram_business_account")
+        if me.get("instagram_business_account"):
+            return me["instagram_business_account"]["id"]
+    except ApiError:
+        pass  # foydalanuvchi tokeni — bu maydon yo'q, sahifalardan qidiramiz
+    try:
+        pages = call("GET", "me/accounts", token, fields="instagram_business_account,name").get("data", [])
+    except ApiError:
+        pages = []
     for p in pages:
         if p.get("instagram_business_account"):
             return p["instagram_business_account"]["id"]
+    if DEFAULT_IG: return DEFAULT_IG
     raise ApiError("Instagram biznes akkaunt topilmadi — token sahifa tokenimi va Instagram sahifaga ulanganmi?")
 
 
