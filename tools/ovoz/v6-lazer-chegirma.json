@@ -1,0 +1,40 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+12%",
+ "items": [
+  {
+   "video": "reels/v6-lazer-chegirma.mp4",
+   "out": "reels/v6-lazer-chegirma-ovoz.mp4",
+   "lines": [
+    [
+     0.2,
+     "AutoCAD chizma chizishni bilmaydiganlar uchun! Kompyuter ham shart emas."
+    ],
+    [
+     4.8,
+     "Naqshni tanlang, o'lchamni yozing, naqshli panel tayyor."
+    ],
+    [
+     9.7,
+     "Kozirok paneli bir necha soniyada."
+    ],
+    [
+     12.6,
+     "Darvozani yig'ing va mijozga 3D da ko'rsating."
+    ],
+    [
+     17.6,
+     "Logotip yoki rasmni yuklang, AutoCAD chizma chiqadi."
+    ],
+    [
+     22.6,
+     "Ism, firma nomi, uy raqami tablichkasi, hammasi bor."
+    ],
+    [
+     27.4,
+     "Hozir qirq foiz chegirma! Endi atigi ikki yuz oltmish to'qqiz ming to'rt yuz so'm. Bir martalik to'lov."
+    ]
+   ]
+  }
+ ]
+}

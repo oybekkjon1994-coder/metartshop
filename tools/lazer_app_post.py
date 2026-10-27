@@ -62,8 +62,9 @@ FX_T = [0.22, 19.15] if MODE == 'chizish' else []
 BADGE = 'AutoCAD'
 FEAT = ["Narx hisoblash", "DXF yasash (37 tayyor detal)", "Nesting — listga joylash", "Metall og'irligi va narxi", "Buyurtmalar daftari"]
 NAME, REEL = 'lazer-ilova', 'v4-lazer-ilova'
+SALE = int(os.environ.get('SALE', '0'))
 if MODE == 'chizish':
-    SLIDES = CHIZISH; NAME, REEL = 'lazer-chizish', 'v5-lazer-chizish'
+    SLIDES = CHIZISH; NAME, REEL = ('lazer-chegirma', 'v6-lazer-chegirma') if SALE else ('lazer-chizish', 'v5-lazer-chizish')
     FEAT = ["DXF ni telefonda chizish", "37 ta shablon: naqsh, darvoza, kozirok", "Rasm va logotipdan DXF", "Darvozani 3D da ko'rsatish", "Narx, nesting, buyurtmalar"]
 
 def slide(i, W=1080, H=1350, ph_w=500):
@@ -93,9 +94,18 @@ def price_slide(W=1080, H=1350):
     bg = Image.new('RGB', (W, H), DARK); d = ImageDraw.Draw(bg)
     def c(y, t, s, col='white', b=BLACK):
         f = font(s, b); d.text(((W - d.textlength(t, font=f)) / 2, y), t, font=f, fill=col)
-    c(150, 'Narxi', 50, (180, 180, 186), BOLD)
-    d.rounded_rectangle((150, 240, W - 150, 420), 40, fill=ORANGE); c(268, "449 000 so'm", 110)
-    c(470, "Bir martalik to'lov", 54); c(545, "Oylik to'lov yo'q · Android", 40, (180, 180, 186), BOLD)
+    if SALE:
+        new_p = f"{int(449000 * (100 - SALE) / 100):,}".replace(",", " ") + " so'm"
+        t = f"-{SALE}% CHEGIRMA"; f = font(56); w = d.textlength(t, font=f)
+        d.rounded_rectangle(((W - w) / 2 - 40, 70, (W + w) / 2 + 40, 160), 24, fill=(225, 35, 35)); c(82, t, 56)
+        old_t = "449 000 so'm"; f = font(64, BOLD); w = d.textlength(old_t, font=f); x0 = (W - w) / 2
+        d.text((x0, 190), old_t, font=f, fill=(150, 150, 156)); d.line((x0 - 10, 232, x0 + w + 10, 232), fill=(225, 35, 35), width=8)
+        d.rounded_rectangle((150, 290, W - 150, 460), 40, fill=ORANGE); c(314, new_p, 110)
+        c(490, "Bir martalik to'lov", 50); c(558, "Oylik to'lov yo'q · Android", 38, (180, 180, 186), BOLD)
+    else:
+        c(150, 'Narxi', 50, (180, 180, 186), BOLD)
+        d.rounded_rectangle((150, 240, W - 150, 420), 40, fill=ORANGE); c(268, "449 000 so'm", 110)
+        c(470, "Bir martalik to'lov", 54); c(545, "Oylik to'lov yo'q · Android", 40, (180, 180, 186), BOLD)
     for j, t in enumerate(FEAT):
         d.text((200, 660 + j * 70), '✓', font=font(46, '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'), fill=YEL); d.text((260, 664 + j * 70), t, font=font(40, BOLD), fill='white')
     d.rounded_rectangle((120, 1060, W - 120, 1190), 30, fill=YEL); c(1080, 'Sotib olish: @lazer_uz77_bot', 50, DARK)
@@ -139,7 +149,7 @@ def reel():
             bg.paste(sh, ((W - sh.width) // 2, top - 10), sh); bg.paste(p, ((W - p.width) // 2, top), p)
             add(bg)
     ps = price_slide(); big = Image.new('RGB', (W, H), DARK); big.paste(ps, (0, (H - ps.height) // 2))
-    for k in range(int(3.6 * FPS)):
+    for k in range(int((5.2 if SALE else 3.6) * FPS)):
         fr = big.copy()
         if k < 8: fr = Image.blend(Image.new('RGB', (W, H), 'white'), fr, k / 8)
         add(fr)
