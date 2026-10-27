@@ -52,8 +52,11 @@ def endcard(dur,line1):
         d.ellipse((cx-r,cy-r,cx+r,cy+r),fill='#FFE600')
         for t,sz,yy in [('METART',116,cy-105),('S  H  O  P',54,cy+40)]:
             f=font(sz);w=d.textlength(t,font=f);d.text((cx-w/2,yy),t,font=f,fill='#111')
-        for i,(t,s,c) in enumerate([(line1,50,'white'),('Direct yoki Telegram',50,'white'),('@lazekametal',64,'#FFE600'),("O'zbekiston bo'ylab yetkazib berish",36,'#bbb'),('Доставка по всему Узбекистану',36,'#bbb')]):
-            f=font(s);w=d.textlength(t,font=f);d.text(((W-w)/2,1150+i*95),t,font=f,fill=c)
+        rows=[(line1,50,'white'),('@Metart_shop_bot',76,'#FFE600'),('Telegram bot · Заказ через бота',38,'#ddd'),('Savollar: @lazekametal',44,'white'),("O'zbekiston bo'ylab yetkazib berish",36,'#bbb'),('Доставка по всему Узбекистану',36,'#bbb')]
+        for i,(t,s,c) in enumerate(rows):
+            f=font(s);w=d.textlength(t,font=f);yy=1100+i*100+(25 if i>=2 else 0)
+            if i==1: d.rounded_rectangle(((W-w)/2-30,yy-18,(W+w)/2+30,yy+s+22),26,outline='#FFE600',width=5)
+            d.text(((W-w)/2,yy),t,font=f,fill=c)
         yield fr
 def beat(D,seed,cuts):
     rng=np.random.default_rng(seed);N=int(SR*D);L=np.zeros(N);R=np.zeros(N)

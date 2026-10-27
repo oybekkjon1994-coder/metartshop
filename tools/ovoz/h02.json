@@ -1,0 +1,488 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+15%",
+ "items": [
+  {
+   "video": "reels/h02-01-qaysi-klub.mp4",
+   "out": "reels/h02-01-qaysi-klub-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Qaysi klub sizniki? Raqamini izohga yozing!"
+    ],
+    [
+     3.1,
+     "Bir — Barselona."
+    ],
+    [
+     4.5,
+     "Ikki — Real."
+    ],
+    [
+     5.9,
+     "Uch — Liverpul."
+    ],
+    [
+     7.3,
+     "To'rt — Chelsi. Boshqasi bo'lsa ham yasaymiz!"
+    ],
+    [
+     9.6,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-02-narxini-top.mp4",
+   "out": "reels/h02-02-narxini-top-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Narxini toping! Izohga yozing, ko'ramiz kim topadi."
+    ],
+    [
+     3.1,
+     "Uch yuz ming? Yo'q!"
+    ],
+    [
+     4.4,
+     "Ikki yuz ellik? Yana yo'q!"
+    ],
+    [
+     5.7,
+     "Atigi bir yuz ellik ming so'm!"
+    ],
+    [
+     8.4,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-03-logo-bot.mp4",
+   "out": "reels/h02-03-logo-bot-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Logotipingizdan soat, botda bir daqiqada!"
+    ],
+    [
+     3.3,
+     "Botga logotip yuborasiz, soatingizni darhol ko'rasiz."
+    ],
+    [
+     5.3,
+     "Buyurtma bering, ikki-uch kunda tayyor."
+    ],
+    [
+     7.6,
+     "Metart shop botiga hoziroq logotip yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-04-qizil-qora.mp4",
+   "out": "reels/h02-04-qizil-qora-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Qizil yoki qora? Bahslashamiz!"
+    ],
+    [
+     3.1,
+     "Qizil — olovdek."
+    ],
+    [
+     4.7,
+     "Qora — qat'iy klassika."
+    ],
+    [
+     6.3,
+     "Yoki chiroqlisi? Endi tanlash qiyin bo'ldi!"
+    ],
+    [
+     8.4,
+     "Rangni Telegramdagi Metart shop botida tanlang!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-05-sovga-goya.mp4",
+   "out": "reels/h02-05-sovga-goya-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Futbolchi do'stingizga sovg'a? Gul emas, soat sovg'a qiling!"
+    ],
+    [
+     3.3,
+     "Terma jamoa muxlisiga."
+    ],
+    [
+     5.1,
+     "Yunayted muxlisiga."
+    ],
+    [
+     6.9,
+     "Barsa muxlisiga. Qadoqlab, yetkazib beramiz."
+    ],
+    [
+     9.2,
+     "Sovg'a buyurtmasi uchun Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-06-dxf-narx.mp4",
+   "out": "reels/h02-06-dxf-narx-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "DXF yuboring, lazer narxini bot darhol hisoblaydi!"
+    ],
+    [
+     3.3,
+     "Ikki millimetrgacha — metri uch ming besh yuz so'm."
+    ],
+    [
+     5.9,
+     "O'n millimetrgacha ham kesamiz."
+    ],
+    [
+     8.6,
+     "DXF faylingizni Telegramdagi Metart shop botiga yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-07-veshalka.mp4",
+   "out": "reels/h02-07-veshalka-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Do'koningizga kiyim ilgich kerakmi? O'lchamingizga yasaymiz."
+    ],
+    [
+     3.1,
+     "Mustahkam metall karkas."
+    ],
+    [
+     4.7,
+     "Istalgan uzunlikda."
+    ],
+    [
+     6.3,
+     "G'ildirakli, bir barmoq bilan surasiz!"
+    ],
+    [
+     8.1,
+     "Tayyor!"
+    ],
+    [
+     9.8,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-08-yangi-yil.mp4",
+   "out": "reels/h02-08-yangi-yil-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Yangi yil sovg'asini hozir buyurtma bering, dekabrda navbat uzun!"
+    ],
+    [
+     3.3,
+     "Otangizga,"
+    ],
+    [
+     4.9,
+     "akangizga,"
+    ],
+    [
+     6.5,
+     "hatto itingizga ham!"
+    ],
+    [
+     8.6,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-09-buyurtma-jarayoni.mp4",
+   "out": "reels/h02-09-buyurtma-jarayoni-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Buyurtma to'rt qadamda. Birinchi: botga rasm yuborasiz."
+    ],
+    [
+     3.1,
+     "Ikkinchi: chizma tayyorlaymiz."
+    ],
+    [
+     4.9,
+     "Uchinchi: lazer kesadi, bo'yaymiz."
+    ],
+    [
+     6.7,
+     "To'rtinchi: eshigingizgacha yetkazamiz!"
+    ],
+    [
+     9.0,
+     "Birinchi qadam — Telegramdagi Metart shop boti!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-10-uy-hayvoni.mp4",
+   "out": "reels/h02-10-uy-hayvoni-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Itingiz ham sovg'aga loyiq! Idish stendi — bir yuz o'ttiz to'qqiz ming to'qqiz yuz so'm."
+    ],
+    [
+     3.3,
+     "Ismini ham yozib beramiz."
+    ],
+    [
+     5.6,
+     "Buyurtma uchun Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-11-manu-99.mp4",
+   "out": "reels/h02-11-manu-99-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Yunayted muxlisi? Bu narxga ishonmaysiz!"
+    ],
+    [
+     3.1,
+     "Atigi to'qson to'qqiz ming so'm!"
+    ],
+    [
+     5.8,
+     "Shoshiling, Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-12-xonangizda.mp4",
+   "out": "reels/h02-12-xonangizda-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Xonangizda qanday turadi? Botda sinab ko'ring!"
+    ],
+    [
+     3.3,
+     "Xona rasmingizni yuboring,"
+    ],
+    [
+     5.1,
+     "bot soatni devoringizga qo'yib ko'rsatadi."
+    ],
+    [
+     7.6,
+     "Telegramdagi Metart shop botida sinab ko'ring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-13-gul-stend.mp4",
+   "out": "reels/h02-13-gul-stend-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Gullaringizga ham uy kerak!"
+    ],
+    [
+     3.1,
+     "G'ildirakli, oson suriladi."
+    ],
+    [
+     4.7,
+     "O'lchami buyurtma asosida."
+    ],
+    [
+     6.8,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-14-barca.mp4",
+   "out": "reels/h02-14-barca-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Viska Barsa! Barselona devor soati."
+    ],
+    [
+     2.9,
+     "Yon tomondan ham chiroyli."
+    ],
+    [
+     4.4,
+     "Bir yuz ellik ming so'm, olti rangdan tanlang."
+    ],
+    [
+     6.9,
+     "Buyurtma uchun Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-15-oq-borilar.mp4",
+   "out": "reels/h02-15-oq-borilar-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Oq bo'rilar — Jahon chempionati sari!"
+    ],
+    [
+     3.3,
+     "Ikki yuz ming so'm. Har bir muxlis uyida bo'lsin!"
+    ],
+    [
+     5.6,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-16-chelsea-kim.mp4",
+   "out": "reels/h02-16-chelsea-kim-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Bu soat kim uchun? Chelsi muxlisi do'stingizni belgilang!"
+    ],
+    [
+     3.1,
+     "Chelsi devor soati — bir yuz ellik ming so'm."
+    ],
+    [
+     5.6,
+     "Buyurtma uchun Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-17-biznes-soat.mp4",
+   "out": "reels/h02-17-biznes-soat-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Do'koningiz nomi devorda! Go'zallik saloni uchun."
+    ],
+    [
+     3.1,
+     "Avtoservis uchun."
+    ],
+    [
+     4.9,
+     "Kafe uchun salfetkadon ham bor."
+    ],
+    [
+     7.0,
+     "Logotipingizni Telegramdagi Metart shop botiga yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-18-chizmadan-soatga.mp4",
+   "out": "reels/h02-18-chizmadan-soatga-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Avval chizma..."
+    ],
+    [
+     2.5,
+     "...va mana, tayyor soat!"
+    ],
+    [
+     4.7,
+     "Sizning klubingiz ham bo'ladi."
+    ],
+    [
+     6.8,
+     "Chizmangizni Metart shop botiga yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-19-ronaldo.mp4",
+   "out": "reels/h02-19-ronaldo-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Siuuu! Ronaldu devor soati."
+    ],
+    [
+     2.7,
+     "Bir yuz qirq to'qqiz ming so'm."
+    ],
+    [
+     5.2,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-20-real-chiroq.mp4",
+   "out": "reels/h02-20-real-chiroq-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Kunduzi — oddiy soat..."
+    ],
+    [
+     2.7,
+     "Kechasi esa — mo'jiza! Real Madrid, bir yuz ellik ming."
+    ],
+    [
+     5.6,
+     "Buyurtma uchun Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h02-21-rang-tanla.mp4",
+   "out": "reels/h02-21-rang-tanla-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Rangini siz tanlaysiz! Oq..."
+    ],
+    [
+     2.9,
+     "qora..."
+    ],
+    [
+     4.3,
+     "qizil..."
+    ],
+    [
+     5.7,
+     "bordo..."
+    ],
+    [
+     7.1,
+     "ko'k yoki oltin! Sakkiz xil rang."
+    ],
+    [
+     9.2,
+     "Rangni Telegramdagi Metart shop botida tanlang!"
+    ]
+   ]
+  }
+ ]
+}

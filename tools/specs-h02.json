@@ -1,0 +1,545 @@
+[
+ {
+  "id": "h02-01-qaysi-klub",
+  "end": "Klubingizni botda tanlang:",
+  "clips": [
+   {
+    "src": "ig/src/672cc789.jpg",
+    "top": "Qaysi klub SENIKI? 1, 2, 3 yoki 4?",
+    "bot": "Raqamni izohga yozing",
+    "small": "Какой клуб твой? Пиши номер",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/672cc789.jpg",
+    "top": "1 — Barselona",
+    "d": 1.4
+   },
+   {
+    "src": "ig/src/fe9bfed5.jpg",
+    "top": "2 — Real Madrid",
+    "d": 1.4
+   },
+   {
+    "src": "ig/src/99f01c46.jpg",
+    "top": "3 — Liverpool",
+    "d": 1.4
+   },
+   {
+    "src": "ig/src/a6a6de1d.jpg",
+    "top": "4 — Chelsea",
+    "bot": "Boshqa klub? Botda yozing!",
+    "small": "Другой клуб? Напишите боту",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h02-02-narxini-top",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "Narxini toping!",
+    "bot": "Taxminingizni izohga yozing",
+    "small": "Угадайте цену!",
+    "d": 3.0
+   },
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "300 000?",
+    "d": 1.3
+   },
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "250 000?",
+    "d": 1.3
+   },
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "Atigi 150 000 so'm",
+    "bot": "Manchester City devor soati",
+    "small": "Всего 150 000 сум",
+    "d": 2.6
+   }
+  ]
+ },
+ {
+  "id": "h02-03-logo-bot",
+  "end": "Logotipingizni yuboring:",
+  "clips": [
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true,
+    "top": "Logotipingizdan soat — botda 1 daqiqada",
+    "bot": "1. Botga logotip yuboring",
+    "small": "Часы из вашего логотипа — за 1 минуту",
+    "d": 3.2
+   },
+   {
+    "src": "img/avtoservis-soat-1.jpg",
+    "top": "2. Soatingizni darhol ko'rasiz",
+    "small": "Сразу увидите макет",
+    "d": 2.0
+   },
+   {
+    "src": "img/tufli-soat-1.jpg",
+    "top": "3. Buyurtma bering — 2-3 kunda tayyor",
+    "small": "Готово за 2-3 дня",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h02-04-qizil-qora",
+  "end": "Rangni botda tanlang:",
+  "clips": [
+   {
+    "src": "ig/src/99f01c46.jpg",
+    "top": "Qizil yoki qora?",
+    "bot": "Izohga yozing: QIZIL yoki QORA",
+    "small": "Красные или чёрные? Пишите в комментариях",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/99f01c46.jpg",
+    "top": "Qizil",
+    "d": 1.6
+   },
+   {
+    "src": "ig/src/92ca88a4.jpg",
+    "top": "Qora",
+    "d": 1.6
+   },
+   {
+    "src": "img/liverpool-soat-2.jpg",
+    "top": "Yoki chiroqli?",
+    "small": "Или с подсветкой?",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h02-05-sovga-goya",
+  "end": "Sovg'a buyurtmasi:",
+  "clips": [
+   {
+    "src": "img/ronaldo-soat-1.jpg",
+    "top": "Sovg'a g'oyasi: futbolchi do'stingizga",
+    "bot": "Gul emas, soat sovg'a qiling!",
+    "small": "Идея подарка для футбольного фаната",
+    "d": 3.2
+   },
+   {
+    "src": "img/oq-borilar-2026-1.jpg",
+    "top": "Terma jamoa muxlisiga",
+    "d": 1.8
+   },
+   {
+    "src": "ig/src/d5049066.jpg",
+    "top": "Man United muxlisiga",
+    "d": 1.8
+   },
+   {
+    "src": "img/barselona-soat-2.jpg",
+    "top": "Barsa muxlisiga",
+    "bot": "Qadoqlab, yetkazib beramiz",
+    "small": "Упакуем и доставим",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h02-06-dxf-narx",
+  "end": "DXF faylni yuboring:",
+  "clips": [
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true,
+    "top": "DXF yuboring — lazer narxi darhol",
+    "bot": "Bot o'zi hisoblaydi",
+    "small": "Пришлите DXF — цена резки сразу",
+    "d": 3.2
+   },
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "white": true,
+    "top": "1–2 mm: 3 500 so'm/metr\n3–4 mm: 5 000 so'm/metr",
+    "small": "Цена за 1 метр реза",
+    "d": 2.6
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "5–6 mm: 8 000\n8–10 mm: 15 000 so'm/metr",
+    "bot": "List: 1250×2500 mm",
+    "d": 2.6
+   }
+  ]
+ },
+ {
+  "id": "h02-07-veshalka",
+  "end": "Buyurtma uchun:",
+  "clips": [
+   {
+    "src": "yangi/veshalka-dokon-ai.jpg",
+    "top": "Do'koningizga kiyim ilgich kerakmi?",
+    "bot": "O'lchamingizga yasaymiz",
+    "small": "Вешалки для магазина на заказ",
+    "d": 3.0
+   },
+   {
+    "src": "yangi/veshalka-tepa.jpg",
+    "top": "Mustahkam metall karkas",
+    "d": 1.6
+   },
+   {
+    "src": "yangi/veshalka-ilgich.jpg",
+    "top": "Ilgich — istalgan uzunlikda",
+    "d": 1.6
+   },
+   {
+    "src": "yangi/veshalka-gildirak.jpg",
+    "top": "G'ildirakli — oson suriladi",
+    "small": "На колёсиках",
+    "d": 1.8
+   },
+   {
+    "src": "yangi/veshalka-tayyor.jpg",
+    "top": "Tayyor!",
+    "d": 1.6
+   }
+  ]
+ },
+ {
+  "id": "h02-08-yangi-yil",
+  "end": "Yangi yil buyurtmasi:",
+  "clips": [
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "Yangi yil sovg'asini hozir buyurtma bering",
+    "bot": "Dekabrda navbat uzun bo'ladi!",
+    "small": "Подарок к Новому году — закажите заранее",
+    "d": 3.2
+   },
+   {
+    "src": "img/gerb-soat-1.jpg",
+    "top": "Otangizga",
+    "d": 1.6
+   },
+   {
+    "src": "img/real-madrid-soat-1.jpg",
+    "top": "Akangizga",
+    "d": 1.6
+   },
+   {
+    "src": "img/it-idish-stend-1.jpg",
+    "top": "Hatto itingizga",
+    "small": "Даже для собаки",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h02-09-buyurtma-jarayoni",
+  "end": "1-qadam shu yerda:",
+  "clips": [
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true,
+    "top": "Buyurtma 4 qadamda",
+    "bot": "1. Botga rasm yoki logotip",
+    "small": "Заказ в 4 шага",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "white": true,
+    "top": "2. Chizma tayyorlaymiz",
+    "d": 1.8
+   },
+   {
+    "src": "ig/src/09a703b6.jpg",
+    "top": "3. Lazer kesadi va bo'yaymiz",
+    "d": 1.8
+   },
+   {
+    "src": "ig/src/a6a6de1d.jpg",
+    "top": "4. Uyingizgacha yetkazamiz",
+    "small": "Доставка по Узбекистану",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h02-10-uy-hayvoni",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/it-idish-stend-1.jpg",
+    "top": "Itingiz ham sovg'aga loyiq",
+    "bot": "Idish stendi — 139 900 so'm",
+    "small": "Подставка с мисками — 139 900 сум",
+    "d": 3.2
+   },
+   {
+    "src": "img/ismli-idish-1.jpg",
+    "top": "Ismini yozib beramiz",
+    "small": "Напишем кличку",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h02-11-manu-99",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "ig/src/d5049066.jpg",
+    "top": "Man United muxlisi? Bu narxga ishonmaysiz",
+    "small": "Фанат МЮ? Не поверите цене",
+    "d": 3.0
+   },
+   {
+    "src": "img/man-united-soat-1.jpg",
+    "top": "Atigi 99 000 so'm",
+    "bot": "Metall, lazer bilan kesilgan",
+    "small": "Всего 99 000 сум",
+    "d": 2.6
+   }
+  ]
+ },
+ {
+  "id": "h02-12-xonangizda",
+  "end": "Xonangiz rasmini yuboring:",
+  "clips": [
+   {
+    "src": "img/arsenal-soat-2.jpg",
+    "top": "Xonangizda qanday turadi?",
+    "bot": "Botda sinab ko'ring!",
+    "small": "Как будет смотреться у вас? Проверьте в боте",
+    "d": 3.2
+   },
+   {
+    "src": "img/real-madrid-soat-2.jpg",
+    "top": "Xona rasmingizni yuboring",
+    "d": 1.8
+   },
+   {
+    "src": "img/liverpool-soat-2.jpg",
+    "top": "Bot soatni devoringizga qo'yib ko'rsatadi",
+    "small": "Бот примерит часы на вашу стену",
+    "d": 2.4
+   }
+  ]
+ },
+ {
+  "id": "h02-13-gul-stend",
+  "end": "Buyurtma uchun:",
+  "clips": [
+   {
+    "src": "img/gul-stellaj-1.jpg",
+    "top": "Gullaringizga ham uy kerak",
+    "bot": "Metall gul stellaji",
+    "small": "Стеллаж для цветов",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/97c17c27.jpg",
+    "top": "G'ildirakli",
+    "d": 1.6
+   },
+   {
+    "src": "img/dumaloq-gul-stend-1.jpg",
+    "top": "O'lchami — buyurtma asosida",
+    "small": "Размер на заказ",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h02-14-barca",
+  "end": "Barsa soati:",
+  "clips": [
+   {
+    "src": "img/barselona-soat-1.jpg",
+    "top": "Visca Barça!",
+    "bot": "Barselona devor soati",
+    "small": "Часы «Барселона»",
+    "d": 2.8
+   },
+   {
+    "src": "@ig/src/60c1de03.jpg",
+    "top": "Yon tomondan",
+    "d": 1.5
+   },
+   {
+    "src": "ig/src/672cc789.jpg",
+    "top": "150 000 so'm",
+    "bot": "6 rangdan tanlang",
+    "small": "150 000 сум · 6 цветов",
+    "d": 2.4
+   }
+  ]
+ },
+ {
+  "id": "h02-15-oq-borilar",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/oq-borilar-2026-1.jpg",
+    "top": "Oq bo'rilar — Jahon chempionati sari!",
+    "bot": "\"Oq bo'rilar 2026\" soati",
+    "small": "Часы «Белые волки 2026»",
+    "d": 3.2
+   },
+   {
+    "src": "img/oq-borilar-2026-1.jpg",
+    "top": "200 000 so'm",
+    "bot": "Har bir muxlis uyida bo'lsin!",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h02-16-chelsea-kim",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "ig/src/a6a6de1d.jpg",
+    "top": "Bu soat kim uchun? Do'stingizni belgilang",
+    "small": "Отметьте друга-фаната «Челси»",
+    "d": 3.0
+   },
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "Chelsea devor soati",
+    "bot": "150 000 so'm",
+    "small": "150 000 сум",
+    "d": 2.4
+   }
+  ]
+ },
+ {
+  "id": "h02-17-biznes-soat",
+  "end": "Logotipingizni yuboring:",
+  "clips": [
+   {
+    "src": "img/tufli-soat-1.jpg",
+    "top": "Do'koningiz nomi — devorda",
+    "bot": "Go'zallik saloni uchun",
+    "small": "Часы с названием вашего бизнеса",
+    "d": 3.0
+   },
+   {
+    "src": "img/avtoservis-soat-1.jpg",
+    "top": "Avtoservis uchun",
+    "d": 1.8
+   },
+   {
+    "src": "img/salfetkadon-mashina-1.jpg",
+    "top": "Kafe uchun salfetkadon",
+    "small": "Салфетница для кафе",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h02-18-chizmadan-soatga",
+  "end": "Chizmangizni yuboring:",
+  "clips": [
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "white": true,
+    "top": "Chizma...",
+    "small": "Чертёж...",
+    "d": 2.4
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "...va tayyor soat!",
+    "bot": "FC Nasaf",
+    "small": "...и готовые часы!",
+    "d": 2.2
+   },
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true,
+    "top": "Sizning klubingiz ham bo'ladi",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h02-19-ronaldo",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/ronaldo-soat-1.jpg",
+    "top": "SIUUU!",
+    "bot": "Ronaldo devor soati",
+    "small": "Часы «Роналду»",
+    "d": 2.6
+   },
+   {
+    "src": "img/ronaldo-soat-2.jpg",
+    "top": "149 000 so'm",
+    "small": "149 000 сум",
+    "d": 2.4
+   }
+  ]
+ },
+ {
+  "id": "h02-20-real-chiroq",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/real-madrid-soat-1.jpg",
+    "top": "Kunduzi — oddiy soat...",
+    "small": "Днём — просто часы...",
+    "d": 2.6
+   },
+   {
+    "src": "img/real-madrid-soat-2.jpg",
+    "top": "Kechasi — mo‘jiza",
+    "bot": "Real Madrid · 150 000 so'm",
+    "small": "Ночью — магия",
+    "d": 2.8
+   }
+  ]
+ },
+ {
+  "id": "h02-21-rang-tanla",
+  "end": "Rangni botda tanlang:",
+  "clips": [
+   {
+    "src": "ig/src/e22ea763.jpg",
+    "top": "Rangini SIZ tanlaysiz",
+    "bot": "Oq...",
+    "small": "Цвет выбираете вы",
+    "d": 2.8
+   },
+   {
+    "src": "ig/src/fe9bfed5.jpg",
+    "top": "Qora...",
+    "d": 1.4
+   },
+   {
+    "src": "ig/src/99f01c46.jpg",
+    "top": "Qizil...",
+    "d": 1.4
+   },
+   {
+    "src": "ig/src/09a703b6.jpg",
+    "top": "Bordo...",
+    "d": 1.4
+   },
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "Ko'k... yoki oltin!",
+    "bot": "8 xil rang",
+    "small": "8 цветов на выбор",
+    "d": 2.0
+   }
+  ]
+ }
+]
