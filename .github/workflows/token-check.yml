@@ -1,0 +1,24 @@
+name: Token tekshirish
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tekshirish
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python tools/token_check.py
+      - name: Saqlash
+        run: |
+          git config user.name "metartshop-bot"
+          git config user.email "oybekkjon1994@gmail.com"
+          git add reja/token_info.json
+          git commit -m "token muddati tekshirildi" || echo "o'zgarish yo'q"
+          git push || echo "push o'tmadi"
