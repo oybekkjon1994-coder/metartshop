@@ -1,7 +1,7 @@
 """Boshqaruv paneli uchun ma'lumot yig'adi -> reja/dashboard.json.
 Dollar, ob-havo, Instagram (obunachi + oxirgi postlar), bugungi va keyingi postlar.
 GitHub Actions'da ishlaydi (bepul). Telegram kerak emas."""
-import os, json, urllib.request, urllib.parse
+import os, json, urllib.request, urllib.parse, urllib.error
 from datetime import datetime, timedelta, timezone
 
 TZ = timezone(timedelta(hours=5))
@@ -11,8 +11,16 @@ API = "https://graph.facebook.com/v21.0"
 
 def get(url, timeout=25):
     req = urllib.request.Request(url, headers={"User-Agent": "metartshop"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        body = ""
+        try:
+            body = e.read().decode("utf-8", "ignore")[:200]
+        except Exception:
+            pass
+        raise RuntimeError(f"HTTP {e.code}: {body}")
 
 
 def dollar():
@@ -111,11 +119,24 @@ def postlar():
 
 def main():
     today, keyingi, kecha_n = postlar()
+    ig = instagram()
+    # So'rov xato bersa — oxirgi to'g'ri Instagram raqamlarini saqlab qolamiz
+    if not ig.get("followers"):
+        try:
+            eski = json.load(open("reja/dashboard.json", encoding="utf-8")).get("instagram", {})
+            if eski.get("followers"):
+                xato = ig.get("error")
+                ig = eski
+                ig["stale"] = True
+                if xato:
+                    ig["last_error"] = xato
+        except Exception:
+            pass
     data = {
         "updated": NOW.strftime("%Y-%m-%d %H:%M"),
         "dollar": dollar(),
         "obhavo": obhavo(),
-        "instagram": instagram(),
+        "instagram": ig,
         "kecha_chiqdi": kecha_n,
         "bugun_postlar": today,
         "keyingi_postlar": keyingi,
