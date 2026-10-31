@@ -16,11 +16,21 @@ def get(url, timeout=25):
 
 
 def dollar():
+    # 1) CBU (rasmiy kurs, Diff bilan) -> 2) open.er-api (ishonchli zaxira)
+    for url in ["https://cbu.uz/uz/arkhiv-kursov-valyut/json/USD/"]:
+        try:
+            u = get(url, timeout=10)[0]
+            return {"rate": round(float(u["Rate"])), "diff": round(float(u.get("Diff") or 0)), "manba": "CBU"}
+        except Exception:
+            pass
     try:
-        u = get("https://cbu.uz/uz/arkhiv-kursov-valyut/json/USD/")[0]
-        return {"rate": round(float(u["Rate"])), "diff": round(float(u.get("Diff") or 0))}
+        d = get("https://open.er-api.com/v6/latest/USD", timeout=12)
+        uzs = d.get("rates", {}).get("UZS")
+        if uzs:
+            return {"rate": round(float(uzs)), "diff": 0, "manba": "bozor"}
     except Exception as e:
         return {"error": str(e)[:80]}
+    return {"error": "manbalar javob bermadi"}
 
 
 WCODE = {0: "Ochiq", 1: "Asosan ochiq", 2: "Bulutli", 3: "To'liq bulutli",
