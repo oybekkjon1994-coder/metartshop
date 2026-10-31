@@ -1,0 +1,6 @@
+{
+  "appId": "uz.metartshop.panel",
+  "appName": "Metartshop",
+  "webDir": "www",
+  "android": { "allowMixedContent": false }
+}
