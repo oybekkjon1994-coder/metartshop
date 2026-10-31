@@ -1,11 +1,13 @@
 {
- "updated": "2026-10-31 23:57",
+ "updated": "2026-10-31 23:59",
  "dollar": {
-  "error": "<urlopen error timed out>"
+  "rate": 11995,
+  "diff": 0,
+  "manba": "bozor"
  },
  "obhavo": {
   "temp": 11,
-  "desc": "Bulutli",
+  "desc": "Asosan ochiq",
   "hi": 19,
   "lo": 9
  },
