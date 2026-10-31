@@ -2,5 +2,9 @@
   "appId": "uz.metartshop.panel",
   "appName": "Metartshop",
   "webDir": "www",
+  "server": {
+    "url": "https://oybekkjon1994-coder.github.io/metartshop/boshqaruv.html",
+    "cleartext": false
+  },
   "android": { "allowMixedContent": false }
 }
