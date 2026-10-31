@@ -1,8 +1,134 @@
 {
- "vaqt": "2026-10-28T00:15+05:00",
+ "vaqt": "2026-10-31T23:13+05:00",
  "ig_id": "17841470082191241",
- "xato_akkaunt": "400: API access blocked.",
- "akkaunt": {},
- "xato_media": "400: API access blocked.",
- "postlar": []
+ "akkaunt": {
+  "id": "17841470082191241",
+  "followers_count": 5968,
+  "follows_count": 15,
+  "media_count": 96,
+  "name": "Декор из металла ☆ декор для дома☆ Товар для дома | Узбекистан",
+  "username": "metart_shop"
+ },
+ "postlar": [
+  {
+   "id": "17970305165965598",
+   "caption": "✨ Metall + lazer = san'at",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfASInCkrSW/",
+   "timestamp": "2026-10-27T16:27:05+0000",
+   "reach": null
+  },
+  {
+   "id": "18123806048514157",
+   "caption": "🔥 -40% CHEGIRMA! «Lazer ustaxona» ilovasi 40% arzonlashtiril",
+   "comments_count": 0,
+   "like_count": 6,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De_mrlUlXJy/",
+   "timestamp": "2026-10-27T10:07:12+0000",
+   "reach": null
+  },
+  {
+   "id": "17896428609680900",
+   "caption": "🔧 Avtoservisingiz uchun soat",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De_mHiij9hI/",
+   "timestamp": "2026-10-27T10:02:19+0000",
+   "reach": null
+  },
+  {
+   "id": "17929693680183177",
+   "caption": "🇺🇿 O'zbekiston gerbi devoringizda!",
+   "comments_count": 1,
+   "like_count": 10,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De6xQwbCGhx/",
+   "timestamp": "2026-10-25T13:03:27+0000",
+   "reach": null
+  },
+  {
+   "id": "18180890047439130",
+   "caption": "🤍 Real Madrid — qorong'uda yonadi!",
+   "comments_count": 13,
+   "like_count": 32,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De6V1EUlVR9/",
+   "timestamp": "2026-10-25T09:03:42+0000",
+   "reach": null
+  },
+  {
+   "id": "17993154477101312",
+   "caption": "🔴 Liverpool muxlislari!",
+   "comments_count": 1,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De56LzalLyF/",
+   "timestamp": "2026-10-25T05:02:12+0000",
+   "reach": null
+  },
+  {
+   "id": "18000420993011177",
+   "caption": "🐐 SIUUUU!",
+   "comments_count": 1,
+   "like_count": 5,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De4Ma2DDTeB/",
+   "timestamp": "2026-10-24T13:03:03+0000",
+   "reach": null
+  },
+  {
+   "id": "18117345428090347",
+   "caption": "⚽🔟 Messi 10 — lazerda kesilgan!",
+   "comments_count": 1,
+   "like_count": 5,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De3xBroiYOd/",
+   "timestamp": "2026-10-24T09:03:43+0000",
+   "reach": null
+  },
+  {
+   "id": "18124865686705805",
+   "caption": "💙❤️ Visca Barça!",
+   "comments_count": 5,
+   "like_count": 7,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De3VZV2FJAO/",
+   "timestamp": "2026-10-24T05:02:16+0000",
+   "reach": null
+  },
+  {
+   "id": "18067533035789087",
+   "caption": "🐺 Oq bo'rilar 2026!",
+   "comments_count": 0,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De1nvvyjek3/",
+   "timestamp": "2026-10-23T13:04:08+0000",
+   "reach": null
+  },
+  {
+   "id": "18128738809650510",
+   "caption": "🤲 Onajoningizga ismli sovg'a",
+   "comments_count": 0,
+   "like_count": 3,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De1MQPYDz9x/",
+   "timestamp": "2026-10-23T09:03:57+0000",
+   "reach": null
+  },
+  {
+   "id": "18026966963868900",
+   "caption": "❤️ You'll never walk alone!",
+   "comments_count": 0,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/De0wmQAj_K5/",
+   "timestamp": "2026-10-23T05:02:15+0000",
+   "reach": null
+  }
+ ]
 }
