@@ -1,0 +1,18 @@
+{
+ "valid": true,
+ "type": "USER",
+ "expires_at": "2026-12-30 22:39",
+ "days_left": 59.9,
+ "data_access_expires_at": "2027-01-25 15:43",
+ "data_access_days_left": 85.6,
+ "scopes": [
+  "pages_show_list",
+  "business_management",
+  "instagram_basic",
+  "instagram_manage_comments",
+  "instagram_content_publish",
+  "pages_read_engagement",
+  "public_profile"
+ ],
+ "tekshirildi": "2026-11-01 00:52"
+}
