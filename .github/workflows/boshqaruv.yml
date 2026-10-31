@@ -2,7 +2,7 @@ name: Boshqaruv ma'lumoti
 
 on:
   schedule:
-    - cron: '7 */2 * * *'   # har 2 soatda ma'lumotni yangilaydi
+    - cron: '17 * * * *'   # har soatda Instagram ma'lumotini yangilaydi
   workflow_dispatch:
 
 permissions:

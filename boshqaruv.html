@@ -24,7 +24,6 @@
             margin:0 0 10px; font-weight:600; }
   .big{ font-size:26px; font-weight:700; }
   .sub{ font-size:13px; color:var(--mut); margin-top:4px; }
-  .up{ color:var(--grn); } .down{ color:var(--red); }
   .stats{ display:flex; gap:18px; }
   .stat .n{ font-size:22px; font-weight:700; } .stat .l{ font-size:11px; color:var(--mut); }
   .plist{ display:flex; flex-direction:column; gap:8px; }
@@ -41,7 +40,7 @@
   .post .eng{ font-size:12px; color:var(--mut); white-space:nowrap; }
   .refresh{ background:var(--yel); color:#111; border:none; border-radius:12px; padding:9px 14px;
             font-weight:700; font-size:13px; }
-  .err{ color:var(--red); font-size:13px; }
+  .refresh:active{ opacity:.7; }
   .muted{ color:var(--mut); font-size:13px; }
   footer{ text-align:center; color:var(--mut); font-size:11px; margin-top:18px; }
 </style>
@@ -49,7 +48,7 @@
 <body>
 <header>
   <h1>Metart<b>shop</b></h1>
-  <button class="refresh" onclick="load()">Yangilash</button>
+  <button class="refresh" id="btn" onclick="load()">Yangilash</button>
 </header>
 <div class="upd" id="upd">Yuklanmoqda…</div>
 
@@ -82,60 +81,93 @@
   <div id="next" class="plist"></div>
 </div>
 
-<footer>Avto-yangilanadi · GitHub'da ishlaydi · <span id="err"></span></footer>
+<footer>Jonli yangilanadi · <span id="err"></span></footer>
 
 <script>
 const $ = id => document.getElementById(id);
-const nf = n => (n==null?'—':(''+n).replace(/\B(?=(\d{3})+(?!\d))/g,' '));
+const nf = n => (n==null||n===''?'—':(''+n).replace(/\B(?=(\d{3})+(?!\d))/g,' '));
 const ico = t => /REEL/i.test(t)?'🎬':(/STOR/i.test(t)?'📖':'🖼');
+const bust = u => u+(u.includes('?')?'&':'?')+'_='+Date.now();
+const WCODE = {0:"Ochiq",1:"Asosan ochiq",2:"Bulutli",3:"To'liq bulutli",45:"Tuman",48:"Tuman",
+  51:"Mayda yomg'ir",53:"Yomg'ir",55:"Yomg'ir",61:"Yomg'ir",63:"Yomg'ir",65:"Kuchli yomg'ir",
+  71:"Qor",73:"Qor",75:"Kuchli qor",80:"Jala",81:"Jala",82:"Kuchli jala",95:"Momaqaldiroq",96:"Momaqaldiroq"};
 function stChip(s){ if(s==='chiqdi') return '<span class="chip">chiqdi</span>';
   if(s==='xato') return '<span class="chip err">xato</span>';
   if(s==="o'tkazildi") return '<span class="st">o\'tkazildi</span>'; return ''; }
 
+async function jget(u){ const r=await fetch(bust(u),{cache:'no-store'}); return r.json(); }
+
+// Asia/Tashkent bo'yicha hozirgi sana/vaqt
+function nowTash(){
+  const p={}; new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tashkent',year:'numeric',month:'2-digit',
+    day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).forEach(x=>p[x.type]=x.value);
+  const day=`${p.year}-${p.month}-${p.day}`;
+  const y=new Date(Date.now()-864e5); const yp={};
+  new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tashkent',year:'numeric',month:'2-digit',day:'2-digit'})
+    .formatToParts(y).forEach(x=>yp[x.type]=x.value);
+  return { day, min:`${day}T${p.hour}:${p.minute}`, hm:`${p.hour}:${p.minute}`, yday:`${yp.year}-${yp.month}-${yp.day}` };
+}
+
+async function dollarLive(){
+  try{ const d=await jget('https://open.er-api.com/v6/latest/USD'); const u=d.rates&&d.rates.UZS;
+       if(u) return Math.round(u); }catch(e){}
+  try{ const d=await jget('reja/dashboard.json'); if(d.dollar&&d.dollar.rate) return d.dollar.rate; }catch(e){}
+  return null;
+}
+async function weatherLive(){
+  try{ const d=await jget('https://api.open-meteo.com/v1/forecast?latitude=41.31&longitude=69.24'
+      +'&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia/Tashkent');
+    const c=d.current; return {temp:Math.round(c.temperature_2m),desc:WCODE[c.weather_code]||'',
+      hi:Math.round(d.daily.temperature_2m_max[0]),lo:Math.round(d.daily.temperature_2m_min[0])}; }catch(e){ return null; }
+}
+
 async function load(){
+  const btn=$('btn'); btn.textContent='...';
+  const T=nowTash();
+  $('upd').textContent='Yangilangan: '+T.day+' '+T.hm;
+
+  const us=await dollarLive();
+  if(us){ $('usd').textContent=nf(us)+" so'm"; $('usdd').textContent='bozor kursi'; }
+
+  const w=await weatherLive();
+  if(w){ $('temp').textContent=w.temp+'°'; $('tempd').textContent=(w.desc||'')+' · '+w.lo+'…'+w.hi+'°'; }
+
+  // postlar — to'g'ridan-to'g'ri repo fayllaridan (jonli)
   try{
-    const r = await fetch('reja/dashboard.json?_='+Date.now());
-    const d = await r.json();
-    $('upd').textContent = 'Yangilangan: '+d.updated;
+    const pj=await jget('reja/posts.json');
+    const posts=(Array.isArray(pj)?pj:(pj.posts||[])).filter(p=>!(''+p.id).startsWith('_'));
+    let holat={}; try{ holat=await jget('reja/holat.json'); }catch(e){}
+    posts.sort((a,b)=>(''+(a.at||'')).localeCompare(''+(b.at||'')));
+    const today=posts.filter(p=>(''+p.at).startsWith(T.day));
+    const next=posts.filter(p=>(''+(p.at||''))>T.min).slice(0,6);
+    let kecha=0; for(const k in holat){ const v=holat[k];
+      if(v&&v.status==='chiqdi'&&(''+(v.vaqt||'')).startsWith(T.yday)) kecha++; }
+    $('kecha').textContent=nf(kecha);
+    $('today').innerHTML= today.length ? today.map(p=>{ const s=(holat[p.id]||{}).status||'';
+      return '<div class="pitem"><span class="t">'+(''+p.at).slice(11,16)+'</span><span class="nm">'+ico(p.type)+' '+p.id+'</span>'+stChip(s)+'</div>'; }).join('')
+      : '<div class="muted">Bugun rejada post yo\'q</div>';
+    $('next').innerHTML= next.length ? next.map(p=>
+      '<div class="pitem"><span class="t">'+(''+p.at).slice(5,10).replace('-','.')+'</span><span class="nm">'+ico(p.type)+' '+p.id+'</span><span class="st">'+(''+p.at).slice(11,16)+'</span></div>').join('')
+      : '<div class="muted">—</div>';
+  }catch(e){ $('err').textContent='postlar: '+e.message; }
 
-    const u = d.dollar||{};
-    if(u.rate){ $('usd').textContent = nf(u.rate)+" so'm";
-      if(u.diff){ const up=u.diff>0; $('usdd').innerHTML='<span class="'+(up?'up':'down')+'">'+(up?'▲':'▼')+' '+nf(Math.abs(u.diff))+'</span> kecha'; } }
-    else $('usd').textContent='—';
-
-    const w = d.obhavo||{};
-    if(w.temp!=null){ $('temp').textContent = w.temp+'°'; $('tempd').textContent = (w.desc||'')+' · '+w.lo+'…'+w.hi+'°'; }
-
-    const ig = d.instagram||{};
-    $('iguser').textContent = ig.username||'metart_shop';
-    $('foll').textContent = nf(ig.followers);
-    $('media').textContent = nf(ig.media_count);
-    $('kecha').textContent = nf(d.kecha_chiqdi);
-
-    const rc = (ig.posts||[]);
-    $('recent').innerHTML = rc.length ? rc.map(p=>
+  // Instagram raqamlari — serverdagi snapshotdan (token kerak)
+  try{
+    const d=await jget('reja/dashboard.json'); const ig=d.instagram||{};
+    $('iguser').textContent=ig.username||'metart_shop';
+    $('foll').textContent=nf(ig.followers); $('media').textContent=nf(ig.media_count);
+    const rc=ig.posts||[];
+    $('recent').innerHTML= rc.length ? rc.map(p=>
       '<a class="post" href="'+(p.link||'#')+'" target="_blank"><span>'+ico(p.type)+'</span>'+
       '<span class="cap">'+(p.caption||'—')+'</span>'+
       '<span class="eng">❤ '+nf(p.like)+'  💬 '+nf(p.comment)+'</span></a>').join('')
-      : '<div class="muted">Ma\'lumot yo\'q (token insights ruxsatisiz)</div>';
-
-    const tr = (d.bugun_postlar||[]);
-    $('today').innerHTML = tr.length ? tr.map(p=>
-      '<div class="pitem"><span class="t">'+(p.at||'').slice(11,16)+'</span>'+
-      '<span class="nm">'+ico(p.type)+' '+p.id+'</span>'+stChip(p.status)+'</div>').join('')
-      : '<div class="muted">Bugun rejada post yo\'q</div>';
-
-    const nx = (d.keyingi_postlar||[]);
-    $('next').innerHTML = nx.length ? nx.map(p=>
-      '<div class="pitem"><span class="t">'+(p.at||'').slice(5,10).replace('-','.')+'</span>'+
-      '<span class="nm">'+ico(p.type)+' '+p.id+'</span><span class="st">'+(p.at||'').slice(11,16)+'</span></div>').join('')
       : '<div class="muted">—</div>';
+  }catch(e){}
 
-    $('err').textContent='';
-  }catch(e){ $('err').textContent='xato: '+e.message; }
+  btn.textContent='Yangilash';
 }
 load();
-setInterval(load, 5*60*1000); // har 5 daqiqada o'zi yangilanadi
+setInterval(load, 3*60*1000);
 </script>
 </body>
 </html>
