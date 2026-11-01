@@ -95,7 +95,8 @@ function stChip(s){ if(s==='chiqdi') return '<span class="chip">chiqdi</span>';
   if(s==='xato') return '<span class="chip err">xato</span>';
   if(s==="o'tkazildi") return '<span class="st">o\'tkazildi</span>'; return ''; }
 
-async function jget(u){ const r=await fetch(bust(u),{cache:'no-store'}); return r.json(); }
+async function jget(u,ms){ const c=new AbortController(); const t=setTimeout(()=>c.abort(),ms||8000);
+  try{ const r=await fetch(bust(u),{cache:'no-store',signal:c.signal}); return await r.json(); } finally{ clearTimeout(t); } }
 
 // Asia/Tashkent bo'yicha hozirgi sana/vaqt
 function nowTash(){
@@ -118,7 +119,9 @@ async function weatherLive(){
   try{ const d=await jget('https://api.open-meteo.com/v1/forecast?latitude=41.31&longitude=69.24'
       +'&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia/Tashkent');
     const c=d.current; return {temp:Math.round(c.temperature_2m),desc:WCODE[c.weather_code]||'',
-      hi:Math.round(d.daily.temperature_2m_max[0]),lo:Math.round(d.daily.temperature_2m_min[0])}; }catch(e){ return null; }
+      hi:Math.round(d.daily.temperature_2m_max[0]),lo:Math.round(d.daily.temperature_2m_min[0])}; }catch(e){}
+  try{ const d=await jget('reja/dashboard.json'); const o=d.obhavo; if(o&&o.temp!=null) return o; }catch(e){}
+  return null;
 }
 
 async function load(){
@@ -126,11 +129,8 @@ async function load(){
   const T=nowTash();
   $('upd').textContent='Yangilangan: '+T.day+' '+T.hm;
 
-  const us=await dollarLive();
-  if(us){ $('usd').textContent=nf(us)+" so'm"; $('usdd').textContent='bozor kursi'; }
-
-  const w=await weatherLive();
-  if(w){ $('temp').textContent=w.temp+'°'; $('tempd').textContent=(w.desc||'')+' · '+w.lo+'…'+w.hi+'°'; }
+  const pDollar=dollarLive().then(us=>{ if(us){ $('usd').textContent=nf(us)+" so'm"; $('usdd').textContent='bozor kursi'; } }).catch(()=>{});
+  const pWeather=weatherLive().then(w=>{ if(w){ $('temp').textContent=w.temp+'°'; $('tempd').textContent=(w.desc||'')+' · '+w.lo+'…'+w.hi+'°'; } }).catch(()=>{});
 
   // postlar — to'g'ridan-to'g'ri repo fayllaridan (jonli)
   try{
@@ -164,6 +164,7 @@ async function load(){
       : '<div class="muted">—</div>';
   }catch(e){}
 
+  await Promise.all([pDollar,pWeather]);
   btn.textContent='Yangilash';
 }
 load();
