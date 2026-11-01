@@ -1,24 +1,32 @@
 {
- "updated": "2026-11-01 12:22",
+ "updated": "2026-11-01 14:02",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 19,
+  "temp": 20,
   "desc": "Ochiq",
   "hi": 20,
   "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5968,
-  "media_count": 99,
+  "followers": 5969,
+  "media_count": 100,
   "posts": [
    {
-    "caption": "🩵 Manchester City muxlislari!",
+    "caption": "😳 Man United muxlisi? Bu narxga ishonmay",
     "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfMXF9zglDw/",
+    "ts": "2026-11-01"
+   },
+   {
+    "caption": "🩵 Manchester City muxlislari!",
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfMF8NRkZlh/",
@@ -34,8 +42,8 @@
    },
    {
     "caption": "⚽ Qaysi biri SENIKI? Raqamini izohga yoz",
-    "like": 4,
-    "comment": 0,
+    "like": 12,
+    "comment": 5,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfL7rqSD9z9/",
     "ts": "2026-11-01"
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/De_mrlUlXJy/",
-    "ts": "2026-10-27"
-   },
-   {
-    "caption": "🔧 Avtoservisingiz uchun soat",
-    "like": 3,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/De_mHiij9hI/",
     "ts": "2026-10-27"
    }
   ]
@@ -102,13 +102,13 @@
    "id": "salfetkadon",
    "at": "2026-11-01T13:30",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-11-manu-99",
    "at": "2026-11-01T14:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-story-11-01-16",
@@ -126,6 +126,12 @@
    "id": "h02-story-11-01-20",
    "at": "2026-11-01T20:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "stellaj-buyurtma-1101",
+   "at": "2026-11-01T21:00",
+   "type": "REEL",
    "status": ""
   },
   {
@@ -137,18 +143,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "salfetkadon",
-   "at": "2026-11-01T13:30",
-   "type": "REEL",
-   "status": ""
-  },
-  {
-   "id": "h02-11-manu-99",
-   "at": "2026-11-01T14:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h02-story-11-01-16",
    "at": "2026-11-01T16:00",
    "type": "STORY",
@@ -167,9 +161,21 @@
    "status": ""
   },
   {
+   "id": "stellaj-buyurtma-1101",
+   "at": "2026-11-01T21:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
    "id": "hilol-dekor",
    "at": "2026-11-01T21:30",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-story-11-02-09",
+   "at": "2026-11-02T09:00",
+   "type": "STORY",
    "status": ""
   }
  ]
