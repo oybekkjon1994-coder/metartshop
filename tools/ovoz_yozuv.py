@@ -71,6 +71,23 @@ def swap_posts(base):
     return n
 
 
+def next_unvoiced():
+    """Hali chiqmagan, ovozsiz eng yaqin reel (reels/<nom>.mp4) nomini qaytaradi."""
+    from datetime import datetime, timedelta, timezone
+    now = datetime.now(timezone(timedelta(hours=5)))
+    hol = json.load(open("reja/holat.json", encoding="utf-8")) if os.path.exists("reja/holat.json") else {}
+    cand = []
+    for p in json.load(open("reja/posts.json", encoding="utf-8")):
+        if p.get("type") != "REEL" or hol.get(p["id"], {}).get("status") in ("chiqdi", "o'tkazildi"):
+            continue
+        at = datetime.fromisoformat(p["at"])
+        at = at if at.tzinfo else at.replace(tzinfo=timezone(timedelta(hours=5)))
+        for m in p.get("media", []):
+            if m.startswith("repo:reels/") and m.endswith(".mp4") and not m.endswith("-ovoz.mp4") and at >= now - timedelta(minutes=30):
+                cand.append((at, m[len("repo:reels/"):-4]))
+    return min(cand)[1] if cand else None
+
+
 def main():
     files = sys.argv[1:] or sorted(glob.glob("ovoz-yozuv/*"))
     done = 0
@@ -78,6 +95,14 @@ def main():
         base, ext = os.path.splitext(os.path.basename(f))
         if ext.lower() not in EXT or base.endswith("-ovoz"):
             continue
+        if not os.path.exists(f"reels/{base}.mp4") and not sys.argv[1:]:
+            # nomi videoga mos emas: eng yaqin ovozsiz reelga biriktiramiz va faylni qayta nomlaymiz
+            nb = next_unvoiced()
+            if nb:
+                nf = os.path.join(os.path.dirname(f), nb + ext.lower())
+                os.rename(f, nf)
+                print(f"{f}: eng yaqin ovozsiz reelga biriktirildi -> {nb}")
+                f, base = nf, nb
         video, out = f"reels/{base}.mp4", f"reels/{base}-ovoz.mp4"
         if not os.path.exists(video):
             print(f"! {f}: mos video yo'q ({video}). Fayl nomi videoning nomi bilan bir xil bo'lsin."); continue

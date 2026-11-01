@@ -90,6 +90,13 @@
 </div>
 
 <div class="card" style="margin-bottom:12px">
+  <h2>Ovoz yozish (reellar uchun)</h2>
+  <div class="sub" style="margin:0 0 10px">Reel uchun ovozingizni yozing, "Ovoz yuklash" ni bosing va faylni tanlang. Nomi muhim emas: agent uni eng yaqin ovozsiz reelga biriktiradi.</div>
+  <div id="ovlist" class="plist"></div>
+  <div style="margin-top:10px"><a class="cmd" href="https://github.com/oybekkjon1994-coder/metartshop/upload/main/ovoz-yozuv" target="_blank" rel="noopener">⬆️ Ovoz yuklash</a></div>
+</div>
+
+<div class="card" style="margin-bottom:12px">
   <h2>Oxirgi postlar</h2>
   <div id="recent" class="muted">—</div>
 </div>
@@ -228,6 +235,20 @@ async function load(){
     const t=await jget('reja/tahlil.json');
     $('thinfo').textContent='Yangilangan: '+(t.vaqt||'—')+' · '+(t.manba==='groq'?'AI (Groq)':'qoidaviy tahlil');
     $('thmatn').textContent=t.matn||'—'; $('thmatn').style.color='var(--fg)';
+  }catch(e){}
+
+  // Ovoz kutayotgan reellar (reja/posts.json): hali chiqmagan, ovozsiz
+  try{
+    const pj2=await jget('reja/posts.json'); const hl2=await jget('reja/holat.json').catch(()=>({}));
+    const esc2=s=>(''+(s==null?'':s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const arr=(Array.isArray(pj2)?pj2:(pj2.posts||[])).filter(p=>p.type==='REEL'&&!(''+p.id).startsWith('_')&&
+      !['chiqdi',"o'tkazildi"].includes((hl2[p.id]||{}).status)&&(p.at||'')>nowTash().min&&(p.media||[]).some(m=>/^repo:reels\/.+\.mp4$/.test(m)&&!/-ovoz\.mp4$/.test(m)))
+      .sort((a,b)=>(a.at||'').localeCompare(b.at||'')).slice(0,5);
+    $('ovlist').innerHTML= arr.length ? arr.map((p,i)=>{
+      const first=(p.caption||'').split('\n')[0].slice(0,70);
+      return '<div class="pitem"><span class="t">'+esc2((p.at||'').slice(5,10).replace('-','.'))+' '+esc2((p.at||'').slice(11,16))+'</span>'+
+             '<span class="nm">'+(i===0?'👉 ':'')+esc2(first||p.id)+'</span></div>'; }).join('')
+      : "<div class='muted'>Hamma yaqin reel ovozli yoki rejada reel yo'q</div>";
   }catch(e){}
 
   // Kuzatuvchi (kompyuterdagi olx-watch) — reja/kuzatuvchi.json, kompyuter o'zi yangilab turadi
