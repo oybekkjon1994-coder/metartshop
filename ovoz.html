@@ -29,6 +29,7 @@
 </style>
 </head>
 <body>
+<div style="margin-bottom:6px"><a href="boshqaruv.html" style="text-decoration:none">← Panelga qaytish</a></div>
 <h1>🎙 Ovoz <b>yozish</b></h1>
 <div class="mut">Matnni o'qing, yozuv avtomatik videoga montaj qilinadi.</div>
 
@@ -119,7 +120,7 @@ $('bRec').onclick=async()=>{
     $('bSend').disabled=true; $('bAgain').disabled=true; $('prev').style.display='none';
     tick=setInterval(()=>{ $('timer').textContent=fmt((Date.now()-t0)/1000); },200);
     $('st').textContent='Yozilyapti… matnni o\'qing.';
-  }catch(e){ $('st').innerHTML='<span class="err">Mikrofon ochilmadi: '+e.message+'. Brauzer so\'rasa "Ruxsat berish" ni bosing.</span>'; }
+  }catch(e){ $('st').innerHTML='<span class="err">Mikrofon ochilmadi ('+(e.name||'xato')+'). '+(e.name==='NotAllowedError'?'Ruxsat berilmagan: telefon sozlamalarida ilovaga/brauzerga Mikrofon ruxsatini bering. Eski ilovada ishlamasa, yangi versiyani o\'rnating yoki Chrome\'da oching.':e.message)+'</span>'; }
 };
 $('bAgain').onclick=()=>{ blob=null; $('prev').style.display='none'; $('timer').textContent='00:00'; $('bSend').disabled=true; $('bAgain').disabled=true; $('bDl').disabled=true; $('bRec').textContent='🎙 Yozishni boshlash'; $('st').textContent=''; };
 function ext(){ const t=(blob&&blob.type)||''; return t.includes('mp4')?'m4a':t.includes('ogg')?'ogg':'webm'; }
@@ -146,8 +147,7 @@ $('bSend').onclick=async()=>{
   }catch(e){ $('st').innerHTML='<span class="err">Xato: '+e.message+'</span>'; $('bSend').disabled=false; }
 };
 // ilova ichidagi WebView'da mikrofon yo'q: ogohlantirish
-(function(){ const ua=navigator.userAgent||''; const wv=/; wv\)|Version\/[\d.]+ Chrome\/[\d.]+ Mobile/.test(ua)&&!/CriOS|SamsungBrowser|EdgA|OPR/.test(ua);
-  if(wv||!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){ $('inapp').style.display='block'; }
+(function(){ if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){ $('inapp').style.display='block'; }
   $('bCopy').onclick=async()=>{ const u=location.origin+location.pathname; try{ await navigator.clipboard.writeText(u); $('bCopy').textContent='✅ Nusxalandi, Chrome\'da oching'; }catch(e){ prompt('Havolani nusxalang:',u); } };
 })();
 refreshTok(); loadReels();

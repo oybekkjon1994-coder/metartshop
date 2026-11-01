@@ -35,6 +35,12 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Mikrofon ruxsati (ovoz yozish uchun)
+        run: |
+          f=android/app/src/main/AndroidManifest.xml
+          grep -q RECORD_AUDIO "$f" || sed -i 's#</manifest>#    <uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />\n</manifest>#' "$f"
+          grep -n "uses-permission" "$f"
+
       - name: Ikonka va splash
         run: npx @capacitor/assets generate --android --iconBackgroundColor '#0e1214' --splashBackgroundColor '#0e1214' || echo "ikonka yaratilmadi"
 
