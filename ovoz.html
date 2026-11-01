@@ -32,6 +32,12 @@
 <h1>🎙 Ovoz <b>yozish</b></h1>
 <div class="mut">Matnni o'qing, yozuv avtomatik videoga montaj qilinadi.</div>
 
+<div class="card" id="inapp" style="display:none;border-color:var(--red)">
+  <div style="font-weight:700;color:var(--red)">⚠️ Bu oynada mikrofon ishlamaydi</div>
+  <div class="mut" style="margin:6px 0 10px">Ilova ichidagi oyna mikrofonga ruxsat bermaydi. Havolani nusxalab, <b>Chrome</b> brauzerida oching.</div>
+  <div class="row"><button id="bCopy" class="ghost">📋 Havolani nusxalash</button></div>
+</div>
+
 <div class="card">
   <div class="mut" style="margin-bottom:6px">Qaysi reel uchun:</div>
   <select id="sel"></select>
@@ -139,6 +145,11 @@ $('bSend').onclick=async()=>{
     $('st').innerHTML='<span class="ok">✅ Yuborildi!</span> 1–2 daqiqada ovozli reel tayyor bo\'ladi va post avtomatik almashadi.';
   }catch(e){ $('st').innerHTML='<span class="err">Xato: '+e.message+'</span>'; $('bSend').disabled=false; }
 };
+// ilova ichidagi WebView'da mikrofon yo'q: ogohlantirish
+(function(){ const ua=navigator.userAgent||''; const wv=/; wv\)|Version\/[\d.]+ Chrome\/[\d.]+ Mobile/.test(ua)&&!/CriOS|SamsungBrowser|EdgA|OPR/.test(ua);
+  if(wv||!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){ $('inapp').style.display='block'; }
+  $('bCopy').onclick=async()=>{ const u=location.origin+location.pathname; try{ await navigator.clipboard.writeText(u); $('bCopy').textContent='✅ Nusxalandi, Chrome\'da oching'; }catch(e){ prompt('Havolani nusxalang:',u); } };
+})();
 refreshTok(); loadReels();
 </script>
 </body>
