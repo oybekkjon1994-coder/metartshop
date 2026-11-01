@@ -99,11 +99,12 @@ def maqsad(followers, hist, target=None):
         ks = sorted(hist)[-30:]
         d0 = datetime.strptime(ks[0], "%Y-%m-%d"); d1 = datetime.strptime(ks[-1], "%Y-%m-%d")
         days = max((d1 - d0).days, 1)
-        rate = (hist[ks[-1]] - hist[ks[0]]) / days
-        out["kunlik_osish"] = round(rate, 2)
         out["tarix_kun"] = days
-        if rate > 0:
-            out["yetish_kun"] = round((target - followers) / rate)
+        if days >= 7:  # kam kunlik tarixdan prognoz chiqarmaymiz
+            rate = (hist[ks[-1]] - hist[ks[0]]) / days
+            out["kunlik_osish"] = round(rate, 2)
+            if rate > 0:
+                out["yetish_kun"] = round((target - followers) / rate)
     out["30_kunda_uchun_kerak_kunlik"] = round(max(target - followers, 0) / 30, 1)
     return out
 
@@ -186,7 +187,7 @@ def matn_maqsad(m):
     elif m.get("kunlik_osish") is not None:
         L.append(f"Hozir obunachi o'smayapti (kuniga {m['kunlik_osish']:+}, {m['tarix_kun']} kun tarixi)")
     else:
-        L.append("Prognoz uchun kamida 2 kunlik obunachi tarixi kerak (har kuni yig'iladi)")
+        L.append(f"Prognoz uchun kamida 7 kunlik obunachi tarixi kerak (hozir {m.get('tarix_kun', 0)} kun, har kuni yig'iladi)")
     L.append(f"30 kunda yetish uchun kuniga +{m['30_kunda_uchun_kerak_kunlik']} obunachi kerak")
     return "\n".join(L)
 
