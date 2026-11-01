@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-01 09:09",
+ "updated": "2026-11-01 10:05",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 12,
-  "desc": "Ochiq",
+  "temp": 15,
+  "desc": "Asosan ochiq",
   "hi": 20,
   "lo": 9
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 5969,
-  "media_count": 96,
+  "media_count": 97,
   "posts": [
+   {
+    "caption": "⚽ Qaysi biri SENIKI? Raqamini izohga yoz",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfL7rqSD9z9/",
+    "ts": "2026-11-01"
+   },
    {
     "caption": "✨ Metall + lazer = san'at",
     "like": 3,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/De6V1EUlVR9/",
     "ts": "2026-10-25"
-   },
-   {
-    "caption": "🔴 Liverpool muxlislari!",
-    "like": 4,
-    "comment": 1,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/De56LzalLyF/",
-    "ts": "2026-10-25"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "v7-klublar-tanla",
    "at": "2026-11-01T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-10-uy-hayvoni",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "v7-klublar-tanla",
-   "at": "2026-11-01T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h02-10-uy-hayvoni",
    "at": "2026-11-01T11:00",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h02-11-manu-99",
    "at": "2026-11-01T14:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-story-11-01-16",
+   "at": "2026-11-01T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
