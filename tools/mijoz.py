@@ -180,6 +180,10 @@ def matn_raqobat(r):
     if not r or not r.get("akkauntlar"):
         return "🕵️ Raqobatchi tahlili: akkauntlar kiritilmagan. Issue sarlavhasi: 'raqobatchi nom1 nom2'."
     L = ["🕵️ Raqobatchilar:"]
+    if all(a.get("xato") and "(#10)" in a["xato"] for a in r["akkauntlar"]):
+        L.append("Instagram raqobatchilarni ko'rishga ruxsat bermayapti: Meta ilovasida 'Instagram Public Content Access' "
+                 "ruxsati yo'q (#10). Bu akkauntlar shaxsiy bo'lgani uchun emas, ilova ruxsati uchun. Ruxsat olinmaguncha bu bo'lim bo'sh.")
+        return "\n".join(L)
     for a in r["akkauntlar"]:
         if a.get("xato"):
             L.append(f"• @{a['nom']}: {a['xato']}"); continue
