@@ -108,7 +108,7 @@ def analyze(followers, media):
     st = {"n": n, "followers": followers}
     if not n:
         return st
-    st["davr"] = f"{ts(media[-1]).strftime('%d.%m')}–{ts(media[0]).strftime('%d.%m.%Y')}"
+    st["davr"] = f"{ts(media[-1]).strftime('%d.%m.%Y')}–{ts(media[0]).strftime('%d.%m.%Y')}"
     likes = [m.get("like_count") or 0 for m in media]
     comm = [m.get("comments_count") or 0 for m in media]
     st["avg_like"], st["avg_izoh"] = avg(likes), avg(comm)
@@ -172,8 +172,8 @@ def analyze(followers, media):
     p = [sc(m) for m in media if timedelta(days=14) < now - ts(m) <= timedelta(days=28)]
     st["dinamika"] = {"oxirgi_14_kun": {"post": len(r), "ortacha": avg(r)},
                       "undan_oldingi_14_kun": {"post": len(p), "ortacha": avg(p)}}
-    span = max((ts(media[0]) - ts(media[-1])).days, 1)
-    st["postlar_haftasiga"] = round(n / span * 7, 1)
+    r45 = [m for m in media if now - ts(m) <= timedelta(days=45)]
+    st["postlar_haftasiga_oxirgi_45_kun"] = round(len(r45) / 45 * 7, 1)
 
     top = sorted(media, key=sc, reverse=True)
     st["top5"] = [{"matn": short(m.get("caption")), "layk": m.get("like_count") or 0,
@@ -195,7 +195,7 @@ def qoidaviy_matn(st):
         return "Tahlil uchun post topilmadi."
     L = [f"📊 Instagram tahlili · {st['davr']} · {st['n']} ta post · {st.get('followers', '?')} obunachi", ""]
     L.append(f"O'rtacha: ❤ {st['avg_like']} layk, 💬 {st['avg_izoh']} izoh (median layk {st['median_like']}). "
-             f"Postlarning {st['izohli_postlar_%']}% ida izoh bor. Haftasiga ~{st['postlar_haftasiga']} post.")
+             f"Postlarning {st['izohli_postlar_%']}% ida izoh bor. Oxirgi 45 kunda haftasiga ~{st['postlar_haftasiga_oxirgi_45_kun']} post.")
     d = st["dinamika"]
     a, b = d["oxirgi_14_kun"], d["undan_oldingi_14_kun"]
     if b["post"]:

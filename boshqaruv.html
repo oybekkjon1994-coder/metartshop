@@ -197,7 +197,7 @@ async function load(){
       rows.push('<div class="pitem"><span class="nm">👥 Obunachi (ertalabdan beri)</span><span class="st">'+(df>0?'+':'')+df+'</span></div>'); }
     const ps=(ig.posts||[]).slice().sort((a,b)=>((b.like||0)+3*(b.comment||0))-((a.like||0)+3*(a.comment||0)));
     if(ps.length&&((ps[0].like||0)+(ps[0].comment||0))>0)
-      rows.push('<a class="pitem" style="text-decoration:none;color:inherit" href="'+(/^https:\/\//.test(ps[0].link||'')?esc(ps[0].link):'#')+'" target="_blank" rel="noopener"><span class="nm">🏆 Eng yaxshi: '+esc(ps[0].caption||'—')+'</span><span class="st">❤ '+(ps[0].like||0)+'</span></a>');
+      rows.push('<a class="pitem" style="text-decoration:none;color:inherit" href="'+(/^https:\/\//.test(ps[0].link||'')?esc(ps[0].link):'#')+'" target="_blank" rel="noopener"><span class="nm">🏆 Oxirgi postlar ichida eng yaxshi: '+esc(ps[0].caption||'—')+'</span><span class="st">❤ '+(ps[0].like||0)+'</span></a>');
     const done=Object.keys(hl).filter(k=>!k.startsWith('_')&&hl[k].status==='chiqdi').sort((a,b)=>(hl[b].vaqt||'').localeCompare(hl[a].vaqt||''));
     if(done.length){ const l=hl[done[0]];
       rows.push('<div class="pitem"><span class="nm">✅ Oxirgi chiqqan: '+esc(done[0])+'</span><span class="st">'+esc((l.vaqt||'').slice(5,16).replace('T',' '))+'</span></div>'); }
