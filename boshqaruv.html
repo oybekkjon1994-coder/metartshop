@@ -72,6 +72,12 @@
 </div>
 
 <div class="card" style="margin-bottom:12px">
+  <h2>Kuzatuvchi — OLX · Telegram</h2>
+  <div class="sub" id="jinfo" style="margin:0 0 10px">—</div>
+  <div id="jfeed" class="muted">—</div>
+</div>
+
+<div class="card" style="margin-bottom:12px">
   <h2>Bugun rejada</h2>
   <div id="today" class="plist"></div>
 </div>
@@ -163,6 +169,21 @@ async function load(){
       '<span class="eng">❤ '+nf(p.like)+'  💬 '+nf(p.comment)+'</span></a>').join('')
       : '<div class="muted">—</div>';
   }catch(e){}
+
+  // Jarvis kuzatuvchisi (OLX + Telegram kanallar) — Jarvis-app repo'sidagi feed.json
+  try{
+    const f=await jget('https://raw.githubusercontent.com/oybekkjon1994-coder/Jarvis-app/main/agent/feed.json',10000);
+    const esc=s=>(''+(s==null?'':s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const w=f.watching||{}; const errs=(f.errors||[]).length;
+    $('jinfo').innerHTML='Yangilangan: '+esc(f.updated||'—')+' · OLX so\'zlar: '+(w.olx||[]).length+' · kanallar: '+(w.channels||[]).length+
+      (errs?' · <span class="chip err">'+errs+' xato</span>':'');
+    const it=(f.items||[]).slice(0,10);
+    $('jfeed').innerHTML= it.length ? it.map(x=>
+      '<a class="post" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span>'+(x.src==='tg'?'📢':'🔎')+'</span>'+
+      '<span class="cap">'+esc(x.title)+'</span>'+
+      '<span class="eng">'+esc([x.price,x.city].filter(Boolean).join(' · ')||(x.at||'').slice(5))+'</span></a>').join('')
+      : '<div class="muted">Hozircha yangi e\'lon yo\'q</div>';
+  }catch(e){ $('jinfo').textContent='Kuzatuvchi ma\'lumoti yuklanmadi'; }
 
   await Promise.all([pDollar,pWeather]);
   btn.textContent='Yangilash';
