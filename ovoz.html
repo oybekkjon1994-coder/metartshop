@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1214">
+<title>Metartshop — Ovoz yozish</title>
+<style>
+  :root{ --bg:#0e1214; --card:#171d20; --card2:#1e2528; --line:#2a3236; --fg:#eef2f3; --mut:#8c989d;
+         --yel:#ffc400; --grn:#39d98a; --red:#ff6b6b; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:-apple-system,"Segoe UI",Roboto,system-ui,sans-serif;
+        padding:16px 16px 60px; max-width:620px; margin:0 auto; }
+  h1{ font-size:20px; margin:0 0 4px; } h1 b{ color:var(--yel); }
+  .mut{ color:var(--mut); font-size:13px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin-top:12px; }
+  select,input{ width:100%; background:var(--card2); color:var(--fg); border:1px solid var(--line); border-radius:10px;
+        padding:12px; font-size:15px; }
+  #script{ font-size:21px; line-height:1.55; background:var(--card2); border-radius:12px; padding:16px; margin-top:10px;
+        min-height:150px; white-space:pre-wrap; }
+  .row{ display:flex; gap:10px; margin-top:12px; }
+  button{ flex:1; border:none; border-radius:14px; padding:16px; font-size:17px; font-weight:700; color:#111; background:var(--yel); }
+  button.rec{ background:var(--red); color:#fff; } button.ghost{ background:var(--card2); color:var(--fg); border:1px solid var(--line); }
+  button:disabled{ opacity:.4; }
+  #timer{ font-size:34px; font-variant-numeric:tabular-nums; text-align:center; margin-top:8px; }
+  audio{ width:100%; margin-top:12px; }
+  .ok{ color:var(--grn); } .err{ color:var(--red); }
+  a{ color:var(--yel); }
+</style>
+</head>
+<body>
+<h1>🎙 Ovoz <b>yozish</b></h1>
+<div class="mut">Matnni o'qing, yozuv avtomatik videoga montaj qilinadi.</div>
+
+<div class="card">
+  <div class="mut" style="margin-bottom:6px">Qaysi reel uchun:</div>
+  <select id="sel"></select>
+  <div id="script">Yuklanmoqda…</div>
+  <div class="mut" style="margin-top:8px">O'z so'zlaringiz bilan aytsangiz yanada yaxshi. Tinch joyda, shoshmasdan gapiring.</div>
+</div>
+
+<div class="card">
+  <div id="timer">00:00</div>
+  <div class="row"><button id="bRec" class="rec">🎙 Yozishni boshlash</button></div>
+  <audio id="prev" controls style="display:none"></audio>
+  <div class="row"><button id="bSend" disabled>📤 Yuborish</button><button id="bAgain" class="ghost" disabled>🔁 Qayta</button></div>
+  <div id="st" class="mut" style="margin-top:12px"></div>
+</div>
+
+<div class="card" id="tokCard">
+  <div style="font-weight:700">Bir martalik sozlash</div>
+  <div class="mut" style="margin:6px 0 10px">Yuborish uchun GitHub tokeni kerak (faqat shu telefonda saqlanadi). GitHub → Settings → Developer settings → Fine-grained tokens → faqat <b>metartshop</b> repo, ruxsat: <b>Contents: Read and write</b>.</div>
+  <input id="tok" type="password" placeholder="github_pat_…" autocomplete="off">
+  <div class="row"><button id="bTok" class="ghost">Saqlash</button><button id="bTokDel" class="ghost">O'chirish</button></div>
+  <div class="mut" style="margin-top:10px">Token bo'lmasa: yozuvni "Faylni saqlash" bilan yuklab olib, <a id="upl" target="_blank" rel="noopener" href="https://github.com/oybekkjon1994-coder/metartshop/upload/main/ovoz-yozuv">shu yerga</a> yuklang.</div>
+</div>
+<div class="row"><button id="bDl" class="ghost" disabled>💾 Faylni saqlash</button></div>
+
+<script>
+const REPO='oybekkjon1994-coder/metartshop', BRANCH='main';
+const $=id=>document.getElementById(id);
+const bust=u=>u+(u.includes('?')?'&':'?')+'_='+Date.now();
+async function jget(u){ const r=await fetch(bust(u),{cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.json(); }
+function nowTash(){ const p={}; new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tashkent',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).forEach(x=>p[x.type]=x.value); return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`; }
+
+// ---- senariy (reel izohidan) ----
+function senariy(p){
+  const uz=(p.caption||'').split(/\n—\n/)[0];
+  const emoji=/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}‍️]/gu;
+  let lines=uz.split('\n').map(s=>s.replace(emoji,'').trim()).filter(s=>s&&!/@|#|http|Direct|Telegram|yetkazib beramiz/i.test(s));
+  let text=lines.slice(0,3).join(' ');
+  if(text.split(/\s+/).length>48) text=lines.slice(0,2).join(' ');
+  return ('Assalomu alaykum! '+text+' Buyurtma uchun Instagram, metart_shop ga yozing!').replace(/\s+/g,' ').trim();
+}
+
+let REELS=[];
+async function loadReels(){
+  try{
+    const pj=await jget('reja/posts.json'); let hl={}; try{ hl=await jget('reja/holat.json'); }catch(e){}
+    const arr=(Array.isArray(pj)?pj:(pj.posts||[])).filter(p=>p.type==='REEL'&&!(''+p.id).startsWith('_')&&
+      !['chiqdi',"o'tkazildi"].includes((hl[p.id]||{}).status)&&(p.at||'')>nowTash()&&
+      (p.media||[]).some(m=>/^repo:reels\/.+\.mp4$/.test(m)&&!/-ovoz\.mp4$/.test(m)))
+      .sort((a,b)=>(a.at||'').localeCompare(b.at||'')).slice(0,8);
+    REELS=arr.map(p=>({id:p.id,at:p.at,base:(p.media.find(m=>/^repo:reels\/.+\.mp4$/.test(m)&&!/-ovoz\.mp4$/.test(m))||'').replace('repo:reels/','').replace('.mp4',''),text:senariy(p)}));
+  }catch(e){ $('st').innerHTML='<span class="err">Reja yuklanmadi: '+e.message+'</span>'; }
+  const sel=$('sel'); sel.innerHTML='';
+  if(!REELS.length){ sel.innerHTML='<option>Ovozsiz reel yo\'q</option>'; $('script').textContent='Hozircha ovoz kutayotgan reel yo\'q.'; return; }
+  REELS.forEach((r,i)=>{ const o=document.createElement('option'); o.value=i;
+    o.textContent=r.at.slice(5,10).replace('-','.')+' '+r.at.slice(11,16)+' · '+r.id; sel.appendChild(o); });
+  showScript();
+}
+function showScript(){ const r=REELS[+$('sel').value]; $('script').textContent=r?r.text:''; }
+$('sel').onchange=showScript;
+
+// ---- yozish ----
+let mr=null, chunks=[], blob=null, t0=0, tick=null, mime='';
+function fmt(s){ s=Math.floor(s); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+$('bRec').onclick=async()=>{
+  if(mr&&mr.state==='recording'){ mr.stop(); return; }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+    const cand=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'];
+    mime=cand.find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';
+    mr=new MediaRecorder(stream,mime?{mimeType:mime}:{}); chunks=[];
+    mr.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data); };
+    mr.onstop=()=>{ clearInterval(tick); stream.getTracks().forEach(t=>t.stop());
+      blob=new Blob(chunks,{type:mr.mimeType||mime||'audio/webm'});
+      const a=$('prev'); a.src=URL.createObjectURL(blob); a.style.display='block';
+      $('bRec').textContent='🎙 Qayta yozish'; $('bRec').classList.add('rec');
+      $('bSend').disabled=false; $('bAgain').disabled=false; $('bDl').disabled=false;
+      $('st').textContent='Yozuv tayyor. Eshitib ko\'ring, yoqsa "Yuborish" ni bosing.'; };
+    mr.start(); t0=Date.now(); $('bRec').textContent='⏹ To\'xtatish';
+    $('bSend').disabled=true; $('bAgain').disabled=true; $('prev').style.display='none';
+    tick=setInterval(()=>{ $('timer').textContent=fmt((Date.now()-t0)/1000); },200);
+    $('st').textContent='Yozilyapti… matnni o\'qing.';
+  }catch(e){ $('st').innerHTML='<span class="err">Mikrofon ochilmadi: '+e.message+'. Brauzer so\'rasa "Ruxsat berish" ni bosing.</span>'; }
+};
+$('bAgain').onclick=()=>{ blob=null; $('prev').style.display='none'; $('timer').textContent='00:00'; $('bSend').disabled=true; $('bAgain').disabled=true; $('bDl').disabled=true; $('bRec').textContent='🎙 Yozishni boshlash'; $('st').textContent=''; };
+function ext(){ const t=(blob&&blob.type)||''; return t.includes('mp4')?'m4a':t.includes('ogg')?'ogg':'webm'; }
+$('bDl').onclick=()=>{ if(!blob) return; const r=REELS[+$('sel').value]; const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download=(r?r.base:'ovoz')+'.'+ext(); document.body.appendChild(a); a.click(); a.remove(); };
+
+// ---- yuborish (GitHub Contents API) ----
+$('bTok').onclick=()=>{ const v=$('tok').value.trim(); if(v){ try{ localStorage.setItem('ghtok',v); }catch(e){} $('tok').value=''; $('st').innerHTML='<span class="ok">Token saqlandi.</span>'; refreshTok(); } };
+$('bTokDel').onclick=()=>{ try{ localStorage.removeItem('ghtok'); }catch(e){} refreshTok(); };
+function tok(){ try{ return localStorage.getItem('ghtok')||''; }catch(e){ return ''; } }
+function refreshTok(){ $('tokCard').style.display=tok()?'none':'block'; }
+function b64(blob){ return new Promise((res,rej)=>{ const f=new FileReader(); f.onload=()=>res(f.result.split(',')[1]); f.onerror=rej; f.readAsDataURL(blob); }); }
+$('bSend').onclick=async()=>{
+  const r=REELS[+$('sel').value]; if(!blob||!r) return;
+  const T=tok(); if(!T){ $('tokCard').style.display='block'; $('st').innerHTML='<span class="err">Avval token kiriting (pastda) yoki faylni saqlab GitHub\'ga yuklang.</span>'; return; }
+  $('bSend').disabled=true; $('st').textContent='Yuborilyapti…';
+  const path=`ovoz-yozuv/${r.base}.${ext()}`, api=`https://api.github.com/repos/${REPO}/contents/${path}`;
+  const H={Authorization:'Bearer '+T,Accept:'application/vnd.github+json','Content-Type':'application/json'};
+  try{
+    let sha; const g=await fetch(api+'?ref='+BRANCH,{headers:H}); if(g.ok){ sha=(await g.json()).sha; }
+    const res=await fetch(api,{method:'PUT',headers:H,body:JSON.stringify({message:'Ovoz yozuvi: '+r.id,content:await b64(blob),branch:BRANCH,...(sha?{sha}:{})})});
+    if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error((res.status===401||res.status===403||res.status===404?'Token ishlamadi (ruxsat/muddat). ':'')+(e.message||res.status)); }
+    $('st').innerHTML='<span class="ok">✅ Yuborildi!</span> 1–2 daqiqada ovozli reel tayyor bo\'ladi va post avtomatik almashadi.';
+  }catch(e){ $('st').innerHTML='<span class="err">Xato: '+e.message+'</span>'; $('bSend').disabled=false; }
+};
+refreshTok(); loadReels();
+</script>
+</body>
+</html>
