@@ -1,6 +1,8 @@
 name: Instagram tahlil
 
 on:
+  schedule:
+    - cron: '0 14 * * 0'   # har yakshanba 19:00 (Toshkent) — keyingi hafta rejasi
   workflow_dispatch:
   issues:
     types: [opened, reopened]
@@ -16,7 +18,7 @@ concurrency:
 jobs:
   tahlil:
     # Issue orqali faqat repo egasi va sarlavhasida "tahlil" bo'lsa ishlaydi
-    if: github.event_name == 'workflow_dispatch' || (github.actor == github.repository_owner && contains(github.event.issue.title, 'tahlil'))
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.actor == github.repository_owner && contains(github.event.issue.title, 'tahlil'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

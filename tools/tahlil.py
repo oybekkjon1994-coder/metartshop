@@ -9,7 +9,7 @@ Matnni tuzish: agar GROQ_API_KEY secret bo'lsa, Groq (bepul) o'zbekcha tahlil yo
 
   python tools/tahlil.py [--dry] [--local]
 """
-import os, sys, json, re, statistics, urllib.request, urllib.parse
+import os, sys, json, re, statistics, urllib.request, urllib.parse, urllib.error
 from datetime import datetime, timedelta, timezone
 
 TZ = timezone(timedelta(hours=5))
@@ -65,7 +65,7 @@ def fetch():
         pages = get(f"{API}/me/accounts?fields=instagram_business_account&{q}")["data"]
         uid = next(p["instagram_business_account"]["id"] for p in pages if p.get("instagram_business_account"))
     acc = get(f"{API}/{uid}?fields=followers_count,media_count&{q}")
-    url = (f"{API}/{uid}/media?fields=caption,like_count,comments_count,media_type,media_product_type,"
+    url = (f"{API}/{uid}/media?fields=id,caption,like_count,comments_count,media_type,media_product_type,"
            f"permalink,timestamp&limit=50&{q}")
     media = []
     for _ in range(3):
@@ -74,7 +74,43 @@ def fetch():
         url = d.get("paging", {}).get("next")
         if not url:
             break
+    attach_insights(media, tok, q)
     return acc.get("followers_count"), media
+
+
+NO_INSIGHTS = []  # ruxsat yo'q bo'lsa bir marta yozamiz
+
+
+def attach_insights(media, tok, q):
+    """Reach/saqlash/ulashish — faqat token'da instagram_manage_insights bo'lsa. Yo'q bo'lsa jim o'tadi."""
+    now = datetime.now(TZ)
+    for m in media:
+        if NO_INSIGHTS or not m.get("id"):
+            break
+        try:
+            if now - ts(m) > timedelta(days=60):
+                continue
+        except Exception:
+            continue
+        for metrics in ("reach,saved,shares,total_interactions", "reach,saved"):
+            try:
+                d = get(f"{API}/{m['id']}/insights?metric={metrics}&{q}")
+                m["ins"] = {x["name"]: (x.get("values") or [{}])[0].get("value", 0) for x in d.get("data", [])}
+                break
+            except urllib.error.HTTPError as e:
+                body = ""
+                try:
+                    body = e.read().decode("utf-8", "ignore")
+                except Exception:
+                    pass
+                if "permission" in body.lower() or "(#10)" in body or "(#200)" in body or e.code in (400, 403):
+                    if "permission" in body.lower() or "(#10)" in body or "(#200)" in body:
+                        NO_INSIGHTS.append(1)
+                        print("Insights ruxsati yo'q (instagram_manage_insights):", body[:150])
+                        break
+                continue
+            except Exception:
+                continue
 
 
 def ts(m):
@@ -128,6 +164,24 @@ def analyze(followers, media):
     for m in media:
         months.setdefault(ts(m).strftime("%Y-%m"), []).append(sc(m))
     st["oylar"] = {k: {"soni": len(v), "ortacha": avg(v)} for k, v in sorted(months.items())[-6:]}
+
+    # shaxsiy ovozli videolar ("Assalom...") va boshqalar — butun davr bo'yicha
+    own = [sc(m) for m in media if "assalom" in (m.get("caption") or "").lower()]
+    oth = [sc(m) for m in media if "assalom" not in (m.get("caption") or "").lower()]
+    if len(own) >= 3 and oth:
+        st["shaxsiy_video"] = {"soni": len(own), "ortacha": avg(own), "boshqalar_soni": len(oth), "boshqalar_ortacha": avg(oth)}
+
+    # insights (agar bor bo'lsa)
+    ip = [m for m in media if m.get("ins") and m["ins"].get("reach")]
+    if len(ip) >= 5:
+        reach = [m["ins"]["reach"] for m in ip]
+        st["insights"] = {"post_soni": len(ip), "ortacha_reach": avg(reach),
+                          "ortacha_saqlash": avg([m["ins"].get("saved", 0) for m in ip]),
+                          "ortacha_ulashish": avg([m["ins"].get("shares", 0) for m in ip])}
+        if followers:
+            st["insights"]["reach_obunachiga_%"] = round(100 * avg(reach) / followers, 1)
+        st["insights"]["eng_katta_reach"] = [{"matn": short(m.get("caption")), "reach": m["ins"]["reach"], "layk": m.get("like_count") or 0}
+                                             for m in sorted(ip, key=lambda x: -x["ins"]["reach"])[:3]]
 
     # mavzu/vaqt/xususiyat: oxirgi 45 kun (bir xil davr, eski mashhur postlar aralashib ketmasin)
     recent = [m for m in media if now - ts(m) <= timedelta(days=45)]
@@ -247,8 +301,41 @@ def qoidaviy_matn(st):
     if st.get("obunachi_tarixi"):
         o = st["obunachi_tarixi"]
         L += ["", f"👥 Obunachi: {o['kun']} kun ichida {o['ozgarish']:+d}"]
-    L += ["", "ℹ️ Ko'rishlar/reach/saqlashlar bu tahlilda yo'q (Instagram ruxsati kerak)."]
+    if st.get("insights"):
+        i = st["insights"]
+        L += ["", f"👁 Reach: o'rtacha {i['ortacha_reach']} (obunachilarning {i.get('reach_obunachiga_%', '?')}%), "
+                  f"saqlash {i['ortacha_saqlash']}, ulashish {i['ortacha_ulashish']} ({i['post_soni']} post)"]
+        for m in i["eng_katta_reach"]:
+            L.append(f"• reach {m['reach']} · ❤ {m['layk']} · {m['matn']}")
+    else:
+        L += ["", "ℹ️ Ko'rishlar/reach/saqlashlar yo'q (tokenga instagram_manage_insights ruxsati kerak)."]
+    L += ["", reja_tavsiya(st)]
     return "\n".join(L)
+
+
+def reja_tavsiya(st):
+    """Keyingi hafta uchun qoidaviy reja (tahlil natijalariga asoslangan)."""
+    L = ["🎯 Keyingi hafta uchun reja:"]
+    top = [(k, v) for k, v in (st.get("mavzular") or {}).items() if v["ortacha"] > 0]
+    if len(top) >= 2:
+        L.append(f"• Ko'proq: {top[0][0]} (o'rtacha {top[0][1]['ortacha']}) va {top[1][0]} ({top[1][1]['ortacha']})")
+    if len(top) >= 3 and top[-1][1]["ortacha"] < 0.4 * top[0][1]["ortacha"]:
+        L.append(f"• Kamroq/o'zgartiring: {top[-1][0]} (o'rtacha {top[-1][1]['ortacha']}) — boshqacha ko'rinishda sinab ko'ring")
+    sv = st.get("shaxsiy_video")
+    if sv and sv["ortacha"] > 1.5 * sv["boshqalar_ortacha"]:
+        L.append(f"• O'zingiz gapirgan video ('Assalom…' bilan boshlanadiganlar): o'rtacha {sv['ortacha']} ({sv['soni']} post), "
+                 f"boshqalari {sv['boshqalar_ortacha']}. Haftada kamida 1–2 ta shunday video oling")
+    f = (st.get("xususiyat") or {}).get("izoh yozishga chaqiriq")
+    if f and f["bor"] > 1.3 * f["yoq"]:
+        L.append(f"• Har 2 postdan 1 tasida izoh so'rang (bor bo'lsa {f['bor']}, yo'q bo'lsa {f['yoq']})")
+    if st.get("soat_oralig'i"):
+        bs = max(st["soat_oralig'i"].items(), key=lambda x: x[1]["ortacha"])
+        L.append(f"• Eng yaxshi vaqt: {bs[0]} soat — muhim postlarni shu vaqtga qo'ying")
+    t = st.get("turlar") or {}
+    if len(t) > 1:
+        bt = max(t.items(), key=lambda x: x[1]["ortacha"])
+        L.append(f"• Format: {bt[0]} ustun (o'rtacha {bt[1]['ortacha']})")
+    return "\n".join(L) if len(L) > 1 else "🎯 Reja uchun ma'lumot yetmaydi."
 
 
 def groq_matn(st):
