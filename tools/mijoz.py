@@ -205,18 +205,26 @@ JAVOB = {
 }
 
 
-def javob_loyiha(savol):
+def javob_loyiha(savol, faktlar=""):
+    """savol: mijoz savoli. faktlar: Issue tavsifiga yozgan haqiqiy ma'lumotlaringiz (narx, muddat) — javobga kiritiladi."""
     its = intents_of(savol) or ["boshqa savol"]
+    faktlar = (faktlar or "").strip()
     parts = []
     for i in its[:3]:
-        parts.append(JAVOB[i])
+        if i == "narx" and faktlar:
+            parts.append("Assalomu alaykum! " + faktlar.rstrip(".") + ". Aniq narx o'lcham va dizaynga bog'liq: qaysi klub/logotip yoki o'lcham kerakligini yozing, "
+                         "ko'rsatib va hisoblab beramiz. 🙌")
+        else:
+            parts.append(JAVOB[i])
+    if faktlar and "narx" not in its:
+        parts.append(faktlar)
     base = "\n\n".join(parts)
     key = os.environ.get("GROQ_API_KEY")
     if key:
         try:
             body = json.dumps({"model": os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile"), "temperature": 0.4, "max_tokens": 500,
                                "messages": [{"role": "system", "content": "Sen metall buyumlar va lazer kesish ustaxonasi sotuvchisisan. Mijozga Instagram Direct'da qisqa, samimiy, o'zbek tilida (lotin) javob yoz. Faqat berilgan faktlardan foydalan, narx uydirma, mijoz tilida (ruscha so'rasa ruscha) yoz. 1–3 gap."},
-                                            {"role": "user", "content": f"Mijoz savoli: {savol}\n\nFaktlar:\n{base}"}]}).encode()
+                                            {"role": "user", "content": f"Mijoz savoli: {savol}\n\nUstoz bergan faktlar (aynan shularni ayt): {faktlar or '-'}\n\nShablon:\n{base}"}]}).encode()
             req = urllib.request.Request("https://api.groq.com/openai/v1/chat/completions", data=body,
                                          headers={"Authorization": "Bearer " + key, "Content-Type": "application/json", "User-Agent": "metartshop-agent/1.0"})
             r = json.load(urllib.request.urlopen(req, timeout=40))

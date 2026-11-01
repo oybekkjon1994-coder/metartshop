@@ -10,11 +10,11 @@ low = title.lower()
 out = ""
 
 if low.startswith("javob"):
-    savol = (re.sub(r"^javob\s*[:\-]?\s*", "", title, flags=re.I) + "\n" + body).strip()
+    savol = re.sub(r"^javob\s*[:\-]?\s*", "", title, flags=re.I).strip()
     if not savol:
-        out = "Mijoz savolini sarlavhaga yozing. Masalan: `javob: skameyka narxi qancha?`"
+        out = "Mijoz savolini sarlavhaga yozing (tavsifga narx/muddat kabi ma'lumotlaringizni yozsangiz, javobga kiradi). Masalan: `javob: skameyka narxi qancha?`"
     else:
-        txt, src = mijoz.javob_loyiha(savol)
+        txt, src = mijoz.javob_loyiha(savol, body)
         out = f"✍️ Javob loyihasi ({src}):\n\n{txt}\n\n— Nusxalab Direct'ga yuboring. Narx aniq bo'lsa o'zingiz qo'shing."
 elif low.startswith("maqsad"):
     m = re.search(r"\d{3,6}", title.replace(" ", ""))
