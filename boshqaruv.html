@@ -67,6 +67,11 @@
 </div>
 
 <div class="card" style="margin-bottom:12px">
+  <h2>Agent holati</h2>
+  <div id="agent" class="muted">—</div>
+</div>
+
+<div class="card" style="margin-bottom:12px">
   <h2>Oxirgi postlar</h2>
   <div id="recent" class="muted">—</div>
 </div>
@@ -171,6 +176,34 @@ async function load(){
       '<span class="eng">❤ '+nf(p.like)+'  💬 '+nf(p.comment)+'</span></a>').join('')
       : '<div class="muted">—</div>';
   }catch(e){}
+
+  // Agent holati: obunachi o'zgarishi, eng yaxshi post, oxirgi chiqqan post, token muddati, signallar
+  try{
+    const esc=s=>(''+(s==null?'':s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    let hs={}, ti={}, hl={}, dd={};
+    try{ hs=await jget('reja/hisobot-holat.json'); }catch(e){}
+    try{ ti=await jget('reja/token_info.json'); }catch(e){}
+    try{ hl=await jget('reja/holat.json'); }catch(e){}
+    try{ dd=await jget('reja/dashboard.json'); }catch(e){}
+    const rows=[]; const ig=(dd&&dd.instagram)||{};
+    if(ig.followers!=null && hs.followers!=null){
+      const df=ig.followers-hs.followers;
+      rows.push('<div class="pitem"><span class="nm">👥 Obunachi (ertalabdan beri)</span><span class="st">'+(df>0?'+':'')+df+'</span></div>'); }
+    const ps=(ig.posts||[]).slice().sort((a,b)=>((b.like||0)+3*(b.comment||0))-((a.like||0)+3*(a.comment||0)));
+    if(ps.length&&((ps[0].like||0)+(ps[0].comment||0))>0)
+      rows.push('<a class="pitem" style="text-decoration:none;color:inherit" href="'+(/^https:\/\//.test(ps[0].link||'')?esc(ps[0].link):'#')+'" target="_blank" rel="noopener"><span class="nm">🏆 Eng yaxshi: '+esc(ps[0].caption||'—')+'</span><span class="st">❤ '+(ps[0].like||0)+'</span></a>');
+    const done=Object.keys(hl).filter(k=>!k.startsWith('_')&&hl[k].status==='chiqdi').sort((a,b)=>(hl[b].vaqt||'').localeCompare(hl[a].vaqt||''));
+    if(done.length){ const l=hl[done[0]];
+      rows.push('<div class="pitem"><span class="nm">✅ Oxirgi chiqqan: '+esc(done[0])+'</span><span class="st">'+esc((l.vaqt||'').slice(5,16).replace('T',' '))+'</span></div>'); }
+    if(ti.days_left!=null){
+      const bad=ti.valid===false||ti.days_left<7;
+      rows.push('<div class="pitem"><span class="nm">🔑 Instagram tokeni</span>'+(bad?'<span class="chip err">':'<span class="chip">')+(ti.valid===false?'yaroqsiz':Math.round(ti.days_left)+' kun qoldi')+'</span></div>'); }
+    const sig=Object.keys(hs.alerts||{}).sort((a,b)=>(hs.alerts[b]||'').localeCompare(hs.alerts[a]||'')).slice(0,3);
+    const te=(hl._tizim||{}).xato;
+    if(te) rows.push('<div class="pitem"><span class="chip err">xato</span><span class="nm">'+esc(te.slice(0,80))+'</span></div>');
+    sig.forEach(k=>rows.push('<div class="pitem"><span class="nm">⚠️ '+esc(k.replace(/^(xato|kech|tizim):/,'$1 · '))+'</span><span class="st">'+esc((hs.alerts[k]||'').slice(5,16).replace('T',' '))+'</span></div>'));
+    $('agent').innerHTML= rows.length ? '<div class="plist">'+rows.join('')+'</div>' : "<div class='muted'>Ma'lumot hali yo'q</div>";
+  }catch(e){ $('agent').innerHTML="<div class='muted'>—</div>"; }
 
   // Kuzatuvchi (kompyuterdagi olx-watch) — reja/kuzatuvchi.json, kompyuter o'zi yangilab turadi
   try{
