@@ -35,7 +35,7 @@ VOICE_CHAIN = ("highpass=f=90,lowpass=f=12000,afftdn=nr=14:nf=-28:tn=1,"
                "loudnorm=I=-13:TP=-1.2:LRA=7,alimiter=limit=0.93")
 
 
-def mount(video, voice, out, orig_vol=0.55, delay=0.25):
+def mount(video, voice, out, orig_vol=0.32, delay=0.25):
     vd = dur(video)
     sr = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.03"
     tmp = out + ".voice.wav"
