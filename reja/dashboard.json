@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-01 21:53",
+ "updated": "2026-11-01 22:49",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 13,
+  "temp": 12,
   "desc": "Ochiq",
   "hi": 20,
   "lo": 10
@@ -18,7 +18,7 @@
   "posts": [
    {
     "caption": "🌙 Chiroqli hilol dekor",
-    "like": 0,
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfNKqXXmjVv/",
