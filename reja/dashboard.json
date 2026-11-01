@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-01 10:05",
+ "updated": "2026-11-01 10:59",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 15,
+  "temp": 17,
   "desc": "Asosan ochiq",
   "hi": 20,
   "lo": 9
@@ -18,7 +18,7 @@
   "posts": [
    {
     "caption": "⚽ Qaysi biri SENIKI? Raqamini izohga yoz",
-    "like": 0,
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfL7rqSD9z9/",
