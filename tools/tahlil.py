@@ -123,6 +123,20 @@ def analyze(followers, media):
         by.setdefault(kind(m), []).append(sc(m))
     st["turlar"] = {k: {"soni": len(v), "ortacha": avg(v)} for k, v in by.items()}
 
+    # oylar bo'yicha (rejim o'zgarishini ko'rish uchun)
+    months = {}
+    for m in media:
+        months.setdefault(ts(m).strftime("%Y-%m"), []).append(sc(m))
+    st["oylar"] = {k: {"soni": len(v), "ortacha": avg(v)} for k, v in sorted(months.items())[-6:]}
+
+    # mavzu/vaqt/xususiyat: oxirgi 45 kun (bir xil davr, eski mashhur postlar aralashib ketmasin)
+    recent = [m for m in media if now - ts(m) <= timedelta(days=45)]
+    base = recent if len(recent) >= 15 else media
+    st["tahlil_oynasi"] = f"oxirgi 45 kun, {len(base)} post" if base is recent else f"barcha {len(base)} post"
+    media_all, media = media, base
+    n_all = n
+    n = len(base)
+
     # mavzular
     topics = {}
     for g, kws in GROUPS.items():
@@ -152,6 +166,7 @@ def analyze(followers, media):
     feat("uzun izoh (400+ belgi)", lambda m: len(cap(m)) > 400)
     feat("10+ hashtag", lambda m: cap(m).count("#") >= 10)
 
+    media, n = media_all, n_all
     # dinamika: oxirgi 14 kun va undan oldingi 14 kun
     r = [sc(m) for m in media if now - ts(m) <= timedelta(days=14)]
     p = [sc(m) for m in media if timedelta(days=14) < now - ts(m) <= timedelta(days=28)]
@@ -186,6 +201,13 @@ def qoidaviy_matn(st):
     if b["post"]:
         tr = "oshgan 📈" if a['ortacha'] > b['ortacha'] else "tushgan 📉" if a['ortacha'] < b['ortacha'] else "o'zgarmagan"
         L.append(f"Dinamika: oxirgi 14 kunda faollik {a['ortacha']} (undan oldin {b['ortacha']}), {tr}.")
+    om = st.get("oylar", {})
+    if len(om) >= 2:
+        L.append("Oylar bo'yicha o'rtacha faollik: " + ", ".join(f"{k}: {v['ortacha']} ({v['soni']} post)" for k, v in om.items()))
+        ks = list(om)
+        if om[ks[-2]]["ortacha"] > 0 and om[ks[-1]]["ortacha"] < 0.4 * om[ks[-2]]["ortacha"]:
+            L.append(f"🚨 Faollik keskin tushgan: {ks[-2]} da {om[ks[-2]]['ortacha']}, {ks[-1]} da {om[ks[-1]]['ortacha']}. Sababini izlang (post turi, mavzu, ko'p post, algoritm).")
+    L.append(f"(Mavzu/vaqt/xususiyat tahlili: {st.get('tahlil_oynasi')})")
     L.append("")
     good, bad = [], []
     if st.get("mavzular"):
