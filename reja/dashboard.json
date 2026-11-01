@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-01 22:49",
+ "updated": "2026-11-02 00:02",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 12,
-  "desc": "Ochiq",
-  "hi": 20,
-  "lo": 10
+  "temp": 11,
+  "desc": "Asosan ochiq",
+  "hi": 22,
+  "lo": 8
  },
  "instagram": {
   "username": "metart_shop",
@@ -66,79 +66,73 @@
    }
   ]
  },
- "kecha_chiqdi": 1,
+ "kecha_chiqdi": 13,
  "bugun_postlar": [
   {
-   "id": "h02-story-11-01-09",
-   "at": "2026-11-01T09:00",
+   "id": "h02-story-11-02-09",
+   "at": "2026-11-02T09:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "v7-klublar-tanla",
-   "at": "2026-11-01T10:00",
+   "id": "h02-13-gul-stend",
+   "at": "2026-11-02T10:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-10-uy-hayvoni",
-   "at": "2026-11-01T11:00",
+   "id": "lazer-uchqun",
+   "at": "2026-11-02T11:30",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "mancity-soat",
-   "at": "2026-11-01T11:30",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h02-story-11-01-12",
-   "at": "2026-11-01T12:00",
+   "id": "h02-story-11-02-12",
+   "at": "2026-11-02T12:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "salfetkadon",
-   "at": "2026-11-01T13:30",
+   "id": "h02-01-qaysi-klub",
+   "at": "2026-11-02T13:30",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-11-manu-99",
-   "at": "2026-11-01T14:00",
+   "id": "h02-14-barca",
+   "at": "2026-11-02T14:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-story-11-01-16",
-   "at": "2026-11-01T16:00",
+   "id": "h02-story-11-02-16",
+   "at": "2026-11-02T16:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-12-xonangizda",
-   "at": "2026-11-01T18:00",
+   "id": "h02-15-oq-borilar",
+   "at": "2026-11-02T18:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-story-11-01-20",
-   "at": "2026-11-01T20:00",
+   "id": "v7-lazer-kesish",
+   "at": "2026-11-02T19:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-story-11-02-20",
+   "at": "2026-11-02T20:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "stellaj-buyurtma-1101",
-   "at": "2026-11-01T21:00",
+   "id": "h02-02-narxini-top",
+   "at": "2026-11-02T21:30",
    "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "hilol-dekor",
-   "at": "2026-11-01T21:30",
-   "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   }
  ],
  "keyingi_postlar": [
