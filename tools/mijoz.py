@@ -141,12 +141,23 @@ def raqobatchilar(tok, uid, own_followers=None):
     now = datetime.now(TZ)
     out = []
     for nm in names[:5]:
-        f = ("business_discovery.username(%s){followers_count,media_count,"
-             "media.limit(30){caption,like_count,comments_count,timestamp,media_type,permalink}}" % nm)
-        try:
-            d = get(f"{API}/{uid}?fields={urllib.parse.quote(f, safe='(){},.')}&{q}")["business_discovery"]
-        except Exception as e:
-            out.append({"nom": nm, "xato": "ochib bo'lmadi (shaxsiy akkaunt yoki mavjud emas)"})
+        d, err = None, ""
+        for mf in ("media.limit(30){caption,like_count,comments_count,timestamp,media_type,permalink}",
+                   "media{caption,like_count,comments_count,timestamp,media_type,permalink}", ""):
+            f = "business_discovery.username(%s){followers_count,media_count%s}" % (nm, ("," + mf) if mf else "")
+            try:
+                d = get(f"{API}/{uid}?fields={urllib.parse.quote(f, safe='(){},.')}&{q}")["business_discovery"]
+                break
+            except urllib.error.HTTPError as e:
+                try:
+                    err = json.loads(e.read().decode("utf-8", "ignore")).get("error", {}).get("message", "")[:160]
+                except Exception:
+                    err = f"HTTP {e.code}"
+            except Exception as e:
+                err = str(e)[:120]
+        if d is None:
+            print("Raqobatchi xato", nm, err)
+            out.append({"nom": nm, "xato": "ochib bo'lmadi: " + (err or "noma'lum sabab")})
             continue
         ms = (d.get("media") or {}).get("data", [])
         def age(m):
