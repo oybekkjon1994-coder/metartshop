@@ -116,9 +116,11 @@ function nowTash(){
 }
 
 async function dollarLive(){
+  // 1) CBU rasmiy kurs (kompyuterdagi kuzatuvchi yozadi) -> 2) serverdagi snapshot -> 3) xalqaro bozor kursi
+  try{ const d=await jget('reja/kuzatuvchi.json'); if(d&&d.usd) return {rate:Math.round(d.usd),src:'CBU kursi'}; }catch(e){}
+  try{ const d=await jget('reja/dashboard.json'); if(d.dollar&&d.dollar.rate) return {rate:d.dollar.rate,src:(d.dollar.manba==='CBU'?'CBU kursi':'bozor kursi')}; }catch(e){}
   try{ const d=await jget('https://open.er-api.com/v6/latest/USD'); const u=d.rates&&d.rates.UZS;
-       if(u) return Math.round(u); }catch(e){}
-  try{ const d=await jget('reja/dashboard.json'); if(d.dollar&&d.dollar.rate) return d.dollar.rate; }catch(e){}
+       if(u) return {rate:Math.round(u),src:'xalqaro kurs'}; }catch(e){}
   return null;
 }
 async function weatherLive(){
@@ -135,7 +137,7 @@ async function load(){
   const T=nowTash();
   $('upd').textContent='Yangilangan: '+T.day+' '+T.hm;
 
-  const pDollar=dollarLive().then(us=>{ if(us){ $('usd').textContent=nf(us)+" so'm"; $('usdd').textContent='bozor kursi'; } }).catch(()=>{});
+  const pDollar=dollarLive().then(us=>{ if(us){ $('usd').textContent=nf(us.rate)+" so'm"; $('usdd').textContent=us.src; } }).catch(()=>{});
   const pWeather=weatherLive().then(w=>{ if(w){ $('temp').textContent=w.temp+'°'; $('tempd').textContent=(w.desc||'')+' · '+w.lo+'…'+w.hi+'°'; } }).catch(()=>{});
 
   // postlar — to'g'ridan-to'g'ri repo fayllaridan (jonli)
