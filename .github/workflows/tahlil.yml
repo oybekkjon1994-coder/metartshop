@@ -1,0 +1,49 @@
+name: Instagram tahlil
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: tahlil
+  cancel-in-progress: false
+
+jobs:
+  tahlil:
+    # Issue orqali faqat repo egasi va sarlavhasida "tahlil" bo'lsa ishlaydi
+    if: github.event_name == 'workflow_dispatch' || (github.actor == github.repository_owner && contains(github.event.issue.title, 'tahlil'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tahlil
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT: ${{ secrets.TG_CHAT }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python tools/tahlil.py
+      - name: Saqlash
+        run: |
+          git config user.name "metartshop-bot"
+          git config user.email "oybekkjon1994@gmail.com"
+          git add reja/tahlil.json reja/ig-tarix.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -q -m "tahlil: Instagram tahlili yangilandi"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+      - name: Issue'ga javob yozish
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -c "import json;print(json.load(open('reja/tahlil.json',encoding='utf-8'))['matn'])" > /tmp/javob.md
+          gh issue comment ${{ github.event.issue.number }} --body-file /tmp/javob.md
+          gh issue close ${{ github.event.issue.number }}

@@ -136,6 +136,10 @@ def morning(st):
         d = f" ({ig['followers'] - prevf:+d})" if prevf is not None else ""
         lines.append(f"📸 @metart_shop: {nf(ig['followers'])} obunachi{d}")
         st["followers"] = ig["followers"]
+        if not DRY:
+            h = load("reja/ig-tarix.json", {})
+            h[today] = ig["followers"]
+            json.dump(dict(sorted(h.items())[-400:]), open("reja/ig-tarix.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         yd = [m for m in ig["media"] if media_time(m).strftime("%Y-%m-%d") == yday]
         if yd:
             best = max(yd, key=score)

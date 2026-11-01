@@ -72,6 +72,12 @@
 </div>
 
 <div class="card" style="margin-bottom:12px">
+  <h2>Instagram tahlili</h2>
+  <div class="sub" id="thinfo" style="margin:0 0 10px">—</div>
+  <div id="thmatn" class="muted" style="white-space:pre-wrap;max-height:460px;overflow:auto;line-height:1.45">Tahlil hali qilinmagan. GitHub'da repoga sarlavhasi "tahlil" bo'lgan Issue oching.</div>
+</div>
+
+<div class="card" style="margin-bottom:12px">
   <h2>Oxirgi postlar</h2>
   <div id="recent" class="muted">—</div>
 </div>
@@ -204,6 +210,13 @@ async function load(){
     sig.forEach(k=>rows.push('<div class="pitem"><span class="nm">⚠️ '+esc(k.replace(/^(xato|kech|tizim):/,'$1 · '))+'</span><span class="st">'+esc((hs.alerts[k]||'').slice(5,16).replace('T',' '))+'</span></div>'));
     $('agent').innerHTML= rows.length ? '<div class="plist">'+rows.join('')+'</div>' : "<div class='muted'>Ma'lumot hali yo'q</div>";
   }catch(e){ $('agent').innerHTML="<div class='muted'>—</div>"; }
+
+  // Instagram tahlili (reja/tahlil.json) — "tahlil" buyrug'i bilan agent yangilaydi
+  try{
+    const t=await jget('reja/tahlil.json');
+    $('thinfo').textContent='Yangilangan: '+(t.vaqt||'—')+' · '+(t.manba==='groq'?'AI (Groq)':'qoidaviy tahlil');
+    $('thmatn').textContent=t.matn||'—'; $('thmatn').style.color='var(--fg)';
+  }catch(e){}
 
   // Kuzatuvchi (kompyuterdagi olx-watch) — reja/kuzatuvchi.json, kompyuter o'zi yangilab turadi
   try{
