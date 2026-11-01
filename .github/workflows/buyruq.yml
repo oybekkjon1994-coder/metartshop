@@ -1,0 +1,44 @@
+name: Buyruqlar (Issue)
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: buyruq
+  cancel-in-progress: false
+
+jobs:
+  buyruq:
+    # faqat repo egasi; sarlavha javob / maqsad / raqobatchi bilan boshlansa ('tahlil' alohida workflow)
+    if: github.actor == github.repository_owner && (startsWith(github.event.issue.title, 'javob') || startsWith(github.event.issue.title, 'maqsad') || startsWith(github.event.issue.title, 'raqobatchi'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bajarish
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python tools/buyruq.py
+      - name: Saqlash
+        run: |
+          git config user.name "metartshop-bot"
+          git config user.email "oybekkjon1994@gmail.com"
+          git add reja/maqsad.json reja/raqobatchi.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -q -m "buyruq: sozlama yangilandi"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+      - name: Javob
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body-file /tmp/javob.md
+          gh issue close ${{ github.event.issue.number }}

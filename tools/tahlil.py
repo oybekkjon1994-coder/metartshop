@@ -64,6 +64,8 @@ def fetch():
     if not uid:
         pages = get(f"{API}/me/accounts?fields=instagram_business_account&{q}")["data"]
         uid = next(p["instagram_business_account"]["id"] for p in pages if p.get("instagram_business_account"))
+    global UID
+    UID = uid
     acc = get(f"{API}/{uid}?fields=followers_count,media_count&{q}")
     url = (f"{API}/{uid}/media?fields=id,caption,like_count,comments_count,media_type,media_product_type,"
            f"permalink,timestamp&limit=50&{q}")
@@ -78,6 +80,7 @@ def fetch():
     return acc.get("followers_count"), media
 
 
+UID = None
 NO_INSIGHTS = []  # ruxsat yo'q bo'lsa bir marta yozamiz
 
 
@@ -384,9 +387,25 @@ def main():
         h[now.strftime("%Y-%m-%d")] = followers
         json.dump(dict(sorted(h.items())[-400:]), open(HIST, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     st = analyze(followers, media)
+    try:
+        import mijoz
+        tok = os.environ.get("IG_TOKEN")
+        ex = []
+        if tok and not LOCAL and media:
+            st["savollar"] = mijoz.savollar(tok, sorted(media, key=ts, reverse=True))
+            st["raqobatchilar"] = mijoz.raqobatchilar(tok, UID, followers)
+            ex += [mijoz.matn_savollar(st["savollar"]), mijoz.matn_shubhali(st["savollar"]), mijoz.matn_raqobat(st["raqobatchilar"])]
+        if followers:
+            st["maqsad"] = mijoz.maqsad(followers, load(HIST, {}))
+            ex.insert(0, mijoz.matn_maqsad(st["maqsad"]))
+        st["_qoshimcha"] = "\n\n".join(x for x in ex if x)
+    except Exception as e:
+        print("Qo'shimcha bo'limlar xato:", str(e)[:200]); st["_qoshimcha"] = ""
     base = qoidaviy_matn(st)
+    if st.get("_qoshimcha"):
+        base += "\n\n" + st["_qoshimcha"]
     ai = groq_matn(st) if st.get("n") else None
-    matn = ("🤖 " + ai) if ai else base
+    matn = (("🤖 " + ai) + ("\n\n" + st["_qoshimcha"] if st.get("_qoshimcha") else "")) if ai else base
     out = {"vaqt": now.strftime("%Y-%m-%d %H:%M"), "manba": "groq" if ai else "qoidaviy", "matn": matn,
            "qoidaviy": base, "stat": st}
     if not DRY:
