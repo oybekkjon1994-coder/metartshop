@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-01 08:04",
+ "updated": "2026-11-01 09:09",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 10,
+  "temp": 12,
   "desc": "Ochiq",
   "hi": 20,
   "lo": 9
@@ -72,7 +72,7 @@
    "id": "h02-story-11-01-09",
    "at": "2026-11-01T09:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "v7-klublar-tanla",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-story-11-01-09",
-   "at": "2026-11-01T09:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "v7-klublar-tanla",
    "at": "2026-11-01T10:00",
    "type": "REEL",
@@ -169,6 +163,12 @@
   {
    "id": "salfetkadon",
    "at": "2026-11-01T13:30",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-11-manu-99",
+   "at": "2026-11-01T14:00",
    "type": "REEL",
    "status": ""
   }
