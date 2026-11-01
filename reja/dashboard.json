@@ -1,24 +1,24 @@
 {
- "updated": "2026-11-01 19:53",
+ "updated": "2026-11-01 20:51",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 16,
-  "desc": "Asosan ochiq",
+  "temp": 14,
+  "desc": "Ochiq",
   "hi": 20,
   "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5969,
+  "followers": 5968,
   "media_count": 101,
   "posts": [
    {
     "caption": "🏠 Xonangizda qanday turadi? Botda sinab ",
-    "like": 1,
+    "like": 2,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfMyqXVknPn/",
@@ -126,7 +126,7 @@
    "id": "h02-story-11-01-20",
    "at": "2026-11-01T20:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "stellaj-buyurtma-1101",
@@ -142,12 +142,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h02-story-11-01-20",
-   "at": "2026-11-01T20:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "stellaj-buyurtma-1101",
    "at": "2026-11-01T21:00",
@@ -176,6 +170,12 @@
    "id": "lazer-uchqun",
    "at": "2026-11-02T11:30",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-story-11-02-12",
+   "at": "2026-11-02T12:00",
+   "type": "STORY",
    "status": ""
   }
  ]
