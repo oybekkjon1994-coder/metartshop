@@ -16,7 +16,7 @@ INTENTS = {
 }
 
 
-SPAM = ["http", "www.", "t.me/", "wa.me", "bit.ly", "kazino", "casino", "1xbet", "melbet", "stavka", "букмекер",
+SPAM = ["http", "www.", "t.me/", "wa.me", "bit.ly", "kazino", "casino", "1xbet", "melbet", "букмекер",
         "ishlab toping", "ishlab top", "daromad", "заработ", "инвест", "crypto", "kripto", "usdt", "obuna bo'ling", "follow me",
         "подпишись", "sub4sub", "like4like", "dm for", "pul ishlash"]
 TOXIC = ["ahmoq", "axmoq", "yaramas", "firibgar", "aldamchi", "scam", "мошенник", "обман", "тупой", "дурак", "лох"]
