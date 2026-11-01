@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-01 16:50",
+ "updated": "2026-11-01 18:10",
  "dollar": {
   "rate": 11991,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 19,
-  "desc": "Asosan ochiq",
+  "temp": 17,
+  "desc": "To'liq bulutli",
   "hi": 20,
   "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 5969,
-  "media_count": 100,
+  "media_count": 101,
   "posts": [
+   {
+    "caption": "🏠 Xonangizda qanday turadi? Botda sinab ",
+    "like": 1,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfMyqXVknPn/",
+    "ts": "2026-11-01"
+   },
    {
     "caption": "😳 Man United muxlisi? Bu narxga ishonmay",
     "like": 3,
@@ -42,7 +50,7 @@
    },
    {
     "caption": "⚽ Qaysi biri SENIKI? Raqamini izohga yoz",
-    "like": 12,
+    "like": 13,
     "comment": 6,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfL7rqSD9z9/",
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfASInCkrSW/",
-    "ts": "2026-10-27"
-   },
-   {
-    "caption": "🔥 -40% CHEGIRMA! «Lazer ustaxona» ilovas",
-    "like": 7,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/De_mrlUlXJy/",
     "ts": "2026-10-27"
    }
   ]
@@ -120,7 +120,7 @@
    "id": "h02-12-xonangizda",
    "at": "2026-11-01T18:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-story-11-01-20",
@@ -142,12 +142,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h02-12-xonangizda",
-   "at": "2026-11-01T18:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h02-story-11-01-20",
    "at": "2026-11-01T20:00",
@@ -175,6 +169,12 @@
   {
    "id": "h02-13-gul-stend",
    "at": "2026-11-02T10:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "lazer-uchqun",
+   "at": "2026-11-02T11:30",
    "type": "REEL",
    "status": ""
   }
