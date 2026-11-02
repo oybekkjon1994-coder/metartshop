@@ -1,24 +1,32 @@
 {
- "updated": "2026-11-02 21:19",
+ "updated": "2026-11-02 23:09",
  "dollar": {
   "rate": 11902,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 14,
+  "temp": 12,
   "desc": "Bulutli",
   "hi": 22,
   "lo": 7
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5965,
-  "media_count": 108,
+  "followers": 5964,
+  "media_count": 109,
   "posts": [
    {
+    "caption": "🤔 Narxini toping! Taxminingizni izohga y",
+    "like": 2,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfPvVszEy8j/",
+    "ts": "2026-11-02"
+   },
+   {
     "caption": "🔥 Lazer metallni qanday kesadi? Oxirigac",
-    "like": 0,
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfPeOLxlVmn/",
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfOggShD_ln/",
     "ts": "2026-11-02"
-   },
-   {
-    "caption": "🌙 Chiroqli hilol dekor",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfNKqXXmjVv/",
-    "ts": "2026-11-01"
    }
   ]
  },
@@ -132,16 +132,10 @@
    "id": "h02-02-narxini-top",
    "at": "2026-11-02T21:30",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h02-02-narxini-top",
-   "at": "2026-11-02T21:30",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h02-story-11-03-09",
    "at": "2026-11-03T09:00",
@@ -169,6 +163,12 @@
   {
    "id": "nasaf-soat",
    "at": "2026-11-03T13:30",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-17-biznes-soat",
+   "at": "2026-11-03T14:00",
    "type": "REEL",
    "status": ""
   }
