@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-02 14:24",
+ "updated": "2026-11-02 16:15",
  "dollar": {
   "rate": 11902,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 21,
+  "temp": 20,
   "desc": "Ochiq",
   "hi": 21,
   "lo": 7
@@ -18,8 +18,8 @@
   "posts": [
    {
     "caption": "🔵🔴 Visca Barça!",
-    "like": 0,
-    "comment": 0,
+    "like": 8,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfO72XpCkS-/",
     "ts": "2026-11-02"
@@ -27,14 +27,14 @@
    {
     "caption": "⚽ Qaysi klub SENIKI? 1, 2, 3 yoki 4 — ra",
     "like": 1,
-    "comment": 2,
+    "comment": 3,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfO4aOyit1v/",
     "ts": "2026-11-02"
    },
    {
     "caption": "🔥 Lazer metallni sariyog'dek kesadi!",
-    "like": 3,
+    "like": 4,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfOqtwKjQ38/",
@@ -108,7 +108,7 @@
    "id": "h02-story-11-02-16",
    "at": "2026-11-02T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-15-oq-borilar",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-story-11-02-16",
-   "at": "2026-11-02T16:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h02-15-oq-borilar",
    "at": "2026-11-02T18:00",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h02-story-11-03-09",
    "at": "2026-11-03T09:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h02-16-chelsea-kim",
+   "at": "2026-11-03T10:00",
+   "type": "REEL",
    "status": ""
   }
  ]
