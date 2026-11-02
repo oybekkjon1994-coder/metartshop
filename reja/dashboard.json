@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-03 02:56",
+ "updated": "2026-11-03 03:56",
  "dollar": {
   "rate": 11902,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 11,
+  "temp": 10,
   "desc": "Bulutli",
   "hi": 20,
   "lo": 10
