@@ -1,25 +1,33 @@
 {
- "updated": "2026-11-02 17:12",
+ "updated": "2026-11-02 18:29",
  "dollar": {
   "rate": 11902,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 18,
+  "temp": 17,
   "desc": "Ochiq",
-  "hi": 21,
+  "hi": 22,
   "lo": 7
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 5966,
-  "media_count": 107,
+  "media_count": 108,
   "posts": [
    {
+    "caption": "🐺 Oq bo'rilar — Jahon chempionati sari! ",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfPXcxziT69/",
+    "ts": "2026-11-02"
+   },
+   {
     "caption": "🔵🔴 Visca Barça!",
-    "like": 21,
-    "comment": 1,
+    "like": 32,
+    "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfO72XpCkS-/",
     "ts": "2026-11-02"
@@ -27,14 +35,14 @@
    {
     "caption": "⚽ Qaysi klub SENIKI? 1, 2, 3 yoki 4 — ra",
     "like": 2,
-    "comment": 3,
+    "comment": 4,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfO4aOyit1v/",
     "ts": "2026-11-02"
    },
    {
     "caption": "🔥 Lazer metallni sariyog'dek kesadi!",
-    "like": 6,
+    "like": 7,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfOqtwKjQ38/",
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfNKqXXmjVv/",
-    "ts": "2026-11-01"
-   },
-   {
-    "caption": "🔩 Metall stellaj — o'lchamingizga moslab",
-    "like": 3,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfNHK2XAiUJ/",
     "ts": "2026-11-01"
    }
   ]
@@ -114,7 +114,7 @@
    "id": "h02-15-oq-borilar",
    "at": "2026-11-02T18:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "v7-lazer-kesish",
@@ -136,12 +136,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h02-15-oq-borilar",
-   "at": "2026-11-02T18:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "v7-lazer-kesish",
    "at": "2026-11-02T19:00",
@@ -169,6 +163,12 @@
   {
    "id": "h02-16-chelsea-kim",
    "at": "2026-11-03T10:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-03-logo-bot",
+   "at": "2026-11-03T11:30",
    "type": "REEL",
    "status": ""
   }
