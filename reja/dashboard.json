@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-02 09:16",
+ "updated": "2026-11-02 10:23",
  "dollar": {
   "rate": 11902,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 14,
+  "temp": 18,
   "desc": "Ochiq",
   "hi": 22,
   "lo": 7
@@ -14,8 +14,16 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 5967,
-  "media_count": 103,
+  "media_count": 104,
   "posts": [
+   {
+    "caption": "🌿 Gullaringizga ham uy kerak!",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfOggShD_ln/",
+    "ts": "2026-11-02"
+   },
    {
     "caption": "🌙 Chiroqli hilol dekor",
     "like": 2,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfMF8NRkZlh/",
     "ts": "2026-11-01"
-   },
-   {
-    "caption": "🐶 Itingiz ham sovg'aga loyiq!",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfMCfj1EpnW/",
-    "ts": "2026-11-01"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "h02-13-gul-stend",
    "at": "2026-11-02T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "lazer-uchqun",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-13-gul-stend",
-   "at": "2026-11-02T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "lazer-uchqun",
    "at": "2026-11-02T11:30",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h02-story-11-02-16",
    "at": "2026-11-02T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h02-15-oq-borilar",
+   "at": "2026-11-02T18:00",
+   "type": "REEL",
    "status": ""
   }
  ]
