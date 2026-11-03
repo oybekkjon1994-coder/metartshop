@@ -1,64 +1,326 @@
 {
- "vaqt": "2026-10-31T23:13+05:00",
+ "vaqt": "2026-11-03T21:45+05:00",
  "ig_id": "17841470082191241",
  "akkaunt": {
   "id": "17841470082191241",
-  "followers_count": 5968,
-  "follows_count": 15,
-  "media_count": 96,
+  "followers_count": 5963,
+  "follows_count": 16,
+  "media_count": 117,
   "name": "Декор из металла ☆ декор для дома☆ Товар для дома | Узбекистан",
   "username": "metart_shop"
  },
  "postlar": [
   {
-   "id": "17970305165965598",
-   "caption": "✨ Metall + lazer = san'at",
+   "id": "18111832610180685",
+   "caption": "🔊 Ovozni yoqing... va to'xtab ko'ring 🔥",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfSULl8jBuy/",
+   "timestamp": "2026-11-03T16:31:05+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18121513627758641",
+   "caption": "🔥 KONDI PECH — o'tin va ko'mirda ishlaydi!",
+   "comments_count": 5,
+   "like_count": 7,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfSSOfTDogA/",
+   "timestamp": "2026-11-03T16:14:03+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17913358461506046",
+   "caption": "💙❤️ Barselona muxlislari, bu soat siz uchun!",
+   "comments_count": 0,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfSFKiOjFzy/",
+   "timestamp": "2026-11-03T14:19:54+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18122516621287147",
+   "caption": "✏️ Avval chizma... ⚡ keyin tayyor soat!",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfR8oG0ldbo/",
+   "timestamp": "2026-11-03T13:05:18+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18130553764855970",
+   "caption": "🏪 Do'koningiz nomi — devorda!",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfRgrLJFHMK/",
+   "timestamp": "2026-11-03T09:00:53+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17945916588087882",
+   "caption": "⚽ FC Nasaf muxlislari!",
+   "comments_count": 2,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfRd8mjmsxv/",
+   "timestamp": "2026-11-03T08:37:08+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18087126302322153",
+   "caption": "⚡ Logotipingizdan soat — botda 1 daqiqada!",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfRPiU_j78k/",
+   "timestamp": "2026-11-03T06:31:18+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18136556104662921",
+   "caption": "💙 Bu soat kim uchun? Chelsea muxlisi do'stingizni belgilang ",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfRFKtpnOdr/",
+   "timestamp": "2026-11-03T05:00:32+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18038912318685910",
+   "caption": "🤔 Narxini toping! Taxminingizni izohga yozing 👇",
+   "comments_count": 0,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfPvVszEy8j/",
+   "timestamp": "2026-11-02T16:30:41+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18108069281305368",
+   "caption": "🔥 Lazer metallni qanday kesadi? Oxirigacha ko'ring 👀",
+   "comments_count": 0,
+   "like_count": 10,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfPeOLxlVmn/",
+   "timestamp": "2026-11-02T14:01:09+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18120774910971299",
+   "caption": "🔵🔴 Visca Barça!",
+   "comments_count": 2,
+   "like_count": 33,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfO72XpCkS-/",
+   "timestamp": "2026-11-02T09:00:47+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18160225540519887",
+   "caption": "⚽ Qaysi klub SENIKI? 1, 2, 3 yoki 4 — raqamini izohga yoz! 👇",
+   "comments_count": 4,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfO4aOyit1v/",
+   "timestamp": "2026-11-02T08:30:42+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18116106623026936",
+   "caption": "🔥 Lazer metallni sariyog'dek kesadi!",
+   "comments_count": 0,
+   "like_count": 7,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfOqtwKjQ38/",
+   "timestamp": "2026-11-02T06:30:52+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18077844512730037",
+   "caption": "🌿 Gullaringizga ham uy kerak!",
    "comments_count": 0,
    "like_count": 2,
    "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfOggShD_ln/",
+   "timestamp": "2026-11-02T05:01:52+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17897984280611876",
+   "caption": "🌙 Chiroqli hilol dekor",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfNKqXXmjVv/",
+   "timestamp": "2026-11-01T16:31:45+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17918674914261535",
+   "caption": "🔩 Metall stellaj — o'lchamingizga moslab tayyorlaymiz!",
+   "comments_count": 0,
+   "like_count": 3,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfNHK2XAiUJ/",
+   "timestamp": "2026-11-01T16:01:11+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18358693726247176",
+   "caption": "🏠 Xonangizda qanday turadi? Botda sinab ko'ring!",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfMyqXVknPn/",
+   "timestamp": "2026-11-01T13:02:05+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17914907286285167",
+   "caption": "😳 Man United muxlisi? Bu narxga ishonmaysiz!",
+   "comments_count": 0,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfMXF9zglDw/",
+   "timestamp": "2026-11-01T09:01:07+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18414632662081666",
+   "caption": "🩵 Manchester City muxlislari!",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfMF8NRkZlh/",
+   "timestamp": "2026-11-01T06:31:14+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18110626006933629",
+   "caption": "🐶 Itingiz ham sovg'aga loyiq!",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfMCfj1EpnW/",
+   "timestamp": "2026-11-01T06:00:57+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18072704708762851",
+   "caption": "⚽ Qaysi biri SENIKI? Raqamini izohga yoz! 👇",
+   "comments_count": 6,
+   "like_count": 13,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DfL7rqSD9z9/",
+   "timestamp": "2026-11-01T05:01:38+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17970305165965598",
+   "caption": "✨ Metall + lazer = san'at",
+   "comments_count": 0,
+   "like_count": 3,
+   "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/DfASInCkrSW/",
    "timestamp": "2026-10-27T16:27:05+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18123806048514157",
    "caption": "🔥 -40% CHEGIRMA! «Lazer ustaxona» ilovasi 40% arzonlashtiril",
    "comments_count": 0,
-   "like_count": 6,
+   "like_count": 7,
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De_mrlUlXJy/",
    "timestamp": "2026-10-27T10:07:12+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "17896428609680900",
    "caption": "🔧 Avtoservisingiz uchun soat",
    "comments_count": 0,
-   "like_count": 2,
+   "like_count": 3,
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De_mHiij9hI/",
    "timestamp": "2026-10-27T10:02:19+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "17929693680183177",
    "caption": "🇺🇿 O'zbekiston gerbi devoringizda!",
-   "comments_count": 1,
-   "like_count": 10,
+   "comments_count": 2,
+   "like_count": 13,
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De6xQwbCGhx/",
    "timestamp": "2026-10-25T13:03:27+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18180890047439130",
    "caption": "🤍 Real Madrid — qorong'uda yonadi!",
-   "comments_count": 13,
+   "comments_count": 14,
    "like_count": 32,
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De6V1EUlVR9/",
    "timestamp": "2026-10-25T09:03:42+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "17993154477101312",
@@ -68,7 +330,9 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De56LzalLyF/",
    "timestamp": "2026-10-25T05:02:12+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18000420993011177",
@@ -78,7 +342,9 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De4Ma2DDTeB/",
    "timestamp": "2026-10-24T13:03:03+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18117345428090347",
@@ -88,7 +354,9 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De3xBroiYOd/",
    "timestamp": "2026-10-24T09:03:43+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18124865686705805",
@@ -98,7 +366,9 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De3VZV2FJAO/",
    "timestamp": "2026-10-24T05:02:16+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18067533035789087",
@@ -108,7 +378,9 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De1nvvyjek3/",
    "timestamp": "2026-10-23T13:04:08+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18128738809650510",
@@ -118,7 +390,9 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De1MQPYDz9x/",
    "timestamp": "2026-10-23T09:03:57+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   },
   {
    "id": "18026966963868900",
@@ -128,7 +402,213 @@
    "media_type": "VIDEO",
    "permalink": "https://www.instagram.com/reel/De0wmQAj_K5/",
    "timestamp": "2026-10-23T05:02:15+0000",
-   "reach": null
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18125073985926160",
+   "caption": "🤍🖤 Oq yoki qora? Izohda yozing!",
+   "comments_count": 7,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DezDF_YjCNL/",
+   "timestamp": "2026-10-22T13:05:25+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18350850337280063",
+   "caption": "🌿 Gullaringiz uchun metall stend!",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DeyuboIAA0o/",
+   "timestamp": "2026-10-22T10:04:49+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17979108683915675",
+   "caption": "🔥 Lazer ustaxonangiz endi telefoningizda!",
+   "comments_count": 1,
+   "like_count": 7,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DeynlhmAevQ/",
+   "timestamp": "2026-10-22T09:05:00+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17944988361087028",
+   "caption": "⚽ Sevimli klubingiz endi devoringizda!",
+   "comments_count": 1,
+   "like_count": 4,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DeyL6NUnEcK/",
+   "timestamp": "2026-10-22T05:03:16+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18109976018244038",
+   "caption": "🔥 Do'koningizni shunday bezang!",
+   "comments_count": 0,
+   "like_count": 2,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DeweW7gDPEG/",
+   "timestamp": "2026-10-21T13:05:52+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17995490387969898",
+   "caption": "Tezkunda sotuvga chqadi. Shu va shunga o'xshash barcha turda",
+   "comments_count": 0,
+   "like_count": 1,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DZb9-4TONT5/",
+   "timestamp": "2026-06-11T07:21:05+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17913862353201136",
+   "comments_count": 30,
+   "like_count": 29,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DZVSgLWMkMg/",
+   "timestamp": "2026-06-08T17:05:31+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action",
+   "caption": ""
+  },
+  {
+   "id": "18124593337604168",
+   "caption": "Narxlar 170.000 somdan boshlanadi",
+   "comments_count": 9,
+   "like_count": 24,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DZSmS7DMNSx/",
+   "timestamp": "2026-06-07T16:01:08+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18137572024544134",
+   "caption": "O'zbekiston futbol ishqibozlari uchun devor soat!",
+   "comments_count": 12,
+   "like_count": 159,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DY__Ek9O620/",
+   "timestamp": "2026-05-31T10:31:55+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18100320301670524",
+   "caption": "Kitob uchun polkalar zakaz asnosida tayyorlanadi",
+   "comments_count": 1,
+   "like_count": 29,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DRBjyDQDGIG/",
+   "timestamp": "2025-11-14T05:01:55+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18030232604446709",
+   "caption": "Metaldan yasalgan logo soatlarini @metart_shop da zakaz beri",
+   "comments_count": 38,
+   "like_count": 106,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DKSXbKYMbbH/",
+   "timestamp": "2025-05-30T18:01:25+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18081278608779877",
+   "caption": "Arsenal soatlarimiz ham nalichida🔥",
+   "comments_count": 28,
+   "like_count": 38,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DKPpkgvsYGj/",
+   "timestamp": "2025-05-29T16:42:23+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17999709803787361",
+   "comments_count": 5,
+   "like_count": 31,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DKH0XeiMEvF/",
+   "timestamp": "2025-05-26T16:53:10+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action",
+   "caption": ""
+  },
+  {
+   "id": "18037138391329420",
+   "caption": "Lazer metalldan yasaladigan har qanday buyumni @metart_shop ",
+   "comments_count": 14,
+   "like_count": 45,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DJ7DMUIMekQ/",
+   "timestamp": "2025-05-21T16:42:59+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17969248982896081",
+   "caption": "Shaxsiy logoingiz uchun ham soatlar yasab beramiz🫵🏻🔥",
+   "comments_count": 17,
+   "like_count": 59,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DJ15GMOMYRL/",
+   "timestamp": "2025-05-19T16:37:12+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "18012142544550782",
+   "caption": "Shu va shunga o’xshash logo shaklida yasalgan soatlarga @met",
+   "comments_count": 26,
+   "like_count": 53,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DJnd0erCz2s/",
+   "timestamp": "2025-05-14T02:10:41+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
+  },
+  {
+   "id": "17960441363785447",
+   "caption": "Sevimli futbol komandangiz qaysi? O’zingiz yoqtirgan futbol ",
+   "comments_count": 15,
+   "like_count": 36,
+   "media_type": "VIDEO",
+   "permalink": "https://www.instagram.com/reel/DJdwgWtsvyD/",
+   "timestamp": "2025-05-10T07:43:44+0000",
+   "reach": null,
+   "views": null,
+   "xato_insights": "400: (#10) Application does not have permission for this action"
   }
  ]
 }
