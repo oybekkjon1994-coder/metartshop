@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03 21:10",
+ "updated": "2026-11-03 22:17",
  "dollar": {
   "rate": 11927,
   "diff": 0,
@@ -14,8 +14,24 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 5963,
-  "media_count": 115,
+  "media_count": 117,
   "posts": [
+   {
+    "caption": "🔊 Ovozni yoqing... va to'xtab ko'ring 🔥",
+    "like": 2,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfSULl8jBuy/",
+    "ts": "2026-11-03"
+   },
+   {
+    "caption": "🔥 KONDI PECH — o'tin va ko'mirda ishlayd",
+    "like": 7,
+    "comment": 10,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfSSOfTDogA/",
+    "ts": "2026-11-03"
+   },
    {
     "caption": "💙❤️ Barselona muxlislari, bu soat siz uc",
     "like": 4,
@@ -46,22 +62,6 @@
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfRd8mjmsxv/",
-    "ts": "2026-11-03"
-   },
-   {
-    "caption": "⚡ Logotipingizdan soat — botda 1 daqiqad",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfRPiU_j78k/",
-    "ts": "2026-11-03"
-   },
-   {
-    "caption": "💙 Bu soat kim uchun? Chelsea muxlisi do'",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfRFKtpnOdr/",
     "ts": "2026-11-03"
    }
   ]
@@ -132,22 +132,16 @@
    "id": "kondi-pech-1103",
    "at": "2026-11-03T21:10",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "lazer-asmr",
    "at": "2026-11-03T21:30",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "lazer-asmr",
-   "at": "2026-11-03T21:30",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h02-story-11-04-09",
    "at": "2026-11-04T09:00",
@@ -175,6 +169,12 @@
   {
    "id": "h02-05-sovga-goya",
    "at": "2026-11-04T13:30",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-20-real-chiroq",
+   "at": "2026-11-04T14:00",
    "type": "REEL",
    "status": ""
   }
