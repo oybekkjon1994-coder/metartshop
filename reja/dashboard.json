@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03 21:00",
+ "updated": "2026-11-03 21:10",
  "dollar": {
   "rate": 11927,
   "diff": 0,
@@ -143,12 +143,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "kondi-pech-1103",
-   "at": "2026-11-03T21:10",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "lazer-asmr",
    "at": "2026-11-03T21:30",
    "type": "REEL",
@@ -176,6 +170,12 @@
    "id": "h02-story-11-04-12",
    "at": "2026-11-04T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h02-05-sovga-goya",
+   "at": "2026-11-04T13:30",
+   "type": "REEL",
    "status": ""
   }
  ]
