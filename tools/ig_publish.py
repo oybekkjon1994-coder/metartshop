@@ -14,7 +14,7 @@ posts.json elementi:
   shu repodagi faylning raw havolasi ishlatiladi.
 Holat reja/holat.json da saqlanadi: {"id": {"status": "chiqdi|xato|o'tkazildi", ...}}
 """
-import json, os, sys, time, urllib.parse, urllib.request
+import json, os, subprocess, sys, time, urllib.parse, urllib.request
 from datetime import datetime, timedelta, timezone
 
 API = "https://graph.facebook.com/v21.0"
@@ -71,9 +71,18 @@ def ig_user_id(token):
     raise ApiError("Instagram biznes akkaunt topilmadi — token sahifa tokenimi va Instagram sahifaga ulanganmi?")
 
 
+def head_sha():
+    # ish 45 daqiqa davomida git pull qiladi: ishga tushgandagi GITHUB_SHA eskirib qoladi,
+    # keyin qo'shilgan fayllar unda yo'q bo'ladi. Shuning uchun hozirgi HEAD olinadi.
+    try:
+        return subprocess.check_output(["git", "-C", ROOT, "rev-parse", "HEAD"], text=True).strip() or SHA
+    except Exception:
+        return SHA
+
+
 def media_url(m):
     if m.startswith("repo:"):
-        return f"https://raw.githubusercontent.com/{REPO}/{SHA}/{m[5:]}"
+        return f"https://raw.githubusercontent.com/{REPO}/{head_sha()}/{m[5:]}"
     return m
 
 
