@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-03 09:10",
+ "updated": "2026-11-03 10:12",
  "dollar": {
   "rate": 11927,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 13,
-  "desc": "Ochiq",
+  "temp": 16,
+  "desc": "Asosan ochiq",
   "hi": 21,
   "lo": 9
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5965,
-  "media_count": 109,
+  "followers": 5964,
+  "media_count": 110,
   "posts": [
+   {
+    "caption": "💙 Bu soat kim uchun? Chelsea muxlisi do'",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfRFKtpnOdr/",
+    "ts": "2026-11-03"
+   },
    {
     "caption": "🤔 Narxini toping! Taxminingizni izohga y",
     "like": 3,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfOqtwKjQ38/",
     "ts": "2026-11-02"
-   },
-   {
-    "caption": "🌿 Gullaringizga ham uy kerak!",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfOggShD_ln/",
-    "ts": "2026-11-02"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "h02-16-chelsea-kim",
    "at": "2026-11-03T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-03-logo-bot",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-16-chelsea-kim",
-   "at": "2026-11-03T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h02-03-logo-bot",
    "at": "2026-11-03T11:30",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h02-story-11-03-16",
    "at": "2026-11-03T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h02-18-chizmadan-soatga",
+   "at": "2026-11-03T18:00",
+   "type": "REEL",
    "status": ""
   }
  ]
