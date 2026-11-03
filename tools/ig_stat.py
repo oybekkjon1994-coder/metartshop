@@ -51,12 +51,15 @@ try:
         acc, err2 = safe_call(ig, fields="username,followers_count,media_count")
         if acc is None: out["xato_akkaunt"] = err
     out["akkaunt"] = acc or {}
-    media_r, err = safe_call(f"{ig}/media", fields="id,caption,media_type,timestamp,like_count,comments_count,permalink", limit="12")
+    media_r, err = safe_call(f"{ig}/media", fields="id,caption,media_type,timestamp,like_count,comments_count,permalink", limit="50")
     media = (media_r or {}).get("data", [])
     if media_r is None: out["xato_media"] = err
     for m in media:
-        ins, _ = safe_call(f"{m['id']}/insights", metric="reach")
-        m["reach"] = (ins or {}).get("data", [{}])[0].get("values", [{}])[0].get("value") if ins else None
+        ins, ierr = safe_call(f"{m['id']}/insights", metric="views,reach")
+        if ins is None: ins, ierr = safe_call(f"{m['id']}/insights", metric="reach")
+        vals = {d.get("name"): (d.get("values") or [{}])[0].get("value", d.get("total_value", {}).get("value")) for d in (ins or {}).get("data", [])}
+        m["reach"] = vals.get("reach"); m["views"] = vals.get("views")
+        if ins is None: m["xato_insights"] = (ierr or "")[:120]
         m["caption"] = (m.get("caption") or "").split("\n")[0][:60]
     out["postlar"] = media
 except Exception as e:
