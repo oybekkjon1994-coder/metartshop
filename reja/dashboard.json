@@ -1,24 +1,24 @@
 {
- "updated": "2026-11-04 14:15",
+ "updated": "2026-11-04 17:05",
  "dollar": {
   "rate": 11911,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 21,
+  "temp": 18,
   "desc": "To'liq bulutli",
   "hi": 21,
   "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5979,
+  "followers": 5986,
   "media_count": 119,
   "posts": [
    {
     "caption": "✨ Kunduzi — oddiy soat, kechasi — mo'jiz",
-    "like": 1,
+    "like": 3,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfUFjiWE_6j/",
@@ -58,7 +58,7 @@
    },
    {
     "caption": "🔥 KONDI PECH — o'tin va ko'mirda ishlayd",
-    "like": 20,
+    "like": 26,
     "comment": 11,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfSSOfTDogA/",
@@ -108,7 +108,7 @@
    "id": "h02-story-11-04-16",
    "at": "2026-11-04T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-21-rang-tanla",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-story-11-04-16",
-   "at": "2026-11-04T16:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h02-21-rang-tanla",
    "at": "2026-11-04T18:00",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h03-story-11-05-09",
    "at": "2026-11-05T09:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-01-oq-qora",
+   "at": "2026-11-05T10:00",
+   "type": "REEL",
    "status": ""
   }
  ]
