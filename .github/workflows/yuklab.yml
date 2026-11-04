@@ -1,0 +1,22 @@
+name: yuklab
+on:
+  push:
+    paths: ['tmp/yuklab.txt']
+permissions:
+  contents: write
+jobs:
+  y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Yuklab olish
+        run: |
+          while read -r name url; do
+            [ -z "$name" ] && continue
+            curl -sSL --fail -o "tmp/$name" "$url" && ls -la "tmp/$name"
+          done < tmp/yuklab.txt
+      - name: Commit
+        run: |
+          git config user.name "metart-bot"; git config user.email "bot@users.noreply.github.com"
+          git add tmp; git commit -m "yuklab olindi" || exit 0
+          git pull --rebase -q; git push
