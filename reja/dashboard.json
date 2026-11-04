@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-04 09:13",
+ "updated": "2026-11-04 10:17",
  "dollar": {
   "rate": 11911,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 14,
+  "temp": 18,
   "desc": "To'liq bulutli",
   "hi": 22,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5970,
-  "media_count": 115,
+  "followers": 5972,
+  "media_count": 116,
   "posts": [
+   {
+    "caption": "🐐 SIUUU!",
+    "like": 2,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfTqArfD4ih/",
+    "ts": "2026-11-04"
+   },
    {
     "caption": "🔊 Ovozni yoqing... va to'xtab ko'ring 🔥",
     "like": 2,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfRgrLJFHMK/",
     "ts": "2026-11-03"
-   },
-   {
-    "caption": "⚡ Logotipingizdan soat — botda 1 daqiqad",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfRPiU_j78k/",
-    "ts": "2026-11-03"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "h02-19-ronaldo",
    "at": "2026-11-04T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-04-qizil-qora",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-19-ronaldo",
-   "at": "2026-11-04T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h02-04-qizil-qora",
    "at": "2026-11-04T11:30",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h02-story-11-04-16",
    "at": "2026-11-04T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h02-21-rang-tanla",
+   "at": "2026-11-04T18:00",
+   "type": "REEL",
    "status": ""
   }
  ]
