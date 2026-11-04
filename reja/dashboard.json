@@ -1,20 +1,20 @@
 {
- "updated": "2026-11-04 08:06",
+ "updated": "2026-11-04 09:13",
  "dollar": {
   "rate": 11911,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 13,
+  "temp": 14,
   "desc": "To'liq bulutli",
   "hi": 22,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5967,
-  "media_count": 117,
+  "followers": 5970,
+  "media_count": 115,
   "posts": [
    {
     "caption": "🔊 Ovozni yoqing... va to'xtab ko'ring 🔥",
@@ -27,7 +27,7 @@
    {
     "caption": "🔥 KONDI PECH — o'tin va ko'mirda ishlayd",
     "like": 12,
-    "comment": 10,
+    "comment": 11,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfSSOfTDogA/",
     "ts": "2026-11-03"
@@ -57,11 +57,11 @@
     "ts": "2026-11-03"
    },
    {
-    "caption": "⚽ FC Nasaf muxlislari!",
-    "like": 1,
-    "comment": 2,
+    "caption": "⚡ Logotipingizdan soat — botda 1 daqiqad",
+    "like": 2,
+    "comment": 0,
     "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfRd8mjmsxv/",
+    "link": "https://www.instagram.com/reel/DfRPiU_j78k/",
     "ts": "2026-11-03"
    }
   ]
@@ -72,7 +72,7 @@
    "id": "h02-story-11-04-09",
    "at": "2026-11-04T09:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-19-ronaldo",
@@ -137,12 +137,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h02-story-11-04-09",
-   "at": "2026-11-04T09:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h02-19-ronaldo",
    "at": "2026-11-04T10:00",
    "type": "REEL",
@@ -170,6 +164,12 @@
    "id": "h02-20-real-chiroq",
    "at": "2026-11-04T14:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-story-11-04-16",
+   "at": "2026-11-04T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
