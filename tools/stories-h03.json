@@ -1,0 +1,15 @@
+[
+ {"id":"k19-tufli","src":"img/tufli-soat-1.jpg","title":"Tufli soat","sub":"Poyabzal do‘koningiz uchun · nomingiz bilan"},
+ {"id":"k20-liverpool","src":"img/liverpool-soat-1.jpg","title":"Liverpool","sub":"You’ll Never Walk Alone · Часы «Ливерпуль»"},
+ {"id":"k21-kitob","src":"img/kitob-polka-1.jpg","title":"Ko‘rinmas kitob polkasi","sub":"Metall · o‘lchami buyurtma asosida","size":104},
+ {"id":"k22-realqora","src":"ig/src/372e9659.jpg","title":"Real Madrid","price":"150 000 so‘m","sub":"Qora rangda · Часы «Реал Мадрид»","size":120},
+ {"id":"k23-nasaf","src":"img/nasaf-soat-1.jpg","title":"FC Nasaf","sub":"O‘zbek klublari ham bor · Часы «Насаф»"},
+ {"id":"k24-liverpoolqora","src":"ig/src/92ca88a4.jpg","title":"Liverpool · qora","sub":"Metall devor soati · lazer bilan kesilgan","size":116},
+ {"id":"k25-salfetka","src":"img/salfetkadon-mashina-1.jpg","title":"Mashina salfetkadon","sub":"Oshxona va avtosalon uchun","size":112},
+ {"id":"k26-dumaloq","src":"img/dumaloq-gul-stend-1.jpg","title":"Aylana gul stendi","sub":"G‘ildirakli · balkon va zal uchun","size":116},
+ {"id":"k27-avtoservis","src":"img/avtoservis-soat-1.jpg","title":"Avtoservis soati","sub":"Ustaxonangiz logotipi bilan","size":116},
+ {"id":"c8-izoh","src":"ig/src/672cc789.jpg","title":"Klubingiz nomini @Metart_shop_bot ga yozing — maketni darhol ko‘rasiz","sub":"Istalgan klub · 150 000 so‘mdan","size":74,"upper":false},
+ {"id":"c9-tayyor","src":"ig/src/a6a6de1d.jpg","title":"2–3 kunda tayyor. Butun O‘zbekiston bo‘ylab","sub":"Toshkent — Yandex · Viloyatlar — BTS pochta","size":84,"upper":false},
+ {"id":"c10-sovga","src":"img/ronaldo-soat-2.jpg","title":"Sovg‘a tanlolmayapsizmi? @Metart_shop_bot maslahat beradi","sub":"AI-maslahatchi 24/7 javob beradi","size":76,"upper":false},
+ {"id":"c11-xona2","src":"img/real-madrid-soat-2.jpg","title":"Devoringizni suratga oling — bot soatni joylab ko‘rsatadi","sub":"@Metart_shop_bot · bepul","size":78,"upper":false}
+]

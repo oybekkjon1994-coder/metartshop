@@ -1,0 +1,529 @@
+[
+ {
+  "id": "h03-01-oq-qora",
+  "end": "Rangingizni botda tanlang:",
+  "clips": [
+   {
+    "src": "ig/src/e22ea763.jpg",
+    "top": "Real muxlisi! Faqat BITTASINI tanlang",
+    "bot": "OQ yoki QORA? Izohga yozing",
+    "small": "Белые или чёрные? Пишите в комментариях",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/44671aad.jpg",
+    "top": "OQ — toza va nafis",
+    "small": "Белые",
+    "d": 1.8
+   },
+   {
+    "src": "ig/src/372e9659.jpg",
+    "top": "QORA — qat'iy va kuchli",
+    "small": "Чёрные",
+    "d": 1.8
+   },
+   {
+    "src": "img/real-madrid-soat-2.jpg",
+    "top": "150 000 so'm",
+    "bot": "Ikkalasi ham bor!",
+    "small": "Оба цвета — 150 000 сум",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-02-logo-top",
+  "end": "Klubingizni botga yozing:",
+  "clips": [
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true,
+    "top": "3 soniyada toping: qaysi klublar?",
+    "bot": "Javobni izohga yozing",
+    "small": "Угадайте клубы за 3 секунды",
+    "d": 3.2
+   },
+   {
+    "src": "img/arsenal-soat-1.jpg",
+    "top": "Topdingizmi? Mana — Arsenal!",
+    "small": "Арсенал",
+    "d": 1.6
+   },
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "Bunisi — Manchester City!",
+    "small": "Манчестер Сити",
+    "d": 1.6
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "Chizmadan — devorga",
+    "small": "Из чертежа — на стену",
+    "d": 1.8
+   }
+  ]
+ },
+ {
+  "id": "h03-03-milliy",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/gerb-soat-1.jpg",
+    "top": "Milliy ruhdagi sovg'a qidiryapsizmi?",
+    "bot": "O'zbekiston gerbi soati",
+    "small": "Часы с гербом Узбекистана",
+    "d": 3.0
+   },
+   {
+    "src": "img/oq-borilar-2026-1.jpg",
+    "top": "Oq bo'rilar 2026 — 200 000 so'm",
+    "small": "Для болельщиков сборной",
+    "d": 2.0
+   },
+   {
+    "src": "img/hilol-chiroq-1.jpg",
+    "top": "Hilol chiroq — uyga iliqlik",
+    "small": "Светильник «Полумесяц»",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-04-3-sabab",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/barselona-soat-2.jpg",
+    "top": "Metall soat olishga 3 sabab",
+    "bot": "3-chisi eng muhimi!",
+    "small": "3 причины выбрать металлические часы",
+    "d": 3.0
+   },
+   {
+    "src": "img/liverpool-soat-1.jpg",
+    "top": "1. Sinmaydi, yillab xizmat qiladi",
+    "small": "Не ломаются",
+    "d": 1.9
+   },
+   {
+    "src": "img/arsenal-soat-1.jpg",
+    "top": "2. Istalgan logotip va rang",
+    "small": "Любой логотип и цвет",
+    "d": 1.9
+   },
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "3. Narxi atigi 150 000 so'mdan",
+    "small": "Всего от 150 000 сум",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-05-devor-surat",
+  "end": "Devoringizni botga yuboring:",
+  "clips": [
+   {
+    "src": "img/arsenal-soat-2.jpg",
+    "top": "Sotib olishdan oldin devoringizda ko'ring",
+    "bot": "Botda bepul!",
+    "small": "Примерьте часы на свою стену",
+    "d": 3.2
+   },
+   {
+    "src": "img/real-madrid-soat-2.jpg",
+    "top": "1. Xonangizni suratga oling",
+    "small": "Сфотографируйте комнату",
+    "d": 1.8
+   },
+   {
+    "src": "img/liverpool-soat-2.jpg",
+    "top": "2. Botga yuboring — soat devorda!",
+    "small": "Бот покажет часы на стене",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-06-kitob-polka",
+  "end": "O'lchamingizni botga yozing:",
+  "clips": [
+   {
+    "src": "img/kitob-polka-1.jpg",
+    "top": "Kitoblar havoda turgandek",
+    "bot": "Ko'rinmas metall polka",
+    "small": "Невидимые полки для книг",
+    "d": 3.0
+   },
+   {
+    "src": "img/kitob-polka-1.jpg",
+    "top": "O'lchami — buyurtma asosida",
+    "small": "Любой размер на заказ",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-07-dadamga",
+  "end": "Sovg'ani botda tanlang:",
+  "clips": [
+   {
+    "src": "img/ronaldo-soat-2.jpg",
+    "top": "Dadangizga sovg'a — yana galstukmi?",
+    "bot": "Bunisi esda qoladi!",
+    "small": "Подарок папе — снова галстук?",
+    "d": 3.0
+   },
+   {
+    "src": "img/gerb-soat-1.jpg",
+    "top": "Vatanparvar dadaga",
+    "small": "Для папы-патриота",
+    "d": 1.7
+   },
+   {
+    "src": "img/ronaldo-soat-1.jpg",
+    "top": "Futbolchi dadaga — 149 000",
+    "small": "Для папы-футболиста",
+    "d": 1.8
+   },
+   {
+    "src": "img/avtoservis-soat-1.jpg",
+    "top": "Usta dadaga — o'z logotipi bilan",
+    "small": "С логотипом его мастерской",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-08-izoh-klub",
+  "end": "Klubingizni botga yozing:",
+  "clips": [
+   {
+    "src": "ig/src/99f01c46.jpg",
+    "top": "Izohga klubingizni yozing!",
+    "bot": "Qaysi klub muxlislari ko'p — bilib olamiz!",
+    "small": "Напишите свой клуб в комментариях",
+    "d": 3.4
+   },
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "Chelsea?",
+    "d": 1.3
+   },
+   {
+    "src": "img/barselona-soat-1.jpg",
+    "top": "Barselona?",
+    "d": 1.3
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "Yoki Nasaf?",
+    "bot": "Har qanday klubni yasaymiz",
+    "small": "Сделаем любой клуб",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-09-avto",
+  "end": "Logotipingizni botga yuboring:",
+  "clips": [
+   {
+    "src": "img/salfetkadon-mashina-1.jpg",
+    "top": "Mashinaga oshiqlar uchun",
+    "bot": "Salfetkadon — mashina shaklida",
+    "small": "Салфетница в форме машины",
+    "d": 3.0
+   },
+   {
+    "src": "img/avtoservis-soat-1.jpg",
+    "top": "Avtoservisingizga — o'z soatingiz",
+    "small": "Часы для автосервиса",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-10-faq",
+  "end": "Qolgan savollar — botda:",
+  "clips": [
+   {
+    "src": "ig/src/a6a6de1d.jpg",
+    "top": "Eng ko'p so'raladigan 3 savol",
+    "small": "3 самых частых вопроса",
+    "d": 2.6
+   },
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "Qancha vaqtda tayyor? — 2-3 kunda",
+    "small": "Готово за 2-3 дня",
+    "d": 2.0
+   },
+   {
+    "src": "img/real-madrid-soat-1.jpg",
+    "top": "Viloyatga yuborasizmi? — Ha, BTS orqali",
+    "small": "Отправляем по всему Узбекистану",
+    "d": 2.0
+   },
+   {
+    "src": "img/liverpool-soat-2.jpg",
+    "top": "O'lchami? — 30 dan 60 sm gacha",
+    "small": "Размер от 30 до 60 см",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-11-manu-arzon",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/man-united-soat-1.jpg",
+    "top": "Arzonmi? HA. Sifatsizmi? YO'Q.",
+    "small": "Дёшево? Да. Некачественно? Нет.",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/09a703b6.jpg",
+    "top": "Man United — 99 000 so'm",
+    "bot": "Eng arzon klub soatimiz",
+    "small": "Часы «Манчестер Юнайтед» — 99 000",
+    "d": 2.4
+   }
+  ]
+ },
+ {
+  "id": "h03-12-dxf-usta",
+  "end": "DXF faylni botga yuboring:",
+  "clips": [
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "white": true,
+    "top": "Usta, DXF faylingiz kompyuterda yotibdimi?",
+    "small": "Есть DXF-файл?",
+    "d": 3.2
+   },
+   {
+    "src": "ig/src/51662a62.jpg",
+    "white": true,
+    "top": "Botga tashlang — narx darhol",
+    "small": "Бот сразу посчитает цену",
+    "d": 2.0
+   },
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "Lazer kesadi — siz olib ketasiz",
+    "small": "Режем лазером",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-13-liverpool",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/liverpool-soat-1.jpg",
+    "top": "You'll Never Walk Alone",
+    "bot": "Liverpool muxlislari, qo'l ko'taring!",
+    "small": "Для фанатов «Ливерпуля»",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/92ca88a4.jpg",
+    "top": "Qora variant ham bor",
+    "small": "Есть чёрный вариант",
+    "d": 1.8
+   },
+   {
+    "src": "img/liverpool-soat-2.jpg",
+    "top": "Devorda mana shunday",
+    "small": "Так смотрится на стене",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-14-real-qirol",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/real-madrid-soat-1.jpg",
+    "top": "Qirollik klubi — qirollik soati",
+    "bot": "Hala Madrid!",
+    "small": "Королевские часы для мадридистов",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/fe9bfed5.jpg",
+    "top": "Har bir chiziq lazerda",
+    "small": "Каждая линия — лазером",
+    "d": 1.8
+   },
+   {
+    "src": "ig/src/44671aad.jpg",
+    "top": "150 000 so'm",
+    "small": "150 000 сум",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-15-balkon",
+  "end": "O'lchamingizni botga yozing:",
+  "clips": [
+   {
+    "src": "img/dumaloq-gul-stend-1.jpg",
+    "top": "Balkoningiz zerikarlimi?",
+    "bot": "Gullar uchun aylana stend",
+    "small": "Круглая подставка для цветов",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/97c17c27.jpg",
+    "top": "G'ildirakli — oson suriladi",
+    "small": "На колёсиках",
+    "d": 1.8
+   },
+   {
+    "src": "img/gul-stellaj-1.jpg",
+    "top": "Har qanday o'lchamda",
+    "small": "Любой размер на заказ",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-16-arsenal",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/arsenal-soat-1.jpg",
+    "top": "Arsenal muxlislari qayerda?",
+    "bot": "Izohga 'Gunners' yozing!",
+    "small": "Где фанаты «Арсенала»?",
+    "d": 3.0
+   },
+   {
+    "src": "img/arsenal-soat-2.jpg",
+    "top": "To'p o'qi — devoringizda",
+    "small": "Пушка на вашей стене",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-17-plastik-metall",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "Plastik soat yoki metall soat?",
+    "bot": "Farqi katta!",
+    "small": "Пластик или металл?",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/672cc789.jpg",
+    "top": "Metall — tushib ketsa ham sinmaydi",
+    "small": "Металл не разбивается",
+    "d": 2.0
+   },
+   {
+    "src": "ig/src/e22ea763.jpg",
+    "top": "Rangi o'chmaydi, yillab turadi",
+    "small": "Цвет не выгорает",
+    "d": 2.0
+   }
+  ]
+ },
+ {
+  "id": "h03-18-chelsea",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "ig/src/a6a6de1d.jpg",
+    "top": "Ko'klar muxlisi bormi?",
+    "bot": "Chelsea devor soati",
+    "small": "Часы «Челси»",
+    "d": 3.0
+   },
+   {
+    "src": "img/chelsea-soat-1.jpg",
+    "top": "150 000 so'm",
+    "small": "150 000 сум",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-19-nasaf",
+  "end": "Klubingizni botga yozing:",
+  "clips": [
+   {
+    "src": "img/nasaf-soat-1.jpg",
+    "top": "Faqat Yevropa klubimi? YO'Q!",
+    "bot": "FC Nasaf — 1986",
+    "small": "Не только европейские клубы!",
+    "d": 3.0
+   },
+   {
+    "src": "ig/src/0efad97f.jpg",
+    "white": true,
+    "top": "O'zbek klubingiz chizmasini ham chizamiz",
+    "small": "Сделаем любой узбекский клуб",
+    "d": 2.4
+   }
+  ]
+ },
+ {
+  "id": "h03-20-garoyib",
+  "end": "G'oyangizni botga yozing:",
+  "clips": [
+   {
+    "src": "img/tufli-soat-1.jpg",
+    "top": "Kim aytdi soat dumaloq bo'ladi deb?",
+    "small": "Кто сказал, что часы круглые?",
+    "d": 3.0
+   },
+   {
+    "src": "img/tufli-soat-1.jpg",
+    "top": "Tufli shaklida!",
+    "small": "В форме туфли",
+    "d": 1.6
+   },
+   {
+    "src": "img/salfetkadon-mashina-1.jpg",
+    "top": "Mashina shaklida!",
+    "small": "В форме машины",
+    "d": 1.6
+   },
+   {
+    "src": "img/hilol-chiroq-1.jpg",
+    "top": "Hilol shaklida! Sizniki qanday?",
+    "small": "А какой придумаете вы?",
+    "d": 2.2
+   }
+  ]
+ },
+ {
+  "id": "h03-21-mancity",
+  "end": "Buyurtma bot:",
+  "clips": [
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "Osmon rangidagi chempion",
+    "bot": "Manchester City soati",
+    "small": "Часы «Манчестер Сити»",
+    "d": 3.0
+   },
+   {
+    "src": "img/man-city-soat-1.jpg",
+    "top": "150 000 so'm",
+    "bot": "Kema, logotip, raqamlar — hammasi lazerda",
+    "small": "150 000 сум",
+    "d": 2.4
+   }
+  ]
+ }
+]

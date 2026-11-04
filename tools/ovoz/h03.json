@@ -1,0 +1,468 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "rate": "+15%",
+ "items": [
+  {
+   "video": "reels/h03-01-oq-qora.mp4",
+   "out": "reels/h03-01-oq-qora-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Real muxlislari, diqqat! Faqat bittasini tanlang."
+    ],
+    [
+     3.1,
+     "Oq — nafis, xuddi kelinchakdek."
+    ],
+    [
+     4.9,
+     "Qora — qat'iy, xuddi imtihon kunidek!"
+    ],
+    [
+     6.7,
+     "Hazil! Ikkalasi ham bor, bir yuz ellik ming so'm."
+    ],
+    [
+     9.2,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-02-logo-top.mp4",
+   "out": "reels/h03-02-logo-top-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Uch soniya! Chizmadan klublarni toping."
+    ],
+    [
+     3.4,
+     "Topdingizmi? Bu — Arsenal!"
+    ],
+    [
+     5.0,
+     "Bunisi — Manchester Siti."
+    ],
+    [
+     6.6,
+     "Uchinchisi — Nasaf! Chizmadan to'g'ri devorga."
+    ],
+    [
+     8.4,
+     "Klubingizni Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-03-milliy.mp4",
+   "out": "reels/h03-03-milliy-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Milliy ruhdagi sovg'a qidiryapsizmi?"
+    ],
+    [
+     3.1,
+     "Oq bo'rilar soati — ikki yuz ming so'm."
+    ],
+    [
+     5.1,
+     "Hilol chiroq — uyga iliqlik."
+    ],
+    [
+     7.1,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-04-3-sabab.mp4",
+   "out": "reels/h03-04-3-sabab-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Metall soat olishga uchta sabab. Uchinchisi eng muhimi!"
+    ],
+    [
+     3.1,
+     "Bir: sinmaydi."
+    ],
+    [
+     5.0,
+     "Ikki: istalgan logotip, istalgan rang."
+    ],
+    [
+     6.9,
+     "Uch: narxi bir yuz ellik ming so'mdan. Hamyon ham xursand!"
+    ],
+    [
+     9.2,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-05-devor-surat.mp4",
+   "out": "reels/h03-05-devor-surat-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Sotib olishdan oldin devoringizda ko'ring. Bepul!"
+    ],
+    [
+     3.3,
+     "Xonangizni suratga oling."
+    ],
+    [
+     5.1,
+     "Botga yuboring — soat darrov devorda!"
+    ],
+    [
+     7.4,
+     "Metart shop botiga xonangiz rasmini yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-06-kitob-polka.mp4",
+   "out": "reels/h03-06-kitob-polka-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Kitoblar havoda turibdimi? Yo'q, bu ko'rinmas polka!"
+    ],
+    [
+     3.1,
+     "O'lchamini o'zingiz aytasiz."
+    ],
+    [
+     5.3,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-07-dadamga.mp4",
+   "out": "reels/h03-07-dadamga-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Dadangizga yana galstukmi? Bas qiling!"
+    ],
+    [
+     3.1,
+     "Vatanparvar dadaga — gerb soati."
+    ],
+    [
+     4.8,
+     "Futbolchi dadaga — Ronaldo soati."
+    ],
+    [
+     6.6,
+     "Usta dadaga — o'z logotipi bilan!"
+    ],
+    [
+     8.7,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-08-izoh-klub.mp4",
+   "out": "reels/h03-08-izoh-klub-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Izohga klubingizni yozing! Kimning muxlislari ko'p — bilib olamiz."
+    ],
+    [
+     3.5,
+     "Chelsimi?"
+    ],
+    [
+     4.8,
+     "Barselonami?"
+    ],
+    [
+     6.1,
+     "Yoki Nasaf? Har qanday klubni yasaymiz!"
+    ],
+    [
+     8.4,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-09-avto.mp4",
+   "out": "reels/h03-09-avto-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Mashinaga oshiqmisiz? Mana sizga salfetkadon!"
+    ],
+    [
+     3.1,
+     "Avtoservisingizga esa o'z soatingiz."
+    ],
+    [
+     5.4,
+     "Logotipingizni Metart shop botiga yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-10-faq.mp4",
+   "out": "reels/h03-10-faq-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Eng ko'p beriladigan uchta savol."
+    ],
+    [
+     2.7,
+     "Qachon tayyor? Ikki-uch kunda."
+    ],
+    [
+     4.7,
+     "Viloyatga yuborasizmi? Ha, BTS pochta orqali."
+    ],
+    [
+     6.7,
+     "O'lchami? O'ttizdan oltmish santimetrgacha."
+    ],
+    [
+     8.8,
+     "Qolgan savollarga Metart shop boti javob beradi!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-11-manu-arzon.mp4",
+   "out": "reels/h03-11-manu-arzon-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Arzonmi? Ha! Sifatsizmi? Yo'q!"
+    ],
+    [
+     3.1,
+     "Manchester Yunayted — to'qson to'qqiz ming so'm."
+    ],
+    [
+     5.6,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-12-dxf-usta.mp4",
+   "out": "reels/h03-12-dxf-usta-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Usta, DXF faylingiz kompyuterda chang bosib yotibdimi?"
+    ],
+    [
+     3.3,
+     "Botga tashlang — narx darhol."
+    ],
+    [
+     5.3,
+     "Lazer kesadi, siz olib ketasiz!"
+    ],
+    [
+     7.4,
+     "DXF faylni Metart shop botiga yuboring!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-13-liverpool.mp4",
+   "out": "reels/h03-13-liverpool-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Liverpul muxlislari, qo'l ko'taring!"
+    ],
+    [
+     3.1,
+     "Qora varianti ham bor."
+    ],
+    [
+     4.9,
+     "Devorda mana shunday turadi."
+    ],
+    [
+     7.0,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-14-real-qirol.mp4",
+   "out": "reels/h03-14-real-qirol-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Qirollik klubiga — qirollik soati! Hala Madrid!"
+    ],
+    [
+     3.1,
+     "Har bir chiziq lazerda kesilgan."
+    ],
+    [
+     4.9,
+     "Narxi bir yuz ellik ming so'm."
+    ],
+    [
+     7.0,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-15-balkon.mp4",
+   "out": "reels/h03-15-balkon-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Balkoningiz zerikarlimi? Gullarga uy kerak!"
+    ],
+    [
+     3.1,
+     "G'ildirakli — oson suriladi."
+    ],
+    [
+     4.9,
+     "Istalgan o'lchamda yasaymiz."
+    ],
+    [
+     7.0,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-16-arsenal.mp4",
+   "out": "reels/h03-16-arsenal-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Arsenal muxlislari qayerda? Izohga Ganners deb yozing!"
+    ],
+    [
+     3.1,
+     "To'p endi devoringizda. Qo'rqmang, otmaydi!"
+    ],
+    [
+     5.3,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-17-plastik-metall.mp4",
+   "out": "reels/h03-17-plastik-metall-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Plastik soatmi yoki metall? Farqi katta!"
+    ],
+    [
+     3.1,
+     "Metall tushib ketsa ham sinmaydi."
+    ],
+    [
+     5.1,
+     "Rangi o'chmaydi, yillab turadi."
+    ],
+    [
+     7.1,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-18-chelsea.mp4",
+   "out": "reels/h03-18-chelsea-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Ko'klar muxlisi bormi? Chelsi soati!"
+    ],
+    [
+     3.1,
+     "Bir yuz ellik ming so'm."
+    ],
+    [
+     5.3,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-19-nasaf.mp4",
+   "out": "reels/h03-19-nasaf-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Faqat Yevropa klubimi? Yo'q! Mana, Nasaf!"
+    ],
+    [
+     3.1,
+     "O'zbek klubingizni ham yasaymiz."
+    ],
+    [
+     5.6,
+     "Klubingizni Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-20-garoyib.mp4",
+   "out": "reels/h03-20-garoyib-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Kim aytdi soat dumaloq bo'ladi deb?"
+    ],
+    [
+     3.1,
+     "Tufli shaklida!"
+    ],
+    [
+     4.7,
+     "Mashina shaklida!"
+    ],
+    [
+     6.3,
+     "Hilol shaklida! Sizniki qanday?"
+    ],
+    [
+     8.5,
+     "G'oyangizni Metart shop botiga yozing!"
+    ]
+   ]
+  },
+  {
+   "video": "reels/h03-21-mancity.mp4",
+   "out": "reels/h03-21-mancity-ovoz.mp4",
+   "lines": [
+    [
+     0.15,
+     "Osmon rangidagi chempion — Manchester Siti!"
+    ],
+    [
+     3.1,
+     "Bir yuz ellik ming so'm. Kema ham, raqamlar ham — lazerda."
+    ],
+    [
+     5.5,
+     "Buyurtma uchun Telegramdagi Metart shop botiga yozing!"
+    ]
+   ]
+  }
+ ]
+}
