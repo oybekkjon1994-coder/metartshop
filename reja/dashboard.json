@@ -1,24 +1,32 @@
 {
- "updated": "2026-11-04 17:05",
+ "updated": "2026-11-04 18:28",
  "dollar": {
   "rate": 11911,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 18,
+  "temp": 17,
   "desc": "To'liq bulutli",
   "hi": 21,
   "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5986,
-  "media_count": 119,
+  "followers": 5988,
+  "media_count": 120,
   "posts": [
    {
+    "caption": "🎨 Rangini SIZ tanlaysiz!",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfUg7JsFBDp/",
+    "ts": "2026-11-04"
+   },
+   {
     "caption": "✨ Kunduzi — oddiy soat, kechasi — mo'jiz",
-    "like": 3,
+    "like": 5,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfUFjiWE_6j/",
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfSULl8jBuy/",
-    "ts": "2026-11-03"
-   },
-   {
-    "caption": "🔥 KONDI PECH — o'tin va ko'mirda ishlayd",
-    "like": 26,
-    "comment": 11,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfSSOfTDogA/",
     "ts": "2026-11-03"
    }
   ]
@@ -114,7 +114,7 @@
    "id": "h02-21-rang-tanla",
    "at": "2026-11-04T18:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "v7-mersedes-chiroq",
@@ -136,12 +136,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h02-21-rang-tanla",
-   "at": "2026-11-04T18:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "v7-mersedes-chiroq",
    "at": "2026-11-04T19:00",
@@ -169,6 +163,12 @@
   {
    "id": "h03-01-oq-qora",
    "at": "2026-11-05T10:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "v7-lazer-ritm",
+   "at": "2026-11-05T11:30",
    "type": "REEL",
    "status": ""
   }
