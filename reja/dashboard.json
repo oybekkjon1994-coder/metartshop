@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04 21:11",
+ "updated": "2026-11-04 22:13",
  "dollar": {
   "rate": 11911,
   "diff": 0,
@@ -13,9 +13,17 @@
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 5988,
-  "media_count": 121,
+  "followers": 5989,
+  "media_count": 122,
   "posts": [
+   {
+    "caption": "📐 DXF yuboring — lazer kesish narxi darh",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfU5DPnkk3p/",
+    "ts": "2026-11-04"
+   },
    {
     "caption": "✨ METALL STELLAJ — chizmadan tayyorgacha",
     "like": 3,
@@ -34,7 +42,7 @@
    },
    {
     "caption": "🎨 Rangini SIZ tanlaysiz!",
-    "like": 1,
+    "like": 2,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfUg7JsFBDp/",
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfUCCNajexq/",
-    "ts": "2026-11-04"
-   },
-   {
-    "caption": "🔴⚫ Qizil yoki qora? Izohda yozing!",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfT0SM1iXlY/",
     "ts": "2026-11-04"
    }
   ]
@@ -138,16 +138,10 @@
    "id": "h02-06-dxf-narx",
    "at": "2026-11-04T21:30",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h02-06-dxf-narx",
-   "at": "2026-11-04T21:30",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-story-11-05-09",
    "at": "2026-11-05T09:00",
@@ -155,7 +149,7 @@
    "status": ""
   },
   {
-   "id": "h03-01-oq-qora",
+   "id": "stellaj-hook-1105",
    "at": "2026-11-05T10:00",
    "type": "REEL",
    "status": ""
@@ -170,6 +164,12 @@
    "id": "h03-story-11-05-12",
    "at": "2026-11-05T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-01-oq-qora",
+   "at": "2026-11-05T12:30",
+   "type": "REEL",
    "status": ""
   },
   {
