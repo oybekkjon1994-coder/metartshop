@@ -1,24 +1,32 @@
 {
- "updated": "2026-11-05 16:18",
+ "updated": "2026-11-05 18:32",
  "dollar": {
   "rate": 11921,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 19,
+  "temp": 16,
   "desc": "Ochiq",
   "hi": 20,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6047,
-  "media_count": 127,
+  "followers": 6054,
+  "media_count": 128,
   "posts": [
    {
+    "caption": "🇺🇿 Milliy ruhdagi sovg'a: gerb soati, Oq",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfXFxB6CmLe/",
+    "ts": "2026-11-05"
+   },
+   {
     "caption": "🧩 3 soniyada toping: chizmada qaysi klub",
-    "like": 5,
+    "like": 8,
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWqUXnCOt9/",
@@ -26,7 +34,7 @@
    },
    {
     "caption": "🔴 Arsenal muxlislari, bu siz uchun!",
-    "like": 1,
+    "like": 2,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWm28dAaAP/",
@@ -34,7 +42,7 @@
    },
    {
     "caption": "⚪⚫ Real muxlisi! Faqat bittasini tanlang",
-    "like": 3,
+    "like": 5,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWizJfnK0u/",
@@ -50,19 +58,11 @@
    },
    {
     "caption": "Bu stellaj qanday yasaldi? 👀 Oxirigacha ",
-    "like": 1,
+    "like": 2,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWOxALFGEw/",
     "ts": "2026-11-05"
-   },
-   {
-    "caption": "📐 DXF yuboring — lazer kesish narxi darh",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfU5DPnkk3p/",
-    "ts": "2026-11-04"
    }
   ]
  },
@@ -120,7 +120,7 @@
    "id": "h03-03-milliy",
    "at": "2026-11-05T18:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "v7-saralash-urna",
@@ -142,12 +142,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-03-milliy",
-   "at": "2026-11-05T18:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "v7-saralash-urna",
    "at": "2026-11-05T19:00",
@@ -175,6 +169,12 @@
   {
    "id": "h03-04-3-sabab",
    "at": "2026-11-06T10:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h02-08-yangi-yil",
+   "at": "2026-11-06T11:30",
    "type": "REEL",
    "status": ""
   }
