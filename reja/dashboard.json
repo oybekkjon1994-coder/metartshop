@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-05 08:07",
+ "updated": "2026-11-05 09:13",
  "dollar": {
   "rate": 11921,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 12,
+  "temp": 13,
   "desc": "Ochiq",
   "hi": 19,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6019,
+  "followers": 6020,
   "media_count": 122,
   "posts": [
    {
@@ -72,7 +72,7 @@
    "id": "h03-story-11-05-09",
    "at": "2026-11-05T09:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "stellaj-hook-1105",
@@ -143,12 +143,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-05-09",
-   "at": "2026-11-05T09:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "stellaj-hook-1105",
    "at": "2026-11-05T10:00",
    "type": "REEL",
@@ -175,6 +169,12 @@
   {
    "id": "arsenal-soat",
    "at": "2026-11-05T13:30",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-02-logo-top",
+   "at": "2026-11-05T14:00",
    "type": "REEL",
    "status": ""
   }
