@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-05 09:13",
+ "updated": "2026-11-05 10:19",
  "dollar": {
   "rate": 11921,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 13,
+  "temp": 16,
   "desc": "Ochiq",
   "hi": 19,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6020,
-  "media_count": 122,
+  "followers": 6027,
+  "media_count": 123,
   "posts": [
+   {
+    "caption": "Bu stellaj qanday yasaldi? 👀 Oxirigacha ",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfWOxALFGEw/",
+    "ts": "2026-11-05"
+   },
    {
     "caption": "📐 DXF yuboring — lazer kesish narxi darh",
     "like": 1,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfUFjiWE_6j/",
     "ts": "2026-11-04"
-   },
-   {
-    "caption": "🎁 Sovg'a g'oyasi: futbolchi do'stingizga",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfUCCNajexq/",
-    "ts": "2026-11-04"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "stellaj-hook-1105",
    "at": "2026-11-05T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "v7-lazer-ritm",
@@ -143,12 +143,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "stellaj-hook-1105",
-   "at": "2026-11-05T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "v7-lazer-ritm",
    "at": "2026-11-05T11:30",
    "type": "REEL",
@@ -176,6 +170,12 @@
    "id": "h03-02-logo-top",
    "at": "2026-11-05T14:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-05-16",
+   "at": "2026-11-05T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
