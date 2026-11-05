@@ -1,25 +1,25 @@
 {
- "updated": "2026-11-05 14:19",
+ "updated": "2026-11-05 16:18",
  "dollar": {
   "rate": 11921,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 20,
+  "temp": 19,
   "desc": "Ochiq",
   "hi": 20,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6043,
+  "followers": 6047,
   "media_count": 127,
   "posts": [
    {
     "caption": "🧩 3 soniyada toping: chizmada qaysi klub",
-    "like": 0,
-    "comment": 0,
+    "like": 5,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWqUXnCOt9/",
     "ts": "2026-11-05"
@@ -34,7 +34,7 @@
    },
    {
     "caption": "⚪⚫ Real muxlisi! Faqat bittasini tanlang",
-    "like": 2,
+    "like": 3,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWizJfnK0u/",
@@ -42,7 +42,7 @@
    },
    {
     "caption": "🔊 Ovozni yoqing — lazer ritmga kesadi 🔥",
-    "like": 2,
+    "like": 3,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWaGrAk4eZ/",
@@ -114,7 +114,7 @@
    "id": "h03-story-11-05-16",
    "at": "2026-11-05T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-03-milliy",
@@ -143,12 +143,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-05-16",
-   "at": "2026-11-05T16:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h03-03-milliy",
    "at": "2026-11-05T18:00",
    "type": "REEL",
@@ -176,6 +170,12 @@
    "id": "h03-story-11-06-09",
    "at": "2026-11-06T09:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-04-3-sabab",
+   "at": "2026-11-06T10:00",
+   "type": "REEL",
    "status": ""
   }
  ]
