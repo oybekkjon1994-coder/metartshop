@@ -1,24 +1,32 @@
 {
- "updated": "2026-11-06 17:04",
+ "updated": "2026-11-06 18:27",
  "dollar": {
-  "rate": 11935,
-  "diff": 24,
+  "rate": 11973,
+  "diff": 38,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 22,
+  "temp": 19,
   "desc": "To'liq bulutli",
   "hi": 26,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6085,
-  "media_count": 133,
+  "followers": 6092,
+  "media_count": 134,
   "posts": [
    {
-    "caption": "📸 Sotib olishdan oldin devoringizda ko'r",
+    "caption": "📚 Kitoblar havoda turgandek — ko'rinmas ",
     "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfZqejqD_dR/",
+    "ts": "2026-11-06"
+   },
+   {
+    "caption": "📸 Sotib olishdan oldin devoringizda ko'r",
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZPG4KkbTi/",
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfXMqK0CRY6/",
-    "ts": "2026-11-05"
-   },
-   {
-    "caption": "🇺🇿 Milliy ruhdagi sovg'a: gerb soati, Oq",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfXFxB6CmLe/",
     "ts": "2026-11-05"
    }
   ]
@@ -114,7 +114,7 @@
    "id": "h03-06-kitob-polka",
    "at": "2026-11-06T18:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "v7-real-sovga",
@@ -130,12 +130,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-06-kitob-polka",
-   "at": "2026-11-06T18:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "v7-real-sovga",
    "at": "2026-11-06T19:00",
@@ -164,6 +158,12 @@
    "id": "h03-story-11-07-12",
    "at": "2026-11-07T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-08-izoh-klub",
+   "at": "2026-11-07T14:00",
+   "type": "REEL",
    "status": ""
   }
  ]
