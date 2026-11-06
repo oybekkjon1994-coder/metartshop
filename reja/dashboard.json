@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-06 09:13",
+ "updated": "2026-11-06 10:18",
  "dollar": {
   "rate": 11943,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 18,
+  "temp": 20,
   "desc": "Bulutli",
   "hi": 26,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6082,
-  "media_count": 130,
+  "followers": 6084,
+  "media_count": 131,
   "posts": [
+   {
+    "caption": "3️⃣ Metall soat olishga 3 sabab: sinmayd",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfYzt0oCORt/",
+    "ts": "2026-11-06"
+   },
    {
     "caption": "👕 Do'koningizga kiyim ilgich kerakmi?",
     "like": 0,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfWm28dAaAP/",
     "ts": "2026-11-05"
-   },
-   {
-    "caption": "⚪⚫ Real muxlisi! Faqat bittasini tanlang",
-    "like": 19,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfWizJfnK0u/",
-    "ts": "2026-11-05"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "h03-04-3-sabab",
    "at": "2026-11-06T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h02-08-yangi-yil",
@@ -131,12 +131,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-04-3-sabab",
-   "at": "2026-11-06T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h02-08-yangi-yil",
    "at": "2026-11-06T11:30",
    "type": "REEL",
@@ -164,6 +158,12 @@
    "id": "h03-story-11-06-16",
    "at": "2026-11-06T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-06-kitob-polka",
+   "at": "2026-11-06T18:00",
+   "type": "REEL",
    "status": ""
   }
  ]
