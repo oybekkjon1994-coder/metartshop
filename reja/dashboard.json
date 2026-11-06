@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-06 18:27",
+ "updated": "2026-11-06 20:03",
  "dollar": {
   "rate": 11973,
   "diff": 38,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 19,
+  "temp": 16,
   "desc": "To'liq bulutli",
-  "hi": 26,
+  "hi": 27,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6092,
-  "media_count": 134,
+  "followers": 6093,
+  "media_count": 135,
   "posts": [
+   {
+    "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
+    "like": 3,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
+    "ts": "2026-11-06"
+   },
    {
     "caption": "📚 Kitoblar havoda turgandek — ko'rinmas ",
     "like": 0,
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfXfHQIGfu6/",
-    "ts": "2026-11-05"
-   },
-   {
-    "caption": "♻️ Chiqindini saralash uchun metall urna",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfXMqK0CRY6/",
     "ts": "2026-11-05"
    }
   ]
@@ -120,28 +120,16 @@
    "id": "v7-real-sovga",
    "at": "2026-11-06T19:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-06-20",
    "at": "2026-11-06T20:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "v7-real-sovga",
-   "at": "2026-11-06T19:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
-   "id": "h03-story-11-06-20",
-   "at": "2026-11-06T20:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-story-11-07-09",
    "at": "2026-11-07T09:00",
@@ -163,6 +151,18 @@
   {
    "id": "h03-08-izoh-klub",
    "at": "2026-11-07T14:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-07-16",
+   "at": "2026-11-07T16:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-09-avto",
+   "at": "2026-11-07T18:00",
    "type": "REEL",
    "status": ""
   }
