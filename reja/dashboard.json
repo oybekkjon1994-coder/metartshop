@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-06 22:59",
+ "updated": "2026-11-07 00:14",
  "dollar": {
   "rate": 11973,
   "diff": 38,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 16,
-  "desc": "To'liq bulutli",
-  "hi": 27,
-  "lo": 11
+  "temp": 15,
+  "desc": "Asosan ochiq",
+  "hi": 23,
+  "lo": 12
  },
  "instagram": {
   "username": "metart_shop",
@@ -66,67 +66,55 @@
    }
   ]
  },
- "kecha_chiqdi": 12,
+ "kecha_chiqdi": 10,
  "bugun_postlar": [
   {
-   "id": "h03-story-11-06-09",
-   "at": "2026-11-06T09:00",
+   "id": "h03-story-11-07-09",
+   "at": "2026-11-07T09:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-04-3-sabab",
-   "at": "2026-11-06T10:00",
+   "id": "h03-07-dadamga",
+   "at": "2026-11-07T10:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-08-yangi-yil",
-   "at": "2026-11-06T11:30",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-06-12",
-   "at": "2026-11-06T12:00",
+   "id": "h03-story-11-07-12",
+   "at": "2026-11-07T12:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h02-09-buyurtma-jarayoni",
-   "at": "2026-11-06T13:30",
+   "id": "h03-08-izoh-klub",
+   "at": "2026-11-07T14:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-05-devor-surat",
-   "at": "2026-11-06T14:00",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-06-16",
-   "at": "2026-11-06T16:00",
+   "id": "h03-story-11-07-16",
+   "at": "2026-11-07T16:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-06-kitob-polka",
-   "at": "2026-11-06T18:00",
+   "id": "h03-09-avto",
+   "at": "2026-11-07T18:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "v7-real-sovga",
-   "at": "2026-11-06T19:00",
+   "id": "logo-soat",
+   "at": "2026-11-07T19:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-story-11-06-20",
-   "at": "2026-11-06T20:00",
+   "id": "h03-story-11-07-20",
+   "at": "2026-11-07T20:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   }
  ],
  "keyingi_postlar": [
