@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-06 08:07",
+ "updated": "2026-11-06 09:13",
  "dollar": {
   "rate": 11943,
   "diff": 0,
   "manba": "bozor"
  },
  "obhavo": {
-  "temp": 16,
+  "temp": 18,
   "desc": "Bulutli",
   "hi": 26,
   "lo": 11
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6075,
+  "followers": 6082,
   "media_count": 130,
   "posts": [
    {
@@ -72,7 +72,7 @@
    "id": "h03-story-11-06-09",
    "at": "2026-11-06T09:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-04-3-sabab",
@@ -131,12 +131,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-06-09",
-   "at": "2026-11-06T09:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h03-04-3-sabab",
    "at": "2026-11-06T10:00",
    "type": "REEL",
@@ -164,6 +158,12 @@
    "id": "h03-05-devor-surat",
    "at": "2026-11-06T14:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-06-16",
+   "at": "2026-11-06T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
