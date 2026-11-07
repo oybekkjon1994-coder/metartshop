@@ -1,14 +1,14 @@
 {
- "updated": "2026-11-07 11:01",
+ "updated": "2026-11-07 12:22",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 20,
+  "temp": 21,
   "desc": "Asosan ochiq",
-  "hi": 23,
+  "hi": 22,
   "lo": 12
  },
  "instagram": {
@@ -18,7 +18,7 @@
   "posts": [
    {
     "caption": "🎁 Dadangizga yana galstukmi? 😅",
-    "like": 0,
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfbYhJGFXXo/",
@@ -84,7 +84,7 @@
    "id": "h03-story-11-07-12",
    "at": "2026-11-07T12:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-08-izoh-klub",
@@ -119,12 +119,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-07-12",
-   "at": "2026-11-07T12:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h03-08-izoh-klub",
    "at": "2026-11-07T14:00",
    "type": "REEL",
@@ -151,6 +145,12 @@
   {
    "id": "h03-story-11-07-20",
    "at": "2026-11-07T20:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-08-09",
+   "at": "2026-11-08T09:00",
    "type": "STORY",
    "status": ""
   }
