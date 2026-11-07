@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 09:08",
+ "updated": "2026-11-07 10:07",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 16,
+  "temp": 18,
   "desc": "Asosan ochiq",
   "hi": 23,
   "lo": 12
@@ -14,12 +14,20 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 6097,
-  "media_count": 135,
+  "media_count": 136,
   "posts": [
    {
-    "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
-    "like": 30,
+    "caption": "🎁 Dadangizga yana galstukmi? 😅",
+    "like": 0,
     "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfbYhJGFXXo/",
+    "ts": "2026-11-07"
+   },
+   {
+    "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
+    "like": 32,
+    "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
     "ts": "2026-11-06"
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfYzt0oCORt/",
     "ts": "2026-11-06"
-   },
-   {
-    "caption": "👕 Do'koningizga kiyim ilgich kerakmi?",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfXfHQIGfu6/",
-    "ts": "2026-11-05"
    }
   ]
  },
@@ -78,7 +78,7 @@
    "id": "h03-07-dadamga",
    "at": "2026-11-07T10:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-07-12",
@@ -119,12 +119,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-07-dadamga",
-   "at": "2026-11-07T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h03-story-11-07-12",
    "at": "2026-11-07T12:00",
    "type": "STORY",
@@ -152,6 +146,12 @@
    "id": "logo-soat",
    "at": "2026-11-07T19:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-07-20",
+   "at": "2026-11-07T20:00",
+   "type": "STORY",
    "status": ""
   }
  ]
