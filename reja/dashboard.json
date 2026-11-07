@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 21:55",
+ "updated": "2026-11-07 22:50",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 15,
+  "temp": 14,
   "desc": "Ochiq",
   "hi": 22,
   "lo": 12
@@ -42,7 +42,7 @@
    },
    {
     "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
-    "like": 37,
+    "like": 38,
     "comment": 4,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
@@ -125,20 +125,14 @@
    "status": ""
   },
   {
-   "id": "h03-10-faq",
-   "at": "2026-11-08T10:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
    "id": "h03-story-11-08-12",
    "at": "2026-11-08T12:00",
    "type": "STORY",
    "status": ""
   },
   {
-   "id": "h03-11-manu-arzon",
-   "at": "2026-11-08T14:00",
+   "id": "h03-10-faq",
+   "at": "2026-11-08T13:00",
    "type": "REEL",
    "status": ""
   },
@@ -149,9 +143,15 @@
    "status": ""
   },
   {
-   "id": "h03-12-dxf-usta",
-   "at": "2026-11-08T18:00",
+   "id": "rmx-real-chiroq",
+   "at": "2026-11-08T20:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-08-20",
+   "at": "2026-11-08T21:30",
+   "type": "STORY",
    "status": ""
   }
  ]
