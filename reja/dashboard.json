@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 15:57",
+ "updated": "2026-11-07 16:54",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 21,
+  "temp": 20,
   "desc": "Ochiq",
   "hi": 22,
   "lo": 12
@@ -18,7 +18,7 @@
   "posts": [
    {
     "caption": "⚽ Izohga klubingizni yozing! Qaysi klub ",
-    "like": 3,
+    "like": 4,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfbz2MWmQ4U/",
@@ -35,7 +35,7 @@
    {
     "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
     "like": 37,
-    "comment": 2,
+    "comment": 3,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
     "ts": "2026-11-06"
@@ -96,7 +96,7 @@
    "id": "h03-story-11-07-16",
    "at": "2026-11-07T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-09-avto",
@@ -118,12 +118,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-story-11-07-16",
-   "at": "2026-11-07T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-09-avto",
    "at": "2026-11-07T18:00",
@@ -152,6 +146,12 @@
    "id": "h03-10-faq",
    "at": "2026-11-08T10:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-08-12",
+   "at": "2026-11-08T12:00",
+   "type": "STORY",
    "status": ""
   }
  ]
