@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 16:54",
+ "updated": "2026-11-07 18:13",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 20,
+  "temp": 19,
   "desc": "Ochiq",
   "hi": 22,
   "lo": 12
@@ -14,8 +14,16 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 6096,
-  "media_count": 137,
+  "media_count": 138,
   "posts": [
+   {
+    "caption": "🚗 Mashinaga oshiqlar uchun: mashina shak",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfcPSkOEs44/",
+    "ts": "2026-11-07"
+   },
    {
     "caption": "⚽ Izohga klubingizni yozing! Qaysi klub ",
     "like": 4,
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZPG4KkbTi/",
-    "ts": "2026-11-06"
-   },
-   {
-    "caption": "🎄 Yangi yil sovg'asini hozir buyurtma be",
-    "like": 0,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfY-_B4kuBq/",
     "ts": "2026-11-06"
    }
   ]
@@ -102,7 +102,7 @@
    "id": "h03-09-avto",
    "at": "2026-11-07T18:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "logo-soat",
@@ -118,12 +118,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-09-avto",
-   "at": "2026-11-07T18:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "logo-soat",
    "at": "2026-11-07T19:00",
@@ -152,6 +146,12 @@
    "id": "h03-story-11-08-12",
    "at": "2026-11-08T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-11-manu-arzon",
+   "at": "2026-11-08T14:00",
+   "type": "REEL",
    "status": ""
   }
  ]
