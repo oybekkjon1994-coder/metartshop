@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 10:07",
+ "updated": "2026-11-07 11:01",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 18,
+  "temp": 20,
   "desc": "Asosan ochiq",
   "hi": 23,
   "lo": 12
@@ -26,7 +26,7 @@
    },
    {
     "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
-    "like": 32,
+    "like": 33,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
