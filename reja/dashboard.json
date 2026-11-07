@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 19:56",
+ "updated": "2026-11-07 20:53",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 17,
+  "temp": 16,
   "desc": "Ochiq",
   "hi": 22,
   "lo": 12
@@ -114,16 +114,10 @@
    "id": "h03-story-11-07-20",
    "at": "2026-11-07T20:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-story-11-07-20",
-   "at": "2026-11-07T20:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-story-11-08-09",
    "at": "2026-11-08T09:00",
@@ -152,6 +146,12 @@
    "id": "h03-story-11-08-16",
    "at": "2026-11-08T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-12-dxf-usta",
+   "at": "2026-11-08T18:00",
+   "type": "REEL",
    "status": ""
   }
  ]
