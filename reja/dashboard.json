@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07 22:50",
+ "updated": "2026-11-08 00:04",
  "dollar": {
   "rate": 11987,
   "diff": 14,
@@ -8,8 +8,8 @@
  "obhavo": {
   "temp": 14,
   "desc": "Ochiq",
-  "hi": 22,
-  "lo": 12
+  "hi": 26,
+  "lo": 14
  },
  "instagram": {
   "username": "metart_shop",
@@ -27,7 +27,7 @@
    {
     "caption": "⚽ Izohga klubingizni yozing! Qaysi klub ",
     "like": 4,
-    "comment": 0,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfbz2MWmQ4U/",
     "ts": "2026-11-07"
@@ -66,55 +66,43 @@
    }
   ]
  },
- "kecha_chiqdi": 10,
+ "kecha_chiqdi": 8,
  "bugun_postlar": [
   {
-   "id": "h03-story-11-07-09",
-   "at": "2026-11-07T09:00",
+   "id": "h03-story-11-08-09",
+   "at": "2026-11-08T09:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-07-dadamga",
-   "at": "2026-11-07T10:00",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-07-12",
-   "at": "2026-11-07T12:00",
+   "id": "h03-story-11-08-12",
+   "at": "2026-11-08T12:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-08-izoh-klub",
-   "at": "2026-11-07T14:00",
+   "id": "h03-10-faq",
+   "at": "2026-11-08T13:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-story-11-07-16",
-   "at": "2026-11-07T16:00",
+   "id": "h03-story-11-08-16",
+   "at": "2026-11-08T16:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-09-avto",
-   "at": "2026-11-07T18:00",
+   "id": "rmx-real-chiroq",
+   "at": "2026-11-08T20:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "logo-soat",
-   "at": "2026-11-07T19:00",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-07-20",
-   "at": "2026-11-07T20:00",
+   "id": "h03-story-11-08-20",
+   "at": "2026-11-08T21:30",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   }
  ],
  "keyingi_postlar": [
