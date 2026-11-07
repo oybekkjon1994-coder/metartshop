@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-07 18:13",
+ "updated": "2026-11-07 19:03",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 19,
+  "temp": 18,
   "desc": "Ochiq",
   "hi": 22,
   "lo": 12
@@ -17,11 +17,11 @@
   "media_count": 138,
   "posts": [
    {
-    "caption": "🚗 Mashinaga oshiqlar uchun: mashina shak",
+    "caption": "🤯 Logotipingiz → metall soat. 10 soniyad",
     "like": 0,
     "comment": 0,
     "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfcPSkOEs44/",
+    "link": "https://www.instagram.com/reel/DfcWRP9iK2Y/",
     "ts": "2026-11-07"
    },
    {
@@ -108,7 +108,7 @@
    "id": "logo-soat",
    "at": "2026-11-07T19:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-07-20",
@@ -118,12 +118,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "logo-soat",
-   "at": "2026-11-07T19:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-story-11-07-20",
    "at": "2026-11-07T20:00",
@@ -152,6 +146,12 @@
    "id": "h03-11-manu-arzon",
    "at": "2026-11-08T14:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-08-16",
+   "at": "2026-11-08T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
