@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-08 11:04",
+ "updated": "2026-11-08 12:24",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 22,
+  "temp": 24,
   "desc": "To'liq bulutli",
-  "hi": 26,
-  "lo": 13
+  "hi": 27,
+  "lo": 12
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6096,
+  "followers": 6097,
   "media_count": 138,
   "posts": [
    {
@@ -78,7 +78,7 @@
    "id": "h03-story-11-08-12",
    "at": "2026-11-08T12:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-10-faq",
@@ -107,12 +107,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-08-12",
-   "at": "2026-11-08T12:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h03-10-faq",
    "at": "2026-11-08T13:00",
    "type": "REEL",
@@ -139,6 +133,12 @@
   {
    "id": "h03-story-11-09-09",
    "at": "2026-11-09T09:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-09-12",
+   "at": "2026-11-09T12:00",
    "type": "STORY",
    "status": ""
   }
