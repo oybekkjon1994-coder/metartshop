@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-08 19:55",
+ "updated": "2026-11-08 20:54",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 20,
+  "temp": 19,
   "desc": "Bulutli",
   "hi": 27,
   "lo": 12
@@ -14,11 +14,19 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 6095,
-  "media_count": 139,
+  "media_count": 140,
   "posts": [
    {
+    "caption": "🌙 Xonangiz qorong'i va zerikarlimi? Bu s",
+    "like": 5,
+    "comment": 1,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DffB0ABjNAP/",
+    "ts": "2026-11-08"
+   },
+   {
     "caption": "🤔 Narxi qancha? Qachon tayyor bo‘ladi?",
-    "like": 2,
+    "like": 3,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfeRzvYArTT/",
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
     "ts": "2026-11-06"
-   },
-   {
-    "caption": "📚 Kitoblar havoda turgandek — ko'rinmas ",
-    "like": 0,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfZqejqD_dR/",
-    "ts": "2026-11-06"
    }
   ]
  },
@@ -96,7 +96,7 @@
    "id": "rmx-real-chiroq",
    "at": "2026-11-08T20:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-08-20",
@@ -106,12 +106,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "rmx-real-chiroq",
-   "at": "2026-11-08T20:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-story-11-08-20",
    "at": "2026-11-08T21:30",
@@ -140,6 +134,12 @@
    "id": "h03-story-11-09-16",
    "at": "2026-11-09T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "rmx-kondi-pech",
+   "at": "2026-11-09T20:00",
+   "type": "REEL",
    "status": ""
   }
  ]
