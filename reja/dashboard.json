@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08 19:02",
+ "updated": "2026-11-08 19:55",
  "dollar": {
   "rate": 11987,
   "diff": 14,
@@ -7,7 +7,7 @@
  },
  "obhavo": {
   "temp": 20,
-  "desc": "To'liq bulutli",
+  "desc": "Bulutli",
   "hi": 27,
   "lo": 12
  },
@@ -18,7 +18,7 @@
   "posts": [
    {
     "caption": "🤔 Narxi qancha? Qachon tayyor bo‘ladi?",
-    "like": 1,
+    "like": 2,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfeRzvYArTT/",
