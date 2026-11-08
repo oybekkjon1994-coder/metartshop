@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-08 15:58",
+ "updated": "2026-11-08 16:54",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 26,
-  "desc": "To'liq bulutli",
+  "temp": 23,
+  "desc": "Bulutli",
   "hi": 27,
   "lo": 12
  },
@@ -90,7 +90,7 @@
    "id": "h03-story-11-08-16",
    "at": "2026-11-08T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "xato"
   },
   {
    "id": "rmx-real-chiroq",
@@ -106,12 +106,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-story-11-08-16",
-   "at": "2026-11-08T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "rmx-real-chiroq",
    "at": "2026-11-08T20:00",
@@ -140,6 +134,12 @@
    "id": "h03-11-manu-arzon",
    "at": "2026-11-09T13:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-09-16",
+   "at": "2026-11-09T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
