@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-08 12:24",
+ "updated": "2026-11-08 14:05",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 24,
+  "temp": 27,
   "desc": "To'liq bulutli",
   "hi": 27,
   "lo": 12
@@ -14,8 +14,16 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 6097,
-  "media_count": 138,
+  "media_count": 139,
   "posts": [
+   {
+    "caption": "🤔 Narxi qancha? Qachon tayyor bo‘ladi?",
+    "like": 1,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfeRzvYArTT/",
+    "ts": "2026-11-08"
+   },
    {
     "caption": "🤯 Logotipingiz → metall soat. 10 soniyad",
     "like": 2,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfZqejqD_dR/",
     "ts": "2026-11-06"
-   },
-   {
-    "caption": "📸 Sotib olishdan oldin devoringizda ko'r",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfZPG4KkbTi/",
-    "ts": "2026-11-06"
    }
   ]
  },
@@ -84,7 +84,7 @@
    "id": "h03-10-faq",
    "at": "2026-11-08T13:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-08-16",
@@ -106,12 +106,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-10-faq",
-   "at": "2026-11-08T13:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-story-11-08-16",
    "at": "2026-11-08T16:00",
@@ -140,6 +134,12 @@
    "id": "h03-story-11-09-12",
    "at": "2026-11-09T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-11-manu-arzon",
+   "at": "2026-11-09T13:00",
+   "type": "REEL",
    "status": ""
   }
  ]
