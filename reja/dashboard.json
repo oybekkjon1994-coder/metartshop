@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-08 20:54",
+ "updated": "2026-11-08 21:55",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 19,
+  "temp": 18,
   "desc": "Bulutli",
   "hi": 27,
   "lo": 12
@@ -102,16 +102,10 @@
    "id": "h03-story-11-08-20",
    "at": "2026-11-08T21:30",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-story-11-08-20",
-   "at": "2026-11-08T21:30",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-story-11-09-09",
    "at": "2026-11-09T09:00",
@@ -140,6 +134,12 @@
    "id": "rmx-kondi-pech",
    "at": "2026-11-09T20:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-09-20",
+   "at": "2026-11-09T21:30",
+   "type": "STORY",
    "status": ""
   }
  ]
