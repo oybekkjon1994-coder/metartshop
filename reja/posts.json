@@ -1097,7 +1097,7 @@
  },
  {
   "id": "rmx-kondi-pech",
-  "at": "2026-11-09T20:00",
+  "at": "2026-11-10T20:00",
   "type": "REEL",
   "media": [
    "repo:reels/rmx-kondi-pech.mp4"
@@ -1220,5 +1220,23 @@
   "media": [
    "repo:stories/urna-hook.jpg"
   ]
+ },
+ {
+  "id": "kondi-elektr-1109",
+  "at": "2026-11-09T19:00",
+  "type": "REEL",
+  "media": [
+   "repo:reels/kondi-pech-1109.mp4"
+  ],
+  "caption": "⚡ Elektr puli oyiga 3 mln bo'lyaptimi? KONDI PECH — o'tin yoki ko'mir bilan isitadi, hisoblagich yurmaydi!\n✅ O'txona 3 mm qalin metall, korpus 1,3 mm\n✅ 2 ta ventilyator issiq havoni xonaga haydaydi\n✅ Ustaxona, ofis, do'kon, garaj uchun\n✅ Qora kukun bo'yoqda, tayyor holda\n💰 Narxi: 1 950 000 so'm\n📩 Buyurtma: Direct yoki Telegram @lazekametal\n#kondipech #pech #isitish #toshkent #metart_shop"
+ },
+ {
+  "id": "kondi-elektr-1109-st",
+  "at": "2026-11-09T19:30",
+  "type": "STORY",
+  "media": [
+   "repo:stories/kondi-elektr-1109.jpg"
+  ],
+  "caption": ""
  }
 ]
