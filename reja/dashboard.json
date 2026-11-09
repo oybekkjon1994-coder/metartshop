@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-09 17:17",
+ "updated": "2026-11-09 19:28",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 18,
-  "desc": "Mayda yomg'ir",
+  "temp": 15,
+  "desc": "Yomg'ir",
   "hi": 20,
   "lo": 14
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6094,
-  "media_count": 141,
+  "followers": 6095,
+  "media_count": 142,
   "posts": [
+   {
+    "caption": "# Instagram Reels: KONDI PECH (v4, 2026-",
+    "like": 1,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfhgT9Vu1Ut/",
+    "ts": "2026-11-09"
+   },
    {
     "caption": "🤔 Sifatli soat qimmat deb o‘ylaysizmi?",
     "like": 0,
@@ -26,7 +34,7 @@
    },
    {
     "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
-    "like": 32,
+    "like": 33,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
@@ -54,14 +62,6 @@
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfbz2MWmQ4U/",
-    "ts": "2026-11-07"
-   },
-   {
-    "caption": "🎁 Dadangizga yana galstukmi? 😅",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfbYhJGFXXo/",
     "ts": "2026-11-07"
    }
   ]
@@ -93,9 +93,15 @@
    "status": "chiqdi"
   },
   {
-   "id": "rmx-kondi-pech",
-   "at": "2026-11-09T20:00",
+   "id": "kondi-elektr-1109",
+   "at": "2026-11-09T19:00",
    "type": "REEL",
+   "status": "chiqdi"
+  },
+  {
+   "id": "kondi-elektr-1109-st",
+   "at": "2026-11-09T19:30",
+   "type": "STORY",
    "status": ""
   },
   {
@@ -107,9 +113,9 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "rmx-kondi-pech",
-   "at": "2026-11-09T20:00",
-   "type": "REEL",
+   "id": "kondi-elektr-1109-st",
+   "at": "2026-11-09T19:30",
+   "type": "STORY",
    "status": ""
   },
   {
