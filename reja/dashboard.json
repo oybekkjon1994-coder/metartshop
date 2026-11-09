@@ -1,32 +1,32 @@
 {
- "updated": "2026-11-09 21:21",
+ "updated": "2026-11-10 00:15",
  "dollar": {
   "rate": 11987,
   "diff": 14,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 15,
-  "desc": "Bulutli",
-  "hi": 20,
-  "lo": 14
+  "temp": 14,
+  "desc": "Ochiq",
+  "hi": 16,
+  "lo": 9
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6098,
+  "followers": 6097,
   "media_count": 142,
   "posts": [
    {
     "caption": "# Instagram Reels: KONDI PECH (v4, 2026-",
-    "like": 13,
-    "comment": 0,
+    "like": 20,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfhgT9Vu1Ut/",
     "ts": "2026-11-09"
    },
    {
     "caption": "🤔 Sifatli soat qimmat deb o‘ylaysizmi?",
-    "like": 0,
+    "like": 1,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfg2mYhFYjF/",
@@ -34,7 +34,7 @@
    },
    {
     "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
-    "like": 34,
+    "like": 35,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
@@ -43,7 +43,7 @@
    {
     "caption": "🤔 Narxi qancha? Qachon tayyor bo‘ladi?",
     "like": 4,
-    "comment": 1,
+    "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfeRzvYArTT/",
     "ts": "2026-11-08"
@@ -66,58 +66,8 @@
    }
   ]
  },
- "kecha_chiqdi": 5,
+ "kecha_chiqdi": 7,
  "bugun_postlar": [
-  {
-   "id": "h03-story-11-09-09",
-   "at": "2026-11-09T09:00",
-   "type": "STORY",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-09-12",
-   "at": "2026-11-09T12:00",
-   "type": "STORY",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-11-manu-arzon",
-   "at": "2026-11-09T13:00",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-09-16",
-   "at": "2026-11-09T16:00",
-   "type": "STORY",
-   "status": "chiqdi"
-  },
-  {
-   "id": "kondi-elektr-1109",
-   "at": "2026-11-09T19:00",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "kondi-elektr-1109-st",
-   "at": "2026-11-09T19:30",
-   "type": "STORY",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-09-20",
-   "at": "2026-11-09T21:30",
-   "type": "STORY",
-   "status": ""
-  }
- ],
- "keyingi_postlar": [
-  {
-   "id": "h03-story-11-09-20",
-   "at": "2026-11-09T21:30",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-story-11-10-09",
    "at": "2026-11-10T09:00",
@@ -144,6 +94,56 @@
   },
   {
    "id": "rmx-kondi-pech",
+   "at": "2026-11-10T20:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "rmx-real-sovga",
+   "at": "2026-11-10T20:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-10-20",
+   "at": "2026-11-10T21:30",
+   "type": "STORY",
+   "status": ""
+  }
+ ],
+ "keyingi_postlar": [
+  {
+   "id": "h03-story-11-10-09",
+   "at": "2026-11-10T09:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-10-12",
+   "at": "2026-11-10T12:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-12-dxf-usta",
+   "at": "2026-11-10T13:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-10-16",
+   "at": "2026-11-10T16:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "rmx-kondi-pech",
+   "at": "2026-11-10T20:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "rmx-real-sovga",
    "at": "2026-11-10T20:00",
    "type": "REEL",
    "status": ""
