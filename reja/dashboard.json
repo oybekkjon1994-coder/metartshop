@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09 15:16",
+ "updated": "2026-11-09 16:16",
  "dollar": {
   "rate": 11987,
   "diff": 14,
@@ -90,7 +90,7 @@
    "id": "h03-story-11-09-16",
    "at": "2026-11-09T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "rmx-kondi-pech",
@@ -106,12 +106,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-story-11-09-16",
-   "at": "2026-11-09T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "rmx-kondi-pech",
    "at": "2026-11-09T20:00",
@@ -140,6 +134,12 @@
    "id": "h03-12-dxf-usta",
    "at": "2026-11-10T13:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-10-16",
+   "at": "2026-11-10T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
