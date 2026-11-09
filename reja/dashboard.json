@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09 08:06",
+ "updated": "2026-11-09 09:18",
  "dollar": {
   "rate": 11987,
   "diff": 14,
@@ -7,15 +7,23 @@
  },
  "obhavo": {
   "temp": 16,
-  "desc": "To'liq bulutli",
+  "desc": "Yomg'ir",
   "hi": 19,
   "lo": 14
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 6094,
-  "media_count": 140,
+  "media_count": 141,
   "posts": [
+   {
+    "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
+    "like": 2,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
+    "ts": "2026-11-09"
+   },
    {
     "caption": "🌙 Xonangiz qorong'i va zerikarlimi? Bu s",
     "like": 7,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfbYhJGFXXo/",
     "ts": "2026-11-07"
-   },
-   {
-    "caption": "🎁 Do'stingizga sovg'a izlayapsizmi?",
-    "like": 39,
-    "comment": 5,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfZxWFLDY9J/",
-    "ts": "2026-11-06"
    }
   ]
  },
@@ -72,7 +72,7 @@
    "id": "h03-story-11-09-09",
    "at": "2026-11-09T09:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-09-12",
@@ -107,12 +107,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-09-09",
-   "at": "2026-11-09T09:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h03-story-11-09-12",
    "at": "2026-11-09T12:00",
    "type": "STORY",
@@ -139,6 +133,12 @@
   {
    "id": "h03-story-11-09-20",
    "at": "2026-11-09T21:30",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-10-09",
+   "at": "2026-11-10T09:00",
    "type": "STORY",
    "status": ""
   }
