@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09 19:28",
+ "updated": "2026-11-09 21:21",
  "dollar": {
   "rate": 11987,
   "diff": 14,
@@ -7,18 +7,18 @@
  },
  "obhavo": {
   "temp": 15,
-  "desc": "Yomg'ir",
+  "desc": "Bulutli",
   "hi": 20,
   "lo": 14
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6095,
+  "followers": 6098,
   "media_count": 142,
   "posts": [
    {
     "caption": "# Instagram Reels: KONDI PECH (v4, 2026-",
-    "like": 1,
+    "like": 13,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfhgT9Vu1Ut/",
@@ -34,7 +34,7 @@
    },
    {
     "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
-    "like": 33,
+    "like": 34,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
@@ -43,7 +43,7 @@
    {
     "caption": "🤔 Narxi qancha? Qachon tayyor bo‘ladi?",
     "like": 4,
-    "comment": 0,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfeRzvYArTT/",
     "ts": "2026-11-08"
@@ -102,7 +102,7 @@
    "id": "kondi-elektr-1109-st",
    "at": "2026-11-09T19:30",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-09-20",
@@ -112,12 +112,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "kondi-elektr-1109-st",
-   "at": "2026-11-09T19:30",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-story-11-09-20",
    "at": "2026-11-09T21:30",
@@ -146,6 +140,12 @@
    "id": "h03-story-11-10-16",
    "at": "2026-11-10T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "rmx-kondi-pech",
+   "at": "2026-11-10T20:00",
+   "type": "REEL",
    "status": ""
   }
  ]
