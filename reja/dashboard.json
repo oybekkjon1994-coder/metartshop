@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10 23:00",
+ "updated": "2026-11-11 00:17",
  "dollar": {
   "rate": 11994,
   "diff": 7,
@@ -7,9 +7,9 @@
  },
  "obhavo": {
   "temp": 10,
-  "desc": "Jala",
-  "hi": 16,
-  "lo": 9
+  "desc": "Yomg'ir",
+  "hi": 10,
+  "lo": 2
  },
  "instagram": {
   "username": "metart_shop",
@@ -69,46 +69,40 @@
  "kecha_chiqdi": 7,
  "bugun_postlar": [
   {
-   "id": "h03-story-11-10-09",
-   "at": "2026-11-10T09:00",
+   "id": "h03-story-11-11-09",
+   "at": "2026-11-11T09:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-story-11-10-12",
-   "at": "2026-11-10T12:00",
+   "id": "h03-story-11-11-12",
+   "at": "2026-11-11T12:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-12-dxf-usta",
-   "at": "2026-11-10T13:00",
+   "id": "h03-13-liverpool",
+   "at": "2026-11-11T13:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-story-11-10-16",
-   "at": "2026-11-10T16:00",
+   "id": "h03-story-11-11-16",
+   "at": "2026-11-11T16:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "rmx-kondi-pech",
-   "at": "2026-11-10T20:00",
+   "id": "rmx-barca",
+   "at": "2026-11-11T20:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "rmx-real-sovga",
-   "at": "2026-11-10T20:00",
-   "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-10-20",
-   "at": "2026-11-10T21:30",
+   "id": "h03-story-11-11-20",
+   "at": "2026-11-11T21:30",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   }
  ],
  "keyingi_postlar": [
