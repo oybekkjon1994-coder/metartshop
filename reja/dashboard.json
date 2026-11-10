@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-11 00:17",
+ "updated": "2026-11-11 01:10",
  "dollar": {
-  "rate": 11994,
-  "diff": 7,
+  "rate": 11974,
+  "diff": -20,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 10,
+  "temp": 9,
   "desc": "Yomg'ir",
   "hi": 10,
   "lo": 2
