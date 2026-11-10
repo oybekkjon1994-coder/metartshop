@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-10 08:04",
+ "updated": "2026-11-10 09:10",
  "dollar": {
   "rate": 11994,
   "diff": 7,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 12,
+  "temp": 13,
   "desc": "Jala",
   "hi": 16,
   "lo": 9
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6093,
+  "followers": 6092,
   "media_count": 142,
   "posts": [
    {
@@ -34,7 +34,7 @@
    },
    {
     "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
-    "like": 37,
+    "like": 38,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
@@ -72,7 +72,7 @@
    "id": "h03-story-11-10-09",
    "at": "2026-11-10T09:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-10-12",
@@ -113,12 +113,6 @@
  ],
  "keyingi_postlar": [
   {
-   "id": "h03-story-11-10-09",
-   "at": "2026-11-10T09:00",
-   "type": "STORY",
-   "status": ""
-  },
-  {
    "id": "h03-story-11-10-12",
    "at": "2026-11-10T12:00",
    "type": "STORY",
@@ -146,6 +140,12 @@
    "id": "rmx-real-sovga",
    "at": "2026-11-10T20:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-10-20",
+   "at": "2026-11-10T21:30",
+   "type": "STORY",
    "status": ""
   }
  ]
