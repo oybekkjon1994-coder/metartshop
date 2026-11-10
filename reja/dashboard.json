@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-10 18:26",
+ "updated": "2026-11-10 20:07",
  "dollar": {
   "rate": 11994,
   "diff": 7,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 12,
+  "temp": 11,
   "desc": "Jala",
   "hi": 16,
   "lo": 9
@@ -14,8 +14,24 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 6090,
-  "media_count": 143,
+  "media_count": 145,
   "posts": [
+   {
+    "caption": "🎁 Do'stingizga sovg'a topolmayapsizmi? R",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfkLoWYjrEa/",
+    "ts": "2026-11-10"
+   },
+   {
+    "caption": "🥶 Qishda ustaxonangiz sovuqmi? KONDI PEC",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfkLfp6iLzT/",
+    "ts": "2026-11-10"
+   },
    {
     "caption": "🤔 DXF faylingiz bor-u, kesadigan joy yo‘",
     "like": 1,
@@ -47,22 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
     "ts": "2026-11-09"
-   },
-   {
-    "caption": "🤔 Narxi qancha? Qachon tayyor bo‘ladi?",
-    "like": 4,
-    "comment": 2,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfeRzvYArTT/",
-    "ts": "2026-11-08"
-   },
-   {
-    "caption": "🤯 Logotipingiz → metall soat. 10 soniyad",
-    "like": 2,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfcWRP9iK2Y/",
-    "ts": "2026-11-07"
    }
   ]
  },
@@ -96,13 +96,13 @@
    "id": "rmx-kondi-pech",
    "at": "2026-11-10T20:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "rmx-real-sovga",
    "at": "2026-11-10T20:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-10-20",
@@ -112,18 +112,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "rmx-kondi-pech",
-   "at": "2026-11-10T20:00",
-   "type": "REEL",
-   "status": ""
-  },
-  {
-   "id": "rmx-real-sovga",
-   "at": "2026-11-10T20:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-story-11-10-20",
    "at": "2026-11-10T21:30",
@@ -145,6 +133,18 @@
   {
    "id": "h03-13-liverpool",
    "at": "2026-11-11T13:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-story-11-11-16",
+   "at": "2026-11-11T16:00",
+   "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "rmx-barca",
+   "at": "2026-11-11T20:00",
    "type": "REEL",
    "status": ""
   }
