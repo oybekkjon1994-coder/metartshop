@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-10 06:25",
+ "updated": "2026-11-10 08:04",
  "dollar": {
   "rate": 11994,
   "diff": 7,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 13,
+  "temp": 12,
   "desc": "Jala",
   "hi": 16,
   "lo": 9
@@ -34,7 +34,7 @@
    },
    {
     "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
-    "like": 36,
+    "like": 37,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
