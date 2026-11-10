@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-10 15:12",
+ "updated": "2026-11-10 16:07",
  "dollar": {
   "rate": 11994,
   "diff": 7,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 14,
-  "desc": "Mayda yomg'ir",
+  "temp": 13,
+  "desc": "Jala",
   "hi": 16,
   "lo": 9
  },
@@ -90,7 +90,7 @@
    "id": "h03-story-11-10-16",
    "at": "2026-11-10T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "rmx-kondi-pech",
@@ -112,12 +112,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-story-11-10-16",
-   "at": "2026-11-10T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "rmx-kondi-pech",
    "at": "2026-11-10T20:00",
@@ -146,6 +140,12 @@
    "id": "h03-story-11-11-12",
    "at": "2026-11-11T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-13-liverpool",
+   "at": "2026-11-11T13:00",
+   "type": "REEL",
    "status": ""
   }
  ]
