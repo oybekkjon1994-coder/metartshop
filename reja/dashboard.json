@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10 22:10",
+ "updated": "2026-11-10 23:00",
  "dollar": {
   "rate": 11994,
   "diff": 7,
@@ -7,7 +7,7 @@
  },
  "obhavo": {
   "temp": 10,
-  "desc": "Yomg'ir",
+  "desc": "Jala",
   "hi": 16,
   "lo": 9
  },
@@ -19,7 +19,7 @@
    {
     "caption": "🎁 Do'stingizga sovg'a topolmayapsizmi? R",
     "like": 5,
-    "comment": 0,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfkLoWYjrEa/",
     "ts": "2026-11-10"
