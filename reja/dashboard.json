@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-11 23:11",
+ "updated": "2026-11-12 00:20",
  "dollar": {
   "rate": 11974,
   "diff": -20,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 3,
+  "temp": 2,
   "desc": "Ochiq",
-  "hi": 9,
-  "lo": 2
+  "hi": 10,
+  "lo": 1
  },
  "instagram": {
   "username": "metart_shop",
@@ -18,7 +18,7 @@
   "posts": [
    {
     "caption": "🔵🔴 Barça muxlisiga nima sovg'a qilishni ",
-    "like": 13,
+    "like": 14,
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfmwUVWiGWj/",
@@ -66,43 +66,25 @@
    }
   ]
  },
- "kecha_chiqdi": 7,
+ "kecha_chiqdi": 6,
  "bugun_postlar": [
   {
-   "id": "h03-story-11-11-09",
-   "at": "2026-11-11T09:00",
-   "type": "STORY",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-11-12",
-   "at": "2026-11-11T12:00",
-   "type": "STORY",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-13-liverpool",
-   "at": "2026-11-11T13:00",
+   "id": "h03-14-real-qirol",
+   "at": "2026-11-12T13:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "h03-story-11-11-16",
-   "at": "2026-11-11T16:00",
+   "id": "story-2026-11-12-16",
+   "at": "2026-11-12T16:00",
    "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "rmx-barca",
-   "at": "2026-11-11T20:00",
+   "id": "rmx-lazer",
+   "at": "2026-11-12T20:00",
    "type": "REEL",
-   "status": "chiqdi"
-  },
-  {
-   "id": "h03-story-11-11-20",
-   "at": "2026-11-11T21:30",
-   "type": "STORY",
-   "status": "chiqdi"
+   "status": ""
   }
  ],
  "keyingi_postlar": [
