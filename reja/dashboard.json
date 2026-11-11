@@ -1,24 +1,32 @@
 {
- "updated": "2026-11-11 18:30",
+ "updated": "2026-11-11 20:08",
  "dollar": {
   "rate": 11974,
   "diff": -20,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 5,
-  "desc": "Ochiq",
+  "temp": 4,
+  "desc": "Asosan ochiq",
   "hi": 9,
   "lo": 2
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 6089,
-  "media_count": 145,
+  "media_count": 146,
   "posts": [
    {
+    "caption": "🔵🔴 Barça muxlisiga nima sovg'a qilishni ",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfmwUVWiGWj/",
+    "ts": "2026-11-11"
+   },
+   {
     "caption": "🤔 Liverpool muxlisiga sovg‘a topolmayaps",
-    "like": 8,
+    "like": 9,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfmAM0MFjzk/",
@@ -26,7 +34,7 @@
    },
    {
     "caption": "🎁 Do'stingizga sovg'a topolmayapsizmi? R",
-    "like": 31,
+    "like": 39,
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfkLoWYjrEa/",
@@ -54,14 +62,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfg2mYhFYjF/",
-    "ts": "2026-11-09"
-   },
-   {
-    "caption": "Kech tushdi, havo soviydi, gulxan tutuni",
-    "like": 40,
-    "comment": 2,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/Dfgb5fbMNca/",
     "ts": "2026-11-09"
    }
   ]
@@ -96,7 +96,7 @@
    "id": "rmx-barca",
    "at": "2026-11-11T20:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-story-11-11-20",
@@ -106,12 +106,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "rmx-barca",
-   "at": "2026-11-11T20:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-story-11-11-20",
    "at": "2026-11-11T21:30",
@@ -140,6 +134,12 @@
    "id": "h03-15-balkon",
    "at": "2026-11-13T13:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "story-2026-11-13-16",
+   "at": "2026-11-13T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
