@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-12 00:20",
+ "updated": "2026-11-12 02:50",
  "dollar": {
-  "rate": 11974,
-  "diff": -20,
+  "rate": 11964,
+  "diff": -10,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 2,
-  "desc": "Ochiq",
+  "temp": 1,
+  "desc": "Asosan ochiq",
   "hi": 10,
   "lo": 1
  },
@@ -26,7 +26,7 @@
    },
    {
     "caption": "🤔 Liverpool muxlisiga sovg‘a topolmayaps",
-    "like": 12,
+    "like": 13,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfmAM0MFjzk/",
