@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12 14:18",
+ "updated": "2026-11-12 16:19",
  "dollar": {
   "rate": 11964,
   "diff": -10,
@@ -13,7 +13,7 @@
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6089,
+  "followers": 6088,
   "media_count": 147,
   "posts": [
    {
@@ -78,7 +78,7 @@
    "id": "story-2026-11-12-16",
    "at": "2026-11-12T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "rmx-lazer",
@@ -88,12 +88,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "story-2026-11-12-16",
-   "at": "2026-11-12T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "rmx-lazer",
    "at": "2026-11-12T20:00",
@@ -122,6 +116,12 @@
    "id": "story-urna-1114",
    "at": "2026-11-14T12:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-16-arsenal",
+   "at": "2026-11-14T13:00",
+   "type": "REEL",
    "status": ""
   }
  ]
