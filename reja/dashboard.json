@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-12 12:40",
+ "updated": "2026-11-12 14:18",
  "dollar": {
   "rate": 11964,
   "diff": -10,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 9,
+  "temp": 10,
   "desc": "Ochiq",
   "hi": 10,
   "lo": 1
@@ -14,8 +14,16 @@
  "instagram": {
   "username": "metart_shop",
   "followers": 6089,
-  "media_count": 146,
+  "media_count": 147,
   "posts": [
+   {
+    "caption": "🤔 Oddiy soatlardan zerikdingizmi?",
+    "like": 2,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfolBjSDTgr/",
+    "ts": "2026-11-12"
+   },
    {
     "caption": "🔵🔴 Barça muxlisiga nima sovg'a qilishni ",
     "like": 14,
@@ -26,7 +34,7 @@
    },
    {
     "caption": "🤔 Liverpool muxlisiga sovg‘a topolmayaps",
-    "like": 24,
+    "like": 27,
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfmAM0MFjzk/",
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfhgT9Vu1Ut/",
     "ts": "2026-11-09"
-   },
-   {
-    "caption": "🤔 Sifatli soat qimmat deb o‘ylaysizmi?",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/Dfg2mYhFYjF/",
-    "ts": "2026-11-09"
    }
   ]
  },
@@ -72,7 +72,7 @@
    "id": "h03-14-real-qirol",
    "at": "2026-11-12T13:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "story-2026-11-12-16",
@@ -88,12 +88,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-14-real-qirol",
-   "at": "2026-11-12T13:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "story-2026-11-12-16",
    "at": "2026-11-12T16:00",
@@ -122,6 +116,12 @@
    "id": "rmx-oq-qora",
    "at": "2026-11-13T20:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "story-urna-1114",
+   "at": "2026-11-14T12:00",
+   "type": "STORY",
    "status": ""
   }
  ]
