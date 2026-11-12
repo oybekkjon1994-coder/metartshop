@@ -1,25 +1,33 @@
 {
- "updated": "2026-11-12 18:34",
+ "updated": "2026-11-12 20:14",
  "dollar": {
   "rate": 11964,
   "diff": -10,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 6,
+  "temp": 5,
   "desc": "Ochiq",
   "hi": 10,
   "lo": 1
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6088,
-  "media_count": 147,
+  "followers": 6087,
+  "media_count": 148,
   "posts": [
+   {
+    "caption": "📐 Detalingiz qiyshiq kesilyaptimi? Lazer",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfpU_OWiYMj/",
+    "ts": "2026-11-12"
+   },
    {
     "caption": "🤔 Oddiy soatlardan zerikdingizmi?",
     "like": 4,
-    "comment": 0,
+    "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfolBjSDTgr/",
     "ts": "2026-11-12"
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfjbWqeDQGH/",
     "ts": "2026-11-10"
-   },
-   {
-    "caption": "# Instagram Reels: KONDI PECH (v4, 2026-",
-    "like": 20,
-    "comment": 1,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfhgT9Vu1Ut/",
-    "ts": "2026-11-09"
    }
   ]
  },
@@ -84,16 +84,10 @@
    "id": "rmx-lazer",
    "at": "2026-11-12T20:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "rmx-lazer",
-   "at": "2026-11-12T20:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "h03-15-balkon",
    "at": "2026-11-13T13:00",
@@ -122,6 +116,12 @@
    "id": "h03-16-arsenal",
    "at": "2026-11-14T13:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "story-2026-11-14-16",
+   "at": "2026-11-14T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
