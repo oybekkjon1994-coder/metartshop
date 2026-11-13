@@ -1,24 +1,21 @@
 {
- "updated": "2026-11-13 22:14",
+ "updated": "2026-11-13 23:06",
  "dollar": {
   "rate": 11973,
   "diff": 9,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 3,
-  "desc": "Ochiq",
-  "hi": 7,
-  "lo": 3
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6086,
+  "followers": 6085,
   "media_count": 147,
   "posts": [
    {
     "caption": "Chiroq o'chiq, odam yo'q, lekin sex ishl",
-    "like": 3,
+    "like": 4,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfsB87vDY0E/",
