@@ -1,21 +1,29 @@
 {
- "updated": "2026-11-13 18:30",
+ "updated": "2026-11-13 20:06",
  "dollar": {
   "rate": 11973,
   "diff": 9,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 5,
+  "temp": 4,
   "desc": "Ochiq",
   "hi": 7,
   "lo": 3
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6088,
-  "media_count": 146,
+  "followers": 6087,
+  "media_count": 147,
   "posts": [
+   {
+    "caption": "🧱 Devoringiz bo'm-bo'shmi? Oq, qora yoki",
+    "like": 0,
+    "comment": 0,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/Dfr5y1eCaIA/",
+    "ts": "2026-11-13"
+   },
    {
     "caption": "Har oy ≈ 3 000 000 so'm elektrga, yoki b",
     "like": 3,
@@ -55,14 +63,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfmAM0MFjzk/",
     "ts": "2026-11-11"
-   },
-   {
-    "caption": "🎁 Do'stingizga sovg'a topolmayapsizmi? R",
-    "like": 39,
-    "comment": 1,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfkLoWYjrEa/",
-    "ts": "2026-11-10"
    }
   ]
  },
@@ -84,16 +84,10 @@
    "id": "rmx-oq-qora",
    "at": "2026-11-13T20:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "rmx-oq-qora",
-   "at": "2026-11-13T20:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "story-urna-1114",
    "at": "2026-11-14T12:00",
@@ -122,6 +116,12 @@
    "id": "h03-17-plastik-metall",
    "at": "2026-11-15T13:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "story-2026-11-15-16",
+   "at": "2026-11-15T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
