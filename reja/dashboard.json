@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-13 14:17",
+ "updated": "2026-11-13 15:22",
  "dollar": {
   "rate": 11973,
   "diff": 9,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 7,
-  "desc": "To'liq bulutli",
-  "hi": 8,
-  "lo": 3
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
@@ -18,7 +15,7 @@
   "posts": [
    {
     "caption": "Har oy ≈ 3 000 000 so'm elektrga, yoki b",
-    "like": 1,
+    "like": 2,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfrG92UjSeS/",
