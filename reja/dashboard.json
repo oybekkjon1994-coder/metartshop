@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-13 09:14",
+ "updated": "2026-11-13 10:21",
  "dollar": {
   "rate": 11973,
   "diff": 9,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 4,
-  "desc": "Mayda yomg'ir",
-  "hi": 7,
-  "lo": 3
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
@@ -18,7 +15,7 @@
   "posts": [
    {
     "caption": "📐 Detalingiz qiyshiq kesilyaptimi? Lazer",
-    "like": 5,
+    "like": 6,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfpU_OWiYMj/",
