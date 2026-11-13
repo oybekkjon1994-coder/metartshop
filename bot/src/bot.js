@@ -110,6 +110,7 @@ async function handleUpdate(up) {
       if (cmd === '/buyurtmalar') return adminOrders(chat);
       if (cmd === '/statistika') return adminStats(chat);
       if (cmd === '/xabar') { adminBroadcast(chat, text.slice(cmd.length).trim(), m).catch(e => console.error('Xabar xatosi:', e.message)); return; }
+      if (cmd === '/ilova') { adminBroadcastApp(chat, arg).catch(e => console.error('Ilova xatosi:', e.message)); return; }
       if (cmd === '/yordam') return adminHelp(chat);
       if (cmd === '/karta') return adminCard(chat, arg);
     }
@@ -272,6 +273,51 @@ async function deepLink(u, chat, payload) {
   if (payload === 'dizayn') { u.s = { flow: 'custom', step: 'await_image' }; return send(chat, t(u).custom_intro); }
   if (payload === 'klub') return showClubs(u, chat);
   if (payload === 'katalog') return showCats(u, chat);
+  if (payload === 'ilova_yangilash' || payload === 'ilova') return sendApp(u, chat);
+}
+
+// ---------- «Lazer ustaxona» ilovasi: eng yangi APK ni GitHub Releases'dan olib yuborish ----------
+const APP_REPO = (process.env.APP_REPO || 'oybekkjon1994-coder/lazer-app').trim();
+async function latestApp() {
+  const res = await fetch(`${GH_API}/repos/${APP_REPO}/releases/latest`, { headers: { accept: 'application/vnd.github+json', 'user-agent': 'metartshop-bot' }, signal: AbortSignal.timeout(20000) });
+  if (!res.ok) throw new Error('releases ' + res.status);
+  const j = await res.json(), a = (j.assets || []).find(x => x.name === 'lazer.apk');
+  if (!a) throw new Error('lazer.apk topilmadi');
+  return { tag: j.tag_name, ver: String(j.tag_name || '').replace(/^v/, ''), url: a.browser_download_url, notes: String(j.body || '').trim() };
+}
+const appCaption = r => `📲 <b>Lazer ustaxona</b> — ${esc(r.ver)} versiya\n\nFaylni oching va o'rnating. Buyurtmalaringiz va faollashtirish kalitingiz saqlanib qoladi.${r.notes ? '\n\n' + esc(r.notes.slice(0, 600)) : ''}`;
+// Bir marta yuklab, Telegram'dagi file_id ni eslab qolamiz: keyingi yuborishlar darhol
+async function appDoc(r) {
+  const c = db.state.app || {};
+  if (c.tag === r.tag && c.fileId) return c.fileId;
+  const res = await fetch(r.url, { headers: { 'user-agent': 'metartshop-bot' }, redirect: 'follow', signal: AbortSignal.timeout(120000) });
+  if (!res.ok) throw new Error('apk ' + res.status);
+  return TG.file(Buffer.from(await res.arrayBuffer()), 'lazer.apk', 'application/vnd.android.package-archive');
+}
+async function sendAppTo(chat, r) {
+  const doc = await appDoc(r);
+  const msg = await tg.call('sendDocument', { chat_id: chat, document: doc, caption: appCaption(r), parse_mode: 'HTML' });
+  if (typeof doc !== 'string' && msg && msg.document) { db.state.app = { tag: r.tag, fileId: msg.document.file_id }; db.saveNow(); }
+}
+async function sendApp(u, chat) {
+  u.app = true; db.save();
+  try { await sendAppTo(chat, await latestApp()); }
+  catch (e) { console.error('Ilova yuborish:', e.message); return send(chat, "Ilovani hozir yuborib bo'lmadi, birozdan keyin qayta urinib ko'ring yoki ustaga yozing."); }
+}
+// /ilova — ilovani so'ragan (u.app) mijozlarga; /ilova hammaga — botdagi barcha foydalanuvchilarga
+async function adminBroadcastApp(chat, arg) {
+  const all = /^hammaga/i.test(arg || '');
+  let r; try { r = await latestApp(); } catch (e) { return send(chat, 'GitHub dan ilovani olib bo\'lmadi: ' + esc(e.message)); }
+  const ids = Object.keys(db.users).map(Number).filter(id => !isAdmin(id) && !db.users[id].blocked && (all || db.users[id].app));
+  await send(chat, `📲 ${esc(r.ver)} versiya ${ids.length} ta ${all ? 'foydalanuvchiga' : 'ilova egasiga'} yuborilmoqda...`);
+  await sendAppTo(chat, r);
+  let ok = 0;
+  for (const id of ids) {
+    try { await sendAppTo(id, r); db.users[id].app = true; ok++; } catch (e) { if (e.code === 403) db.users[id].blocked = true; }
+    await new Promise(res => setTimeout(res, 60));
+  }
+  db.save();
+  return send(chat, `✅ Yuborildi: ${ok}/${ids.length}${all ? '' : "\nBotdagi hammaga yuborish uchun: /ilova hammaga"}`);
 }
 
 async function showCats(u, chat, editMsg) {
@@ -813,7 +859,7 @@ async function adminLogin(u, chat, code) {
   return adminHelp(chat, '✅ Siz admin bo\'ldingiz. Yangi buyurtmalar shu yerga keladi.\n\n');
 }
 function adminHelp(chat, pre = '') {
-  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/karta 8600… Ism — oldindan to\'lov uchun karta (/karta o\'chir — o\'chirish)\n/yordam — shu ro\'yxat\n\n🖼 Qo\'lda dizayn so\'roviga <b>javob (reply)</b> qilib rasm yuborsangiz, mijozga yetkaziladi.');
+  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/ilova — «Lazer ustaxona» ilovasining eng yangi APK sini ilova egalariga yuborish (/ilova hammaga — botdagi barchaga)\n/karta 8600… Ism — oldindan to\'lov uchun karta (/karta o\'chir — o\'chirish)\n/yordam — shu ro\'yxat\n\n🖼 Qo\'lda dizayn so\'roviga <b>javob (reply)</b> qilib rasm yuborsangiz, mijozga yetkaziladi.');
 }
 async function adminOrders(chat) {
   const list = db.orders.slice(-15).reverse();

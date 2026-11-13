@@ -18,6 +18,7 @@ jobs:
       - run: node test/offers_test.js
       - run: node test/dxfcalc_test.js
       - run: node test/igreply_test.js
+      - run: node test/app_test.js
       - run: node test/offers_test.js
         env: { HOLIDAY_TODAY: '12-26' }
   wasm:
