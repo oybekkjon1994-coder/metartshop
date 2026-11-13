@@ -1,12 +1,15 @@
 {
- "updated": "2026-11-13 15:22",
+ "updated": "2026-11-13 17:10",
  "dollar": {
   "rate": 11973,
   "diff": 9,
   "manba": "CBU"
  },
  "obhavo": {
-  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
+  "temp": 6,
+  "desc": "Ochiq",
+  "hi": 8,
+  "lo": 3
  },
  "instagram": {
   "username": "metart_shop",
@@ -23,7 +26,7 @@
    },
    {
     "caption": "📐 Detalingiz qiyshiq kesilyaptimi? Lazer",
-    "like": 6,
+    "like": 7,
     "comment": 2,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfpU_OWiYMj/",
@@ -75,7 +78,7 @@
    "id": "story-2026-11-13-16",
    "at": "2026-11-13T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "rmx-oq-qora",
@@ -85,12 +88,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "story-2026-11-13-16",
-   "at": "2026-11-13T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "rmx-oq-qora",
    "at": "2026-11-13T20:00",
@@ -118,6 +115,12 @@
   {
    "id": "urna-1114",
    "at": "2026-11-14T20:00",
+   "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "h03-17-plastik-metall",
+   "at": "2026-11-15T13:00",
    "type": "REEL",
    "status": ""
   }
