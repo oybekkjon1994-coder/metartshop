@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-14 11:04",
+ "updated": "2026-11-14 12:25",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 10,
+  "temp": 12,
   "desc": "Ochiq",
   "hi": 13,
   "lo": 2
@@ -18,8 +18,8 @@
   "posts": [
    {
     "caption": "Real yoki Barsa? Jasur bilan Mohira bahs",
-    "like": 7,
-    "comment": 3,
+    "like": 12,
+    "comment": 26,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DftaMynlbVO/",
     "ts": "2026-11-14"
@@ -78,7 +78,7 @@
    "id": "story-urna-1114",
    "at": "2026-11-14T12:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "h03-16-arsenal",
@@ -100,12 +100,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "story-urna-1114",
-   "at": "2026-11-14T12:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "h03-16-arsenal",
    "at": "2026-11-14T13:00",
@@ -134,6 +128,12 @@
    "id": "story-2026-11-15-16",
    "at": "2026-11-15T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-18-chelsea",
+   "at": "2026-11-16T13:00",
+   "type": "REEL",
    "status": ""
   }
  ]
