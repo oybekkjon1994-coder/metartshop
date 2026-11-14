@@ -1,21 +1,24 @@
 {
- "updated": "2026-11-14 20:55",
+ "updated": "2026-11-14 21:56",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
+  "temp": 5,
+  "desc": "To'liq bulutli",
+  "hi": 13,
+  "lo": 1
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6082,
+  "followers": 6084,
   "media_count": 150,
   "posts": [
    {
     "caption": "Tog'da tun. Elektr yo'q, chodir qorong'i",
-    "like": 0,
+    "like": 29,
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfuiiYPkiyA/",
@@ -23,8 +26,8 @@
    },
    {
     "caption": "Kommentlarda Real ko'pchilik bo'ldi, lek",
-    "like": 17,
-    "comment": 19,
+    "like": 23,
+    "comment": 25,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfubn2hDrg6/",
     "ts": "2026-11-14"
