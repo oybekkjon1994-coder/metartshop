@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-14 08:06",
+ "updated": "2026-11-14 09:11",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 3,
-  "desc": "Ochiq",
-  "hi": 13,
-  "lo": 2
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
@@ -68,6 +65,12 @@
  },
  "kecha_chiqdi": 3,
  "bugun_postlar": [
+  {
+   "id": "metart-shahri-1114",
+   "at": "2026-11-14T08:50",
+   "type": "REEL",
+   "status": "chiqdi"
+  },
   {
    "id": "story-urna-1114",
    "at": "2026-11-14T12:00",
