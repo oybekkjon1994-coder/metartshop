@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-14 15:02",
+ "updated": "2026-11-14 15:58",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 13,
-  "desc": "Ochiq",
-  "hi": 13,
-  "lo": 1
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
@@ -19,7 +16,7 @@
    {
     "caption": "Real yoki Barsa? Jasur bilan Mohira bahs",
     "like": 13,
-    "comment": 28,
+    "comment": 30,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DftaMynlbVO/",
     "ts": "2026-11-14"
