@@ -1,22 +1,25 @@
 {
- "updated": "2026-11-14 15:58",
+ "updated": "2026-11-14 16:55",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
+  "temp": 10,
+  "desc": "Ochiq",
+  "hi": 13,
+  "lo": 1
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6084,
+  "followers": 6082,
   "media_count": 148,
   "posts": [
    {
     "caption": "Real yoki Barsa? Jasur bilan Mohira bahs",
     "like": 13,
-    "comment": 30,
+    "comment": 31,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DftaMynlbVO/",
     "ts": "2026-11-14"
@@ -87,7 +90,7 @@
    "id": "story-2026-11-14-16",
    "at": "2026-11-14T16:00",
    "type": "STORY",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "urna-1114",
@@ -97,12 +100,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "story-2026-11-14-16",
-   "at": "2026-11-14T16:00",
-   "type": "STORY",
-   "status": ""
-  },
   {
    "id": "urna-1114",
    "at": "2026-11-14T20:00",
@@ -131,6 +128,12 @@
    "id": "story-2026-11-16-16",
    "at": "2026-11-16T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-19-nasaf",
+   "at": "2026-11-17T13:00",
+   "type": "REEL",
    "status": ""
   }
  ]
