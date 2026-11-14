@@ -19,10 +19,12 @@ Bot kompyuter yoqiq va `start.bat` oynasi ochiq turgan paytda ishlaydi.
 ## Admin buyruqlari
 - `/buyurtmalar`: oxirgi buyurtmalar. Holatini tugma bilan o'zgartirasiz: ✅ Qabul / 🔧 Tayyorlanmoqda / 🚚 Jo'natildi / 🎉 Topshirildi / ❌ Bekor. Mijozga holat haqida avtomatik xabar boradi.
 - `/statistika`: foydalanuvchilar, buyurtmalar, summa.
+- `/referal`: do'st taklifi hisoboti — havola orqali kelganlar, ulardan buyurtmalar, top-10 taklifchilar va sovg'a berilishi kerak bo'lganlar.
 - `/xabar MATN`: botdan foydalangan barcha mijozlarga xabar yuboradi (aksiya va yangiliklar uchun). Rasm bilan yuborish uchun rasmni jo'natib, izohiga `/xabar ...` deb yozing.
 - `/ilova`: «Lazer ustaxona» ilovasining eng yangi APK sini (GitHub Releases, `lazer-app` → `lazer.apk`) ilovani botdan so'ragan mijozlarga yuboradi. `/ilova hammaga` — botdan foydalangan barchaga. Ilovadagi «O'rnatish» tugmasi (`?start=ilova_yangilash`) bosilganda ham bot APK ni o'zi yuboradi.
 
 ## Sozlamalar (`config.json`)
+- `referral`: do'st taklifi. `percent` — do'st va taklif qiluvchiga chegirma (%). `levels` — darajalar: `at` ta do'sti buyurtma olgach `percent` (chegirma kuponi, avtomatik) yoki `gift` (sovg'a, adminga xabar keladi va qo'lda berasiz). Mijoz «🎁 Chegirma olish» da progress, darajalar va «🏆 Reyting» ni ko'radi.
 - `custom_sizes`: "O'z dizaynim" uchun o'lcham (sm) va narxlar.
 - `custom_colors`: tanlanadigan ranglar.
 

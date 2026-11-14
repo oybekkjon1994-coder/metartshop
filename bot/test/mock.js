@@ -6,6 +6,8 @@ const { spawn } = require('child_process');
 
 const OUT = path.join(__dirname, 'mock_out'); fs.rmSync(OUT, { recursive: true, force: true }); fs.mkdirSync(OUT);
 const DATA = path.join(__dirname, 'data'); fs.rmSync(DATA, { recursive: true, force: true });
+// Ali avval 2 ta do'st olib kelgan: 3-do'st bilan 1-daraja (20% kupon) ochiladi
+fs.mkdirSync(DATA, { recursive: true }); fs.writeFileSync(path.join(DATA, 'users.json'), JSON.stringify({ 111: { id: 111, lang: null, joined: new Date().toISOString(), s: {}, refCount: 2, refJoined: 2 } }));
 const USER = { id: 111, first_name: 'Ali', username: 'ali_test' };
 const NEW = { id: 222, first_name: 'Vali' };
 const FRIEND = { id: 333, first_name: 'Do\'st' };
@@ -39,7 +41,7 @@ const script = [
   msg(FRIEND, { text: 'Doston' }), msg(FRIEND, { text: '901112233' }), cb(FRIEND, 'dlv:self'), cb(FRIEND, 'ok'), cb(FRIEND, 'paylater'),
   cb(ADMIN, 'st:M-0004:done'),
   cb(FRIEND, 'rate:M-0004:5'), msg(FRIEND, { photo: [{ file_id: 'rev1', width: 600, height: 800 }] }), cb(FRIEND, 'ig:M-0004:1'),
-  msg(USER, { text: '🎁 Chegirma olish' }),
+  msg(USER, { text: '🎁 Chegirma olish' }), cb(USER, 'reftop'), msg(ADMIN, { text: '/referal' }),
   // 6: lazer kesish — DXF hisob (bonus chegirmasi ham qo'llanadi)
   msg(USER, { text: '⚙️ Lazer kesish (DXF)' }),
   msg(USER, { document: { file_id: 'dxf1', file_name: 'detal.dxf', file_size: 600, mime_type: 'application/dxf' } }),
@@ -84,7 +86,7 @@ const server = http.createServer((req, res) => {
       const btns = kb && kb.inline_keyboard ? ' [' + kb.inline_keyboard.flat().map(b => b.text).join(' | ') + ']' : kb && kb.keyboard ? ' {' + kb.keyboard.flat().map(b => b.text || b).join(' | ') + '}' : '';
       if (method === 'sendPhoto' && String(params.chat_id) === '999' && /Qo'lda dizayn so'rovi/.test(params.caption || '')) lastReq = mid + 1;
       const mb = kb && kb.inline_keyboard && kb.inline_keyboard.flat().find(b => /^mbuy:/.test(b.callback_data || '')); if (mb) lastMbuy = mb.callback_data;
-      log.push(`<<< ${method} → ${params.chat_id}: ${String(params.text || params.caption || params.photo || params.document || '').replace(/\n/g, ' ¶ ').slice(0, 700)}${btns}`);
+      log.push(`<<< ${method} → ${params.chat_id}: ${String(params.text || params.caption || params.photo || params.document || '').replace(/\n/g, ' ¶ ').slice(0, 1200)}${btns}`);
       return reply({ message_id: ++mid, chat: { id: params.chat_id } });
     }
     reply(true);
@@ -130,9 +132,14 @@ function finish(err) {
     ['lazer narxlari ko\'rsatildi', /→ 111: ⚙️ <b>Lazer kesish xizmati<\/b>.*3–4 mm — 5 000 so'm/],
     ['DXF o\'lchami va uzunligi', /→ 111: 📐 Chizma: <b>300×150 mm<\/b>, kesish uzunligi <b>0.62 m/],
     ['lazer hisobi', /Kesish: 0.62 m × 5 000 so'm = <b>3 100 so'm<\/b>/],
-    ['lazer buyurtmasi adminga', /Yangi buyurtma M-0005<\/b>.*📐 300×150 mm · 0.62 m · 3–4 mm.*Chegirma: 10%.*Jami: <b>5 580 so'm/],
+    ['lazer buyurtmasi adminga (20% daraja kuponi)', /Yangi buyurtma M-0005<\/b>.*📐 300×150 mm · 0.62 m · 3–4 mm.*Chegirma: 20%.*Jami: <b>4 960 so'm/],
     ['DXF fayl adminga', /sendDocument → 999: M-0005 — detal.dxf/],
-    ['taklif havolasi va bonus', /→ 111: 🎁 <b>Do'stingizni taklif qiling.*start=r111.*1 ta chegirma bor/],
+    ['taklif havolasi va bonus', /→ 111: 🎁 <b>Do'stingizni taklif qiling.*start=r111.*3\/5.*2 ta chegirma bor \(kuponlar: 20%\).*\[📤 Do'stga yuborish \| 🏆 Reyting\]/],
+    ['do\'st qo\'shilgani haqida xabar', /→ 111: 👋 Do'stingiz Do'st havolangiz orqali/],
+    ['daraja ochildi: 20% kupon', /→ 111: 🏅 <b>Tabriklaymiz! Siz 3 ta do'stingizni.*20% chegirma kuponi/],
+    ['adminga daraja xabari', /→ 999: 🏅 .*3 ta do'st.*20% chegirma kuponi berildi/],
+    ['reyting', /→ 111: 🏆 <b>Eng ko'p do'st olib kelganlar.*🥇 Ali — 3 ta buyurtma \(3 ta kirdi\) ⬅️/],
+    ['admin /referal', /→ 999: 🎁 <b>Do'st taklifi<\/b>.*Havola orqali kelganlar: 1.*3 ta → 20%/],
     ['til tanlamagan mijoz menyu tugmasidan davom etdi', /→ 222: (?!Tilni)/],
   ];
   for (const [name, re] of must) if (!re.test(all)) fails.push(name);

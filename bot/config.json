@@ -42,7 +42,12 @@
  },
  "referral": {
   "enabled": true,
-  "percent": 10
+  "percent": 10,
+  "levels": [
+   { "at": 3, "percent": 20 },
+   { "at": 5, "gift": "30 sm devor soati sovg'a" },
+   { "at": 10, "percent": 30 }
+  ]
  },
  "payment": {
   "prepay_percent": 100
