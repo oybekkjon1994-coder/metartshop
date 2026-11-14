@@ -1,12 +1,15 @@
 {
- "updated": "2026-11-15 00:04",
+ "updated": "2026-11-15 00:56",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
+  "temp": 5,
+  "desc": "To'liq bulutli",
+  "hi": 15,
+  "lo": 2
  },
  "instagram": {
   "username": "metart_shop",
@@ -15,8 +18,8 @@
   "posts": [
    {
     "caption": "Amaki pulni qayerga olib qochdi? 😄 Qish ",
-    "like": 3,
-    "comment": 0,
+    "like": 8,
+    "comment": 4,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfu1LAxCvoJ/",
     "ts": "2026-11-14"
