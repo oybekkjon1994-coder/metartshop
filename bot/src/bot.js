@@ -20,7 +20,8 @@ if (!TOKEN || TOKEN.includes('SHU_YERGA')) {
 }
 const tg = new TG(TOKEN, process.env.TG_API || 'https://api.telegram.org');
 const db = new Store(process.env.DATA_DIR || path.join(ROOT, 'data'));
-const REF = Object.assign({ enabled: true, percent: 10 }, CFG.referral || {});
+const REF = Object.assign({ enabled: true, percent: 10, levels: [{ at: 3, percent: 20 }, { at: 5, gift: "30 sm devor soati sovg'a" }, { at: 10, percent: 30 }] }, CFG.referral || {});
+REF.levels = (REF.levels || []).filter(l => l && l.at > 0 && (l.percent > 0 || l.gift)).sort((a, b) => a.at - b.at);
 const LASER = Object.assign({ enabled: true, rates: [], sheet_mm: [1250, 2500] }, CFG.laser || {});
 const HOL = Object.assign({ enabled: true, days_before: 7, list: [] }, CFG.holidays || {});
 const PAY = Object.assign({ prepay_percent: 50 }, CFG.payment || {});
@@ -109,6 +110,7 @@ async function handleUpdate(up) {
     if (isAdmin(u.id)) {
       if (cmd === '/buyurtmalar') return adminOrders(chat);
       if (cmd === '/statistika') return adminStats(chat);
+      if (cmd === '/referal') return adminRef(chat);
       if (cmd === '/xabar') { adminBroadcast(chat, text.slice(cmd.length).trim(), m).catch(e => console.error('Xabar xatosi:', e.message)); return; }
       if (cmd === '/ilova') { adminBroadcastApp(chat, arg).catch(e => console.error('Ilova xatosi:', e.message)); return; }
       if (cmd === '/yordam') return adminHelp(chat);
@@ -257,7 +259,11 @@ async function start(u, chat, payload) {
   if (payload && /^r\d+$/.test(payload)) {
     // Do'st havolasi: faqat yangi (hali buyurtma bermagan) foydalanuvchiga, o'zini o'zi taklif qila olmaydi
     const rid = +payload.slice(1);
-    if (REF.enabled && !u.refBy && rid !== u.id && db.users[String(rid)] && !db.orders.some(o => o.userId === u.id)) { u.refBy = rid; u.refPending = true; }
+    if (REF.enabled && !u.refBy && rid !== u.id && db.users[String(rid)] && !db.orders.some(o => o.userId === u.id)) {
+      u.refBy = rid; u.refPending = true;
+      const r = db.users[String(rid)]; r.refJoined = (r.refJoined || 0) + 1; db.save();
+      send(r.id, T[r.lang || 'uz'].ref_joined(esc(u.name || ''), r.refCount || 0, nextLevel(r))).catch(() => {});
+    }
     u.ref = u.ref || 'dost';
     payload = '';
   } else if (payload) u.ref = u.ref || payload;
@@ -405,11 +411,21 @@ function dlvName(l, d) { return { tash: T[l].d_tash, reg: T[l].d_reg, self: T[l]
 
 const orderTotal = o => Math.round((o.price || 0) * (o.qty || 1) * (100 - (o.discount || 0)) / 100);
 // Chegirma: do'st havolasi bilan kelgan birinchi buyurtma yoki taklif qilgani uchun bonus
-function discountFor(u) {
-  if (!REF.enabled) return 0;
-  if (u.refBy && !db.orders.some(o => o.userId === u.id && o.status !== 'canceled')) return REF.percent;
-  if ((u.refBonus || 0) > 0) return REF.percent;
-  return 0;
+function discountFor(u) { return discountPick(u).pct; }
+// Qaysi chegirma qo'llanadi: do'st sifatida birinchi buyurtma > eng katta daraja kuponi > oddiy bonus
+function discountPick(u) {
+  if (!REF.enabled) return { pct: 0 };
+  if (u.refBy && !db.orders.some(o => o.userId === u.id && o.status !== 'canceled')) return { pct: REF.percent, type: 'friend' };
+  const cp = (u.coupons || []).reduce((m, c) => (!m || c.pct > m.pct ? c : m), null);
+  const bonus = (u.refBonus || 0) > 0 ? REF.percent : 0;
+  if (cp && cp.pct >= bonus) return { pct: cp.pct, type: 'coupon', coupon: cp };
+  if (bonus) return { pct: bonus, type: 'bonus' };
+  return { pct: 0 };
+}
+// Keyingi daraja: { at, percent|gift, left }
+function nextLevel(u) {
+  const n = u.refCount || 0; const l = REF.levels.find(x => x.at > n);
+  return l ? Object.assign({ left: l.at - n }, l) : null;
 }
 function orderLines(l, o) {
   const L = T[l]; const lines = [];
@@ -443,11 +459,13 @@ async function placeOrder(u, chat) {
     name: s.name, phone: s.phone, delivery: s.delivery, address: s.address || '', ref: u.ref || '',
   };
   if (s.flow === 'laser') Object.assign(o, { meters: s.meters, dimsL: `${s.w}×${s.h} mm`, tier: s.tier, dxfFile: s.fileId, dxfName: s.fname });
-  o.discount = discountFor(u);
+  const dp = discountPick(u);
+  o.discount = dp.pct;
   if (o.discount) {
-    o.discountType = u.refBy && !db.orders.some(x => x.userId === u.id && x.status !== 'canceled') ? 'friend' : 'bonus';
-    if (o.discountType === 'bonus') u.refBonus = Math.max(0, (u.refBonus || 0) - 1);
-    if (o.discountType === 'friend') o.refBy = u.refBy;
+    o.discountType = dp.type;
+    if (dp.type === 'bonus') u.refBonus = Math.max(0, (u.refBonus || 0) - 1);
+    if (dp.type === 'coupon') u.coupons = (u.coupons || []).filter(c => c !== dp.coupon);
+    if (dp.type === 'friend') o.refBy = u.refBy;
   }
   u.lastName = s.name; u.ordered = Date.now(); u.orderedPids = [...new Set([...(u.orderedPids || []), s.pid].filter(Boolean))]; u.viewed = null; u.sAt = 0;
   // o'z dizayni: DXF va rasmlarni saqlash
@@ -605,7 +623,45 @@ async function laserQuote(u, chat, idx) {
 function showInvite(u, chat) {
   const link = `https://t.me/${BOT_NAME}?start=r${u.id}`;
   const share = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(t(u).invite_share_text)}`;
-  return send(chat, t(u).invite(link, REF.percent) + ((u.refBonus || 0) > 0 ? t(u).invite_bonus_have(u.refBonus) : ''), { reply_markup: ik([[{ text: t(u).invite_share, url: share }]]) });
+  const have = (u.refBonus || 0) + (u.coupons || []).length;
+  const coupons = (u.coupons || []).map(c => c.pct + '%');
+  return send(chat, t(u).invite(link, REF.percent) + refProgress(u) + (have > 0 ? t(u).invite_bonus_have(have, coupons) : ''),
+    { reply_markup: ik([[{ text: t(u).invite_share, url: share }], [{ text: t(u).ref_top_btn, callback_data: 'reftop' }]]) });
+}
+// Daraja (level) ko'rinishi: progress va daraja ro'yxati
+function refProgress(u) {
+  if (!REF.levels.length) return '';
+  const L = t(u); const n = u.refCount || 0; const nx = nextLevel(u);
+  const top = nx ? nx.at : REF.levels[REF.levels.length - 1].at;
+  const bar = '🟩'.repeat(Math.min(n, top)) + '⬜'.repeat(Math.max(0, top - n));
+  const lines = REF.levels.map(l => `${n >= l.at ? '✅' : '▫️'} ${L.ref_lvl(l.at, l.percent ? L.ref_pct(l.percent) : esc(l.gift))}`);
+  return `\n\n${L.ref_stats(u.refJoined || 0, n)}\n${top <= 20 ? bar + ' ' : ''}${n}/${top}\n${nx ? L.ref_next(nx.left, nx.percent ? L.ref_pct(nx.percent) : esc(nx.gift)) : L.ref_all_done}\n\n<b>${L.ref_levels}</b>\n${lines.join('\n')}`;
+}
+// Reyting: eng ko'p do'st olib kelganlar (ism qisqartiriladi)
+function refLeaders(lim = 10) {
+  return Object.values(db.users).filter(x => (x.refCount || 0) > 0 || (x.refJoined || 0) > 0)
+    .sort((a, b) => (b.refCount || 0) - (a.refCount || 0) || (b.refJoined || 0) - (a.refJoined || 0)).slice(0, lim);
+}
+const shortName = x => { const p = String(x.name || 'Mijoz').trim().split(/\s+/); return esc(p[0].slice(0, 15) + (p[1] ? ' ' + p[1][0] + '.' : '')); };
+function showTop(u, chat) {
+  const L = t(u); const list = refLeaders(10); const medal = ['🥇', '🥈', '🥉'];
+  if (!list.length) return send(chat, L.ref_top_empty);
+  const rows = list.map((x, i) => `${medal[i] || (i + 1) + '.'} ${shortName(x)} — ${L.ref_top_row(x.refCount || 0, x.refJoined || 0)}${x.id === u.id ? ' ⬅️' : ''}`);
+  return send(chat, `🏆 <b>${L.ref_top}</b>\n\n${rows.join('\n')}\n\n${L.ref_top_hint}`);
+}
+// Daraja yutilganda: kupon yoki sovg'a
+async function checkLevel(r) {
+  const n = r.refCount || 0; const L = T[r.lang || 'uz'];
+  r.refLevels = r.refLevels || [];
+  for (const l of REF.levels) {
+    if (n < l.at || r.refLevels.includes(l.at)) continue;
+    r.refLevels.push(l.at);
+    if (l.percent) (r.coupons || (r.coupons = [])).push({ pct: l.percent, lvl: l.at });
+    db.save();
+    await send(r.id, L.ref_level_up(l.at, l.percent ? L.ref_pct(l.percent) : esc(l.gift), !!l.gift)).catch(() => {});
+    const who = `<a href="tg://user?id=${r.id}">${esc(r.name || r.id)}</a>${r.username ? ' @' + esc(r.username) : ''}`;
+    await toAdmins(a => send(a, `🏅 ${who} — <b>${l.at} ta do'st</b> olib keldi.\n${l.gift ? `🎁 SOVG'A berish kerak: <b>${esc(l.gift)}</b> — mijoz bilan bog'laning!` : `🎟 Unga avtomatik ${l.percent}% chegirma kuponi berildi.`}`)).catch(() => {});
+  }
 }
 
 // ---------- fikr va rasm (topshirilgandan keyin) ----------
@@ -779,6 +835,7 @@ async function onCallback(q) {
         await deepLink(u, chat, pend); break;
       }
       case 'cats': await showCats(u, chat, q.message && q.message.message_id); break;
+      case 'reftop': if (REF.enabled) await showTop(u, chat); break;
       case 'cat': await showCat(u, chat, a); break;
       case 'p': await showProduct(u, chat, a); break;
       case 'img': await showProduct(u, chat, a, +b || 0); break;
@@ -859,7 +916,7 @@ async function adminLogin(u, chat, code) {
   return adminHelp(chat, '✅ Siz admin bo\'ldingiz. Yangi buyurtmalar shu yerga keladi.\n\n');
 }
 function adminHelp(chat, pre = '') {
-  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/ilova — «Lazer ustaxona» ilovasining eng yangi APK sini ilova egalariga yuborish (/ilova hammaga — botdagi barchaga)\n/karta 8600… Ism — oldindan to\'lov uchun karta (/karta o\'chir — o\'chirish)\n/yordam — shu ro\'yxat\n\n🖼 Qo\'lda dizayn so\'roviga <b>javob (reply)</b> qilib rasm yuborsangiz, mijozga yetkaziladi.');
+  return send(chat, pre + '<b>Admin buyruqlari</b>\n/buyurtmalar — oxirgi buyurtmalar\n/statistika — umumiy hisob\n/referal — do\'st taklifi: kim qancha olib keldi, sovg\'alar\n/xabar MATN — barcha mijozlarga xabar (rasm bilan ham: rasm yuborib izohiga /xabar yozing)\n/ilova — «Lazer ustaxona» ilovasining eng yangi APK sini ilova egalariga yuborish (/ilova hammaga — botdagi barchaga)\n/karta 8600… Ism — oldindan to\'lov uchun karta (/karta o\'chir — o\'chirish)\n/yordam — shu ro\'yxat\n\n🖼 Qo\'lda dizayn so\'roviga <b>javob (reply)</b> qilib rasm yuborsangiz, mijozga yetkaziladi.');
 }
 async function adminOrders(chat) {
   const list = db.orders.slice(-15).reverse();
@@ -874,6 +931,15 @@ async function adminStats(chat) {
   const tz = ts => new Date(Date.parse(ts) + 5 * 3600 * 1000).toISOString().slice(0, 10);
   const today = tz(new Date().toISOString());
   return send(chat, `📊 <b>Statistika</b>\n\n👥 Bot foydalanuvchilari: ${users}\n📦 Buyurtmalar: ${os.length} (bugun: ${os.filter(o => tz(o.at) === today).length})\n🆕 Yangi: ${by('new')} · ✅ Qabul: ${by('accepted')} · 🔧 ${by('making')} · 🚚 ${by('sent')} · 🎉 ${by('done')} · ❌ ${by('canceled')}\n💰 Jami summa (bekor qilinmagan): ${money(sum, 'uz')}\n🎨 O'z dizayni buyurtmalari: ${os.filter(o => o.flow === 'custom').length}`);
+}
+async function adminRef(chat) {
+  const us = Object.values(db.users);
+  const joined = us.filter(x => x.refBy).length;
+  const fo = db.orders.filter(o => o.discountType === 'friend');
+  const sum = fo.filter(o => o.status !== 'canceled').reduce((a, o) => a + orderTotal(o), 0);
+  const gifts = us.flatMap(x => (x.refLevels || []).map(at => ({ x, l: REF.levels.find(l => l.at === at) }))).filter(g => g.l && g.l.gift);
+  const top = refLeaders(10).map((x, i) => `${i + 1}. <a href="tg://user?id=${x.id}">${esc(x.name || x.id)}</a> — ${x.refCount || 0} ta buyurtma / ${x.refJoined || 0} ta kirdi`);
+  return send(chat, `🎁 <b>Do'st taklifi</b> (${REF.percent}% chegirma)\n\n👥 Havola orqali kelganlar: ${joined}\n🛍 Ulardan buyurtmalar: ${fo.length} (summa ${money(sum, 'uz')})\n🏅 Darajalar: ${REF.levels.map(l => `${l.at} ta → ${l.percent ? l.percent + '%' : esc(l.gift)}`).join(' · ') || "yo'q"}\n${gifts.length ? `\n🎁 Sovg'a olishi kerak bo'lganlar:\n${gifts.map(g => `• <a href="tg://user?id=${g.x.id}">${esc(g.x.name || g.x.id)}</a> — ${esc(g.l.gift)}`).join('\n')}\n` : ''}\n🏆 <b>Top</b>\n${top.join('\n') || 'Hali hech kim yo\'q'}`);
 }
 async function adminBroadcast(chat, text, m) {
   if (!text) return send(chat, 'Foydalanish: /xabar Bugun barcha soatlarga 10% chegirma!');
@@ -912,7 +978,7 @@ async function setStatus(q, id, st) {
     if (REF.enabled && o.discountType === 'friend' && o.refBy && !o.refRewarded) {
       const r = db.users[String(o.refBy)];
       o.refRewarded = true;
-      if (r) { r.refBonus = (r.refBonus || 0) + 1; r.refCount = (r.refCount || 0) + 1; db.save(); await send(r.id, T[r.lang || 'uz'].ref_bonus(REF.percent)).catch(() => {}); }
+      if (r) { r.refBonus = (r.refBonus || 0) + 1; r.refCount = (r.refCount || 0) + 1; db.save(); await send(r.id, T[r.lang || 'uz'].ref_bonus(REF.percent)).catch(() => {}); await checkLevel(r); }
     }
   }
 }
