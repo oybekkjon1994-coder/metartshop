@@ -1,25 +1,25 @@
 {
- "updated": "2026-11-14 12:25",
+ "updated": "2026-11-14 14:05",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 12,
+  "temp": 13,
   "desc": "Ochiq",
   "hi": 13,
-  "lo": 2
+  "lo": 1
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6086,
+  "followers": 6084,
   "media_count": 148,
   "posts": [
    {
     "caption": "Real yoki Barsa? Jasur bilan Mohira bahs",
-    "like": 12,
-    "comment": 26,
+    "like": 13,
+    "comment": 27,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DftaMynlbVO/",
     "ts": "2026-11-14"
@@ -84,7 +84,7 @@
    "id": "h03-16-arsenal",
    "at": "2026-11-14T13:00",
    "type": "REEL",
-   "status": ""
+   "status": "chiqdi"
   },
   {
    "id": "story-2026-11-14-16",
@@ -100,12 +100,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-16-arsenal",
-   "at": "2026-11-14T13:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "story-2026-11-14-16",
    "at": "2026-11-14T16:00",
@@ -134,6 +128,12 @@
    "id": "h03-18-chelsea",
    "at": "2026-11-16T13:00",
    "type": "REEL",
+   "status": ""
+  },
+  {
+   "id": "story-2026-11-16-16",
+   "at": "2026-11-16T16:00",
+   "type": "STORY",
    "status": ""
   }
  ]
