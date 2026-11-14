@@ -1,24 +1,29 @@
 {
- "updated": "2026-11-14 19:05",
+ "updated": "2026-11-14 19:57",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 8,
-  "desc": "Ochiq",
-  "hi": 13,
-  "lo": 1
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 6082,
-  "media_count": 148,
+  "media_count": 149,
   "posts": [
    {
+    "caption": "Kommentlarda Real ko'pchilik bo'ldi, lek",
+    "like": 2,
+    "comment": 1,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/Dfubn2hDrg6/",
+    "ts": "2026-11-14"
+   },
+   {
     "caption": "Real yoki Barsa? Jasur bilan Mohira bahs",
-    "like": 14,
+    "like": 15,
     "comment": 31,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DftaMynlbVO/",
@@ -55,14 +60,6 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfolBjSDTgr/",
     "ts": "2026-11-12"
-   },
-   {
-    "caption": "🔵🔴 Barça muxlisiga nima sovg'a qilishni ",
-    "like": 14,
-    "comment": 1,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/DfmwUVWiGWj/",
-    "ts": "2026-11-11"
    }
   ]
  },
