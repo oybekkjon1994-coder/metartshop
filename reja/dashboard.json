@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-15 04:51",
+ "updated": "2026-11-15 06:28",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 4,
-  "desc": "To'liq bulutli",
-  "hi": 15,
-  "lo": 3
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
@@ -35,7 +32,7 @@
    {
     "caption": "Kommentlarda Real ko'pchilik bo'ldi, lek",
     "like": 25,
-    "comment": 30,
+    "comment": 31,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfubn2hDrg6/",
     "ts": "2026-11-14"
