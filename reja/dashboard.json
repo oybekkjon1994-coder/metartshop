@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-15 08:05",
+ "updated": "2026-11-15 09:12",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 5,
-  "desc": "To'liq bulutli",
-  "hi": 15,
-  "lo": 3
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
@@ -18,8 +15,8 @@
   "posts": [
    {
     "caption": "Amaki pulni qayerga olib qochdi? 😄 Qish ",
-    "like": 11,
-    "comment": 4,
+    "like": 12,
+    "comment": 5,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfu1LAxCvoJ/",
     "ts": "2026-11-14"
@@ -35,7 +32,7 @@
    {
     "caption": "Kommentlarda Real ko'pchilik bo'ldi, lek",
     "like": 28,
-    "comment": 34,
+    "comment": 36,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfubn2hDrg6/",
     "ts": "2026-11-14"
