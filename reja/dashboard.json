@@ -1,24 +1,29 @@
 {
- "updated": "2026-11-16 07:14",
+ "updated": "2026-11-16 14:54",
  "dollar": {
   "rate": 12014,
   "diff": 41,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 2,
-  "desc": "Ochiq",
-  "hi": 16,
-  "lo": 2
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6083,
-  "media_count": 154,
+  "followers": 6081,
+  "media_count": 155,
   "posts": [
    {
+    "caption": "Navbat Realga keldi! 👑 Lazer tojni ham m",
+    "like": 17,
+    "comment": 73,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/DfynKd2k3M0/",
+    "ts": "2026-11-16"
+   },
+   {
     "caption": "Ronaldo nega ketdi? Asl sababi videoning",
-    "like": 54,
+    "like": 71,
     "comment": 8,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfxXFKoDXE0/",
@@ -34,7 +39,7 @@
    },
    {
     "caption": "Eshik ochildi! 🔥 Ichkarida lazer temirni",
-    "like": 19,
+    "like": 20,
     "comment": 7,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfv-9erFMyA/",
@@ -42,7 +47,7 @@
    },
    {
     "caption": "Amaki pulni qayerga olib qochdi? 😄 Qish ",
-    "like": 24,
+    "like": 25,
     "comment": 6,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Dfu1LAxCvoJ/",
@@ -54,14 +59,6 @@
     "comment": 0,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfuiiYPkiyA/",
-    "ts": "2026-11-14"
-   },
-   {
-    "caption": "Kommentlarda Real ko'pchilik bo'ldi, lek",
-    "like": 32,
-    "comment": 49,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/Dfubn2hDrg6/",
     "ts": "2026-11-14"
    }
   ]
@@ -82,12 +79,6 @@
   }
  ],
  "keyingi_postlar": [
-  {
-   "id": "h03-18-chelsea",
-   "at": "2026-11-16T13:00",
-   "type": "REEL",
-   "status": ""
-  },
   {
    "id": "story-2026-11-16-16",
    "at": "2026-11-16T16:00",
@@ -116,6 +107,12 @@
    "id": "story-2026-11-18-16",
    "at": "2026-11-18T16:00",
    "type": "STORY",
+   "status": ""
+  },
+  {
+   "id": "h03-21-mancity",
+   "at": "2026-11-19T13:00",
+   "type": "REEL",
    "status": ""
   }
  ]
