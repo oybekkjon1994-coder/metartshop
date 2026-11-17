@@ -1,40 +1,32 @@
 {
- "updated": "2026-11-17 18:35",
+ "updated": "2026-11-18 03:28",
  "dollar": {
-  "rate": 12024,
-  "diff": 9,
+  "rate": 12010,
+  "diff": -13,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 12,
+  "temp": 8,
   "desc": "To'liq bulutli",
   "hi": 16,
-  "lo": 3
+  "lo": 7
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6082,
-  "media_count": 158,
+  "followers": 6076,
+  "media_count": 157,
   "posts": [
    {
-    "caption": "🤔 Klubingiz soati do‘konlarda yo‘qmi?",
-    "like": 1,
-    "comment": 0,
-    "type": "VIDEO",
-    "link": "https://www.instagram.com/reel/Df1fChgnF1M/",
-    "ts": "2026-11-17"
-   },
-   {
     "caption": "Chiroq o'chdi... lekin natija chiqdi! 🔥 ",
-    "like": 13,
-    "comment": 68,
+    "like": 21,
+    "comment": 69,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Df1MBgyj-EE/",
     "ts": "2026-11-17"
    },
    {
     "caption": "Katta aka nega aralashdi? 👀",
-    "like": 34,
+    "like": 35,
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfzehSdnPE0/",
@@ -63,20 +55,28 @@
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfxH6Blgvkw/",
     "ts": "2026-11-15"
+   },
+   {
+    "caption": "Eshik ochildi! 🔥 Ichkarida lazer temirni",
+    "like": 20,
+    "comment": 7,
+    "type": "VIDEO",
+    "link": "https://www.instagram.com/reel/Dfv-9erFMyA/",
+    "ts": "2026-11-15"
    }
   ]
  },
- "kecha_chiqdi": 0,
+ "kecha_chiqdi": 1,
  "bugun_postlar": [
   {
-   "id": "h03-19-nasaf",
-   "at": "2026-11-17T13:00",
+   "id": "h03-20-garoyib",
+   "at": "2026-11-18T13:00",
    "type": "REEL",
-   "status": "chiqdi"
+   "status": ""
   },
   {
-   "id": "story-2026-11-17-16",
-   "at": "2026-11-17T16:00",
+   "id": "story-2026-11-18-16",
+   "at": "2026-11-18T16:00",
    "type": "STORY",
    "status": ""
   }
