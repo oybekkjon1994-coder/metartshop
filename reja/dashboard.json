@@ -1,12 +1,15 @@
 {
- "updated": "2026-11-18 19:12",
+ "updated": "2026-11-19 03:05",
  "dollar": {
-  "rate": 12010,
-  "diff": -13,
+  "rate": 11980,
+  "diff": -30,
   "manba": "CBU"
  },
  "obhavo": {
-  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
+  "temp": 12,
+  "desc": "To'liq bulutli",
+  "hi": 21,
+  "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
@@ -63,17 +66,17 @@
    }
   ]
  },
- "kecha_chiqdi": 1,
+ "kecha_chiqdi": 0,
  "bugun_postlar": [
   {
-   "id": "h03-20-garoyib",
-   "at": "2026-11-18T13:00",
+   "id": "h03-21-mancity",
+   "at": "2026-11-19T13:00",
    "type": "REEL",
    "status": ""
   },
   {
-   "id": "story-2026-11-18-16",
-   "at": "2026-11-18T16:00",
+   "id": "story-2026-11-19-16",
+   "at": "2026-11-19T16:00",
    "type": "STORY",
    "status": ""
   }
