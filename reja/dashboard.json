@@ -1,15 +1,15 @@
 {
- "updated": "2026-11-18 03:28",
+ "updated": "2026-11-18 09:30",
  "dollar": {
   "rate": 12010,
   "diff": -13,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 8,
+  "temp": 10,
   "desc": "To'liq bulutli",
   "hi": 16,
-  "lo": 7
+  "lo": 6
  },
  "instagram": {
   "username": "metart_shop",
@@ -18,8 +18,8 @@
   "posts": [
    {
     "caption": "Chiroq o'chdi... lekin natija chiqdi! 🔥 ",
-    "like": 21,
-    "comment": 69,
+    "like": 23,
+    "comment": 70,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/Df1MBgyj-EE/",
     "ts": "2026-11-17"
