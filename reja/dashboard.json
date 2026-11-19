@@ -1,20 +1,20 @@
 {
- "updated": "2026-11-19 18:25",
+ "updated": "2026-11-20 03:14",
  "dollar": {
-  "rate": 11980,
-  "diff": -30,
+  "rate": 11972,
+  "diff": -9,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 15,
-  "desc": "To'liq bulutli",
-  "hi": 21,
+  "temp": 13,
+  "desc": "Ochiq",
+  "hi": 22,
   "lo": 9
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6073,
-  "media_count": 160,
+  "followers": 6075,
+  "media_count": 162,
   "posts": [
    {
     "caption": "Chiroq o'chdi... lekin natija chiqdi! 🔥 ",
@@ -66,20 +66,7 @@
    }
   ]
  },
- "kecha_chiqdi": 0,
- "bugun_postlar": [
-  {
-   "id": "h03-21-mancity",
-   "at": "2026-11-19T13:00",
-   "type": "REEL",
-   "status": "o'tkazildi"
-  },
-  {
-   "id": "story-2026-11-19-16",
-   "at": "2026-11-19T16:00",
-   "type": "STORY",
-   "status": "chiqdi"
-  }
- ],
+ "kecha_chiqdi": 1,
+ "bugun_postlar": [],
  "keyingi_postlar": []
 }
