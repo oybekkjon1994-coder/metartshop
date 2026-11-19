@@ -1,15 +1,12 @@
 {
- "updated": "2026-11-19 03:05",
+ "updated": "2026-11-19 08:38",
  "dollar": {
   "rate": 11980,
   "diff": -30,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 12,
-  "desc": "To'liq bulutli",
-  "hi": 21,
-  "lo": 10
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
