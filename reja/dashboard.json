@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-20 18:05",
+ "updated": "2026-11-21 02:14",
  "dollar": {
-  "rate": 11972,
-  "diff": -9,
+  "rate": 12004,
+  "diff": 33,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 16,
+  "temp": 13,
   "desc": "To'liq bulutli",
-  "hi": 23,
-  "lo": 9
+  "hi": 18,
+  "lo": 10
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6073,
+  "followers": 6072,
   "media_count": 163,
   "posts": [
    {
@@ -66,7 +66,7 @@
    }
   ]
  },
- "kecha_chiqdi": 1,
+ "kecha_chiqdi": 0,
  "bugun_postlar": [],
  "keyingi_postlar": []
 }
