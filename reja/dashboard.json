@@ -1,20 +1,20 @@
 {
- "updated": "2026-11-21 16:19",
+ "updated": "2026-11-22 00:25",
  "dollar": {
   "rate": 12004,
   "diff": 33,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 16,
-  "desc": "To'liq bulutli",
-  "hi": 18,
+  "temp": 11,
+  "desc": "Ochiq",
+  "hi": 19,
   "lo": 9
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6072,
-  "media_count": 164,
+  "followers": 6079,
+  "media_count": 165,
   "posts": [
    {
     "caption": "Chiroq o'chdi... lekin natija chiqdi! 🔥 ",
@@ -34,7 +34,7 @@
    },
    {
     "caption": "Navbat Realga keldi! 👑 Lazer tojni ham m",
-    "like": 19,
+    "like": 20,
     "comment": 75,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfynKd2k3M0/",
