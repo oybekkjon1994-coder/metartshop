@@ -1,13 +1,13 @@
 {
- "updated": "2026-11-22 00:25",
+ "updated": "2026-11-22 05:24",
  "dollar": {
   "rate": 12004,
   "diff": 33,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 11,
-  "desc": "Ochiq",
+  "temp": 9,
+  "desc": "Bulutli",
   "hi": 19,
   "lo": 9
  },
