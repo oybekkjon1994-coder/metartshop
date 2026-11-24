@@ -1,19 +1,16 @@
 {
- "updated": "2026-11-24 07:17",
+ "updated": "2026-11-24 17:41",
  "dollar": {
   "rate": 12003,
   "diff": -2,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 10,
-  "desc": "Bulutli",
-  "hi": 16,
-  "lo": 9
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6079,
+  "followers": 6078,
   "media_count": 165,
   "posts": [
    {
@@ -26,7 +23,7 @@
    },
    {
     "caption": "Katta aka nega aralashdi? 👀",
-    "like": 35,
+    "like": 34,
     "comment": 1,
     "type": "VIDEO",
     "link": "https://www.instagram.com/reel/DfzehSdnPE0/",
