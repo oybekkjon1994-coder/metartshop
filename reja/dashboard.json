@@ -1,20 +1,17 @@
 {
- "updated": "2026-11-25 04:04",
+ "updated": "2026-11-25 10:29",
  "dollar": {
   "rate": 11991,
   "diff": -12,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 7,
-  "desc": "Ochiq",
-  "hi": 19,
-  "lo": 7
+  "error": "<urlopen error _ssl.c:994: The handshake operation timed out>"
  },
  "instagram": {
   "username": "metart_shop",
   "followers": 6078,
-  "media_count": 165,
+  "media_count": 164,
   "posts": [
    {
     "caption": "Chiroq o'chdi... lekin natija chiqdi! 🔥 ",
