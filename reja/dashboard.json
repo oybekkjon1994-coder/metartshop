@@ -1,19 +1,19 @@
 {
- "updated": "2026-11-25 22:22",
+ "updated": "2026-11-26 06:49",
  "dollar": {
-  "rate": 11991,
-  "diff": -12,
+  "rate": 11988,
+  "diff": -3,
   "manba": "CBU"
  },
  "obhavo": {
-  "temp": 10,
-  "desc": "To'liq bulutli",
-  "hi": 19,
-  "lo": 5
+  "temp": 8,
+  "desc": "Ochiq",
+  "hi": 20,
+  "lo": 8
  },
  "instagram": {
   "username": "metart_shop",
-  "followers": 6077,
+  "followers": 6076,
   "media_count": 164,
   "posts": [
    {
